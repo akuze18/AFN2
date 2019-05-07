@@ -1,0 +1,746 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AFNModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="AFNModelStoreContainer">
+          <EntitySet Name="AFN_INVENTARIO" EntityType="AFNModel.Store.AFN_INVENTARIO" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AFN_INVENTARIO_FYEN" EntityType="AFNModel.Store.AFN_INVENTARIO_FYEN" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AFN_INVENTARIO_IFRS" EntityType="AFNModel.Store.AFN_INVENTARIO_IFRS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AFN_INVENTARIO_IFRS_YEN" EntityType="AFNModel.Store.AFN_INVENTARIO_IFRS_YEN" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AFN_INVENTARIO_TRIB" EntityType="AFNModel.Store.AFN_INVENTARIO_TRIB" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AFN_LOTE_ARTICULOS" EntityType="AFNModel.Store.AFN_LOTE_ARTICULOS" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS" Association="AFNModel.Store.FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO" EntitySet="AFN_INVENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AFN_INVENTARIO_FYEN_AFN_LOTE_ARTICULOS" Association="AFNModel.Store.FK_AFN_INVENTARIO_FYEN_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO_FYEN" EntitySet="AFN_INVENTARIO_FYEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AFN_INVENTARIO_IFRS_AFN_LOTE_ARTICULOS" Association="AFNModel.Store.FK_AFN_INVENTARIO_IFRS_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO_IFRS" EntitySet="AFN_INVENTARIO_IFRS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AFN_INVENTARIO_IFRS_YEN_AFN_LOTE_ARTICULOS" Association="AFNModel.Store.FK_AFN_INVENTARIO_IFRS_YEN_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO_IFRS_YEN" EntitySet="AFN_INVENTARIO_IFRS_YEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AFN_INVENTARIO_TRIB_AFN_LOTE_ARTICULOS" Association="AFNModel.Store.FK_AFN_INVENTARIO_TRIB_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO_TRIB" EntitySet="AFN_INVENTARIO_TRIB" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AFN_INVENTARIO">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="int" Nullable="false" />
+          <Property Name="parte" Type="int" Nullable="false" />
+          <Property Name="fecha_inicio" Type="datetime" Nullable="false" />
+          <Property Name="zona" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="estado_vigencia" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="fila" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="datetime" />
+          <Property Name="precio_base" Type="decimal" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="decimal" Scale="3" />
+          <Property Name="deteriodo" Type="decimal" />
+          <Property Name="valor_residual" Type="smallint" />
+          <Property Name="vida_util_base" Type="int" />
+          <Property Name="clase" Type="varchar" MaxLength="5" />
+          <Property Name="categoria" Type="varchar" MaxLength="5" />
+          <Property Name="subzona" Type="int" />
+          <Property Name="subclase" Type="varchar" MaxLength="3" />
+          <Property Name="ingresado_por" Type="varchar" MaxLength="50" />
+          <Property Name="se_deprecia" Type="bit" />
+          <Property Name="cod_estado" Type="int" Nullable="false" />
+          <Property Name="gestion" Type="int" />
+        </EntityType>
+        <EntityType Name="AFN_INVENTARIO_FYEN">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="int" Nullable="false" />
+          <Property Name="parte" Type="int" Nullable="false" />
+          <Property Name="fecha_inicio" Type="datetime" Nullable="false" />
+          <Property Name="zona" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="estado_vigencia" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="fila" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="datetime" />
+          <Property Name="precio_base" Type="decimal" Nullable="false" Scale="5" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="decimal" Scale="5" />
+          <Property Name="deteriodo" Type="decimal" />
+          <Property Name="valor_residual" Type="smallint" />
+          <Property Name="vida_util_base" Type="int" />
+          <Property Name="clase" Type="varchar" MaxLength="5" />
+          <Property Name="categoria" Type="varchar" MaxLength="5" />
+          <Property Name="subzona" Type="int" />
+          <Property Name="subclase" Type="varchar" MaxLength="3" />
+          <Property Name="ingresado_por" Type="varchar" MaxLength="50" />
+          <Property Name="se_deprecia" Type="bit" />
+          <Property Name="cod_estado" Type="int" Nullable="false" />
+          <Property Name="gestion" Type="int" />
+        </EntityType>
+        <EntityType Name="AFN_INVENTARIO_IFRS">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="int" Nullable="false" />
+          <Property Name="parte" Type="int" Nullable="false" />
+          <Property Name="fecha_inicio" Type="datetime" Nullable="false" />
+          <Property Name="zona" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="estado_vigencia" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="fila" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="datetime" />
+          <Property Name="precio_base" Type="decimal" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="decimal" Scale="2" />
+          <Property Name="deteriodo" Type="decimal" />
+          <Property Name="valor_residual" Type="decimal" Scale="2" />
+          <Property Name="vida_util_base" Type="int" />
+          <Property Name="clase" Type="varchar" MaxLength="5" />
+          <Property Name="categoria" Type="varchar" MaxLength="5" />
+          <Property Name="subzona" Type="int" />
+          <Property Name="subclase" Type="varchar" MaxLength="3" />
+          <Property Name="ingresado_por" Type="varchar" MaxLength="50" />
+          <Property Name="se_deprecia" Type="bit" />
+          <Property Name="metod_val" Type="int" />
+          <Property Name="preparacion" Type="decimal" Scale="2" />
+          <Property Name="transporte" Type="decimal" Scale="2" />
+          <Property Name="montaje" Type="decimal" Scale="2" />
+          <Property Name="desmantel" Type="decimal" Scale="2" />
+          <Property Name="honorario" Type="decimal" Scale="2" />
+          <Property Name="revalorizacion" Type="decimal" Scale="2" />
+          <Property Name="cod_estado" Type="int" Nullable="false" />
+          <Property Name="gestion" Type="int" />
+        </EntityType>
+        <EntityType Name="AFN_INVENTARIO_IFRS_YEN">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="int" Nullable="false" />
+          <Property Name="parte" Type="int" Nullable="false" />
+          <Property Name="fecha_inicio" Type="datetime" Nullable="false" />
+          <Property Name="zona" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="estado_vigencia" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="fila" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="datetime" />
+          <Property Name="precio_base" Type="decimal" Nullable="false" Scale="5" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="decimal" Nullable="false" Scale="5" />
+          <Property Name="deteriodo" Type="decimal" />
+          <Property Name="valor_residual" Type="decimal" Nullable="false" Scale="5" />
+          <Property Name="vida_util_base" Type="int" Nullable="false" />
+          <Property Name="clase" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="categoria" Type="varchar" MaxLength="5" />
+          <Property Name="subzona" Type="int" />
+          <Property Name="subclase" Type="varchar" MaxLength="3" />
+          <Property Name="ingresado_por" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="se_deprecia" Type="bit" />
+          <Property Name="metod_val" Type="int" />
+          <Property Name="preparacion" Type="decimal" Scale="5" />
+          <Property Name="transporte" Type="decimal" Scale="5" />
+          <Property Name="montaje" Type="decimal" Scale="5" />
+          <Property Name="desmantel" Type="decimal" Scale="5" />
+          <Property Name="honorario" Type="decimal" Scale="5" />
+          <Property Name="revalorizacion" Type="decimal" Scale="5" />
+          <Property Name="cod_estado" Type="int" Nullable="false" />
+          <Property Name="gestion" Type="int" />
+        </EntityType>
+        <EntityType Name="AFN_INVENTARIO_TRIB">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="int" Nullable="false" />
+          <Property Name="parte" Type="int" Nullable="false" />
+          <Property Name="fecha_inicio" Type="datetime" Nullable="false" />
+          <Property Name="zona" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="estado_vigencia" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="fila" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="datetime" />
+          <Property Name="precio_base" Type="decimal" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="decimal" Scale="3" />
+          <Property Name="deteriodo" Type="decimal" />
+          <Property Name="valor_residual" Type="smallint" />
+          <Property Name="vida_util_base" Type="int" />
+          <Property Name="clase" Type="varchar" MaxLength="5" />
+          <Property Name="categoria" Type="varchar" MaxLength="5" />
+          <Property Name="subzona" Type="int" />
+          <Property Name="subclase" Type="varchar" MaxLength="3" />
+          <Property Name="ingresado_por" Type="varchar" MaxLength="50" />
+          <Property Name="se_deprecia" Type="bit" />
+          <Property Name="cod_estado" Type="int" Nullable="false" />
+          <Property Name="gestion" Type="int" />
+        </EntityType>
+        <EntityType Name="AFN_LOTE_ARTICULOS">
+          <Key>
+            <PropertyRef Name="cod" />
+          </Key>
+          <Property Name="cod" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="estado_aprov" Type="varchar" MaxLength="20" />
+          <Property Name="descripcion" Type="varchar" MaxLength="255" />
+          <Property Name="fecha_compra" Type="datetime" />
+          <Property Name="proveedor" Type="varchar" MaxLength="20" />
+          <Property Name="num_doc" Type="varchar" MaxLength="50" />
+          <Property Name="precio_inicial" Type="decimal" />
+          <Property Name="vida_util_inicial" Type="int" />
+          <Property Name="derecho_credito" Type="varchar" MaxLength="10" />
+          <Property Name="fecha_ing" Type="datetime" />
+          <Property Name="origen" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="consistencia" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.Store.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO" Type="AFNModel.Store.AFN_INVENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AFN_INVENTARIO_FYEN_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.Store.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO_FYEN" Type="AFNModel.Store.AFN_INVENTARIO_FYEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO_FYEN">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AFN_INVENTARIO_IFRS_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.Store.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO_IFRS" Type="AFNModel.Store.AFN_INVENTARIO_IFRS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO_IFRS">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AFN_INVENTARIO_IFRS_YEN_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.Store.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO_IFRS_YEN" Type="AFNModel.Store.AFN_INVENTARIO_IFRS_YEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO_IFRS_YEN">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AFN_INVENTARIO_TRIB_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.Store.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO_TRIB" Type="AFNModel.Store.AFN_INVENTARIO_TRIB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO_TRIB">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AFNModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="AFNoldEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AFN_INVENTARIO" EntityType="AFNModel.AFN_INVENTARIO" />
+          <EntitySet Name="AFN_INVENTARIO_FYEN" EntityType="AFNModel.AFN_INVENTARIO_FYEN" />
+          <EntitySet Name="AFN_INVENTARIO_IFRS" EntityType="AFNModel.AFN_INVENTARIO_IFRS" />
+          <EntitySet Name="AFN_INVENTARIO_IFRS_YEN" EntityType="AFNModel.AFN_INVENTARIO_IFRS_YEN" />
+          <EntitySet Name="AFN_INVENTARIO_TRIB" EntityType="AFNModel.AFN_INVENTARIO_TRIB" />
+          <EntitySet Name="AFN_LOTE_ARTICULOS" EntityType="AFNModel.AFN_LOTE_ARTICULOS" />
+          <AssociationSet Name="FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS" Association="AFNModel.FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO" EntitySet="AFN_INVENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AFN_INVENTARIO_FYEN_AFN_LOTE_ARTICULOS" Association="AFNModel.FK_AFN_INVENTARIO_FYEN_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO_FYEN" EntitySet="AFN_INVENTARIO_FYEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AFN_INVENTARIO_IFRS_AFN_LOTE_ARTICULOS" Association="AFNModel.FK_AFN_INVENTARIO_IFRS_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO_IFRS" EntitySet="AFN_INVENTARIO_IFRS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AFN_INVENTARIO_IFRS_YEN_AFN_LOTE_ARTICULOS" Association="AFNModel.FK_AFN_INVENTARIO_IFRS_YEN_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO_IFRS_YEN" EntitySet="AFN_INVENTARIO_IFRS_YEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AFN_INVENTARIO_TRIB_AFN_LOTE_ARTICULOS" Association="AFNModel.FK_AFN_INVENTARIO_TRIB_AFN_LOTE_ARTICULOS">
+            <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
+            <End Role="AFN_INVENTARIO_TRIB" EntitySet="AFN_INVENTARIO_TRIB" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AFN_INVENTARIO">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="Int32" Nullable="false" />
+          <Property Name="parte" Type="Int32" Nullable="false" />
+          <Property Name="fecha_inicio" Type="DateTime" Nullable="false" />
+          <Property Name="zona" Type="String" Nullable="false" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="estado_vigencia" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="fila" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="DateTime" />
+          <Property Name="precio_base" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="deteriodo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="valor_residual" Type="Int16" />
+          <Property Name="vida_util_base" Type="Int32" />
+          <Property Name="clase" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="categoria" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="subzona" Type="Int32" />
+          <Property Name="subclase" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="ingresado_por" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="se_deprecia" Type="Boolean" />
+          <Property Name="cod_estado" Type="Int32" Nullable="false" />
+          <Property Name="gestion" Type="Int32" />
+          <NavigationProperty Name="AFN_LOTE_ARTICULOS" Relationship="AFNModel.FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS" FromRole="AFN_INVENTARIO" ToRole="AFN_LOTE_ARTICULOS" />
+        </EntityType>
+        <EntityType Name="AFN_INVENTARIO_FYEN">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="Int32" Nullable="false" />
+          <Property Name="parte" Type="Int32" Nullable="false" />
+          <Property Name="fecha_inicio" Type="DateTime" Nullable="false" />
+          <Property Name="zona" Type="String" Nullable="false" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="estado_vigencia" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="fila" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="DateTime" />
+          <Property Name="precio_base" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="deteriodo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="valor_residual" Type="Int16" />
+          <Property Name="vida_util_base" Type="Int32" />
+          <Property Name="clase" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="categoria" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="subzona" Type="Int32" />
+          <Property Name="subclase" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="ingresado_por" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="se_deprecia" Type="Boolean" />
+          <Property Name="cod_estado" Type="Int32" Nullable="false" />
+          <Property Name="gestion" Type="Int32" />
+          <NavigationProperty Name="AFN_LOTE_ARTICULOS" Relationship="AFNModel.FK_AFN_INVENTARIO_FYEN_AFN_LOTE_ARTICULOS" FromRole="AFN_INVENTARIO_FYEN" ToRole="AFN_LOTE_ARTICULOS" />
+        </EntityType>
+        <EntityType Name="AFN_INVENTARIO_IFRS">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="Int32" Nullable="false" />
+          <Property Name="parte" Type="Int32" Nullable="false" />
+          <Property Name="fecha_inicio" Type="DateTime" Nullable="false" />
+          <Property Name="zona" Type="String" Nullable="false" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="estado_vigencia" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="fila" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="DateTime" />
+          <Property Name="precio_base" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="deteriodo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="valor_residual" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="vida_util_base" Type="Int32" />
+          <Property Name="clase" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="categoria" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="subzona" Type="Int32" />
+          <Property Name="subclase" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="ingresado_por" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="se_deprecia" Type="Boolean" />
+          <Property Name="metod_val" Type="Int32" />
+          <Property Name="preparacion" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="transporte" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="montaje" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="desmantel" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="honorario" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="revalorizacion" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="cod_estado" Type="Int32" Nullable="false" />
+          <Property Name="gestion" Type="Int32" />
+          <NavigationProperty Name="AFN_LOTE_ARTICULOS" Relationship="AFNModel.FK_AFN_INVENTARIO_IFRS_AFN_LOTE_ARTICULOS" FromRole="AFN_INVENTARIO_IFRS" ToRole="AFN_LOTE_ARTICULOS" />
+        </EntityType>
+        <EntityType Name="AFN_INVENTARIO_IFRS_YEN">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="Int32" Nullable="false" />
+          <Property Name="parte" Type="Int32" Nullable="false" />
+          <Property Name="fecha_inicio" Type="DateTime" Nullable="false" />
+          <Property Name="zona" Type="String" Nullable="false" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="estado_vigencia" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="fila" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="DateTime" />
+          <Property Name="precio_base" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="deteriodo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="valor_residual" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="vida_util_base" Type="Int32" Nullable="false" />
+          <Property Name="clase" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="categoria" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="subzona" Type="Int32" />
+          <Property Name="subclase" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="ingresado_por" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="se_deprecia" Type="Boolean" />
+          <Property Name="metod_val" Type="Int32" />
+          <Property Name="preparacion" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="transporte" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="montaje" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="desmantel" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="honorario" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="revalorizacion" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="cod_estado" Type="Int32" Nullable="false" />
+          <Property Name="gestion" Type="Int32" />
+          <NavigationProperty Name="AFN_LOTE_ARTICULOS" Relationship="AFNModel.FK_AFN_INVENTARIO_IFRS_YEN_AFN_LOTE_ARTICULOS" FromRole="AFN_INVENTARIO_IFRS_YEN" ToRole="AFN_LOTE_ARTICULOS" />
+        </EntityType>
+        <EntityType Name="AFN_INVENTARIO_TRIB">
+          <Key>
+            <PropertyRef Name="fila" />
+          </Key>
+          <Property Name="id_articulo" Type="Int32" Nullable="false" />
+          <Property Name="parte" Type="Int32" Nullable="false" />
+          <Property Name="fecha_inicio" Type="DateTime" Nullable="false" />
+          <Property Name="zona" Type="String" Nullable="false" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="estado_vigencia" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="fila" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_fin" Type="DateTime" />
+          <Property Name="precio_base" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="depreciacion_acum" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="deteriodo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="valor_residual" Type="Int16" />
+          <Property Name="vida_util_base" Type="Int32" />
+          <Property Name="clase" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="categoria" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="subzona" Type="Int32" />
+          <Property Name="subclase" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="ingresado_por" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="se_deprecia" Type="Boolean" />
+          <Property Name="cod_estado" Type="Int32" Nullable="false" />
+          <Property Name="gestion" Type="Int32" />
+          <NavigationProperty Name="AFN_LOTE_ARTICULOS" Relationship="AFNModel.FK_AFN_INVENTARIO_TRIB_AFN_LOTE_ARTICULOS" FromRole="AFN_INVENTARIO_TRIB" ToRole="AFN_LOTE_ARTICULOS" />
+        </EntityType>
+        <EntityType Name="AFN_LOTE_ARTICULOS">
+          <Key>
+            <PropertyRef Name="cod" />
+          </Key>
+          <Property Name="cod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado_aprov" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="descripcion" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="fecha_compra" Type="DateTime" />
+          <Property Name="proveedor" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="num_doc" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="precio_inicial" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="vida_util_inicial" Type="Int32" />
+          <Property Name="derecho_credito" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="fecha_ing" Type="DateTime" />
+          <Property Name="origen" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="consistencia" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="AFN_INVENTARIO" Relationship="AFNModel.FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS" FromRole="AFN_LOTE_ARTICULOS" ToRole="AFN_INVENTARIO" />
+          <NavigationProperty Name="AFN_INVENTARIO_FYEN" Relationship="AFNModel.FK_AFN_INVENTARIO_FYEN_AFN_LOTE_ARTICULOS" FromRole="AFN_LOTE_ARTICULOS" ToRole="AFN_INVENTARIO_FYEN" />
+          <NavigationProperty Name="AFN_INVENTARIO_IFRS" Relationship="AFNModel.FK_AFN_INVENTARIO_IFRS_AFN_LOTE_ARTICULOS" FromRole="AFN_LOTE_ARTICULOS" ToRole="AFN_INVENTARIO_IFRS" />
+          <NavigationProperty Name="AFN_INVENTARIO_IFRS_YEN" Relationship="AFNModel.FK_AFN_INVENTARIO_IFRS_YEN_AFN_LOTE_ARTICULOS" FromRole="AFN_LOTE_ARTICULOS" ToRole="AFN_INVENTARIO_IFRS_YEN" />
+          <NavigationProperty Name="AFN_INVENTARIO_TRIB" Relationship="AFNModel.FK_AFN_INVENTARIO_TRIB_AFN_LOTE_ARTICULOS" FromRole="AFN_LOTE_ARTICULOS" ToRole="AFN_INVENTARIO_TRIB" />
+        </EntityType>
+        <Association Name="FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO" Type="AFNModel.AFN_INVENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AFN_INVENTARIO_FYEN_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO_FYEN" Type="AFNModel.AFN_INVENTARIO_FYEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO_FYEN">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AFN_INVENTARIO_IFRS_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO_IFRS" Type="AFNModel.AFN_INVENTARIO_IFRS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO_IFRS">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AFN_INVENTARIO_IFRS_YEN_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO_IFRS_YEN" Type="AFNModel.AFN_INVENTARIO_IFRS_YEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO_IFRS_YEN">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AFN_INVENTARIO_TRIB_AFN_LOTE_ARTICULOS">
+          <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.AFN_LOTE_ARTICULOS" Multiplicity="1" />
+          <End Role="AFN_INVENTARIO_TRIB" Type="AFNModel.AFN_INVENTARIO_TRIB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AFN_LOTE_ARTICULOS">
+              <PropertyRef Name="cod" />
+            </Principal>
+            <Dependent Role="AFN_INVENTARIO_TRIB">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AFNModelStoreContainer" CdmEntityContainer="AFNoldEntities">
+          <EntitySetMapping Name="AFN_INVENTARIO">
+            <EntityTypeMapping TypeName="AFNModel.AFN_INVENTARIO">
+              <MappingFragment StoreEntitySet="AFN_INVENTARIO">
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="parte" ColumnName="parte" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="zona" ColumnName="zona" />
+                <ScalarProperty Name="estado_vigencia" ColumnName="estado_vigencia" />
+                <ScalarProperty Name="fila" ColumnName="fila" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="precio_base" ColumnName="precio_base" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="depreciacion_acum" ColumnName="depreciacion_acum" />
+                <ScalarProperty Name="deteriodo" ColumnName="deteriodo" />
+                <ScalarProperty Name="valor_residual" ColumnName="valor_residual" />
+                <ScalarProperty Name="vida_util_base" ColumnName="vida_util_base" />
+                <ScalarProperty Name="clase" ColumnName="clase" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="subzona" ColumnName="subzona" />
+                <ScalarProperty Name="subclase" ColumnName="subclase" />
+                <ScalarProperty Name="ingresado_por" ColumnName="ingresado_por" />
+                <ScalarProperty Name="se_deprecia" ColumnName="se_deprecia" />
+                <ScalarProperty Name="cod_estado" ColumnName="cod_estado" />
+                <ScalarProperty Name="gestion" ColumnName="gestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AFN_INVENTARIO_FYEN">
+            <EntityTypeMapping TypeName="AFNModel.AFN_INVENTARIO_FYEN">
+              <MappingFragment StoreEntitySet="AFN_INVENTARIO_FYEN">
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="parte" ColumnName="parte" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="zona" ColumnName="zona" />
+                <ScalarProperty Name="estado_vigencia" ColumnName="estado_vigencia" />
+                <ScalarProperty Name="fila" ColumnName="fila" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="precio_base" ColumnName="precio_base" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="depreciacion_acum" ColumnName="depreciacion_acum" />
+                <ScalarProperty Name="deteriodo" ColumnName="deteriodo" />
+                <ScalarProperty Name="valor_residual" ColumnName="valor_residual" />
+                <ScalarProperty Name="vida_util_base" ColumnName="vida_util_base" />
+                <ScalarProperty Name="clase" ColumnName="clase" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="subzona" ColumnName="subzona" />
+                <ScalarProperty Name="subclase" ColumnName="subclase" />
+                <ScalarProperty Name="ingresado_por" ColumnName="ingresado_por" />
+                <ScalarProperty Name="se_deprecia" ColumnName="se_deprecia" />
+                <ScalarProperty Name="cod_estado" ColumnName="cod_estado" />
+                <ScalarProperty Name="gestion" ColumnName="gestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AFN_INVENTARIO_IFRS">
+            <EntityTypeMapping TypeName="AFNModel.AFN_INVENTARIO_IFRS">
+              <MappingFragment StoreEntitySet="AFN_INVENTARIO_IFRS">
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="parte" ColumnName="parte" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="zona" ColumnName="zona" />
+                <ScalarProperty Name="estado_vigencia" ColumnName="estado_vigencia" />
+                <ScalarProperty Name="fila" ColumnName="fila" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="precio_base" ColumnName="precio_base" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="depreciacion_acum" ColumnName="depreciacion_acum" />
+                <ScalarProperty Name="deteriodo" ColumnName="deteriodo" />
+                <ScalarProperty Name="valor_residual" ColumnName="valor_residual" />
+                <ScalarProperty Name="vida_util_base" ColumnName="vida_util_base" />
+                <ScalarProperty Name="clase" ColumnName="clase" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="subzona" ColumnName="subzona" />
+                <ScalarProperty Name="subclase" ColumnName="subclase" />
+                <ScalarProperty Name="ingresado_por" ColumnName="ingresado_por" />
+                <ScalarProperty Name="se_deprecia" ColumnName="se_deprecia" />
+                <ScalarProperty Name="metod_val" ColumnName="metod_val" />
+                <ScalarProperty Name="preparacion" ColumnName="preparacion" />
+                <ScalarProperty Name="transporte" ColumnName="transporte" />
+                <ScalarProperty Name="montaje" ColumnName="montaje" />
+                <ScalarProperty Name="desmantel" ColumnName="desmantel" />
+                <ScalarProperty Name="honorario" ColumnName="honorario" />
+                <ScalarProperty Name="revalorizacion" ColumnName="revalorizacion" />
+                <ScalarProperty Name="cod_estado" ColumnName="cod_estado" />
+                <ScalarProperty Name="gestion" ColumnName="gestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AFN_INVENTARIO_IFRS_YEN">
+            <EntityTypeMapping TypeName="AFNModel.AFN_INVENTARIO_IFRS_YEN">
+              <MappingFragment StoreEntitySet="AFN_INVENTARIO_IFRS_YEN">
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="parte" ColumnName="parte" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="zona" ColumnName="zona" />
+                <ScalarProperty Name="estado_vigencia" ColumnName="estado_vigencia" />
+                <ScalarProperty Name="fila" ColumnName="fila" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="precio_base" ColumnName="precio_base" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="depreciacion_acum" ColumnName="depreciacion_acum" />
+                <ScalarProperty Name="deteriodo" ColumnName="deteriodo" />
+                <ScalarProperty Name="valor_residual" ColumnName="valor_residual" />
+                <ScalarProperty Name="vida_util_base" ColumnName="vida_util_base" />
+                <ScalarProperty Name="clase" ColumnName="clase" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="subzona" ColumnName="subzona" />
+                <ScalarProperty Name="subclase" ColumnName="subclase" />
+                <ScalarProperty Name="ingresado_por" ColumnName="ingresado_por" />
+                <ScalarProperty Name="se_deprecia" ColumnName="se_deprecia" />
+                <ScalarProperty Name="metod_val" ColumnName="metod_val" />
+                <ScalarProperty Name="preparacion" ColumnName="preparacion" />
+                <ScalarProperty Name="transporte" ColumnName="transporte" />
+                <ScalarProperty Name="montaje" ColumnName="montaje" />
+                <ScalarProperty Name="desmantel" ColumnName="desmantel" />
+                <ScalarProperty Name="honorario" ColumnName="honorario" />
+                <ScalarProperty Name="revalorizacion" ColumnName="revalorizacion" />
+                <ScalarProperty Name="cod_estado" ColumnName="cod_estado" />
+                <ScalarProperty Name="gestion" ColumnName="gestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AFN_INVENTARIO_TRIB">
+            <EntityTypeMapping TypeName="AFNModel.AFN_INVENTARIO_TRIB">
+              <MappingFragment StoreEntitySet="AFN_INVENTARIO_TRIB">
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="parte" ColumnName="parte" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="zona" ColumnName="zona" />
+                <ScalarProperty Name="estado_vigencia" ColumnName="estado_vigencia" />
+                <ScalarProperty Name="fila" ColumnName="fila" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="precio_base" ColumnName="precio_base" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="depreciacion_acum" ColumnName="depreciacion_acum" />
+                <ScalarProperty Name="deteriodo" ColumnName="deteriodo" />
+                <ScalarProperty Name="valor_residual" ColumnName="valor_residual" />
+                <ScalarProperty Name="vida_util_base" ColumnName="vida_util_base" />
+                <ScalarProperty Name="clase" ColumnName="clase" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="subzona" ColumnName="subzona" />
+                <ScalarProperty Name="subclase" ColumnName="subclase" />
+                <ScalarProperty Name="ingresado_por" ColumnName="ingresado_por" />
+                <ScalarProperty Name="se_deprecia" ColumnName="se_deprecia" />
+                <ScalarProperty Name="cod_estado" ColumnName="cod_estado" />
+                <ScalarProperty Name="gestion" ColumnName="gestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AFN_LOTE_ARTICULOS">
+            <EntityTypeMapping TypeName="AFNModel.AFN_LOTE_ARTICULOS">
+              <MappingFragment StoreEntitySet="AFN_LOTE_ARTICULOS">
+                <ScalarProperty Name="cod" ColumnName="cod" />
+                <ScalarProperty Name="estado_aprov" ColumnName="estado_aprov" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_compra" ColumnName="fecha_compra" />
+                <ScalarProperty Name="proveedor" ColumnName="proveedor" />
+                <ScalarProperty Name="num_doc" ColumnName="num_doc" />
+                <ScalarProperty Name="precio_inicial" ColumnName="precio_inicial" />
+                <ScalarProperty Name="vida_util_inicial" ColumnName="vida_util_inicial" />
+                <ScalarProperty Name="derecho_credito" ColumnName="derecho_credito" />
+                <ScalarProperty Name="fecha_ing" ColumnName="fecha_ing" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="consistencia" ColumnName="consistencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="AFNold" ZoomLevel="22">
+        <EntityTypeShape EntityType="AFNModel.AFN_INVENTARIO" Width="2.375" PointX="1" PointY="6.125" Height="4.9030362955729174" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFNModel.AFN_INVENTARIO_FYEN" Width="2.375" PointX="1" PointY="0.625" Height="4.9030362955729174" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFNModel.AFN_INVENTARIO_IFRS" Width="2.75" PointX="12.125" PointY="0.5" Height="6.1521614583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFNModel.AFN_INVENTARIO_IFRS_YEN" Width="2.375" PointX="12.625" PointY="7.625" Height="6.1521614583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFNModel.AFN_INVENTARIO_TRIB" Width="2" PointX="7" PointY="8.75" Height="4.9030362955729174" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFNModel.AFN_LOTE_ARTICULOS" Width="2.25" PointX="6.75" PointY="3.375" Height="4.0108040364583317" IsExpanded="true" />
+        <AssociationConnector Association="AFNModel.FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="6.7554020182291659" />
+          <ConnectorPoint PointX="3.375" PointY="6.7554020182291659" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFNModel.FK_AFN_INVENTARIO_FYEN_AFN_LOTE_ARTICULOS" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.48437875" PointY="3.375" />
+          <ConnectorPoint PointX="8.48437875" PointY="1.9999995" />
+          <ConnectorPoint PointX="3.375" PointY="1.9999995" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFNModel.FK_AFN_INVENTARIO_IFRS_AFN_LOTE_ARTICULOS" ManuallyRouted="false">
+          <ConnectorPoint PointX="9" PointY="5.0135807291666659" />
+          <ConnectorPoint PointX="12.125" PointY="5.0135807291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFNModel.FK_AFN_INVENTARIO_IFRS_YEN_AFN_LOTE_ARTICULOS" ManuallyRouted="false">
+          <ConnectorPoint PointX="9" PointY="7.0502327473958317" />
+          <ConnectorPoint PointX="14.96875" PointY="7.0502327473958317" />
+          <ConnectorPoint PointX="14.96875" PointY="7.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFNModel.FK_AFN_INVENTARIO_TRIB_AFN_LOTE_ARTICULOS" ManuallyRouted="false">
+          <ConnectorPoint PointX="8" PointY="7.3858040364583317" />
+          <ConnectorPoint PointX="8" PointY="8.75" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

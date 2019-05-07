@@ -1,0 +1,1882 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AFN2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="AFN2ModelStoreContainer">
+          <EntitySet Name="APROVAL_STATES" EntityType="AFN2Model.Store.APROVAL_STATES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BATCHS_ARTICLES" EntityType="AFN2Model.Store.BATCHS_ARTICLES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CATEGORIES" EntityType="AFN2Model.Store.CATEGORIES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CURRENCIES" EntityType="AFN2Model.Store.CURRENCIES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DOCUMENTS" EntityType="AFN2Model.Store.DOCUMENTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ENVIORMENTS" EntityType="AFN2Model.Store.ENVIORMENTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="KINDS" EntityType="AFN2Model.Store.KINDS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MANAGEMENTS" EntityType="AFN2Model.Store.MANAGEMENTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ORIGINS" EntityType="AFN2Model.Store.ORIGINS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PACKAGE_KINDS" EntityType="AFN2Model.Store.PACKAGE_KINDS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PACKAGE_PAIR_KINDS" EntityType="AFN2Model.Store.PACKAGE_PAIR_KINDS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PARAMETERS" EntityType="AFN2Model.Store.PARAMETERS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PARTS" EntityType="AFN2Model.Store.PARTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SUBKINDS" EntityType="AFN2Model.Store.SUBKINDS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SUBZONES" EntityType="AFN2Model.Store.SUBZONES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SYSTEMS" EntityType="AFN2Model.Store.SYSTEMS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SYSTEMS_PARAMETERS" EntityType="AFN2Model.Store.SYSTEMS_PARAMETERS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TRANSACTIONS_DETAILS" EntityType="AFN2Model.Store.TRANSACTIONS_DETAILS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TRANSACTIONS_HEADERS" EntityType="AFN2Model.Store.TRANSACTIONS_HEADERS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TRANSACTIONS_PARAMETERS_DETAILS" EntityType="AFN2Model.Store.TRANSACTIONS_PARAMETERS_DETAILS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TYPES_ASSETS" EntityType="AFN2Model.Store.TYPES_ASSETS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VALIDATIES" EntityType="AFN2Model.Store.VALIDATIES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ZONES" EntityType="AFN2Model.Store.ZONES" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__BATCHS_AR__aprov__7AF13DF7" Association="AFN2Model.Store.FK__BATCHS_AR__aprov__7AF13DF7">
+            <End Role="APROVAL_STATES" EntitySet="APROVAL_STATES" />
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BATCHS_AR__origi__7BE56230" Association="AFN2Model.Store.FK__BATCHS_AR__origi__7BE56230">
+            <End Role="ORIGINS" EntitySet="ORIGINS" />
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BATCHS_AR__type___7CD98669" Association="AFN2Model.Store.FK__BATCHS_AR__type___7CD98669">
+            <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DOCUMENTS__batch__038683F8" Association="AFN2Model.Store.FK__DOCUMENTS__batch__038683F8">
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+            <End Role="DOCUMENTS" EntitySet="DOCUMENTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KINDS__type_asse__65F62111" Association="AFN2Model.Store.FK__KINDS__type_asse__65F62111">
+            <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
+            <End Role="KINDS" EntitySet="KINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PACKAGE_K__type___5E54FF49" Association="AFN2Model.Store.FK__PACKAGE_K__type___5E54FF49">
+            <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
+            <End Role="PACKAGE_KINDS" EntitySet="PACKAGE_KINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PACKAGE_P__kind___6D9742D9" Association="AFN2Model.Store.FK__PACKAGE_P__kind___6D9742D9">
+            <End Role="KINDS" EntitySet="KINDS" />
+            <End Role="PACKAGE_PAIR_KINDS" EntitySet="PACKAGE_PAIR_KINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PACKAGE_P__packa__6E8B6712" Association="AFN2Model.Store.FK__PACKAGE_P__packa__6E8B6712">
+            <End Role="PACKAGE_KINDS" EntitySet="PACKAGE_KINDS" />
+            <End Role="PACKAGE_PAIR_KINDS" EntitySet="PACKAGE_PAIR_KINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PARTS__article_i__39E294A9" Association="AFN2Model.Store.FK__PARTS__article_i__39E294A9">
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+            <End Role="PARTS" EntitySet="PARTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SUBKINDS__kind_i__2B947552" Association="AFN2Model.Store.FK__SUBKINDS__kind_i__2B947552">
+            <End Role="KINDS" EntitySet="KINDS" />
+            <End Role="SUBKINDS" EntitySet="SUBKINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SUBZONES__zone_i__52E34C9D" Association="AFN2Model.Store.FK__SUBZONES__zone_i__52E34C9D">
+            <End Role="ZONES" EntitySet="ZONES" />
+            <End Role="SUBZONES" EntitySet="SUBZONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSTEMS__currenc__11D4A34F" Association="AFN2Model.Store.FK__SYSTEMS__currenc__11D4A34F">
+            <End Role="CURRENCIES" EntitySet="CURRENCIES" />
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSTEMS__enviorm__10E07F16" Association="AFN2Model.Store.FK__SYSTEMS__enviorm__10E07F16">
+            <End Role="ENVIORMENTS" EntitySet="ENVIORMENTS" />
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSTEMS_P__param__1E3A7A34" Association="AFN2Model.Store.FK__SYSTEMS_P__param__1E3A7A34">
+            <End Role="PARAMETERS" EntitySet="PARAMETERS" />
+            <End Role="SYSTEMS_PARAMETERS" EntitySet="SYSTEMS_PARAMETERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSTEMS_P__syste__1D4655FB" Association="AFN2Model.Store.FK__SYSTEMS_P__syste__1D4655FB">
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+            <End Role="SYSTEMS_PARAMETERS" EntitySet="SYSTEMS_PARAMETERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__artic__45544755" Association="AFN2Model.Store.FK__TRANSACTI__artic__45544755">
+            <End Role="PARTS" EntitySet="PARTS" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__categ__4A18FC72" Association="AFN2Model.Store.FK__TRANSACTI__categ__4A18FC72">
+            <End Role="CATEGORIES" EntitySet="CATEGORIES" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__kind___4830B400" Association="AFN2Model.Store.FK__TRANSACTI__kind___4830B400">
+            <End Role="KINDS" EntitySet="KINDS" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__manag__4B0D20AB" Association="AFN2Model.Store.FK__TRANSACTI__manag__4B0D20AB">
+            <End Role="MANAGEMENTS" EntitySet="MANAGEMENTS" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__parat__5E1FF51F" Association="AFN2Model.Store.FK__TRANSACTI__parat__5E1FF51F">
+            <End Role="PARAMETERS" EntitySet="PARAMETERS" />
+            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__subki__4924D839" Association="AFN2Model.Store.FK__TRANSACTI__subki__4924D839">
+            <End Role="SUBKINDS" EntitySet="SUBKINDS" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__subzo__473C8FC7" Association="AFN2Model.Store.FK__TRANSACTI__subzo__473C8FC7">
+            <End Role="SUBZONES" EntitySet="SUBZONES" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__syste__53A266AC" Association="AFN2Model.Store.FK__TRANSACTI__syste__53A266AC">
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+            <End Role="TRANSACTIONS_DETAILS" EntitySet="TRANSACTIONS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__syste__5D2BD0E6" Association="AFN2Model.Store.FK__TRANSACTI__syste__5D2BD0E6">
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__trx_h__52AE4273" Association="AFN2Model.Store.FK__TRANSACTI__trx_h__52AE4273">
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+            <End Role="TRANSACTIONS_DETAILS" EntitySet="TRANSACTIONS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__trx_h__5C37ACAD" Association="AFN2Model.Store.FK__TRANSACTI__trx_h__5C37ACAD">
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__valid__54968AE5" Association="AFN2Model.Store.FK__TRANSACTI__valid__54968AE5">
+            <End Role="VALIDATIES" EntitySet="VALIDATIES" />
+            <End Role="TRANSACTIONS_DETAILS" EntitySet="TRANSACTIONS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__zone___46486B8E" Association="AFN2Model.Store.FK__TRANSACTI__zone___46486B8E">
+            <End Role="ZONES" EntitySet="ZONES" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="APROVAL_STATES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="BATCHS_ARTICLES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="aproval_state_id" Type="int" Nullable="false" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="purchase_date" Type="datetime" Nullable="false" />
+          <Property Name="initial_price" Type="decimal" Nullable="false" />
+          <Property Name="initial_life_time" Type="int" Nullable="false" />
+          <Property Name="account_date" Type="datetime" Nullable="false" />
+          <Property Name="origin_id" Type="int" Nullable="false" />
+          <Property Name="type_asset_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CATEGORIES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="CURRENCIES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DOCUMENTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="docnumber" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="comment" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="proveedor_id" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="proveedor_name" Type="varchar(max)" Nullable="false" />
+          <Property Name="batch_article_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ENVIORMENTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="depreciation_rate" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="credit_rate" Type="decimal" Nullable="false" Precision="10" Scale="5" />
+        </EntityType>
+        <EntityType Name="KINDS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cod" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="type_asset_id" Type="int" Nullable="false" />
+          <Property Name="show_in" Type="bit" Nullable="false" />
+          <Property Name="show_rep" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MANAGEMENTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ORIGINS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PACKAGE_KINDS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="display" Type="bit" Nullable="false" />
+          <Property Name="type_asset_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PACKAGE_PAIR_KINDS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="kind_id" Type="int" Nullable="false" />
+          <Property Name="package_kind_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PARAMETERS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PARTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="article_id" Type="int" Nullable="false" />
+          <Property Name="part_index" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUBKINDS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="vu_sug" Type="int" Nullable="false" />
+          <Property Name="display" Type="bit" Nullable="false" />
+          <Property Name="kind_id" Type="int" />
+        </EntityType>
+        <EntityType Name="SUBZONES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="principal" Type="bit" Nullable="false" />
+          <Property Name="zone_id" Type="int" />
+          <Property Name="codPlace" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="codOld" Type="varchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SYSTEMS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="enviorment_id" Type="int" Nullable="false" />
+          <Property Name="currency_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYSTEMS_PARAMETERS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="system_id" Type="int" Nullable="false" />
+          <Property Name="parameter_id" Type="int" Nullable="false" />
+          <Property Name="isRequired" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRANSACTIONS_DETAILS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="trx_head_id" Type="int" Nullable="false" />
+          <Property Name="system_id" Type="int" Nullable="false" />
+          <Property Name="validity_id" Type="int" Nullable="false" />
+          <Property Name="depreciate" Type="bit" Nullable="false" />
+          <Property Name="allow_credit" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRANSACTIONS_HEADERS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="article_part_id" Type="int" Nullable="false" />
+          <Property Name="trx_ini" Type="datetime" Nullable="false" />
+          <Property Name="trx_end" Type="datetime" Nullable="false" />
+          <Property Name="ref_source" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="zone_id" Type="int" Nullable="false" />
+          <Property Name="subzone_id" Type="int" Nullable="false" />
+          <Property Name="kind_id" Type="int" Nullable="false" />
+          <Property Name="subkind_id" Type="int" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="user_own" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="manage_id" Type="int" />
+        </EntityType>
+        <EntityType Name="TRANSACTIONS_PARAMETERS_DETAILS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="trx_head_id" Type="int" Nullable="false" />
+          <Property Name="system_id" Type="int" Nullable="false" />
+          <Property Name="paratemer_id" Type="int" Nullable="false" />
+          <Property Name="parameter_value" Type="decimal" Nullable="false" Scale="5" />
+        </EntityType>
+        <EntityType Name="TYPES_ASSETS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="VALIDATIES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="ZONES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="codDept" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="codOld" Type="varchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__BATCHS_AR__aprov__7AF13DF7">
+          <End Role="APROVAL_STATES" Type="AFN2Model.Store.APROVAL_STATES" Multiplicity="1" />
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.Store.BATCHS_ARTICLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APROVAL_STATES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BATCHS_ARTICLES">
+              <PropertyRef Name="aproval_state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BATCHS_AR__origi__7BE56230">
+          <End Role="ORIGINS" Type="AFN2Model.Store.ORIGINS" Multiplicity="1" />
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.Store.BATCHS_ARTICLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORIGINS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BATCHS_ARTICLES">
+              <PropertyRef Name="origin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BATCHS_AR__type___7CD98669">
+          <End Role="TYPES_ASSETS" Type="AFN2Model.Store.TYPES_ASSETS" Multiplicity="1" />
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.Store.BATCHS_ARTICLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPES_ASSETS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BATCHS_ARTICLES">
+              <PropertyRef Name="type_asset_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DOCUMENTS__batch__038683F8">
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.Store.BATCHS_ARTICLES" Multiplicity="1" />
+          <End Role="DOCUMENTS" Type="AFN2Model.Store.DOCUMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BATCHS_ARTICLES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DOCUMENTS">
+              <PropertyRef Name="batch_article_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KINDS__type_asse__65F62111">
+          <End Role="TYPES_ASSETS" Type="AFN2Model.Store.TYPES_ASSETS" Multiplicity="1" />
+          <End Role="KINDS" Type="AFN2Model.Store.KINDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPES_ASSETS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="KINDS">
+              <PropertyRef Name="type_asset_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PACKAGE_K__type___5E54FF49">
+          <End Role="TYPES_ASSETS" Type="AFN2Model.Store.TYPES_ASSETS" Multiplicity="1" />
+          <End Role="PACKAGE_KINDS" Type="AFN2Model.Store.PACKAGE_KINDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPES_ASSETS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PACKAGE_KINDS">
+              <PropertyRef Name="type_asset_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PACKAGE_P__kind___6D9742D9">
+          <End Role="KINDS" Type="AFN2Model.Store.KINDS" Multiplicity="1" />
+          <End Role="PACKAGE_PAIR_KINDS" Type="AFN2Model.Store.PACKAGE_PAIR_KINDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PACKAGE_PAIR_KINDS">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PACKAGE_P__packa__6E8B6712">
+          <End Role="PACKAGE_KINDS" Type="AFN2Model.Store.PACKAGE_KINDS" Multiplicity="1" />
+          <End Role="PACKAGE_PAIR_KINDS" Type="AFN2Model.Store.PACKAGE_PAIR_KINDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACKAGE_KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PACKAGE_PAIR_KINDS">
+              <PropertyRef Name="package_kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PARTS__article_i__39E294A9">
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.Store.BATCHS_ARTICLES" Multiplicity="1" />
+          <End Role="PARTS" Type="AFN2Model.Store.PARTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BATCHS_ARTICLES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PARTS">
+              <PropertyRef Name="article_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SUBKINDS__kind_i__2B947552">
+          <End Role="KINDS" Type="AFN2Model.Store.KINDS" Multiplicity="0..1" />
+          <End Role="SUBKINDS" Type="AFN2Model.Store.SUBKINDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SUBKINDS">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SUBZONES__zone_i__52E34C9D">
+          <End Role="ZONES" Type="AFN2Model.Store.ZONES" Multiplicity="0..1" />
+          <End Role="SUBZONES" Type="AFN2Model.Store.SUBZONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SUBZONES">
+              <PropertyRef Name="zone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYSTEMS__currenc__11D4A34F">
+          <End Role="CURRENCIES" Type="AFN2Model.Store.CURRENCIES" Multiplicity="1" />
+          <End Role="SYSTEMS" Type="AFN2Model.Store.SYSTEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURRENCIES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYSTEMS">
+              <PropertyRef Name="currency_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYSTEMS__enviorm__10E07F16">
+          <End Role="ENVIORMENTS" Type="AFN2Model.Store.ENVIORMENTS" Multiplicity="1" />
+          <End Role="SYSTEMS" Type="AFN2Model.Store.SYSTEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENVIORMENTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYSTEMS">
+              <PropertyRef Name="enviorment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYSTEMS_P__param__1E3A7A34">
+          <End Role="PARAMETERS" Type="AFN2Model.Store.PARAMETERS" Multiplicity="1" />
+          <End Role="SYSTEMS_PARAMETERS" Type="AFN2Model.Store.SYSTEMS_PARAMETERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARAMETERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYSTEMS_PARAMETERS">
+              <PropertyRef Name="parameter_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYSTEMS_P__syste__1D4655FB">
+          <End Role="SYSTEMS" Type="AFN2Model.Store.SYSTEMS" Multiplicity="1" />
+          <End Role="SYSTEMS_PARAMETERS" Type="AFN2Model.Store.SYSTEMS_PARAMETERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSTEMS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYSTEMS_PARAMETERS">
+              <PropertyRef Name="system_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__artic__45544755">
+          <End Role="PARTS" Type="AFN2Model.Store.PARTS" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="article_part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__categ__4A18FC72">
+          <End Role="CATEGORIES" Type="AFN2Model.Store.CATEGORIES" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__kind___4830B400">
+          <End Role="KINDS" Type="AFN2Model.Store.KINDS" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__manag__4B0D20AB">
+          <End Role="MANAGEMENTS" Type="AFN2Model.Store.MANAGEMENTS" Multiplicity="0..1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MANAGEMENTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="manage_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__parat__5E1FF51F">
+          <End Role="PARAMETERS" Type="AFN2Model.Store.PARAMETERS" Multiplicity="1" />
+          <End Role="TRANSACTIONS_PARAMETERS_DETAILS" Type="AFN2Model.Store.TRANSACTIONS_PARAMETERS_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARAMETERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
+              <PropertyRef Name="paratemer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__subki__4924D839">
+          <End Role="SUBKINDS" Type="AFN2Model.Store.SUBKINDS" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBKINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="subkind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__subzo__473C8FC7">
+          <End Role="SUBZONES" Type="AFN2Model.Store.SUBZONES" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBZONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="subzone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__syste__53A266AC">
+          <End Role="SYSTEMS" Type="AFN2Model.Store.SYSTEMS" Multiplicity="1" />
+          <End Role="TRANSACTIONS_DETAILS" Type="AFN2Model.Store.TRANSACTIONS_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSTEMS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_DETAILS">
+              <PropertyRef Name="system_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__syste__5D2BD0E6">
+          <End Role="SYSTEMS" Type="AFN2Model.Store.SYSTEMS" Multiplicity="1" />
+          <End Role="TRANSACTIONS_PARAMETERS_DETAILS" Type="AFN2Model.Store.TRANSACTIONS_PARAMETERS_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSTEMS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
+              <PropertyRef Name="system_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__trx_h__52AE4273">
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="1" />
+          <End Role="TRANSACTIONS_DETAILS" Type="AFN2Model.Store.TRANSACTIONS_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_DETAILS">
+              <PropertyRef Name="trx_head_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__trx_h__5C37ACAD">
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="1" />
+          <End Role="TRANSACTIONS_PARAMETERS_DETAILS" Type="AFN2Model.Store.TRANSACTIONS_PARAMETERS_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
+              <PropertyRef Name="trx_head_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__valid__54968AE5">
+          <End Role="VALIDATIES" Type="AFN2Model.Store.VALIDATIES" Multiplicity="1" />
+          <End Role="TRANSACTIONS_DETAILS" Type="AFN2Model.Store.TRANSACTIONS_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALIDATIES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_DETAILS">
+              <PropertyRef Name="validity_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__zone___46486B8E">
+          <End Role="ZONES" Type="AFN2Model.Store.ZONES" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="zone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AFN2Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="AFN2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="APROVAL_STATES" EntityType="AFN2Model.APROVAL_STATE" />
+          <EntitySet Name="BATCHS_ARTICLES" EntityType="AFN2Model.BATCH_ARTICLE" />
+          <EntitySet Name="CATEGORIES" EntityType="AFN2Model.CATEGORY" />
+          <EntitySet Name="CURRENCIES" EntityType="AFN2Model.CURRENCY" />
+          <EntitySet Name="DOCUMENTS" EntityType="AFN2Model.DOCUMENT" />
+          <EntitySet Name="ENVIORMENTS" EntityType="AFN2Model.ENVIORMENT" />
+          <EntitySet Name="KINDS" EntityType="AFN2Model.KIND" />
+          <EntitySet Name="MANAGEMENTS" EntityType="AFN2Model.MANAGEMENT" />
+          <EntitySet Name="ORIGINS" EntityType="AFN2Model.ORIGIN" />
+          <EntitySet Name="PACKAGE_KINDS" EntityType="AFN2Model.PACKAGE_KIND" />
+          <EntitySet Name="PACKAGE_PAIR_KINDS" EntityType="AFN2Model.PACKAGE_PAIR_KIND" />
+          <EntitySet Name="PARAMETERS" EntityType="AFN2Model.PARAMETER" />
+          <EntitySet Name="PARTS" EntityType="AFN2Model.PART" />
+          <EntitySet Name="SUBKINDS" EntityType="AFN2Model.SUBKIND" />
+          <EntitySet Name="SUBZONES" EntityType="AFN2Model.SUBZONE" />
+          <EntitySet Name="SYSTEMS" EntityType="AFN2Model.SYSTEM" />
+          <EntitySet Name="SYSTEMS_PARAMETERS" EntityType="AFN2Model.SYSTEM_PARAMETER" />
+          <EntitySet Name="TRANSACTIONS_DETAILS" EntityType="AFN2Model.TRANSACTION_DETAIL" />
+          <EntitySet Name="TRANSACTIONS_HEADERS" EntityType="AFN2Model.TRANSACTION_HEADER" />
+          <EntitySet Name="TRANSACTIONS_PARAMETERS_DETAILS" EntityType="AFN2Model.TRANSACTION_PARAMETER_DETAIL" />
+          <EntitySet Name="TYPES_ASSETS" EntityType="AFN2Model.TYPE_ASSET" />
+          <EntitySet Name="VALIDATIES" EntityType="AFN2Model.VALIDATY" />
+          <EntitySet Name="ZONES" EntityType="AFN2Model.ZONE" />
+          <AssociationSet Name="FK__BATCHS_AR__aprov__7AF13DF7" Association="AFN2Model.FK__BATCHS_AR__aprov__7AF13DF7">
+            <End Role="APROVAL_STATES" EntitySet="APROVAL_STATES" />
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BATCHS_AR__origi__7BE56230" Association="AFN2Model.FK__BATCHS_AR__origi__7BE56230">
+            <End Role="ORIGINS" EntitySet="ORIGINS" />
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BATCHS_AR__type___7CD98669" Association="AFN2Model.FK__BATCHS_AR__type___7CD98669">
+            <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DOCUMENTS__batch__038683F8" Association="AFN2Model.FK__DOCUMENTS__batch__038683F8">
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+            <End Role="DOCUMENTS" EntitySet="DOCUMENTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PARTS__article_i__39E294A9" Association="AFN2Model.FK__PARTS__article_i__39E294A9">
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+            <End Role="PARTS" EntitySet="PARTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__categ__4A18FC72" Association="AFN2Model.FK__TRANSACTI__categ__4A18FC72">
+            <End Role="CATEGORIES" EntitySet="CATEGORIES" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSTEMS__currenc__11D4A34F" Association="AFN2Model.FK__SYSTEMS__currenc__11D4A34F">
+            <End Role="CURRENCIES" EntitySet="CURRENCIES" />
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSTEMS__enviorm__10E07F16" Association="AFN2Model.FK__SYSTEMS__enviorm__10E07F16">
+            <End Role="ENVIORMENTS" EntitySet="ENVIORMENTS" />
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KINDS__type_asse__65F62111" Association="AFN2Model.FK__KINDS__type_asse__65F62111">
+            <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
+            <End Role="KINDS" EntitySet="KINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PACKAGE_P__kind___6D9742D9" Association="AFN2Model.FK__PACKAGE_P__kind___6D9742D9">
+            <End Role="KINDS" EntitySet="KINDS" />
+            <End Role="PACKAGE_PAIR_KINDS" EntitySet="PACKAGE_PAIR_KINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SUBKINDS__kind_i__2B947552" Association="AFN2Model.FK__SUBKINDS__kind_i__2B947552">
+            <End Role="KINDS" EntitySet="KINDS" />
+            <End Role="SUBKINDS" EntitySet="SUBKINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__kind___4830B400" Association="AFN2Model.FK__TRANSACTI__kind___4830B400">
+            <End Role="KINDS" EntitySet="KINDS" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__manag__4B0D20AB" Association="AFN2Model.FK__TRANSACTI__manag__4B0D20AB">
+            <End Role="MANAGEMENTS" EntitySet="MANAGEMENTS" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PACKAGE_K__type___5E54FF49" Association="AFN2Model.FK__PACKAGE_K__type___5E54FF49">
+            <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
+            <End Role="PACKAGE_KINDS" EntitySet="PACKAGE_KINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PACKAGE_P__packa__6E8B6712" Association="AFN2Model.FK__PACKAGE_P__packa__6E8B6712">
+            <End Role="PACKAGE_KINDS" EntitySet="PACKAGE_KINDS" />
+            <End Role="PACKAGE_PAIR_KINDS" EntitySet="PACKAGE_PAIR_KINDS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSTEMS_P__param__1E3A7A34" Association="AFN2Model.FK__SYSTEMS_P__param__1E3A7A34">
+            <End Role="PARAMETERS" EntitySet="PARAMETERS" />
+            <End Role="SYSTEMS_PARAMETERS" EntitySet="SYSTEMS_PARAMETERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__parat__5E1FF51F" Association="AFN2Model.FK__TRANSACTI__parat__5E1FF51F">
+            <End Role="PARAMETERS" EntitySet="PARAMETERS" />
+            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__artic__45544755" Association="AFN2Model.FK__TRANSACTI__artic__45544755">
+            <End Role="PARTS" EntitySet="PARTS" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__subki__4924D839" Association="AFN2Model.FK__TRANSACTI__subki__4924D839">
+            <End Role="SUBKINDS" EntitySet="SUBKINDS" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SUBZONES__zone_i__52E34C9D" Association="AFN2Model.FK__SUBZONES__zone_i__52E34C9D">
+            <End Role="ZONES" EntitySet="ZONES" />
+            <End Role="SUBZONES" EntitySet="SUBZONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__subzo__473C8FC7" Association="AFN2Model.FK__TRANSACTI__subzo__473C8FC7">
+            <End Role="SUBZONES" EntitySet="SUBZONES" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSTEMS_P__syste__1D4655FB" Association="AFN2Model.FK__SYSTEMS_P__syste__1D4655FB">
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+            <End Role="SYSTEMS_PARAMETERS" EntitySet="SYSTEMS_PARAMETERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__syste__53A266AC" Association="AFN2Model.FK__TRANSACTI__syste__53A266AC">
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+            <End Role="TRANSACTIONS_DETAILS" EntitySet="TRANSACTIONS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__syste__5D2BD0E6" Association="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6">
+            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
+            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__trx_h__52AE4273" Association="AFN2Model.FK__TRANSACTI__trx_h__52AE4273">
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+            <End Role="TRANSACTIONS_DETAILS" EntitySet="TRANSACTIONS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__valid__54968AE5" Association="AFN2Model.FK__TRANSACTI__valid__54968AE5">
+            <End Role="VALIDATIES" EntitySet="VALIDATIES" />
+            <End Role="TRANSACTIONS_DETAILS" EntitySet="TRANSACTIONS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__trx_h__5C37ACAD" Association="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD">
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__zone___46486B8E" Association="AFN2Model.FK__TRANSACTI__zone___46486B8E">
+            <End Role="ZONES" EntitySet="ZONES" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="APROVAL_STATE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__BATCHS_AR__aprov__7AF13DF7" FromRole="APROVAL_STATES" ToRole="BATCHS_ARTICLES" />
+        </EntityType>
+        <EntityType Name="BATCH_ARTICLE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aproval_state_id" Type="Int32" Nullable="false" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="purchase_date" Type="DateTime" Nullable="false" />
+          <Property Name="initial_price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="initial_life_time" Type="Int32" Nullable="false" />
+          <Property Name="account_date" Type="DateTime" Nullable="false" />
+          <Property Name="origin_id" Type="Int32" Nullable="false" />
+          <Property Name="type_asset_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="APROVAL_STATE" Relationship="AFN2Model.FK__BATCHS_AR__aprov__7AF13DF7" FromRole="BATCHS_ARTICLES" ToRole="APROVAL_STATES" />
+          <NavigationProperty Name="ORIGIN" Relationship="AFN2Model.FK__BATCHS_AR__origi__7BE56230" FromRole="BATCHS_ARTICLES" ToRole="ORIGINS" />
+          <NavigationProperty Name="TYPE_ASSET" Relationship="AFN2Model.FK__BATCHS_AR__type___7CD98669" FromRole="BATCHS_ARTICLES" ToRole="TYPES_ASSETS" />
+          <NavigationProperty Name="DOCUMENTS" Relationship="AFN2Model.FK__DOCUMENTS__batch__038683F8" FromRole="BATCHS_ARTICLES" ToRole="DOCUMENTS" />
+          <NavigationProperty Name="PARTS" Relationship="AFN2Model.FK__PARTS__article_i__39E294A9" FromRole="BATCHS_ARTICLES" ToRole="PARTS" />
+        </EntityType>
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__categ__4A18FC72" FromRole="CATEGORIES" ToRole="TRANSACTIONS_HEADERS" />
+        </EntityType>
+        <EntityType Name="CURRENCY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="SYSTEMS" Relationship="AFN2Model.FK__SYSTEMS__currenc__11D4A34F" FromRole="CURRENCIES" ToRole="SYSTEMS" />
+        </EntityType>
+        <EntityType Name="DOCUMENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="docnumber" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="comment" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="proveedor_id" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="proveedor_name" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="batch_article_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__DOCUMENTS__batch__038683F8" FromRole="DOCUMENTS" ToRole="BATCHS_ARTICLES" />
+        </EntityType>
+        <EntityType Name="ENVIORMENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="depreciation_rate" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="credit_rate" Type="Decimal" Nullable="false" Precision="10" Scale="5" />
+          <NavigationProperty Name="SYSTEMS" Relationship="AFN2Model.FK__SYSTEMS__enviorm__10E07F16" FromRole="ENVIORMENTS" ToRole="SYSTEMS" />
+        </EntityType>
+        <EntityType Name="KIND">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="type_asset_id" Type="Int32" Nullable="false" />
+          <Property Name="show_in" Type="Boolean" Nullable="false" />
+          <Property Name="show_rep" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TYPE_ASSET" Relationship="AFN2Model.FK__KINDS__type_asse__65F62111" FromRole="KINDS" ToRole="TYPES_ASSETS" />
+          <NavigationProperty Name="PACKAGE_PAIR_KINDS" Relationship="AFN2Model.FK__PACKAGE_P__kind___6D9742D9" FromRole="KINDS" ToRole="PACKAGE_PAIR_KINDS" />
+          <NavigationProperty Name="SUBKINDS" Relationship="AFN2Model.FK__SUBKINDS__kind_i__2B947552" FromRole="KINDS" ToRole="SUBKINDS" />
+          <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__kind___4830B400" FromRole="KINDS" ToRole="TRANSACTIONS_HEADERS" />
+        </EntityType>
+        <EntityType Name="MANAGEMENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__manag__4B0D20AB" FromRole="MANAGEMENTS" ToRole="TRANSACTIONS_HEADERS" />
+        </EntityType>
+        <EntityType Name="ORIGIN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__BATCHS_AR__origi__7BE56230" FromRole="ORIGINS" ToRole="BATCHS_ARTICLES" />
+        </EntityType>
+        <EntityType Name="PACKAGE_KIND">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="display" Type="Boolean" Nullable="false" />
+          <Property Name="type_asset_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TYPE_ASSET" Relationship="AFN2Model.FK__PACKAGE_K__type___5E54FF49" FromRole="PACKAGE_KINDS" ToRole="TYPES_ASSETS" />
+          <NavigationProperty Name="PACKAGE_PAIR_KINDS" Relationship="AFN2Model.FK__PACKAGE_P__packa__6E8B6712" FromRole="PACKAGE_KINDS" ToRole="PACKAGE_PAIR_KINDS" />
+        </EntityType>
+        <EntityType Name="PACKAGE_PAIR_KIND">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kind_id" Type="Int32" Nullable="false" />
+          <Property Name="package_kind_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="KIND" Relationship="AFN2Model.FK__PACKAGE_P__kind___6D9742D9" FromRole="PACKAGE_PAIR_KINDS" ToRole="KINDS" />
+          <NavigationProperty Name="PACKAGE_KIND" Relationship="AFN2Model.FK__PACKAGE_P__packa__6E8B6712" FromRole="PACKAGE_PAIR_KINDS" ToRole="PACKAGE_KINDS" />
+        </EntityType>
+        <EntityType Name="PARAMETER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="SYSTEMS_PARAMETERS" Relationship="AFN2Model.FK__SYSTEMS_P__param__1E3A7A34" FromRole="PARAMETERS" ToRole="SYSTEMS_PARAMETERS" />
+          <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__parat__5E1FF51F" FromRole="PARAMETERS" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
+        </EntityType>
+        <EntityType Name="PART">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="article_id" Type="Int32" Nullable="false" />
+          <Property Name="part_index" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__PARTS__article_i__39E294A9" FromRole="PARTS" ToRole="BATCHS_ARTICLES" />
+          <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__artic__45544755" FromRole="PARTS" ToRole="TRANSACTIONS_HEADERS" />
+        </EntityType>
+        <EntityType Name="SUBKIND">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="vu_sug" Type="Int32" Nullable="false" />
+          <Property Name="display" Type="Boolean" Nullable="false" />
+          <Property Name="kind_id" Type="Int32" />
+          <NavigationProperty Name="KIND" Relationship="AFN2Model.FK__SUBKINDS__kind_i__2B947552" FromRole="SUBKINDS" ToRole="KINDS" />
+          <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__subki__4924D839" FromRole="SUBKINDS" ToRole="TRANSACTIONS_HEADERS" />
+        </EntityType>
+        <EntityType Name="SUBZONE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="principal" Type="Boolean" Nullable="false" />
+          <Property Name="zone_id" Type="Int32" />
+          <Property Name="codPlace" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="codOld" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="ZONE" Relationship="AFN2Model.FK__SUBZONES__zone_i__52E34C9D" FromRole="SUBZONES" ToRole="ZONES" />
+          <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__subzo__473C8FC7" FromRole="SUBZONES" ToRole="TRANSACTIONS_HEADERS" />
+        </EntityType>
+        <EntityType Name="SYSTEM">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enviorment_id" Type="Int32" Nullable="false" />
+          <Property Name="currency_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CURRENCY" Relationship="AFN2Model.FK__SYSTEMS__currenc__11D4A34F" FromRole="SYSTEMS" ToRole="CURRENCIES" />
+          <NavigationProperty Name="ENVIORMENT" Relationship="AFN2Model.FK__SYSTEMS__enviorm__10E07F16" FromRole="SYSTEMS" ToRole="ENVIORMENTS" />
+          <NavigationProperty Name="SYSTEMS_PARAMETERS" Relationship="AFN2Model.FK__SYSTEMS_P__syste__1D4655FB" FromRole="SYSTEMS" ToRole="SYSTEMS_PARAMETERS" />
+          <NavigationProperty Name="TRANSACTIONS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__syste__53A266AC" FromRole="SYSTEMS" ToRole="TRANSACTIONS_DETAILS" />
+          <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6" FromRole="SYSTEMS" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
+        </EntityType>
+        <EntityType Name="SYSTEM_PARAMETER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="system_id" Type="Int32" Nullable="false" />
+          <Property Name="parameter_id" Type="Int32" Nullable="false" />
+          <Property Name="isRequired" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PARAMETER" Relationship="AFN2Model.FK__SYSTEMS_P__param__1E3A7A34" FromRole="SYSTEMS_PARAMETERS" ToRole="PARAMETERS" />
+          <NavigationProperty Name="SYSTEM" Relationship="AFN2Model.FK__SYSTEMS_P__syste__1D4655FB" FromRole="SYSTEMS_PARAMETERS" ToRole="SYSTEMS" />
+        </EntityType>
+        <EntityType Name="TRANSACTION_DETAIL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="trx_head_id" Type="Int32" Nullable="false" />
+          <Property Name="system_id" Type="Int32" Nullable="false" />
+          <Property Name="validity_id" Type="Int32" Nullable="false" />
+          <Property Name="depreciate" Type="Boolean" Nullable="false" />
+          <Property Name="allow_credit" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SYSTEM" Relationship="AFN2Model.FK__TRANSACTI__syste__53A266AC" FromRole="TRANSACTIONS_DETAILS" ToRole="SYSTEMS" />
+          <NavigationProperty Name="TRANSACTION_HEADER" Relationship="AFN2Model.FK__TRANSACTI__trx_h__52AE4273" FromRole="TRANSACTIONS_DETAILS" ToRole="TRANSACTIONS_HEADERS" />
+          <NavigationProperty Name="VALIDATY" Relationship="AFN2Model.FK__TRANSACTI__valid__54968AE5" FromRole="TRANSACTIONS_DETAILS" ToRole="VALIDATIES" />
+        </EntityType>
+        <EntityType Name="TRANSACTION_HEADER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="article_part_id" Type="Int32" Nullable="false" />
+          <Property Name="trx_ini" Type="DateTime" Nullable="false" />
+          <Property Name="trx_end" Type="DateTime" Nullable="false" />
+          <Property Name="ref_source" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="zone_id" Type="Int32" Nullable="false" />
+          <Property Name="subzone_id" Type="Int32" Nullable="false" />
+          <Property Name="kind_id" Type="Int32" Nullable="false" />
+          <Property Name="subkind_id" Type="Int32" Nullable="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="user_own" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="manage_id" Type="Int32" />
+          <NavigationProperty Name="CATEGORY" Relationship="AFN2Model.FK__TRANSACTI__categ__4A18FC72" FromRole="TRANSACTIONS_HEADERS" ToRole="CATEGORIES" />
+          <NavigationProperty Name="KIND" Relationship="AFN2Model.FK__TRANSACTI__kind___4830B400" FromRole="TRANSACTIONS_HEADERS" ToRole="KINDS" />
+          <NavigationProperty Name="MANAGEMENT" Relationship="AFN2Model.FK__TRANSACTI__manag__4B0D20AB" FromRole="TRANSACTIONS_HEADERS" ToRole="MANAGEMENTS" />
+          <NavigationProperty Name="PART" Relationship="AFN2Model.FK__TRANSACTI__artic__45544755" FromRole="TRANSACTIONS_HEADERS" ToRole="PARTS" />
+          <NavigationProperty Name="SUBKIND" Relationship="AFN2Model.FK__TRANSACTI__subki__4924D839" FromRole="TRANSACTIONS_HEADERS" ToRole="SUBKINDS" />
+          <NavigationProperty Name="SUBZONE" Relationship="AFN2Model.FK__TRANSACTI__subzo__473C8FC7" FromRole="TRANSACTIONS_HEADERS" ToRole="SUBZONES" />
+          <NavigationProperty Name="TRANSACTIONS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__trx_h__52AE4273" FromRole="TRANSACTIONS_HEADERS" ToRole="TRANSACTIONS_DETAILS" />
+          <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" FromRole="TRANSACTIONS_HEADERS" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
+          <NavigationProperty Name="ZONE" Relationship="AFN2Model.FK__TRANSACTI__zone___46486B8E" FromRole="TRANSACTIONS_HEADERS" ToRole="ZONES" />
+        </EntityType>
+        <EntityType Name="TRANSACTION_PARAMETER_DETAIL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="trx_head_id" Type="Int32" Nullable="false" />
+          <Property Name="system_id" Type="Int32" Nullable="false" />
+          <Property Name="paratemer_id" Type="Int32" Nullable="false" />
+          <Property Name="parameter_value" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <NavigationProperty Name="PARAMETER" Relationship="AFN2Model.FK__TRANSACTI__parat__5E1FF51F" FromRole="TRANSACTIONS_PARAMETERS_DETAILS" ToRole="PARAMETERS" />
+          <NavigationProperty Name="SYSTEM" Relationship="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6" FromRole="TRANSACTIONS_PARAMETERS_DETAILS" ToRole="SYSTEMS" />
+          <NavigationProperty Name="TRANSACTION_HEADER" Relationship="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" FromRole="TRANSACTIONS_PARAMETERS_DETAILS" ToRole="TRANSACTIONS_HEADERS" />
+        </EntityType>
+        <EntityType Name="TYPE_ASSET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__BATCHS_AR__type___7CD98669" FromRole="TYPES_ASSETS" ToRole="BATCHS_ARTICLES" />
+          <NavigationProperty Name="KINDS" Relationship="AFN2Model.FK__KINDS__type_asse__65F62111" FromRole="TYPES_ASSETS" ToRole="KINDS" />
+          <NavigationProperty Name="PACKAGE_KINDS" Relationship="AFN2Model.FK__PACKAGE_K__type___5E54FF49" FromRole="TYPES_ASSETS" ToRole="PACKAGE_KINDS" />
+        </EntityType>
+        <EntityType Name="VALIDATY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="TRANSACTIONS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__valid__54968AE5" FromRole="VALIDATIES" ToRole="TRANSACTIONS_DETAILS" />
+        </EntityType>
+        <EntityType Name="ZONE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="codDept" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="codOld" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="SUBZONES" Relationship="AFN2Model.FK__SUBZONES__zone_i__52E34C9D" FromRole="ZONES" ToRole="SUBZONES" />
+          <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__zone___46486B8E" FromRole="ZONES" ToRole="TRANSACTIONS_HEADERS" />
+        </EntityType>
+        <Association Name="FK__BATCHS_AR__aprov__7AF13DF7">
+          <End Role="APROVAL_STATES" Type="AFN2Model.APROVAL_STATE" Multiplicity="1" />
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.BATCH_ARTICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APROVAL_STATES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BATCHS_ARTICLES">
+              <PropertyRef Name="aproval_state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BATCHS_AR__origi__7BE56230">
+          <End Role="ORIGINS" Type="AFN2Model.ORIGIN" Multiplicity="1" />
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.BATCH_ARTICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORIGINS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BATCHS_ARTICLES">
+              <PropertyRef Name="origin_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BATCHS_AR__type___7CD98669">
+          <End Role="TYPES_ASSETS" Type="AFN2Model.TYPE_ASSET" Multiplicity="1" />
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.BATCH_ARTICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPES_ASSETS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BATCHS_ARTICLES">
+              <PropertyRef Name="type_asset_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DOCUMENTS__batch__038683F8">
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.BATCH_ARTICLE" Multiplicity="1" />
+          <End Role="DOCUMENTS" Type="AFN2Model.DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BATCHS_ARTICLES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DOCUMENTS">
+              <PropertyRef Name="batch_article_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PARTS__article_i__39E294A9">
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.BATCH_ARTICLE" Multiplicity="1" />
+          <End Role="PARTS" Type="AFN2Model.PART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BATCHS_ARTICLES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PARTS">
+              <PropertyRef Name="article_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__categ__4A18FC72">
+          <End Role="CATEGORIES" Type="AFN2Model.CATEGORY" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYSTEMS__currenc__11D4A34F">
+          <End Role="CURRENCIES" Type="AFN2Model.CURRENCY" Multiplicity="1" />
+          <End Role="SYSTEMS" Type="AFN2Model.SYSTEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURRENCIES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYSTEMS">
+              <PropertyRef Name="currency_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYSTEMS__enviorm__10E07F16">
+          <End Role="ENVIORMENTS" Type="AFN2Model.ENVIORMENT" Multiplicity="1" />
+          <End Role="SYSTEMS" Type="AFN2Model.SYSTEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENVIORMENTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYSTEMS">
+              <PropertyRef Name="enviorment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KINDS__type_asse__65F62111">
+          <End Role="TYPES_ASSETS" Type="AFN2Model.TYPE_ASSET" Multiplicity="1" />
+          <End Role="KINDS" Type="AFN2Model.KIND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPES_ASSETS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="KINDS">
+              <PropertyRef Name="type_asset_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PACKAGE_P__kind___6D9742D9">
+          <End Role="KINDS" Type="AFN2Model.KIND" Multiplicity="1" />
+          <End Role="PACKAGE_PAIR_KINDS" Type="AFN2Model.PACKAGE_PAIR_KIND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PACKAGE_PAIR_KINDS">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SUBKINDS__kind_i__2B947552">
+          <End Role="KINDS" Type="AFN2Model.KIND" Multiplicity="0..1" />
+          <End Role="SUBKINDS" Type="AFN2Model.SUBKIND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SUBKINDS">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__kind___4830B400">
+          <End Role="KINDS" Type="AFN2Model.KIND" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__manag__4B0D20AB">
+          <End Role="MANAGEMENTS" Type="AFN2Model.MANAGEMENT" Multiplicity="0..1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MANAGEMENTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="manage_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PACKAGE_K__type___5E54FF49">
+          <End Role="TYPES_ASSETS" Type="AFN2Model.TYPE_ASSET" Multiplicity="1" />
+          <End Role="PACKAGE_KINDS" Type="AFN2Model.PACKAGE_KIND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPES_ASSETS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PACKAGE_KINDS">
+              <PropertyRef Name="type_asset_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PACKAGE_P__packa__6E8B6712">
+          <End Role="PACKAGE_KINDS" Type="AFN2Model.PACKAGE_KIND" Multiplicity="1" />
+          <End Role="PACKAGE_PAIR_KINDS" Type="AFN2Model.PACKAGE_PAIR_KIND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACKAGE_KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PACKAGE_PAIR_KINDS">
+              <PropertyRef Name="package_kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYSTEMS_P__param__1E3A7A34">
+          <End Role="PARAMETERS" Type="AFN2Model.PARAMETER" Multiplicity="1" />
+          <End Role="SYSTEMS_PARAMETERS" Type="AFN2Model.SYSTEM_PARAMETER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARAMETERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYSTEMS_PARAMETERS">
+              <PropertyRef Name="parameter_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__parat__5E1FF51F">
+          <End Role="PARAMETERS" Type="AFN2Model.PARAMETER" Multiplicity="1" />
+          <End Role="TRANSACTIONS_PARAMETERS_DETAILS" Type="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARAMETERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
+              <PropertyRef Name="paratemer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__artic__45544755">
+          <End Role="PARTS" Type="AFN2Model.PART" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="article_part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__subki__4924D839">
+          <End Role="SUBKINDS" Type="AFN2Model.SUBKIND" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBKINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="subkind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SUBZONES__zone_i__52E34C9D">
+          <End Role="ZONES" Type="AFN2Model.ZONE" Multiplicity="0..1" />
+          <End Role="SUBZONES" Type="AFN2Model.SUBZONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SUBZONES">
+              <PropertyRef Name="zone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__subzo__473C8FC7">
+          <End Role="SUBZONES" Type="AFN2Model.SUBZONE" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBZONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="subzone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYSTEMS_P__syste__1D4655FB">
+          <End Role="SYSTEMS" Type="AFN2Model.SYSTEM" Multiplicity="1" />
+          <End Role="SYSTEMS_PARAMETERS" Type="AFN2Model.SYSTEM_PARAMETER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSTEMS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYSTEMS_PARAMETERS">
+              <PropertyRef Name="system_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__syste__53A266AC">
+          <End Role="SYSTEMS" Type="AFN2Model.SYSTEM" Multiplicity="1" />
+          <End Role="TRANSACTIONS_DETAILS" Type="AFN2Model.TRANSACTION_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSTEMS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_DETAILS">
+              <PropertyRef Name="system_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__syste__5D2BD0E6">
+          <End Role="SYSTEMS" Type="AFN2Model.SYSTEM" Multiplicity="1" />
+          <End Role="TRANSACTIONS_PARAMETERS_DETAILS" Type="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSTEMS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
+              <PropertyRef Name="system_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__trx_h__52AE4273">
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="1" />
+          <End Role="TRANSACTIONS_DETAILS" Type="AFN2Model.TRANSACTION_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_DETAILS">
+              <PropertyRef Name="trx_head_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__valid__54968AE5">
+          <End Role="VALIDATIES" Type="AFN2Model.VALIDATY" Multiplicity="1" />
+          <End Role="TRANSACTIONS_DETAILS" Type="AFN2Model.TRANSACTION_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALIDATIES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_DETAILS">
+              <PropertyRef Name="validity_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__trx_h__5C37ACAD">
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="1" />
+          <End Role="TRANSACTIONS_PARAMETERS_DETAILS" Type="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
+              <PropertyRef Name="trx_head_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__zone___46486B8E">
+          <End Role="ZONES" Type="AFN2Model.ZONE" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="zone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AFN2ModelStoreContainer" CdmEntityContainer="AFN2Entities">
+          <EntitySetMapping Name="APROVAL_STATES">
+            <EntityTypeMapping TypeName="AFN2Model.APROVAL_STATE">
+              <MappingFragment StoreEntitySet="APROVAL_STATES">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BATCHS_ARTICLES">
+            <EntityTypeMapping TypeName="AFN2Model.BATCH_ARTICLE">
+              <MappingFragment StoreEntitySet="BATCHS_ARTICLES">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="aproval_state_id" ColumnName="aproval_state_id" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="purchase_date" ColumnName="purchase_date" />
+                <ScalarProperty Name="initial_price" ColumnName="initial_price" />
+                <ScalarProperty Name="initial_life_time" ColumnName="initial_life_time" />
+                <ScalarProperty Name="account_date" ColumnName="account_date" />
+                <ScalarProperty Name="origin_id" ColumnName="origin_id" />
+                <ScalarProperty Name="type_asset_id" ColumnName="type_asset_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIES">
+            <EntityTypeMapping TypeName="AFN2Model.CATEGORY">
+              <MappingFragment StoreEntitySet="CATEGORIES">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CURRENCIES">
+            <EntityTypeMapping TypeName="AFN2Model.CURRENCY">
+              <MappingFragment StoreEntitySet="CURRENCIES">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCUMENTS">
+            <EntityTypeMapping TypeName="AFN2Model.DOCUMENT">
+              <MappingFragment StoreEntitySet="DOCUMENTS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="docnumber" ColumnName="docnumber" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
+                <ScalarProperty Name="proveedor_name" ColumnName="proveedor_name" />
+                <ScalarProperty Name="batch_article_id" ColumnName="batch_article_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENVIORMENTS">
+            <EntityTypeMapping TypeName="AFN2Model.ENVIORMENT">
+              <MappingFragment StoreEntitySet="ENVIORMENTS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="depreciation_rate" ColumnName="depreciation_rate" />
+                <ScalarProperty Name="credit_rate" ColumnName="credit_rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KINDS">
+            <EntityTypeMapping TypeName="AFN2Model.KIND">
+              <MappingFragment StoreEntitySet="KINDS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cod" ColumnName="cod" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="type_asset_id" ColumnName="type_asset_id" />
+                <ScalarProperty Name="show_in" ColumnName="show_in" />
+                <ScalarProperty Name="show_rep" ColumnName="show_rep" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MANAGEMENTS">
+            <EntityTypeMapping TypeName="AFN2Model.MANAGEMENT">
+              <MappingFragment StoreEntitySet="MANAGEMENTS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORIGINS">
+            <EntityTypeMapping TypeName="AFN2Model.ORIGIN">
+              <MappingFragment StoreEntitySet="ORIGINS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PACKAGE_KINDS">
+            <EntityTypeMapping TypeName="AFN2Model.PACKAGE_KIND">
+              <MappingFragment StoreEntitySet="PACKAGE_KINDS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="display" ColumnName="display" />
+                <ScalarProperty Name="type_asset_id" ColumnName="type_asset_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PACKAGE_PAIR_KINDS">
+            <EntityTypeMapping TypeName="AFN2Model.PACKAGE_PAIR_KIND">
+              <MappingFragment StoreEntitySet="PACKAGE_PAIR_KINDS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="kind_id" ColumnName="kind_id" />
+                <ScalarProperty Name="package_kind_id" ColumnName="package_kind_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PARAMETERS">
+            <EntityTypeMapping TypeName="AFN2Model.PARAMETER">
+              <MappingFragment StoreEntitySet="PARAMETERS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PARTS">
+            <EntityTypeMapping TypeName="AFN2Model.PART">
+              <MappingFragment StoreEntitySet="PARTS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="article_id" ColumnName="article_id" />
+                <ScalarProperty Name="part_index" ColumnName="part_index" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUBKINDS">
+            <EntityTypeMapping TypeName="AFN2Model.SUBKIND">
+              <MappingFragment StoreEntitySet="SUBKINDS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="vu_sug" ColumnName="vu_sug" />
+                <ScalarProperty Name="display" ColumnName="display" />
+                <ScalarProperty Name="kind_id" ColumnName="kind_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUBZONES">
+            <EntityTypeMapping TypeName="AFN2Model.SUBZONE">
+              <MappingFragment StoreEntitySet="SUBZONES">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="principal" ColumnName="principal" />
+                <ScalarProperty Name="zone_id" ColumnName="zone_id" />
+                <ScalarProperty Name="codPlace" ColumnName="codPlace" />
+                <ScalarProperty Name="codOld" ColumnName="codOld" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYSTEMS">
+            <EntityTypeMapping TypeName="AFN2Model.SYSTEM">
+              <MappingFragment StoreEntitySet="SYSTEMS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enviorment_id" ColumnName="enviorment_id" />
+                <ScalarProperty Name="currency_id" ColumnName="currency_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYSTEMS_PARAMETERS">
+            <EntityTypeMapping TypeName="AFN2Model.SYSTEM_PARAMETER">
+              <MappingFragment StoreEntitySet="SYSTEMS_PARAMETERS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="system_id" ColumnName="system_id" />
+                <ScalarProperty Name="parameter_id" ColumnName="parameter_id" />
+                <ScalarProperty Name="isRequired" ColumnName="isRequired" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSACTIONS_DETAILS">
+            <EntityTypeMapping TypeName="AFN2Model.TRANSACTION_DETAIL">
+              <MappingFragment StoreEntitySet="TRANSACTIONS_DETAILS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="trx_head_id" ColumnName="trx_head_id" />
+                <ScalarProperty Name="system_id" ColumnName="system_id" />
+                <ScalarProperty Name="validity_id" ColumnName="validity_id" />
+                <ScalarProperty Name="depreciate" ColumnName="depreciate" />
+                <ScalarProperty Name="allow_credit" ColumnName="allow_credit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSACTIONS_HEADERS">
+            <EntityTypeMapping TypeName="AFN2Model.TRANSACTION_HEADER">
+              <MappingFragment StoreEntitySet="TRANSACTIONS_HEADERS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="article_part_id" ColumnName="article_part_id" />
+                <ScalarProperty Name="trx_ini" ColumnName="trx_ini" />
+                <ScalarProperty Name="trx_end" ColumnName="trx_end" />
+                <ScalarProperty Name="ref_source" ColumnName="ref_source" />
+                <ScalarProperty Name="zone_id" ColumnName="zone_id" />
+                <ScalarProperty Name="subzone_id" ColumnName="subzone_id" />
+                <ScalarProperty Name="kind_id" ColumnName="kind_id" />
+                <ScalarProperty Name="subkind_id" ColumnName="subkind_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="user_own" ColumnName="user_own" />
+                <ScalarProperty Name="manage_id" ColumnName="manage_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSACTIONS_PARAMETERS_DETAILS">
+            <EntityTypeMapping TypeName="AFN2Model.TRANSACTION_PARAMETER_DETAIL">
+              <MappingFragment StoreEntitySet="TRANSACTIONS_PARAMETERS_DETAILS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="trx_head_id" ColumnName="trx_head_id" />
+                <ScalarProperty Name="system_id" ColumnName="system_id" />
+                <ScalarProperty Name="paratemer_id" ColumnName="paratemer_id" />
+                <ScalarProperty Name="parameter_value" ColumnName="parameter_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TYPES_ASSETS">
+            <EntityTypeMapping TypeName="AFN2Model.TYPE_ASSET">
+              <MappingFragment StoreEntitySet="TYPES_ASSETS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VALIDATIES">
+            <EntityTypeMapping TypeName="AFN2Model.VALIDATY">
+              <MappingFragment StoreEntitySet="VALIDATIES">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZONES">
+            <EntityTypeMapping TypeName="AFN2Model.ZONE">
+              <MappingFragment StoreEntitySet="ZONES">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="codDept" ColumnName="codDept" />
+                <ScalarProperty Name="codOld" ColumnName="codOld" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="AFN2" ZoomLevel="55">
+        <EntityTypeShape EntityType="AFN2Model.APROVAL_STATE" Width="1.5" PointX="2.625" PointY="3.625" Height="1.6910001627604174" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.BATCH_ARTICLE" Width="1.5" PointX="5" PointY="1.375" Height="3.4754646809895817" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.CATEGORY" Width="1.5" PointX="9.875" PointY="12.25" Height="1.6910001627604165" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.CURRENCY" Width="1.5" PointX="0.5" PointY="7.25" Height="1.6910001627604174" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.DOCUMENT" Width="1.5" PointX="2.5" PointY="0.5" Height="2.2263395182291648" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.ENVIORMENT" Width="1.5" PointX="0.5" PointY="9.625" Height="2.047893066406246" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.KIND" Width="1.5" PointX="11.125" PointY="4" Height="2.94012532552083" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.MANAGEMENT" Width="1.5" PointX="11.875" PointY="12.25" Height="1.6910001627604174" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.ORIGIN" Width="1.5" PointX="0.5" PointY="2.375" Height="1.6910001627604174" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.PACKAGE_KIND" Width="1.5" PointX="11.5" PointY="0.5" Height="2.047893066406246" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.PACKAGE_PAIR_KIND" Width="1.5" PointX="13.75" PointY="1.875" Height="1.8694466145833353" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.PARAMETER" Width="1.5" PointX="4" PointY="11.25" Height="1.8694466145833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.PART" Width="1.5" PointX="7.125" PointY="3.75" Height="2.047893066406246" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.SUBKIND" Width="1.5" PointX="13.625" PointY="6.25" Height="2.4047859700520888" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.SUBZONE" Width="1.5" PointX="13.875" PointY="9.125" Height="2.583232421874996" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.SYSTEM" Width="1.5" PointX="2.625" PointY="8.125" Height="2.4047859700520888" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.SYSTEM_PARAMETER" Width="1.5" PointX="7" PointY="13.25" Height="2.047893066406246" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.TRANSACTION_DETAIL" Width="1.875" PointX="5.375" PointY="7.5" Height="2.5832324218750031" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.TRANSACTION_HEADER" Width="1.5" PointX="9.125" PointY="6.375" Height="4.7245898437500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Width="2.125" PointX="6.5" PointY="10.375" Height="2.4047859700520888" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.TYPE_ASSET" Width="1.5" PointX="9.125" PointY="1.75" Height="1.8694466145833388" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.VALIDATY" Width="1.5" PointX="2.375" PointY="6" Height="1.512553710937496" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.ZONE" Width="1.5" PointX="11.25" PointY="7.75" Height="2.2263395182291674" IsExpanded="true" />
+        <AssociationConnector Association="AFN2Model.FK__BATCHS_AR__aprov__7AF13DF7" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="4.4705000813802087" />
+          <ConnectorPoint PointX="5" PointY="4.4705000813802087" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__BATCHS_AR__origi__7BE56230" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="3.1756697591145819" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="3.1756697591145815" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="3.1756697591145819" />
+          <ConnectorPoint PointX="5" PointY="3.1756697591145819" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__BATCHS_AR__type___7CD98669" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.125" PointY="2.6847233072916694" />
+          <ConnectorPoint PointX="6.5" PointY="2.6847233072916694" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__DOCUMENTS__batch__038683F8" ManuallyRouted="false">
+          <ConnectorPoint PointX="5" PointY="2.0506697591145819" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="2.0506697591145815" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="2.0506697591145819" />
+          <ConnectorPoint PointX="4" PointY="2.0506697591145819" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__PARTS__article_i__39E294A9" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.5" PointY="4.3002323404947909" />
+          <ConnectorPoint PointX="7.125" PointY="4.3002323404947909" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__categ__4A18FC72" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.25" PointY="12.25" />
+          <ConnectorPoint PointX="10.25" PointY="11.099589843750003" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SYSTEMS__currenc__11D4A34F" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="8.5330000813802087" />
+          <ConnectorPoint PointX="2.625" PointY="8.5330000813802087" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SYSTEMS__enviorm__10E07F16" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="10.077392985026044" />
+          <ConnectorPoint PointX="2.625" PointY="10.077392985026044" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__KINDS__type_asse__65F62111" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.625" PointY="3.6194466145833388" />
+          <ConnectorPoint PointX="11.125" PointY="4" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__PACKAGE_P__kind___6D9742D9" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.625" PointY="4.59375" />
+          <ConnectorPoint PointX="14.09375" PointY="4.59375" />
+          <ConnectorPoint PointX="14.09375" PointY="3.7444466145833353" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SUBKINDS__kind_i__2B947552" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.625" PointY="6.595062662760415" />
+          <ConnectorPoint PointX="13.625" PointY="6.595062662760415" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__kind___4830B400" ManuallyRouted="false">
+          <ConnectorPoint PointX="11.125" PointY="6.657562662760415" />
+          <ConnectorPoint PointX="10.625" PointY="6.657562662760415" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__manag__4B0D20AB" ManuallyRouted="false">
+          <ConnectorPoint PointX="13.09375" PointY="12.25" />
+          <ConnectorPoint PointX="13.09375" PointY="10.775079781901042" />
+          <ConnectorPoint PointX="10.625" PointY="10.775079781901042" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__PACKAGE_K__type___5E54FF49" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.625" PointY="2.148946533203123" />
+          <ConnectorPoint PointX="11.5" PointY="2.148946533203123" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__PACKAGE_P__packa__6E8B6712" ManuallyRouted="false">
+          <ConnectorPoint PointX="13" PointY="2.211446533203123" />
+          <ConnectorPoint PointX="13.75" PointY="2.211446533203123" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SYSTEMS_P__param__1E3A7A34" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.75" PointY="13.119446614583332" />
+          <ConnectorPoint PointX="4.75" PointY="13.730720766601561" />
+          <ConnectorPoint PointX="7" PointY="13.730720766601561" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__parat__5E1FF51F" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.5" PointY="12.014892985026044" />
+          <ConnectorPoint PointX="6.5" PointY="12.014892985026044" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__artic__45544755" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.625" PointY="5.797893066406246" />
+          <ConnectorPoint PointX="9.125" PointY="6.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__subki__4924D839" ManuallyRouted="false">
+          <ConnectorPoint PointX="13.625" PointY="7.345062662760415" />
+          <ConnectorPoint PointX="10.625" PointY="7.345062662760415" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SUBZONES__zone_i__52E34C9D" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.75" PointY="9.5506697591145837" />
+          <ConnectorPoint PointX="13.875" PointY="9.5506697591145837" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__subzo__473C8FC7" ManuallyRouted="false">
+          <ConnectorPoint PointX="13.875" PointY="10.388064720052091" />
+          <ConnectorPoint PointX="10.625" PointY="10.388064720052091" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SYSTEMS_P__syste__1D4655FB" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.071775703125" PointY="10.529785970052089" />
+          <ConnectorPoint PointX="3.071775703125" PointY="14.273946533203123" />
+          <ConnectorPoint PointX="7" PointY="14.273946533203123" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__syste__53A266AC" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="9.1041162109375016" />
+          <ConnectorPoint PointX="5.375" PointY="9.1041162109375016" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.6296403515625" PointY="10.529785970052089" />
+          <ConnectorPoint PointX="3.6296403515625" PointY="10.889895485026045" />
+          <ConnectorPoint PointX="6.5" PointY="10.889895485026045" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__trx_h__52AE4273" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.125" PointY="8.7916162109375016" />
+          <ConnectorPoint PointX="7.25" PointY="8.7916162109375016" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__valid__54968AE5" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.46875" PointY="7.512553710937496" />
+          <ConnectorPoint PointX="2.46875" PointY="7.7875273554687485" />
+          <ConnectorPoint PointX="5.375" PointY="7.7875273554687485" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.125" PointY="10.737294921875002" />
+          <ConnectorPoint PointX="8.625" PointY="10.737294921875002" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__zone___46486B8E" ManuallyRouted="false">
+          <ConnectorPoint PointX="11.25" PointY="8.8631697591145837" />
+          <ConnectorPoint PointX="10.625" PointY="8.8631697591145837" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
