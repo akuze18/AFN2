@@ -16,7 +16,49 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
         public GENERIC_VALUE ById(int idFind)
         {
-            return _source.Where(z => z.id == idFind).FirstOrDefault();
+            return _source.Where(ap => ap.id == idFind).FirstOrDefault();
+        }
+
+        public GENERIC_VALUE ByCode(string codeFind)
+        {
+            return _source.Where(ap => ap.code == codeFind).FirstOrDefault();
+        }
+
+        public List<GENERIC_VALUE> OnlyActive
+        {
+            get
+            {
+                return _source.Where(ap => ap.code == "CLOSE").ToList()
+                    .ConvertAll(ap => (GENERIC_VALUE)ap);
+            }
+        }
+
+        public List<GENERIC_VALUE> OnlyDigited {
+            get {
+                return _source.Where(ap => ap.code == "OPEN").ToList()
+                    .ConvertAll(ap => (GENERIC_VALUE)ap);
+            }
+        }
+
+        public List<GENERIC_VALUE> NoDeleted
+        {
+            get
+            {
+                return _source.Where(ap => ap.code == "OPEN" || ap.code=="CLOSE").ToList()
+                    .ConvertAll(ap => (GENERIC_VALUE)ap);
+            }
+        }
+
+        public List<GENERIC_VALUE> All
+        {
+            get
+            {
+                return _source.ConvertAll(ap => (GENERIC_VALUE)ap);
+            }
+        }
+
+        public List<GENERIC_VALUE> Default {
+            get { return this.OnlyActive; }
         }
     }
 }

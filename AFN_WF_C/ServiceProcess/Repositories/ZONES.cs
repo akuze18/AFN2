@@ -20,16 +20,16 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         }
         public List<GENERIC_VALUE> All()
         {
-            var result = new List<GENERIC_VALUE>();
             var zona =
-                   from o in _source
+                   (from o in _source
                    where o.active == true
-                   select o;
-            foreach (var z in zona)
-            {
-                result.Add(z);
-            }
-            return result;
+                   select o).ToList();
+            return zona.ConvertAll(z => (GENERIC_VALUE)z);
+        }
+
+        public GENERIC_VALUE ByCode(string codeFind)
+        {
+            return _source.Where(z => z.codDept == codeFind || z.codOld == codeFind).FirstOrDefault();
         }
     }
 }

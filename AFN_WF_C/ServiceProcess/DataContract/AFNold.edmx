@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AFNModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="AFNModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="AFNModelStoreContainer">
           <EntitySet Name="AFN_INVENTARIO" EntityType="AFNModel.Store.AFN_INVENTARIO" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AFN_INVENTARIO_FYEN" EntityType="AFNModel.Store.AFN_INVENTARIO_FYEN" store:Type="Tables" Schema="dbo" />
@@ -12,6 +12,23 @@
           <EntitySet Name="AFN_INVENTARIO_IFRS_YEN" EntityType="AFNModel.Store.AFN_INVENTARIO_IFRS_YEN" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AFN_INVENTARIO_TRIB" EntityType="AFNModel.Store.AFN_INVENTARIO_TRIB" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AFN_LOTE_ARTICULOS" EntityType="AFNModel.Store.AFN_LOTE_ARTICULOS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AFN_OBRA_CONS" EntityType="AFNModel.Store.AFN_OBRA_CONS" store:Type="Tables" store:Schema="dbo" store:Name="AFN_OBRA_CONS">
+            <DefiningQuery>SELECT 
+      [AFN_OBRA_CONS].[codmov] AS [codmov], 
+      [AFN_OBRA_CONS].[tipo] AS [tipo], 
+      [AFN_OBRA_CONS].[txfecha] AS [txfecha], 
+      [AFN_OBRA_CONS].[zona] AS [zona], 
+      [AFN_OBRA_CONS].[proveedor] AS [proveedor], 
+      [AFN_OBRA_CONS].[num_doc] AS [num_doc], 
+      [AFN_OBRA_CONS].[descrip] AS [descrip], 
+      [AFN_OBRA_CONS].[monto] AS [monto], 
+      [AFN_OBRA_CONS].[monto_yen] AS [monto_yen], 
+      [AFN_OBRA_CONS].[cod_entrada] AS [cod_entrada], 
+      [AFN_OBRA_CONS].[cod_articulo] AS [cod_articulo], 
+      [AFN_OBRA_CONS].[glfecha] AS [glfecha], 
+      [AFN_OBRA_CONS].[estado_aprov] AS [estado_aprov]
+      FROM [dbo].[AFN_OBRA_CONS] AS [AFN_OBRA_CONS]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS" Association="AFNModel.Store.FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS">
             <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
             <End Role="AFN_INVENTARIO" EntitySet="AFN_INVENTARIO" />
@@ -194,6 +211,32 @@
           <Property Name="origen" Type="varchar" Nullable="false" MaxLength="5" />
           <Property Name="consistencia" Type="varchar" Nullable="false" MaxLength="20" />
         </EntityType>
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'AFN.dbo.AFN_OBRA_CONS' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+      -->
+        <EntityType Name="AFN_OBRA_CONS">
+          <Key>
+            <PropertyRef Name="codmov" />
+            <PropertyRef Name="tipo" />
+            <PropertyRef Name="txfecha" />
+            <PropertyRef Name="monto" />
+            <PropertyRef Name="monto_yen" />
+            <PropertyRef Name="estado_aprov" />
+          </Key>
+          <Property Name="codmov" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="varchar" Nullable="false" MaxLength="2" />
+          <Property Name="txfecha" Type="datetime" Nullable="false" />
+          <Property Name="zona" Type="varchar" MaxLength="3" />
+          <Property Name="proveedor" Type="varchar" MaxLength="50" />
+          <Property Name="num_doc" Type="varchar" MaxLength="50" />
+          <Property Name="descrip" Type="varchar" MaxLength="150" />
+          <Property Name="monto" Type="decimal" Nullable="false" />
+          <Property Name="monto_yen" Type="decimal" Nullable="false" />
+          <Property Name="cod_entrada" Type="int" />
+          <Property Name="cod_articulo" Type="int" />
+          <Property Name="glfecha" Type="datetime" />
+          <Property Name="estado_aprov" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
         <Association Name="FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS">
           <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.Store.AFN_LOTE_ARTICULOS" Multiplicity="1" />
           <End Role="AFN_INVENTARIO" Type="AFNModel.Store.AFN_INVENTARIO" Multiplicity="*" />
@@ -254,8 +297,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AFNModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -286,6 +328,7 @@
             <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
             <End Role="AFN_INVENTARIO_TRIB" EntitySet="AFN_INVENTARIO_TRIB" />
           </AssociationSet>
+          <EntitySet Name="AFN_OBRA_CONS" EntityType="AFNModel.AFN_OBRA_CONS" />
         </EntityContainer>
         <EntityType Name="AFN_INVENTARIO">
           <Key>
@@ -518,6 +561,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AFN_OBRA_CONS">
+          <Key>
+            <PropertyRef Name="codmov" />
+            <PropertyRef Name="tipo" />
+            <PropertyRef Name="txfecha" />
+            <PropertyRef Name="monto" />
+            <PropertyRef Name="monto_yen" />
+            <PropertyRef Name="estado_aprov" />
+          </Key>
+          <Property Type="Int32" Name="codmov" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="tipo" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="txfecha" Nullable="false" />
+          <Property Type="String" Name="zona" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="proveedor" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="num_doc" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="descrip" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="monto" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="monto_yen" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="cod_entrada" />
+          <Property Type="Int32" Name="cod_articulo" />
+          <Property Type="DateTime" Name="glfecha" />
+          <Property Type="String" Name="estado_aprov" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -691,6 +757,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AFN_OBRA_CONS">
+            <EntityTypeMapping TypeName="AFNModel.AFN_OBRA_CONS">
+              <MappingFragment StoreEntitySet="AFN_OBRA_CONS">
+                <ScalarProperty Name="estado_aprov" ColumnName="estado_aprov" />
+                <ScalarProperty Name="glfecha" ColumnName="glfecha" />
+                <ScalarProperty Name="cod_articulo" ColumnName="cod_articulo" />
+                <ScalarProperty Name="cod_entrada" ColumnName="cod_entrada" />
+                <ScalarProperty Name="monto_yen" ColumnName="monto_yen" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="num_doc" ColumnName="num_doc" />
+                <ScalarProperty Name="proveedor" ColumnName="proveedor" />
+                <ScalarProperty Name="zona" ColumnName="zona" />
+                <ScalarProperty Name="txfecha" ColumnName="txfecha" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="codmov" ColumnName="codmov" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -740,6 +825,7 @@
           <ConnectorPoint PointX="8" PointY="7.3858040364583317" />
           <ConnectorPoint PointX="8" PointY="8.75" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="AFNModel.AFN_OBRA_CONS" Width="1.5" PointX="2.5" PointY="12" Height="3.2970182291666674" />
       </Diagram>
     </Diagrams>
   </Designer>

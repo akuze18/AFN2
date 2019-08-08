@@ -69,13 +69,21 @@
             this.smSistema02 = new System.Windows.Forms.ToolStripMenuItem();
             this.smSistema03 = new System.Windows.Forms.ToolStripMenuItem();
             this.smSistema04 = new System.Windows.Forms.ToolStripMenuItem();
+            this.smSistema05 = new System.Windows.Forms.ToolStripMenuItem();
+            this.smSistemaTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.migracionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smMigracion01 = new System.Windows.Forms.ToolStripMenuItem();
+            this.smMigracion02 = new System.Windows.Forms.ToolStripMenuItem();
+            this.smMigracion03 = new System.Windows.Forms.ToolStripMenuItem();
+            this.smMigracion04 = new System.Windows.Forms.ToolStripMenuItem();
+            this.smMigracion05 = new System.Windows.Forms.ToolStripMenuItem();
+            this.smMigracion06 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.smSistemaTest = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -88,7 +96,8 @@
             this.procesosToolStripMenuItem,
             this.reportesToolStripMenuItem,
             this.inventarioToolStripMenuItem,
-            this.sistemaToolStripMenuItem});
+            this.sistemaToolStripMenuItem,
+            this.migracionToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(605, 24);
@@ -114,13 +123,14 @@
             this.smConsulta01.Name = "smConsulta01";
             this.smConsulta01.Size = new System.Drawing.Size(220, 22);
             this.smConsulta01.Text = "Ficha Ingreso";
-            this.smConsulta01.Click += new System.EventHandler(this.smConsulta01_Click);            
+            this.smConsulta01.Click += new System.EventHandler(this.smConsulta01_Click);
             // 
             // smConsulta02
             // 
             this.smConsulta02.Name = "smConsulta02";
             this.smConsulta02.Size = new System.Drawing.Size(220, 22);
             this.smConsulta02.Text = "Ficha Baja";
+            this.smConsulta02.Click += new System.EventHandler(this.smConsulta02_Click);
             // 
             // smConsulta03
             // 
@@ -152,6 +162,7 @@
             this.smConsulta06.Name = "smConsulta06";
             this.smConsulta06.Size = new System.Drawing.Size(220, 22);
             this.smConsulta06.Text = "Obras en Construcción";
+            this.smConsulta06.Click += new System.EventHandler(this.smConsulta06_Click);
             // 
             // cambiosToolStripMenuItem
             // 
@@ -273,18 +284,21 @@
             this.smReporte01.Name = "smReporte01";
             this.smReporte01.Size = new System.Drawing.Size(196, 22);
             this.smReporte01.Text = "Activos Vigentes";
+            this.smReporte01.Click += new System.EventHandler(this.smReporte01_Click);
             // 
             // smReporte02
             // 
             this.smReporte02.Name = "smReporte02";
             this.smReporte02.Size = new System.Drawing.Size(196, 22);
             this.smReporte02.Text = "Activos de Baja";
+            this.smReporte02.Click += new System.EventHandler(this.smReporte02_Click);
             // 
             // smReporte03
             // 
             this.smReporte03.Name = "smReporte03";
             this.smReporte03.Size = new System.Drawing.Size(196, 22);
             this.smReporte03.Text = "Cuadro Movimiento";
+            this.smReporte03.Click += new System.EventHandler(this.smReporte03_Click);
             // 
             // smReporte04
             // 
@@ -346,6 +360,7 @@
             this.smSistema02,
             this.smSistema03,
             this.smSistema04,
+            this.smSistema05,
             this.smSistemaTest});
             this.sistemaToolStripMenuItem.Name = "sistemaToolStripMenuItem";
             this.sistemaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
@@ -375,8 +390,78 @@
             this.smSistema04.Size = new System.Drawing.Size(257, 22);
             this.smSistema04.Text = "Configuraciones";
             // 
+            // smSistema05
+            // 
+            this.smSistema05.Name = "smSistema05";
+            this.smSistema05.Size = new System.Drawing.Size(257, 22);
+            this.smSistema05.Text = "Depreciar Periodo";
+            this.smSistema05.Click += new System.EventHandler(this.smSistema05_Click);
+            // 
+            // smSistemaTest
+            // 
+            this.smSistemaTest.Name = "smSistemaTest";
+            this.smSistemaTest.Size = new System.Drawing.Size(257, 22);
+            this.smSistemaTest.Text = "Test";
+            this.smSistemaTest.Click += new System.EventHandler(this.smSistemaTest_Click);
+            // 
+            // migracionToolStripMenuItem
+            // 
+            this.migracionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.smMigracion01,
+            this.smMigracion02,
+            this.smMigracion03,
+            this.smMigracion04,
+            this.smMigracion05,
+            this.smMigracion06});
+            this.migracionToolStripMenuItem.Name = "migracionToolStripMenuItem";
+            this.migracionToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.migracionToolStripMenuItem.Text = "Migracion";
+            // 
+            // smMigracion01
+            // 
+            this.smMigracion01.Name = "smMigracion01";
+            this.smMigracion01.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion01.Text = "Traer Datos desde AFN1";
+            this.smMigracion01.Click += new System.EventHandler(this.smMigracion01_Click);
+            // 
+            // smMigracion02
+            // 
+            this.smMigracion02.Name = "smMigracion02";
+            this.smMigracion02.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion02.Text = "Traer Depreciacion desde AFN1";
+            this.smMigracion02.Click += new System.EventHandler(this.smMigracion02_Click);
+            // 
+            // smMigracion03
+            // 
+            this.smMigracion03.Name = "smMigracion03";
+            this.smMigracion03.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion03.Text = "Agregar Credito";
+            this.smMigracion03.Click += new System.EventHandler(this.smMigracion03_Click);
+            // 
+            // smMigracion04
+            // 
+            this.smMigracion04.Name = "smMigracion04";
+            this.smMigracion04.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion04.Text = "Mantenedor Parametros";
+            this.smMigracion04.Click += new System.EventHandler(this.smMigracion04_Click);
+            // 
+            // smMigracion05
+            // 
+            this.smMigracion05.Name = "smMigracion05";
+            this.smMigracion05.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion05.Text = "Corregir Bajas desde AFN1";
+            this.smMigracion05.Click += new System.EventHandler(this.smMigracion05_Click);
+            // 
+            // smMigracion06
+            // 
+            this.smMigracion06.Name = "smMigracion06";
+            this.smMigracion06.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion06.Text = "Agregar OBC desde AFN1";
+            this.smMigracion06.Click += new System.EventHandler(this.smMigracion06_Click);
+            // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
@@ -423,13 +508,6 @@
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Size = new System.Drawing.Size(72, 21);
             this.toolStripStatusLabel5.Text = "BaseDato";
-            // 
-            // smSistemaTest
-            // 
-            this.smSistemaTest.Name = "smSistemaTest";
-            this.smSistemaTest.Size = new System.Drawing.Size(257, 22);
-            this.smSistemaTest.Text = "Test";
-            this.smSistemaTest.Click += new System.EventHandler(this.smSistemaTest_Click);
             // 
             // welcome
             // 
@@ -502,5 +580,13 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
         private System.Windows.Forms.ToolStripMenuItem smSistemaTest;
+        private System.Windows.Forms.ToolStripMenuItem smSistema05;
+        private System.Windows.Forms.ToolStripMenuItem migracionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smMigracion01;
+        private System.Windows.Forms.ToolStripMenuItem smMigracion02;
+        private System.Windows.Forms.ToolStripMenuItem smMigracion03;
+        private System.Windows.Forms.ToolStripMenuItem smMigracion04;
+        private System.Windows.Forms.ToolStripMenuItem smMigracion05;
+        private System.Windows.Forms.ToolStripMenuItem smMigracion06;
     }
 }

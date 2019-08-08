@@ -14,6 +14,21 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -24,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -34,13 +50,33 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ACode">
+      <HintPath>.\ACode.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
@@ -55,12 +91,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="PCClient\FormBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +98,51 @@
       <DependentUpon>FormBase.cs</DependentUpon>
     </Compile>
     <Compile Include="PCClient\Procesos\Consultas.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\TituloCabera.cs" />
+    <Compile Include="PCClient\Procesos\Migracion.cs" />
+    <Compile Include="PCClient\Procesos\Reportes.cs" />
+    <Compile Include="PCClient\Vistas\Busquedas\articulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\articulo.Designer.cs">
+      <DependentUpon>articulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Consultas\saldos_obc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Consultas\saldos_obc.Designer.cs">
+      <DependentUpon>saldos_obc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Migracion\Ajuste_Parametros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Migracion\Ajuste_Parametros.Designer.cs">
+      <DependentUpon>Ajuste_Parametros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\bajas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\bajas.Designer.cs">
+      <DependentUpon>bajas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\cuadro_movimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\cuadro_movimiento.Designer.cs">
+      <DependentUpon>cuadro_movimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\vigentes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\vigentes.Designer.cs">
+      <DependentUpon>vigentes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Sistema\Depreciar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Sistema\Depreciar.Designer.cs">
+      <DependentUpon>Depreciar.cs</DependentUpon>
+    </Compile>
     <Compile Include="PCClient\Vistas\welcome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,11 +156,42 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AFN2.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ServiceProcess\DataContract\AFNold.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AFNold.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceProcess\DataContract\DETAIL_DEPRECIATE.cs" />
+    <Compile Include="ServiceProcess\DataContract\DETAIL_MOVEMENT.cs" />
+    <Compile Include="ServiceProcess\DataContract\DETAIL_OBC.cs" />
     <Compile Include="ServiceProcess\DataContract\DETAIL_PROCESS.cs" />
     <Compile Include="ServiceProcess\DataContract\GENERIC_VALUE.cs" />
+    <Compile Include="ServiceProcess\DataContract\GROUP_MOVEMENT.cs" />
+    <Compile Include="ServiceProcess\DataContract\GROUP_OBC.cs" />
+    <Compile Include="ServiceProcess\DataContract\IElemento.cs" />
+    <Compile Include="ServiceProcess\DataContract\LIST_CORR_MON.cs" />
+    <Compile Include="ServiceProcess\DataContract\LIST_PARAM_VALUE.cs" />
     <Compile Include="ServiceProcess\DataContract\PARAM_VALUE.cs" />
+    <Compile Include="ServiceProcess\DataContract\PART.cs" />
     <Compile Include="ServiceProcess\DataContract\RespuestaAccion.cs" />
-    <Compile Include="ServiceProcess\Repositories\ALL.cs" />
+    <Compile Include="ServiceProcess\DataContract\SYSTEM.cs" />
+    <Compile Include="ServiceProcess\DataContract\TRANSACTION_HEADER.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\CABECERA.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\CLASE.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\CORRECCION_MONETARIA.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\DETALLE_PARAMETRO.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\MONEDA.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\PARTE.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\SISTEMA.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\SITUACION.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\TIPO.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\VIGENCIA.cs" />
+    <Compile Include="ServiceProcess\Migration.cs" />
+    <Compile Include="ServiceProcess\Process.cs" />
+    <Compile Include="ServiceProcess\Repositories\BATCHES_ARTICLES.cs" />
+    <Compile Include="ServiceProcess\Repositories\CORRECTIONS_MONETARIES_VALUES.cs" />
+    <Compile Include="ServiceProcess\Repositories\CURRENCIES.cs" />
+    <Compile Include="ServiceProcess\Repositories\Main.cs" />
     <Compile Include="ServiceProcess\Repositories\APROVALS_STATES.cs" />
     <Compile Include="ServiceProcess\Repositories\CATEGORIES.cs" />
     <Compile Include="ServiceProcess\Repositories\DOCUMENTS.cs" />
@@ -93,16 +199,48 @@
     <Compile Include="ServiceProcess\Repositories\MANAGEMENTS.cs" />
     <Compile Include="ServiceProcess\Repositories\ORIGINS.cs" />
     <Compile Include="ServiceProcess\Repositories\PARAMETERS.cs" />
+    <Compile Include="ServiceProcess\Repositories\PARTS.cs" />
+    <Compile Include="ServiceProcess\Repositories\SITUATIONS.cs" />
     <Compile Include="ServiceProcess\Repositories\SUBKINDS.cs" />
     <Compile Include="ServiceProcess\Repositories\SUBZONES.cs" />
     <Compile Include="ServiceProcess\Repositories\SYSTEMS.cs" />
     <Compile Include="ServiceProcess\Repositories\SYSTEMS_PARAMETERS.cs" />
+    <Compile Include="ServiceProcess\Repositories\TRANSACTIONS_HEADERS.cs" />
+    <Compile Include="ServiceProcess\Repositories\TRANSACTIONS_PARAM_DET.cs" />
     <Compile Include="ServiceProcess\Repositories\TYPES_ASSETS.cs" />
     <Compile Include="ServiceProcess\Repositories\VALIDATIES.cs" />
     <Compile Include="ServiceProcess\Repositories\ZONES.cs" />
     <Compile Include="ServiceProcess\ServiceAFN.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\ESTADO_APROVACION.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\ZONA.cs" />
+    <Compile Include="ServiceProcess\Tracking\ExportTo.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="PCClient\FormBase.resx">
       <DependentUpon>FormBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Busquedas\articulo.resx">
+      <DependentUpon>articulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Consultas\saldos_obc.resx">
+      <DependentUpon>saldos_obc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Migracion\Ajuste_Parametros.resx">
+      <DependentUpon>Ajuste_Parametros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Reportes\bajas.resx">
+      <DependentUpon>bajas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Reportes\cuadro_movimiento.resx">
+      <DependentUpon>cuadro_movimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Reportes\vigentes.resx">
+      <DependentUpon>vigentes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Sistema\Depreciar.resx">
+      <DependentUpon>Depreciar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\welcome.resx">
+      <DependentUpon>welcome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -128,6 +266,10 @@
     <EntityDeploy Include="ServiceProcess\DataContract\AFN2.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AFN2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="ServiceProcess\DataContract\AFNold.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AFNold.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +344,29 @@
   <ItemGroup>
     <None Include="Resources\eject.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

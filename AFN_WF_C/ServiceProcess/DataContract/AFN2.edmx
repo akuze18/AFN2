@@ -4,12 +4,19 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AFN2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="AFN2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="AFN2ModelStoreContainer">
           <EntitySet Name="APROVAL_STATES" EntityType="AFN2Model.Store.APROVAL_STATES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ASSETS_IN_PROGRESS_DETAIL" EntityType="AFN2Model.Store.ASSETS_IN_PROGRESS_DETAIL" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ASSETS_IN_PROGRESS_HEAD" EntityType="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BASE_GLOBAL_AFN_CALC" EntityType="AFN2Model.Store.BASE_GLOBAL_AFN_CALC" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BASE_LOCAL_AFN_CALC" EntityType="AFN2Model.Store.BASE_LOCAL_AFN_CALC" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="BATCHS_ARTICLES" EntityType="AFN2Model.Store.BATCHS_ARTICLES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CATEGORIES" EntityType="AFN2Model.Store.CATEGORIES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CORRECTIONS_MONETARIES_VALUES" EntityType="AFN2Model.Store.CORRECTIONS_MONETARIES_VALUES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CURRENCIES" EntityType="AFN2Model.Store.CURRENCIES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DOCS_BATCH" EntityType="AFN2Model.Store.DOCS_BATCH" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DOCS_OBC" EntityType="AFN2Model.Store.DOCS_OBC" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DOCUMENTS" EntityType="AFN2Model.Store.DOCUMENTS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ENVIORMENTS" EntityType="AFN2Model.Store.ENVIORMENTS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="KINDS" EntityType="AFN2Model.Store.KINDS" store:Type="Tables" Schema="dbo" />
@@ -19,6 +26,7 @@
           <EntitySet Name="PACKAGE_PAIR_KINDS" EntityType="AFN2Model.Store.PACKAGE_PAIR_KINDS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PARAMETERS" EntityType="AFN2Model.Store.PARAMETERS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PARTS" EntityType="AFN2Model.Store.PARTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SITUATION" EntityType="AFN2Model.Store.SITUATION" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SUBKINDS" EntityType="AFN2Model.Store.SUBKINDS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SUBZONES" EntityType="AFN2Model.Store.SUBZONES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SYSTEMS" EntityType="AFN2Model.Store.SYSTEMS" store:Type="Tables" Schema="dbo" />
@@ -29,6 +37,30 @@
           <EntitySet Name="TYPES_ASSETS" EntityType="AFN2Model.Store.TYPES_ASSETS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="VALIDATIES" EntityType="AFN2Model.Store.VALIDATIES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZONES" EntityType="AFN2Model.Store.ZONES" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__ASSETS_IN__aprov__1940BAED" Association="AFN2Model.Store.FK__ASSETS_IN__aprov__1940BAED">
+            <End Role="APROVAL_STATES" EntitySet="APROVAL_STATES" />
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__batch__184C96B4" Association="AFN2Model.Store.FK__ASSETS_IN__batch__184C96B4">
+            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__curre__1EF99443" Association="AFN2Model.Store.FK__ASSETS_IN__curre__1EF99443">
+            <End Role="CURRENCIES" EntitySet="CURRENCIES" />
+            <End Role="ASSETS_IN_PROGRESS_DETAIL" EntitySet="ASSETS_IN_PROGRESS_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__entra__1758727B" Association="AFN2Model.Store.FK__ASSETS_IN__entra__1758727B">
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+            <End Role="ASSETS_IN_PROGRESS_HEAD1" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__head___1E05700A" Association="AFN2Model.Store.FK__ASSETS_IN__head___1E05700A">
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+            <End Role="ASSETS_IN_PROGRESS_DETAIL" EntitySet="ASSETS_IN_PROGRESS_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__zone___16644E42" Association="AFN2Model.Store.FK__ASSETS_IN__zone___16644E42">
+            <End Role="ZONES" EntitySet="ZONES" />
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+          </AssociationSet>
           <AssociationSet Name="FK__BATCHS_AR__aprov__7AF13DF7" Association="AFN2Model.Store.FK__BATCHS_AR__aprov__7AF13DF7">
             <End Role="APROVAL_STATES" EntitySet="APROVAL_STATES" />
             <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
@@ -41,9 +73,21 @@
             <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
             <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
           </AssociationSet>
-          <AssociationSet Name="FK__DOCUMENTS__batch__038683F8" Association="AFN2Model.Store.FK__DOCUMENTS__batch__038683F8">
+          <AssociationSet Name="FK__DOCS_BATC__batch__3E723F9C" Association="AFN2Model.Store.FK__DOCS_BATC__batch__3E723F9C">
             <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
+            <End Role="DOCS_BATCH" EntitySet="DOCS_BATCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DOCS_BATC__docum__3D7E1B63" Association="AFN2Model.Store.FK__DOCS_BATC__docum__3D7E1B63">
             <End Role="DOCUMENTS" EntitySet="DOCUMENTS" />
+            <End Role="DOCS_BATCH" EntitySet="DOCS_BATCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DOCS_OBC__docume__34E8D562" Association="AFN2Model.Store.FK__DOCS_OBC__docume__34E8D562">
+            <End Role="DOCUMENTS" EntitySet="DOCUMENTS" />
+            <End Role="DOCS_OBC" EntitySet="DOCS_OBC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DOCS_OBC__obc_id__35DCF99B" Association="AFN2Model.Store.FK__DOCS_OBC__obc_id__35DCF99B">
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+            <End Role="DOCS_OBC" EntitySet="DOCS_OBC" />
           </AssociationSet>
           <AssociationSet Name="FK__KINDS__type_asse__65F62111" Association="AFN2Model.Store.FK__KINDS__type_asse__65F62111">
             <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
@@ -64,6 +108,14 @@
           <AssociationSet Name="FK__PARTS__article_i__39E294A9" Association="AFN2Model.Store.FK__PARTS__article_i__39E294A9">
             <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
             <End Role="PARTS" EntitySet="PARTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SITUATION__estad__10AB74EC" Association="AFN2Model.Store.FK__SITUATION__estad__10AB74EC">
+            <End Role="VALIDATIES" EntitySet="VALIDATIES" />
+            <End Role="SITUATION" EntitySet="SITUATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SITUATION__estad__119F9925" Association="AFN2Model.Store.FK__SITUATION__estad__119F9925">
+            <End Role="VALIDATIES" EntitySet="VALIDATIES" />
+            <End Role="SITUATION" EntitySet="SITUATION" />
           </AssociationSet>
           <AssociationSet Name="FK__SUBKINDS__kind_i__2B947552" Association="AFN2Model.Store.FK__SUBKINDS__kind_i__2B947552">
             <End Role="KINDS" EntitySet="KINDS" />
@@ -150,6 +202,135 @@
           <Property Name="code" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="100" />
         </EntityType>
+        <EntityType Name="ASSETS_IN_PROGRESS_DETAIL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="head_id" Type="int" Nullable="false" />
+          <Property Name="currency_id" Type="int" Nullable="false" />
+          <Property Name="amount" Type="decimal" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ASSETS_IN_PROGRESS_HEAD">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="varchar" Nullable="false" MaxLength="2" />
+          <Property Name="trx_date" Type="datetime" Nullable="false" />
+          <Property Name="zone_id" Type="int" Nullable="false" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="entrada_id" Type="int" />
+          <Property Name="batch_id" Type="int" />
+          <Property Name="post_date" Type="datetime" Nullable="false" />
+          <Property Name="aproval_state_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BASE_GLOBAL_AFN_CALC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="fuente" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="fecha_corte" Type="datetime" Nullable="false" />
+          <Property Name="cod_articulo" Type="int" Nullable="false" />
+          <Property Name="parte" Type="int" Nullable="false" />
+          <Property Name="fec_compra" Type="datetime" Nullable="false" />
+          <Property Name="dsc_breve" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="cod_est" Type="int" Nullable="false" />
+          <Property Name="estado" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="zona" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="clase" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="valor_anterior" Type="decimal" Nullable="false" />
+          <Property Name="preparacion" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="desmantel" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="transporte" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="montaje" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="honorario" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="cred_adi" Type="decimal" Nullable="false" Precision="16" />
+          <Property Name="val_AF" Type="decimal" Nullable="false" />
+          <Property Name="DA_anterior" Type="decimal" Nullable="false" />
+          <Property Name="deter" Type="decimal" Nullable="false" />
+          <Property Name="val_res" Type="int" Nullable="false" />
+          <Property Name="val_suj_dep" Type="decimal" Nullable="false" />
+          <Property Name="vu_asig" Type="int" Nullable="false" />
+          <Property Name="vu_ocup" Type="int" Nullable="false" />
+          <Property Name="vu_resi" Type="int" Nullable="false" />
+          <Property Name="dep_eje" Type="decimal" Nullable="false" />
+          <Property Name="DA_AF" Type="decimal" Nullable="false" />
+          <Property Name="revaluacion" Type="decimal" Nullable="false" />
+          <Property Name="val_libro" Type="decimal" Nullable="false" />
+          <Property Name="cod_subzona" Type="int" />
+          <Property Name="txt_subzona" Type="varchar" MaxLength="50" />
+          <Property Name="cod_subclase" Type="varchar" MaxLength="5" />
+          <Property Name="txt_subclase" Type="varchar" MaxLength="50" />
+          <Property Name="id_gestion" Type="int" />
+          <Property Name="cod_gestion" Type="varchar" MaxLength="31" />
+          <Property Name="txt_gestion" Type="varchar" MaxLength="51" />
+          <Property Name="categoria" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="cod_valorz" Type="int" Nullable="false" />
+          <Property Name="valorizacion" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="fec_ingreso" Type="datetime" Nullable="false" />
+          <Property Name="fecha_ini" Type="datetime" Nullable="false" />
+          <Property Name="fecha_fin" Type="datetime" Nullable="false" />
+          <Property Name="origen" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="tipo" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="se_deprecia" Type="bit" Nullable="false" />
+          <Property Name="fila" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="BASE_LOCAL_AFN_CALC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="fuente" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="fecha_corte" Type="datetime" Nullable="false" />
+          <Property Name="cod_articulo" Type="int" Nullable="false" />
+          <Property Name="parte" Type="int" Nullable="false" />
+          <Property Name="fec_compra" Type="datetime" Nullable="false" />
+          <Property Name="dsc_breve" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="cod_est" Type="int" Nullable="false" />
+          <Property Name="estado" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="zona" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="clase" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="valor_anterior" Type="decimal" Nullable="false" />
+          <Property Name="pcm" Type="decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="cm_activo" Type="decimal" Nullable="false" />
+          <Property Name="val_actlzd" Type="decimal" Nullable="false" />
+          <Property Name="cred_adi" Type="decimal" Nullable="false" Precision="16" />
+          <Property Name="cred_base" Type="decimal" Nullable="false" Precision="16" />
+          <Property Name="val_AF" Type="decimal" Nullable="false" />
+          <Property Name="DA_anterior" Type="decimal" Nullable="false" />
+          <Property Name="cmDA" Type="decimal" Nullable="false" />
+          <Property Name="DA_actlzd" Type="decimal" Nullable="false" />
+          <Property Name="deter" Type="decimal" Nullable="false" />
+          <Property Name="val_res" Type="int" Nullable="false" />
+          <Property Name="val_suj_dep" Type="decimal" Nullable="false" />
+          <Property Name="vu_asig" Type="int" Nullable="false" />
+          <Property Name="vu_ocup" Type="int" Nullable="false" />
+          <Property Name="vu_resi" Type="int" Nullable="false" />
+          <Property Name="dep_eje" Type="decimal" Nullable="false" />
+          <Property Name="dep_EJB" Type="decimal" Nullable="false" />
+          <Property Name="DA_AF" Type="decimal" Nullable="false" />
+          <Property Name="val_libro" Type="decimal" Nullable="false" />
+          <Property Name="cod_subzona" Type="int" />
+          <Property Name="txt_subzona" Type="varchar" MaxLength="50" />
+          <Property Name="cod_subclase" Type="varchar" MaxLength="5" />
+          <Property Name="txt_subclase" Type="varchar" MaxLength="50" />
+          <Property Name="id_gestion" Type="int" />
+          <Property Name="cod_gestion" Type="varchar" MaxLength="31" />
+          <Property Name="txt_gestion" Type="varchar" MaxLength="51" />
+          <Property Name="categoria" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="fec_ingreso" Type="datetime" Nullable="false" />
+          <Property Name="fecha_ini" Type="datetime" Nullable="false" />
+          <Property Name="fecha_fin" Type="datetime" Nullable="false" />
+          <Property Name="origen" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="tipo" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="se_deprecia" Type="bit" Nullable="false" />
+          <Property Name="fila" Type="int" Nullable="false" />
+          <Property Name="vida_util_inicial" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="BATCHS_ARTICLES">
           <Key>
             <PropertyRef Name="id" />
@@ -172,6 +353,15 @@
           <Property Name="code" Type="varchar" Nullable="false" MaxLength="5" />
           <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="80" />
         </EntityType>
+        <EntityType Name="CORRECTIONS_MONETARIES_VALUES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="period" Type="varchar" Nullable="false" MaxLength="6" />
+          <Property Name="applyTo" Type="int" Nullable="false" />
+          <Property Name="amount" Type="decimal" Nullable="false" Precision="10" Scale="4" />
+        </EntityType>
         <EntityType Name="CURRENCIES">
           <Key>
             <PropertyRef Name="id" />
@@ -179,6 +369,22 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="code" Type="varchar" Nullable="false" MaxLength="15" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DOCS_BATCH">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="document_id" Type="int" Nullable="false" />
+          <Property Name="batch_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DOCS_OBC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="document_id" Type="int" Nullable="false" />
+          <Property Name="obc_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DOCUMENTS">
           <Key>
@@ -189,7 +395,6 @@
           <Property Name="comment" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="proveedor_id" Type="varchar" Nullable="false" MaxLength="30" />
           <Property Name="proveedor_name" Type="varchar(max)" Nullable="false" />
-          <Property Name="batch_article_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ENVIORMENTS">
           <Key>
@@ -200,6 +405,7 @@
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="depreciation_rate" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="credit_rate" Type="decimal" Nullable="false" Precision="10" Scale="5" />
+          <Property Name="allow_cm_neg" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="KINDS">
           <Key>
@@ -262,6 +468,15 @@
           <Property Name="article_id" Type="int" Nullable="false" />
           <Property Name="part_index" Type="int" Nullable="false" />
           <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SITUATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="estado1" Type="int" Nullable="false" />
+          <Property Name="estado2" Type="int" Nullable="false" />
+          <Property Name="condicion" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SUBKINDS">
           <Key>
@@ -335,7 +550,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="trx_head_id" Type="int" Nullable="false" />
           <Property Name="system_id" Type="int" Nullable="false" />
           <Property Name="paratemer_id" Type="int" Nullable="false" />
@@ -365,6 +580,78 @@
           <Property Name="codDept" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="codOld" Type="varchar" Nullable="false" MaxLength="10" />
         </EntityType>
+        <Association Name="FK__ASSETS_IN__aprov__1940BAED">
+          <End Role="APROVAL_STATES" Type="AFN2Model.Store.APROVAL_STATES" Multiplicity="1" />
+          <End Role="ASSETS_IN_PROGRESS_HEAD" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APROVAL_STATES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="aproval_state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__batch__184C96B4">
+          <End Role="BATCHS_ARTICLES" Type="AFN2Model.Store.BATCHS_ARTICLES" Multiplicity="0..1" />
+          <End Role="ASSETS_IN_PROGRESS_HEAD" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BATCHS_ARTICLES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__curre__1EF99443">
+          <End Role="CURRENCIES" Type="AFN2Model.Store.CURRENCIES" Multiplicity="1" />
+          <End Role="ASSETS_IN_PROGRESS_DETAIL" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURRENCIES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_DETAIL">
+              <PropertyRef Name="currency_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__entra__1758727B">
+          <End Role="ASSETS_IN_PROGRESS_HEAD" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" Multiplicity="0..1" />
+          <End Role="ASSETS_IN_PROGRESS_HEAD1" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_HEAD1">
+              <PropertyRef Name="entrada_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__head___1E05700A">
+          <End Role="ASSETS_IN_PROGRESS_HEAD" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" Multiplicity="1" />
+          <End Role="ASSETS_IN_PROGRESS_DETAIL" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_DETAIL">
+              <PropertyRef Name="head_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__zone___16644E42">
+          <End Role="ZONES" Type="AFN2Model.Store.ZONES" Multiplicity="1" />
+          <End Role="ASSETS_IN_PROGRESS_HEAD" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="zone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__BATCHS_AR__aprov__7AF13DF7">
           <End Role="APROVAL_STATES" Type="AFN2Model.Store.APROVAL_STATES" Multiplicity="1" />
           <End Role="BATCHS_ARTICLES" Type="AFN2Model.Store.BATCHS_ARTICLES" Multiplicity="*" />
@@ -401,15 +688,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DOCUMENTS__batch__038683F8">
+        <Association Name="FK__DOCS_BATC__batch__3E723F9C">
           <End Role="BATCHS_ARTICLES" Type="AFN2Model.Store.BATCHS_ARTICLES" Multiplicity="1" />
-          <End Role="DOCUMENTS" Type="AFN2Model.Store.DOCUMENTS" Multiplicity="*" />
+          <End Role="DOCS_BATCH" Type="AFN2Model.Store.DOCS_BATCH" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BATCHS_ARTICLES">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="DOCUMENTS">
-              <PropertyRef Name="batch_article_id" />
+            <Dependent Role="DOCS_BATCH">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DOCS_BATC__docum__3D7E1B63">
+          <End Role="DOCUMENTS" Type="AFN2Model.Store.DOCUMENTS" Multiplicity="1" />
+          <End Role="DOCS_BATCH" Type="AFN2Model.Store.DOCS_BATCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCUMENTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DOCS_BATCH">
+              <PropertyRef Name="document_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DOCS_OBC__docume__34E8D562">
+          <End Role="DOCUMENTS" Type="AFN2Model.Store.DOCUMENTS" Multiplicity="1" />
+          <End Role="DOCS_OBC" Type="AFN2Model.Store.DOCS_OBC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCUMENTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DOCS_OBC">
+              <PropertyRef Name="document_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DOCS_OBC__obc_id__35DCF99B">
+          <End Role="ASSETS_IN_PROGRESS_HEAD" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" Multiplicity="1" />
+          <End Role="DOCS_OBC" Type="AFN2Model.Store.DOCS_OBC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DOCS_OBC">
+              <PropertyRef Name="obc_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -470,6 +793,30 @@
             </Principal>
             <Dependent Role="PARTS">
               <PropertyRef Name="article_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SITUATION__estad__10AB74EC">
+          <End Role="VALIDATIES" Type="AFN2Model.Store.VALIDATIES" Multiplicity="1" />
+          <End Role="SITUATION" Type="AFN2Model.Store.SITUATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALIDATIES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SITUATION">
+              <PropertyRef Name="estado1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SITUATION__estad__119F9925">
+          <End Role="VALIDATIES" Type="AFN2Model.Store.VALIDATIES" Multiplicity="1" />
+          <End Role="SITUATION" Type="AFN2Model.Store.SITUATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALIDATIES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SITUATION">
+              <PropertyRef Name="estado2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -701,8 +1048,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AFN2Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -711,7 +1057,6 @@
           <EntitySet Name="BATCHS_ARTICLES" EntityType="AFN2Model.BATCH_ARTICLE" />
           <EntitySet Name="CATEGORIES" EntityType="AFN2Model.CATEGORY" />
           <EntitySet Name="CURRENCIES" EntityType="AFN2Model.CURRENCY" />
-          <EntitySet Name="DOCUMENTS" EntityType="AFN2Model.DOCUMENT" />
           <EntitySet Name="ENVIORMENTS" EntityType="AFN2Model.ENVIORMENT" />
           <EntitySet Name="KINDS" EntityType="AFN2Model.KIND" />
           <EntitySet Name="MANAGEMENTS" EntityType="AFN2Model.MANAGEMENT" />
@@ -726,7 +1071,6 @@
           <EntitySet Name="SYSTEMS_PARAMETERS" EntityType="AFN2Model.SYSTEM_PARAMETER" />
           <EntitySet Name="TRANSACTIONS_DETAILS" EntityType="AFN2Model.TRANSACTION_DETAIL" />
           <EntitySet Name="TRANSACTIONS_HEADERS" EntityType="AFN2Model.TRANSACTION_HEADER" />
-          <EntitySet Name="TRANSACTIONS_PARAMETERS_DETAILS" EntityType="AFN2Model.TRANSACTION_PARAMETER_DETAIL" />
           <EntitySet Name="TYPES_ASSETS" EntityType="AFN2Model.TYPE_ASSET" />
           <EntitySet Name="VALIDATIES" EntityType="AFN2Model.VALIDATY" />
           <EntitySet Name="ZONES" EntityType="AFN2Model.ZONE" />
@@ -741,10 +1085,6 @@
           <AssociationSet Name="FK__BATCHS_AR__type___7CD98669" Association="AFN2Model.FK__BATCHS_AR__type___7CD98669">
             <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
             <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DOCUMENTS__batch__038683F8" Association="AFN2Model.FK__DOCUMENTS__batch__038683F8">
-            <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
-            <End Role="DOCUMENTS" EntitySet="DOCUMENTS" />
           </AssociationSet>
           <AssociationSet Name="FK__PARTS__article_i__39E294A9" Association="AFN2Model.FK__PARTS__article_i__39E294A9">
             <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
@@ -794,10 +1134,6 @@
             <End Role="PARAMETERS" EntitySet="PARAMETERS" />
             <End Role="SYSTEMS_PARAMETERS" EntitySet="SYSTEMS_PARAMETERS" />
           </AssociationSet>
-          <AssociationSet Name="FK__TRANSACTI__parat__5E1FF51F" Association="AFN2Model.FK__TRANSACTI__parat__5E1FF51F">
-            <End Role="PARAMETERS" EntitySet="PARAMETERS" />
-            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
-          </AssociationSet>
           <AssociationSet Name="FK__TRANSACTI__artic__45544755" Association="AFN2Model.FK__TRANSACTI__artic__45544755">
             <End Role="PARTS" EntitySet="PARTS" />
             <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
@@ -822,10 +1158,6 @@
             <End Role="SYSTEMS" EntitySet="SYSTEMS" />
             <End Role="TRANSACTIONS_DETAILS" EntitySet="TRANSACTIONS_DETAILS" />
           </AssociationSet>
-          <AssociationSet Name="FK__TRANSACTI__syste__5D2BD0E6" Association="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6">
-            <End Role="SYSTEMS" EntitySet="SYSTEMS" />
-            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
-          </AssociationSet>
           <AssociationSet Name="FK__TRANSACTI__trx_h__52AE4273" Association="AFN2Model.FK__TRANSACTI__trx_h__52AE4273">
             <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
             <End Role="TRANSACTIONS_DETAILS" EntitySet="TRANSACTIONS_DETAILS" />
@@ -834,13 +1166,79 @@
             <End Role="VALIDATIES" EntitySet="VALIDATIES" />
             <End Role="TRANSACTIONS_DETAILS" EntitySet="TRANSACTIONS_DETAILS" />
           </AssociationSet>
-          <AssociationSet Name="FK__TRANSACTI__trx_h__5C37ACAD" Association="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD">
-            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
-            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
-          </AssociationSet>
           <AssociationSet Name="FK__TRANSACTI__zone___46486B8E" Association="AFN2Model.FK__TRANSACTI__zone___46486B8E">
             <End Role="ZONES" EntitySet="ZONES" />
             <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <EntitySet Name="CORRECTIONS_MONETARIES_VALUES" EntityType="AFN2Model.CORRECTION_MONETARY_VALUE" />
+          <EntitySet Name="BASE_GLOBAL_AFN_CALC" EntityType="AFN2Model.BASE_GLOBAL_AFN_CALC" />
+          <EntitySet Name="BASE_LOCAL_AFN_CALC" EntityType="AFN2Model.BASE_LOCAL_AFN_CALC" />
+          <EntitySet Name="TRANSACTIONS_PARAMETERS_DETAILS" EntityType="AFN2Model.TRANSACTION_PARAMETER_DETAIL" />
+          <AssociationSet Name="FK__TRANSACTI__parat__5E1FF51F" Association="AFN2Model.FK__TRANSACTI__parat__5E1FF51F">
+            <End Role="PARAMETER" EntitySet="PARAMETERS" />
+            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__syste__5D2BD0E6" Association="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6">
+            <End Role="SYSTEM" EntitySet="SYSTEMS" />
+            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__trx_h__5C37ACAD" Association="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD">
+            <End Role="TRANSACTION_HEADER" EntitySet="TRANSACTIONS_HEADERS" />
+            <End Role="TRANSACTIONS_PARAMETERS_DETAILS" EntitySet="TRANSACTIONS_PARAMETERS_DETAILS" />
+          </AssociationSet>
+          <EntitySet Name="SITUATIONS" EntityType="AFN2Model.SITUATION" />
+          <AssociationSet Name="FK__SITUATION__estad__10AB74EC" Association="AFN2Model.FK__SITUATION__estad__10AB74EC">
+            <End Role="VALIDATY" EntitySet="VALIDATIES" />
+            <End Role="SITUATION" EntitySet="SITUATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SITUATION__estad__119F9925" Association="AFN2Model.FK__SITUATION__estad__119F9925">
+            <End Role="VALIDATY" EntitySet="VALIDATIES" />
+            <End Role="SITUATION" EntitySet="SITUATIONS" />
+          </AssociationSet>
+          <EntitySet Name="ASSETS_IN_PROGRESS_DETAIL" EntityType="AFN2Model.ASSET_IN_PROGRESS_DETAIL" />
+          <EntitySet Name="ASSETS_IN_PROGRESS_HEAD" EntityType="AFN2Model.ASSET_IN_PROGRESS_HEAD" />
+          <AssociationSet Name="FK__ASSETS_IN__aprov__1940BAED" Association="AFN2Model.FK__ASSETS_IN__aprov__1940BAED">
+            <End Role="APROVAL_STATE" EntitySet="APROVAL_STATES" />
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__curre__1EF99443" Association="AFN2Model.FK__ASSETS_IN__curre__1EF99443">
+            <End Role="CURRENCY" EntitySet="CURRENCIES" />
+            <End Role="ASSETS_IN_PROGRESS_DETAIL" EntitySet="ASSETS_IN_PROGRESS_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__head___1E05700A" Association="AFN2Model.FK__ASSETS_IN__head___1E05700A">
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+            <End Role="ASSETS_IN_PROGRESS_DETAIL" EntitySet="ASSETS_IN_PROGRESS_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__batch__184C96B4" Association="AFN2Model.FK__ASSETS_IN__batch__184C96B4">
+            <End Role="BATCH_ARTICLE" EntitySet="BATCHS_ARTICLES" />
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__entra__1758727B" Association="AFN2Model.FK__ASSETS_IN__entra__1758727B">
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+            <End Role="ASSETS_IN_PROGRESS_HEAD1" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ASSETS_IN__zone___16644E42" Association="AFN2Model.FK__ASSETS_IN__zone___16644E42">
+            <End Role="ZONE" EntitySet="ZONES" />
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+          </AssociationSet>
+          <EntitySet Name="DOCS_BATCH" EntityType="AFN2Model.DOCS_BATCH" />
+          <EntitySet Name="DOCS_OBC" EntityType="AFN2Model.DOCS_OBC" />
+          <EntitySet Name="DOCUMENTS" EntityType="AFN2Model.DOCUMENT" />
+          <AssociationSet Name="FK__DOCS_OBC__obc_id__35DCF99B" Association="AFN2Model.FK__DOCS_OBC__obc_id__35DCF99B">
+            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+            <End Role="DOCS_OBC" EntitySet="DOCS_OBC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DOCS_BATC__batch__3E723F9C" Association="AFN2Model.FK__DOCS_BATC__batch__3E723F9C">
+            <End Role="BATCH_ARTICLE" EntitySet="BATCHS_ARTICLES" />
+            <End Role="DOCS_BATCH" EntitySet="DOCS_BATCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DOCS_BATC__docum__3D7E1B63" Association="AFN2Model.FK__DOCS_BATC__docum__3D7E1B63">
+            <End Role="DOCUMENT" EntitySet="DOCUMENTS" />
+            <End Role="DOCS_BATCH" EntitySet="DOCS_BATCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DOCS_OBC__docume__34E8D562" Association="AFN2Model.FK__DOCS_OBC__docume__34E8D562">
+            <End Role="DOCUMENT" EntitySet="DOCUMENTS" />
+            <End Role="DOCS_OBC" EntitySet="DOCS_OBC" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="APROVAL_STATE">
@@ -851,6 +1249,7 @@
           <Property Name="code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="descrip" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__BATCHS_AR__aprov__7AF13DF7" FromRole="APROVAL_STATES" ToRole="BATCHS_ARTICLES" />
+          <NavigationProperty Name="ASSETS_IN_PROGRESS_HEAD" Relationship="AFN2Model.FK__ASSETS_IN__aprov__1940BAED" FromRole="APROVAL_STATE" ToRole="ASSETS_IN_PROGRESS_HEAD" />
         </EntityType>
         <EntityType Name="BATCH_ARTICLE">
           <Key>
@@ -868,8 +1267,9 @@
           <NavigationProperty Name="APROVAL_STATE" Relationship="AFN2Model.FK__BATCHS_AR__aprov__7AF13DF7" FromRole="BATCHS_ARTICLES" ToRole="APROVAL_STATES" />
           <NavigationProperty Name="ORIGIN" Relationship="AFN2Model.FK__BATCHS_AR__origi__7BE56230" FromRole="BATCHS_ARTICLES" ToRole="ORIGINS" />
           <NavigationProperty Name="TYPE_ASSET" Relationship="AFN2Model.FK__BATCHS_AR__type___7CD98669" FromRole="BATCHS_ARTICLES" ToRole="TYPES_ASSETS" />
-          <NavigationProperty Name="DOCUMENTS" Relationship="AFN2Model.FK__DOCUMENTS__batch__038683F8" FromRole="BATCHS_ARTICLES" ToRole="DOCUMENTS" />
           <NavigationProperty Name="PARTS" Relationship="AFN2Model.FK__PARTS__article_i__39E294A9" FromRole="BATCHS_ARTICLES" ToRole="PARTS" />
+          <NavigationProperty Name="ASSETS_IN_PROGRESS_HEAD" Relationship="AFN2Model.FK__ASSETS_IN__batch__184C96B4" FromRole="BATCH_ARTICLE" ToRole="ASSETS_IN_PROGRESS_HEAD" />
+          <NavigationProperty Name="DOCS_BATCH" Relationship="AFN2Model.FK__DOCS_BATC__batch__3E723F9C" FromRole="BATCH_ARTICLE" ToRole="DOCS_BATCH" />
         </EntityType>
         <EntityType Name="CATEGORY">
           <Key>
@@ -888,18 +1288,7 @@
           <Property Name="code" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="SYSTEMS" Relationship="AFN2Model.FK__SYSTEMS__currenc__11D4A34F" FromRole="CURRENCIES" ToRole="SYSTEMS" />
-        </EntityType>
-        <EntityType Name="DOCUMENT">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="docnumber" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="comment" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="proveedor_id" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
-          <Property Name="proveedor_name" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="batch_article_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__DOCUMENTS__batch__038683F8" FromRole="DOCUMENTS" ToRole="BATCHS_ARTICLES" />
+          <NavigationProperty Name="ASSETS_IN_PROGRESS_DETAIL" Relationship="AFN2Model.FK__ASSETS_IN__curre__1EF99443" FromRole="CURRENCY" ToRole="ASSETS_IN_PROGRESS_DETAIL" />
         </EntityType>
         <EntityType Name="ENVIORMENT">
           <Key>
@@ -911,6 +1300,7 @@
           <Property Name="depreciation_rate" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="credit_rate" Type="Decimal" Nullable="false" Precision="10" Scale="5" />
           <NavigationProperty Name="SYSTEMS" Relationship="AFN2Model.FK__SYSTEMS__enviorm__10E07F16" FromRole="ENVIORMENTS" ToRole="SYSTEMS" />
+          <Property Type="Boolean" Name="allow_cm_neg" Nullable="false" />
         </EntityType>
         <EntityType Name="KIND">
           <Key>
@@ -975,7 +1365,7 @@
           <Property Name="code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="SYSTEMS_PARAMETERS" Relationship="AFN2Model.FK__SYSTEMS_P__param__1E3A7A34" FromRole="PARAMETERS" ToRole="SYSTEMS_PARAMETERS" />
-          <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__parat__5E1FF51F" FromRole="PARAMETERS" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
+          <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__parat__5E1FF51F" FromRole="PARAMETER" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
         </EntityType>
         <EntityType Name="PART">
           <Key>
@@ -1026,7 +1416,7 @@
           <NavigationProperty Name="ENVIORMENT" Relationship="AFN2Model.FK__SYSTEMS__enviorm__10E07F16" FromRole="SYSTEMS" ToRole="ENVIORMENTS" />
           <NavigationProperty Name="SYSTEMS_PARAMETERS" Relationship="AFN2Model.FK__SYSTEMS_P__syste__1D4655FB" FromRole="SYSTEMS" ToRole="SYSTEMS_PARAMETERS" />
           <NavigationProperty Name="TRANSACTIONS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__syste__53A266AC" FromRole="SYSTEMS" ToRole="TRANSACTIONS_DETAILS" />
-          <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6" FromRole="SYSTEMS" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
+          <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6" FromRole="SYSTEM" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
         </EntityType>
         <EntityType Name="SYSTEM_PARAMETER">
           <Key>
@@ -1076,21 +1466,8 @@
           <NavigationProperty Name="SUBKIND" Relationship="AFN2Model.FK__TRANSACTI__subki__4924D839" FromRole="TRANSACTIONS_HEADERS" ToRole="SUBKINDS" />
           <NavigationProperty Name="SUBZONE" Relationship="AFN2Model.FK__TRANSACTI__subzo__473C8FC7" FromRole="TRANSACTIONS_HEADERS" ToRole="SUBZONES" />
           <NavigationProperty Name="TRANSACTIONS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__trx_h__52AE4273" FromRole="TRANSACTIONS_HEADERS" ToRole="TRANSACTIONS_DETAILS" />
-          <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" FromRole="TRANSACTIONS_HEADERS" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
           <NavigationProperty Name="ZONE" Relationship="AFN2Model.FK__TRANSACTI__zone___46486B8E" FromRole="TRANSACTIONS_HEADERS" ToRole="ZONES" />
-        </EntityType>
-        <EntityType Name="TRANSACTION_PARAMETER_DETAIL">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="trx_head_id" Type="Int32" Nullable="false" />
-          <Property Name="system_id" Type="Int32" Nullable="false" />
-          <Property Name="paratemer_id" Type="Int32" Nullable="false" />
-          <Property Name="parameter_value" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
-          <NavigationProperty Name="PARAMETER" Relationship="AFN2Model.FK__TRANSACTI__parat__5E1FF51F" FromRole="TRANSACTIONS_PARAMETERS_DETAILS" ToRole="PARAMETERS" />
-          <NavigationProperty Name="SYSTEM" Relationship="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6" FromRole="TRANSACTIONS_PARAMETERS_DETAILS" ToRole="SYSTEMS" />
-          <NavigationProperty Name="TRANSACTION_HEADER" Relationship="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" FromRole="TRANSACTIONS_PARAMETERS_DETAILS" ToRole="TRANSACTIONS_HEADERS" />
+          <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" FromRole="TRANSACTION_HEADER" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
         </EntityType>
         <EntityType Name="TYPE_ASSET">
           <Key>
@@ -1109,6 +1486,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="TRANSACTIONS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__valid__54968AE5" FromRole="VALIDATIES" ToRole="TRANSACTIONS_DETAILS" />
+          <NavigationProperty Name="SITUATIONs" Relationship="AFN2Model.FK__SITUATION__estad__10AB74EC" FromRole="VALIDATY" ToRole="SITUATION" />
+          <NavigationProperty Name="SITUATIONs1" Relationship="AFN2Model.FK__SITUATION__estad__119F9925" FromRole="VALIDATY" ToRole="SITUATION" />
         </EntityType>
         <EntityType Name="ZONE">
           <Key>
@@ -1121,6 +1500,7 @@
           <Property Name="codOld" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="SUBZONES" Relationship="AFN2Model.FK__SUBZONES__zone_i__52E34C9D" FromRole="ZONES" ToRole="SUBZONES" />
           <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__zone___46486B8E" FromRole="ZONES" ToRole="TRANSACTIONS_HEADERS" />
+          <NavigationProperty Name="ASSETS_IN_PROGRESS_HEAD" Relationship="AFN2Model.FK__ASSETS_IN__zone___16644E42" FromRole="ZONE" ToRole="ASSETS_IN_PROGRESS_HEAD" />
         </EntityType>
         <Association Name="FK__BATCHS_AR__aprov__7AF13DF7">
           <End Role="APROVAL_STATES" Type="AFN2Model.APROVAL_STATE" Multiplicity="1" />
@@ -1155,18 +1535,6 @@
             </Principal>
             <Dependent Role="BATCHS_ARTICLES">
               <PropertyRef Name="type_asset_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DOCUMENTS__batch__038683F8">
-          <End Role="BATCHS_ARTICLES" Type="AFN2Model.BATCH_ARTICLE" Multiplicity="1" />
-          <End Role="DOCUMENTS" Type="AFN2Model.DOCUMENT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BATCHS_ARTICLES">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="DOCUMENTS">
-              <PropertyRef Name="batch_article_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1314,18 +1682,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TRANSACTI__parat__5E1FF51F">
-          <End Role="PARAMETERS" Type="AFN2Model.PARAMETER" Multiplicity="1" />
-          <End Role="TRANSACTIONS_PARAMETERS_DETAILS" Type="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PARAMETERS">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
-              <PropertyRef Name="paratemer_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__TRANSACTI__artic__45544755">
           <End Role="PARTS" Type="AFN2Model.PART" Multiplicity="1" />
           <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="*" />
@@ -1398,18 +1754,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TRANSACTI__syste__5D2BD0E6">
-          <End Role="SYSTEMS" Type="AFN2Model.SYSTEM" Multiplicity="1" />
-          <End Role="TRANSACTIONS_PARAMETERS_DETAILS" Type="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SYSTEMS">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
-              <PropertyRef Name="system_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__TRANSACTI__trx_h__52AE4273">
           <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="1" />
           <End Role="TRANSACTIONS_DETAILS" Type="AFN2Model.TRANSACTION_DETAIL" Multiplicity="*" />
@@ -1434,18 +1778,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TRANSACTI__trx_h__5C37ACAD">
-          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="1" />
-          <End Role="TRANSACTIONS_PARAMETERS_DETAILS" Type="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TRANSACTIONS_HEADERS">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
-              <PropertyRef Name="trx_head_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__TRANSACTI__zone___46486B8E">
           <End Role="ZONES" Type="AFN2Model.ZONE" Multiplicity="1" />
           <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.TRANSACTION_HEADER" Multiplicity="*" />
@@ -1455,6 +1787,389 @@
             </Principal>
             <Dependent Role="TRANSACTIONS_HEADERS">
               <PropertyRef Name="zone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CORRECTION_MONETARY_VALUE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="period" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="applyTo" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="10" Scale="4" />
+        </EntityType>
+        <EntityType Name="BASE_GLOBAL_AFN_CALC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="fuente" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="fecha_corte" Nullable="false" />
+          <Property Type="Int32" Name="cod_articulo" Nullable="false" />
+          <Property Type="Int32" Name="parte" Nullable="false" />
+          <Property Type="DateTime" Name="fec_compra" Nullable="false" />
+          <Property Type="String" Name="dsc_breve" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="cod_est" Nullable="false" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="cantidad" Nullable="false" />
+          <Property Type="String" Name="zona" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="clase" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="valor_anterior" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="preparacion" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="desmantel" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="transporte" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="montaje" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="honorario" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="cred_adi" Nullable="false" Precision="16" Scale="0" />
+          <Property Type="Decimal" Name="val_AF" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DA_anterior" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="deter" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="val_res" Nullable="false" />
+          <Property Type="Decimal" Name="val_suj_dep" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="vu_asig" Nullable="false" />
+          <Property Type="Int32" Name="vu_ocup" Nullable="false" />
+          <Property Type="Int32" Name="vu_resi" Nullable="false" />
+          <Property Type="Decimal" Name="dep_eje" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DA_AF" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="revaluacion" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="val_libro" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="cod_subzona" />
+          <Property Type="String" Name="txt_subzona" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cod_subclase" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="txt_subclase" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="id_gestion" />
+          <Property Type="String" Name="cod_gestion" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="txt_gestion" MaxLength="51" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="categoria" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="cod_valorz" Nullable="false" />
+          <Property Type="String" Name="valorizacion" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="fec_ingreso" Nullable="false" />
+          <Property Type="DateTime" Name="fecha_ini" Nullable="false" />
+          <Property Type="DateTime" Name="fecha_fin" Nullable="false" />
+          <Property Type="String" Name="origen" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="tipo" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="se_deprecia" Nullable="false" />
+          <Property Type="Int32" Name="fila" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="BASE_LOCAL_AFN_CALC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="fuente" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="fecha_corte" Nullable="false" />
+          <Property Type="Int32" Name="cod_articulo" Nullable="false" />
+          <Property Type="Int32" Name="parte" Nullable="false" />
+          <Property Type="DateTime" Name="fec_compra" Nullable="false" />
+          <Property Type="String" Name="dsc_breve" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="cod_est" Nullable="false" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="cantidad" Nullable="false" />
+          <Property Type="String" Name="zona" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="clase" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="valor_anterior" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="pcm" Nullable="false" Precision="5" Scale="2" />
+          <Property Type="Decimal" Name="cm_activo" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="val_actlzd" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="cred_adi" Nullable="false" Precision="16" Scale="0" />
+          <Property Type="Decimal" Name="cred_base" Nullable="false" Precision="16" Scale="0" />
+          <Property Type="Decimal" Name="val_AF" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DA_anterior" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="cmDA" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DA_actlzd" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="deter" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="val_res" Nullable="false" />
+          <Property Type="Decimal" Name="val_suj_dep" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="vu_asig" Nullable="false" />
+          <Property Type="Int32" Name="vu_ocup" Nullable="false" />
+          <Property Type="Int32" Name="vu_resi" Nullable="false" />
+          <Property Type="Decimal" Name="dep_eje" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="dep_EJB" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DA_AF" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="val_libro" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="cod_subzona" />
+          <Property Type="String" Name="txt_subzona" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cod_subclase" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="txt_subclase" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="id_gestion" />
+          <Property Type="String" Name="cod_gestion" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="txt_gestion" MaxLength="51" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="categoria" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="fec_ingreso" Nullable="false" />
+          <Property Type="DateTime" Name="fecha_ini" Nullable="false" />
+          <Property Type="DateTime" Name="fecha_fin" Nullable="false" />
+          <Property Type="String" Name="origen" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="tipo" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="se_deprecia" Nullable="false" />
+          <Property Type="Int32" Name="fila" Nullable="false" />
+          <Property Type="Int32" Name="vida_util_inicial" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TRANSACTION_PARAMETER_DETAIL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="trx_head_id" Nullable="false" />
+          <Property Type="Int32" Name="system_id" Nullable="false" />
+          <Property Type="Int32" Name="paratemer_id" Nullable="false" />
+          <Property Type="Decimal" Name="parameter_value" Nullable="false" Precision="18" Scale="5" />
+          <NavigationProperty Name="PARAMETER" Relationship="AFN2Model.FK__TRANSACTI__parat__5E1FF51F" FromRole="TRANSACTIONS_PARAMETERS_DETAILS" ToRole="PARAMETER" />
+          <NavigationProperty Name="SYSTEM" Relationship="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6" FromRole="TRANSACTIONS_PARAMETERS_DETAILS" ToRole="SYSTEM" />
+          <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" FromRole="TRANSACTIONS_PARAMETERS_DETAILS" ToRole="TRANSACTION_HEADER" />
+        </EntityType>
+        <Association Name="FK__TRANSACTI__parat__5E1FF51F">
+          <End Type="AFN2Model.PARAMETER" Role="PARAMETER" Multiplicity="1" />
+          <End Type="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Role="TRANSACTIONS_PARAMETERS_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARAMETER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
+              <PropertyRef Name="paratemer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__syste__5D2BD0E6">
+          <End Type="AFN2Model.SYSTEM" Role="SYSTEM" Multiplicity="1" />
+          <End Type="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Role="TRANSACTIONS_PARAMETERS_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSTEM">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
+              <PropertyRef Name="system_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__trx_h__5C37ACAD">
+          <End Type="AFN2Model.TRANSACTION_HEADER" Role="TRANSACTION_HEADER" Multiplicity="1" />
+          <End Type="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Role="TRANSACTIONS_PARAMETERS_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSACTION_HEADER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_PARAMETERS_DETAILS">
+              <PropertyRef Name="trx_head_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SITUATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="estado1" Nullable="false" />
+          <Property Type="Int32" Name="estado2" Nullable="false" />
+          <Property Type="String" Name="condicion" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="VALIDATY1" Relationship="AFN2Model.FK__SITUATION__estad__10AB74EC" FromRole="SITUATION" ToRole="VALIDATY" />
+          <NavigationProperty Name="VALIDATY2" Relationship="AFN2Model.FK__SITUATION__estad__119F9925" FromRole="SITUATION" ToRole="VALIDATY" />
+        </EntityType>
+        <Association Name="FK__SITUATION__estad__10AB74EC">
+          <End Type="AFN2Model.VALIDATY" Role="VALIDATY" Multiplicity="1" />
+          <End Type="AFN2Model.SITUATION" Role="SITUATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALIDATY">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SITUATION">
+              <PropertyRef Name="estado1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SITUATION__estad__119F9925">
+          <End Type="AFN2Model.VALIDATY" Role="VALIDATY" Multiplicity="1" />
+          <End Type="AFN2Model.SITUATION" Role="SITUATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALIDATY">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SITUATION">
+              <PropertyRef Name="estado2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ASSET_IN_PROGRESS_DETAIL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="head_id" Nullable="false" />
+          <Property Type="Int32" Name="currency_id" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="CURRENCY" Relationship="AFN2Model.FK__ASSETS_IN__curre__1EF99443" FromRole="ASSETS_IN_PROGRESS_DETAIL" ToRole="CURRENCY" />
+          <NavigationProperty Name="ASSET_IN_PROGRESS_HEAD" Relationship="AFN2Model.FK__ASSETS_IN__head___1E05700A" FromRole="ASSETS_IN_PROGRESS_DETAIL" ToRole="ASSETS_IN_PROGRESS_HEAD" />
+        </EntityType>
+        <EntityType Name="ASSET_IN_PROGRESS_HEAD">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="tipo" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="trx_date" Nullable="false" />
+          <Property Type="Int32" Name="zone_id" Nullable="false" />
+          <Property Type="String" Name="descrip" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="entrada_id" />
+          <Property Type="Int32" Name="batch_id" />
+          <Property Type="DateTime" Name="post_date" Nullable="false" />
+          <Property Type="Int32" Name="aproval_state_id" Nullable="false" />
+          <NavigationProperty Name="APROVAL_STATES" Relationship="AFN2Model.FK__ASSETS_IN__aprov__1940BAED" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="APROVAL_STATE" />
+          <NavigationProperty Name="ASSETS_IN_PROGRESS_DETAIL" Relationship="AFN2Model.FK__ASSETS_IN__head___1E05700A" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="ASSETS_IN_PROGRESS_DETAIL" />
+          <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__ASSETS_IN__batch__184C96B4" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="BATCH_ARTICLE" />
+          <NavigationProperty Name="ASSETS_IN_PROGRESS_HEAD1" Relationship="AFN2Model.FK__ASSETS_IN__entra__1758727B" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="ASSETS_IN_PROGRESS_HEAD1" />
+          <NavigationProperty Name="ASSETS_IN_PROGRESS_HEAD2" Relationship="AFN2Model.FK__ASSETS_IN__entra__1758727B" FromRole="ASSETS_IN_PROGRESS_HEAD1" ToRole="ASSETS_IN_PROGRESS_HEAD" />
+          <NavigationProperty Name="ZONE" Relationship="AFN2Model.FK__ASSETS_IN__zone___16644E42" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="ZONE" />
+          <NavigationProperty Name="DOCS_OBC" Relationship="AFN2Model.FK__DOCS_OBC__obc_id__35DCF99B" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="DOCS_OBC" />
+        </EntityType>
+        <Association Name="FK__ASSETS_IN__aprov__1940BAED">
+          <End Type="AFN2Model.APROVAL_STATE" Role="APROVAL_STATE" Multiplicity="1" />
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSETS_IN_PROGRESS_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APROVAL_STATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="aproval_state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__curre__1EF99443">
+          <End Type="AFN2Model.CURRENCY" Role="CURRENCY" Multiplicity="1" />
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_DETAIL" Role="ASSETS_IN_PROGRESS_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURRENCY">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_DETAIL">
+              <PropertyRef Name="currency_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__head___1E05700A">
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSETS_IN_PROGRESS_HEAD" Multiplicity="1" />
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_DETAIL" Role="ASSETS_IN_PROGRESS_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_DETAIL">
+              <PropertyRef Name="head_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__batch__184C96B4">
+          <End Type="AFN2Model.BATCH_ARTICLE" Role="BATCH_ARTICLE" Multiplicity="0..1" />
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSETS_IN_PROGRESS_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BATCH_ARTICLE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__entra__1758727B">
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSETS_IN_PROGRESS_HEAD" Multiplicity="0..1" />
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSETS_IN_PROGRESS_HEAD1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_HEAD1">
+              <PropertyRef Name="entrada_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ASSETS_IN__zone___16644E42">
+          <End Type="AFN2Model.ZONE" Role="ZONE" Multiplicity="1" />
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSETS_IN_PROGRESS_HEAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="zone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DOCS_BATCH">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="document_id" Nullable="false" />
+          <Property Type="Int32" Name="batch_id" Nullable="false" />
+          <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__DOCS_BATC__batch__3E723F9C" FromRole="DOCS_BATCH" ToRole="BATCH_ARTICLE" />
+          <NavigationProperty Name="DOCUMENT" Relationship="AFN2Model.FK__DOCS_BATC__docum__3D7E1B63" FromRole="DOCS_BATCH" ToRole="DOCUMENT" />
+        </EntityType>
+        <EntityType Name="DOCS_OBC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="document_id" Nullable="false" />
+          <Property Type="Int32" Name="obc_id" Nullable="false" />
+          <NavigationProperty Name="ASSETS_IN_PROGRESS_HEAD" Relationship="AFN2Model.FK__DOCS_OBC__obc_id__35DCF99B" FromRole="DOCS_OBC" ToRole="ASSETS_IN_PROGRESS_HEAD" />
+          <NavigationProperty Name="DOCUMENT" Relationship="AFN2Model.FK__DOCS_OBC__docume__34E8D562" FromRole="DOCS_OBC" ToRole="DOCUMENT" />
+        </EntityType>
+        <EntityType Name="DOCUMENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="docnumber" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="comment" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="proveedor_id" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="proveedor_name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DOCS_BATCH" Relationship="AFN2Model.FK__DOCS_BATC__docum__3D7E1B63" FromRole="DOCUMENT" ToRole="DOCS_BATCH" />
+          <NavigationProperty Name="DOCS_OBC" Relationship="AFN2Model.FK__DOCS_OBC__docume__34E8D562" FromRole="DOCUMENT" ToRole="DOCS_OBC" />
+        </EntityType>
+        <Association Name="FK__DOCS_OBC__obc_id__35DCF99B">
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSETS_IN_PROGRESS_HEAD" Multiplicity="1" />
+          <End Type="AFN2Model.DOCS_OBC" Role="DOCS_OBC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSETS_IN_PROGRESS_HEAD">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DOCS_OBC">
+              <PropertyRef Name="obc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DOCS_BATC__batch__3E723F9C">
+          <End Type="AFN2Model.BATCH_ARTICLE" Role="BATCH_ARTICLE" Multiplicity="1" />
+          <End Type="AFN2Model.DOCS_BATCH" Role="DOCS_BATCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BATCH_ARTICLE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DOCS_BATCH">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DOCS_BATC__docum__3D7E1B63">
+          <End Type="AFN2Model.DOCUMENT" Role="DOCUMENT" Multiplicity="1" />
+          <End Type="AFN2Model.DOCS_BATCH" Role="DOCS_BATCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCUMENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DOCS_BATCH">
+              <PropertyRef Name="document_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DOCS_OBC__docume__34E8D562">
+          <End Type="AFN2Model.DOCUMENT" Role="DOCUMENT" Multiplicity="1" />
+          <End Type="AFN2Model.DOCS_OBC" Role="DOCS_OBC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCUMENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DOCS_OBC">
+              <PropertyRef Name="document_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1506,21 +2221,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DOCUMENTS">
-            <EntityTypeMapping TypeName="AFN2Model.DOCUMENT">
-              <MappingFragment StoreEntitySet="DOCUMENTS">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="docnumber" ColumnName="docnumber" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
-                <ScalarProperty Name="proveedor_name" ColumnName="proveedor_name" />
-                <ScalarProperty Name="batch_article_id" ColumnName="batch_article_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ENVIORMENTS">
             <EntityTypeMapping TypeName="AFN2Model.ENVIORMENT">
               <MappingFragment StoreEntitySet="ENVIORMENTS">
+                <ScalarProperty Name="allow_cm_neg" ColumnName="allow_cm_neg" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -1672,17 +2376,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TRANSACTIONS_PARAMETERS_DETAILS">
-            <EntityTypeMapping TypeName="AFN2Model.TRANSACTION_PARAMETER_DETAIL">
-              <MappingFragment StoreEntitySet="TRANSACTIONS_PARAMETERS_DETAILS">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="trx_head_id" ColumnName="trx_head_id" />
-                <ScalarProperty Name="system_id" ColumnName="system_id" />
-                <ScalarProperty Name="paratemer_id" ColumnName="paratemer_id" />
-                <ScalarProperty Name="parameter_value" ColumnName="parameter_value" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TYPES_ASSETS">
             <EntityTypeMapping TypeName="AFN2Model.TYPE_ASSET">
               <MappingFragment StoreEntitySet="TYPES_ASSETS">
@@ -1710,6 +2403,199 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CORRECTIONS_MONETARIES_VALUES">
+            <EntityTypeMapping TypeName="AFN2Model.CORRECTION_MONETARY_VALUE">
+              <MappingFragment StoreEntitySet="CORRECTIONS_MONETARIES_VALUES">
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="applyTo" ColumnName="applyTo" />
+                <ScalarProperty Name="period" ColumnName="period" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BASE_GLOBAL_AFN_CALC">
+            <EntityTypeMapping TypeName="AFN2Model.BASE_GLOBAL_AFN_CALC">
+              <MappingFragment StoreEntitySet="BASE_GLOBAL_AFN_CALC">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="fila" ColumnName="fila" />
+                <ScalarProperty Name="se_deprecia" ColumnName="se_deprecia" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="fecha_ini" ColumnName="fecha_ini" />
+                <ScalarProperty Name="fec_ingreso" ColumnName="fec_ingreso" />
+                <ScalarProperty Name="valorizacion" ColumnName="valorizacion" />
+                <ScalarProperty Name="cod_valorz" ColumnName="cod_valorz" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="txt_gestion" ColumnName="txt_gestion" />
+                <ScalarProperty Name="cod_gestion" ColumnName="cod_gestion" />
+                <ScalarProperty Name="id_gestion" ColumnName="id_gestion" />
+                <ScalarProperty Name="txt_subclase" ColumnName="txt_subclase" />
+                <ScalarProperty Name="cod_subclase" ColumnName="cod_subclase" />
+                <ScalarProperty Name="txt_subzona" ColumnName="txt_subzona" />
+                <ScalarProperty Name="cod_subzona" ColumnName="cod_subzona" />
+                <ScalarProperty Name="val_libro" ColumnName="val_libro" />
+                <ScalarProperty Name="revaluacion" ColumnName="revaluacion" />
+                <ScalarProperty Name="DA_AF" ColumnName="DA_AF" />
+                <ScalarProperty Name="dep_eje" ColumnName="dep_eje" />
+                <ScalarProperty Name="vu_resi" ColumnName="vu_resi" />
+                <ScalarProperty Name="vu_ocup" ColumnName="vu_ocup" />
+                <ScalarProperty Name="vu_asig" ColumnName="vu_asig" />
+                <ScalarProperty Name="val_suj_dep" ColumnName="val_suj_dep" />
+                <ScalarProperty Name="val_res" ColumnName="val_res" />
+                <ScalarProperty Name="deter" ColumnName="deter" />
+                <ScalarProperty Name="DA_anterior" ColumnName="DA_anterior" />
+                <ScalarProperty Name="val_AF" ColumnName="val_AF" />
+                <ScalarProperty Name="cred_adi" ColumnName="cred_adi" />
+                <ScalarProperty Name="honorario" ColumnName="honorario" />
+                <ScalarProperty Name="montaje" ColumnName="montaje" />
+                <ScalarProperty Name="transporte" ColumnName="transporte" />
+                <ScalarProperty Name="desmantel" ColumnName="desmantel" />
+                <ScalarProperty Name="preparacion" ColumnName="preparacion" />
+                <ScalarProperty Name="valor_anterior" ColumnName="valor_anterior" />
+                <ScalarProperty Name="clase" ColumnName="clase" />
+                <ScalarProperty Name="zona" ColumnName="zona" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cod_est" ColumnName="cod_est" />
+                <ScalarProperty Name="dsc_breve" ColumnName="dsc_breve" />
+                <ScalarProperty Name="fec_compra" ColumnName="fec_compra" />
+                <ScalarProperty Name="parte" ColumnName="parte" />
+                <ScalarProperty Name="cod_articulo" ColumnName="cod_articulo" />
+                <ScalarProperty Name="fecha_corte" ColumnName="fecha_corte" />
+                <ScalarProperty Name="fuente" ColumnName="fuente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BASE_LOCAL_AFN_CALC">
+            <EntityTypeMapping TypeName="AFN2Model.BASE_LOCAL_AFN_CALC">
+              <MappingFragment StoreEntitySet="BASE_LOCAL_AFN_CALC">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="vida_util_inicial" ColumnName="vida_util_inicial" />
+                <ScalarProperty Name="fila" ColumnName="fila" />
+                <ScalarProperty Name="se_deprecia" ColumnName="se_deprecia" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="fecha_ini" ColumnName="fecha_ini" />
+                <ScalarProperty Name="fec_ingreso" ColumnName="fec_ingreso" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="txt_gestion" ColumnName="txt_gestion" />
+                <ScalarProperty Name="cod_gestion" ColumnName="cod_gestion" />
+                <ScalarProperty Name="id_gestion" ColumnName="id_gestion" />
+                <ScalarProperty Name="txt_subclase" ColumnName="txt_subclase" />
+                <ScalarProperty Name="cod_subclase" ColumnName="cod_subclase" />
+                <ScalarProperty Name="txt_subzona" ColumnName="txt_subzona" />
+                <ScalarProperty Name="cod_subzona" ColumnName="cod_subzona" />
+                <ScalarProperty Name="val_libro" ColumnName="val_libro" />
+                <ScalarProperty Name="DA_AF" ColumnName="DA_AF" />
+                <ScalarProperty Name="dep_EJB" ColumnName="dep_EJB" />
+                <ScalarProperty Name="dep_eje" ColumnName="dep_eje" />
+                <ScalarProperty Name="vu_resi" ColumnName="vu_resi" />
+                <ScalarProperty Name="vu_ocup" ColumnName="vu_ocup" />
+                <ScalarProperty Name="vu_asig" ColumnName="vu_asig" />
+                <ScalarProperty Name="val_suj_dep" ColumnName="val_suj_dep" />
+                <ScalarProperty Name="val_res" ColumnName="val_res" />
+                <ScalarProperty Name="deter" ColumnName="deter" />
+                <ScalarProperty Name="DA_actlzd" ColumnName="DA_actlzd" />
+                <ScalarProperty Name="cmDA" ColumnName="cmDA" />
+                <ScalarProperty Name="DA_anterior" ColumnName="DA_anterior" />
+                <ScalarProperty Name="val_AF" ColumnName="val_AF" />
+                <ScalarProperty Name="cred_base" ColumnName="cred_base" />
+                <ScalarProperty Name="cred_adi" ColumnName="cred_adi" />
+                <ScalarProperty Name="val_actlzd" ColumnName="val_actlzd" />
+                <ScalarProperty Name="cm_activo" ColumnName="cm_activo" />
+                <ScalarProperty Name="pcm" ColumnName="pcm" />
+                <ScalarProperty Name="valor_anterior" ColumnName="valor_anterior" />
+                <ScalarProperty Name="clase" ColumnName="clase" />
+                <ScalarProperty Name="zona" ColumnName="zona" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cod_est" ColumnName="cod_est" />
+                <ScalarProperty Name="dsc_breve" ColumnName="dsc_breve" />
+                <ScalarProperty Name="fec_compra" ColumnName="fec_compra" />
+                <ScalarProperty Name="parte" ColumnName="parte" />
+                <ScalarProperty Name="cod_articulo" ColumnName="cod_articulo" />
+                <ScalarProperty Name="fecha_corte" ColumnName="fecha_corte" />
+                <ScalarProperty Name="fuente" ColumnName="fuente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSACTIONS_PARAMETERS_DETAILS">
+            <EntityTypeMapping TypeName="AFN2Model.TRANSACTION_PARAMETER_DETAIL">
+              <MappingFragment StoreEntitySet="TRANSACTIONS_PARAMETERS_DETAILS">
+                <ScalarProperty Name="parameter_value" ColumnName="parameter_value" />
+                <ScalarProperty Name="paratemer_id" ColumnName="paratemer_id" />
+                <ScalarProperty Name="system_id" ColumnName="system_id" />
+                <ScalarProperty Name="trx_head_id" ColumnName="trx_head_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SITUATIONS">
+            <EntityTypeMapping TypeName="AFN2Model.SITUATION">
+              <MappingFragment StoreEntitySet="SITUATION">
+                <ScalarProperty Name="condicion" ColumnName="condicion" />
+                <ScalarProperty Name="estado2" ColumnName="estado2" />
+                <ScalarProperty Name="estado1" ColumnName="estado1" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ASSETS_IN_PROGRESS_DETAIL">
+            <EntityTypeMapping TypeName="AFN2Model.ASSET_IN_PROGRESS_DETAIL">
+              <MappingFragment StoreEntitySet="ASSETS_IN_PROGRESS_DETAIL">
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="currency_id" ColumnName="currency_id" />
+                <ScalarProperty Name="head_id" ColumnName="head_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ASSETS_IN_PROGRESS_HEAD">
+            <EntityTypeMapping TypeName="AFN2Model.ASSET_IN_PROGRESS_HEAD">
+              <MappingFragment StoreEntitySet="ASSETS_IN_PROGRESS_HEAD">
+                <ScalarProperty Name="aproval_state_id" ColumnName="aproval_state_id" />
+                <ScalarProperty Name="post_date" ColumnName="post_date" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="entrada_id" ColumnName="entrada_id" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="zone_id" ColumnName="zone_id" />
+                <ScalarProperty Name="trx_date" ColumnName="trx_date" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCS_BATCH">
+            <EntityTypeMapping TypeName="AFN2Model.DOCS_BATCH">
+              <MappingFragment StoreEntitySet="DOCS_BATCH">
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="document_id" ColumnName="document_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCS_OBC">
+            <EntityTypeMapping TypeName="AFN2Model.DOCS_OBC">
+              <MappingFragment StoreEntitySet="DOCS_OBC">
+                <ScalarProperty Name="obc_id" ColumnName="obc_id" />
+                <ScalarProperty Name="document_id" ColumnName="document_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCUMENTS">
+            <EntityTypeMapping TypeName="AFN2Model.DOCUMENT">
+              <MappingFragment StoreEntitySet="DOCUMENTS">
+                <ScalarProperty Name="proveedor_name" ColumnName="proveedor_name" />
+                <ScalarProperty Name="proveedor_id" ColumnName="proveedor_id" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="docnumber" ColumnName="docnumber" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1724,157 +2610,264 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="AFN2" ZoomLevel="55">
-        <EntityTypeShape EntityType="AFN2Model.APROVAL_STATE" Width="1.5" PointX="2.625" PointY="3.625" Height="1.6910001627604174" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.BATCH_ARTICLE" Width="1.5" PointX="5" PointY="1.375" Height="3.4754646809895817" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.CATEGORY" Width="1.5" PointX="9.875" PointY="12.25" Height="1.6910001627604165" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.CURRENCY" Width="1.5" PointX="0.5" PointY="7.25" Height="1.6910001627604174" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.DOCUMENT" Width="1.5" PointX="2.5" PointY="0.5" Height="2.2263395182291648" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.ENVIORMENT" Width="1.5" PointX="0.5" PointY="9.625" Height="2.047893066406246" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.KIND" Width="1.5" PointX="11.125" PointY="4" Height="2.94012532552083" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.MANAGEMENT" Width="1.5" PointX="11.875" PointY="12.25" Height="1.6910001627604174" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.ORIGIN" Width="1.5" PointX="0.5" PointY="2.375" Height="1.6910001627604174" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.PACKAGE_KIND" Width="1.5" PointX="11.5" PointY="0.5" Height="2.047893066406246" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.PACKAGE_PAIR_KIND" Width="1.5" PointX="13.75" PointY="1.875" Height="1.8694466145833353" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.PARAMETER" Width="1.5" PointX="4" PointY="11.25" Height="1.8694466145833317" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.PART" Width="1.5" PointX="7.125" PointY="3.75" Height="2.047893066406246" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.SUBKIND" Width="1.5" PointX="13.625" PointY="6.25" Height="2.4047859700520888" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.SUBZONE" Width="1.5" PointX="13.875" PointY="9.125" Height="2.583232421874996" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.SYSTEM" Width="1.5" PointX="2.625" PointY="8.125" Height="2.4047859700520888" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.SYSTEM_PARAMETER" Width="1.5" PointX="7" PointY="13.25" Height="2.047893066406246" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.TRANSACTION_DETAIL" Width="1.875" PointX="5.375" PointY="7.5" Height="2.5832324218750031" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.TRANSACTION_HEADER" Width="1.5" PointX="9.125" PointY="6.375" Height="4.7245898437500031" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Width="2.125" PointX="6.5" PointY="10.375" Height="2.4047859700520888" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.TYPE_ASSET" Width="1.5" PointX="9.125" PointY="1.75" Height="1.8694466145833388" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.VALIDATY" Width="1.5" PointX="2.375" PointY="6" Height="1.512553710937496" IsExpanded="true" />
-        <EntityTypeShape EntityType="AFN2Model.ZONE" Width="1.5" PointX="11.25" PointY="7.75" Height="2.2263395182291674" IsExpanded="true" />
+      <Diagram Name="AFN2" ZoomLevel="64">
+        <EntityTypeShape EntityType="AFN2Model.APROVAL_STATE" Width="1.5" PointX="2.625" PointY="5.5" Height="1.8694466145833326" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.BATCH_ARTICLE" Width="1.5" PointX="6.25" PointY="3.375" Height="3.6539111328124996" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.CATEGORY" Width="1.5" PointX="9.375" PointY="14.125" Height="1.6910001627604165" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.CURRENCY" Width="1.5" PointX="0.5" PointY="8.5" Height="1.8694466145833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.ENVIORMENT" Width="1.5" PointX="0.5" PointY="10.875" Height="2.2263395182291656" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.KIND" Width="1.5" PointX="12.125" PointY="10.625" Height="2.94012532552083" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.MANAGEMENT" Width="1.5" PointX="11.875" PointY="14.125" Height="1.6910001627604174" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.ORIGIN" Width="1.5" PointX="0.5" PointY="3.875" Height="1.6910001627604174" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.PACKAGE_KIND" Width="1.5" PointX="16.75" PointY="9.25" Height="2.047893066406246" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.PACKAGE_PAIR_KIND" Width="1.5" PointX="19" PointY="8.625" Height="1.8694466145833353" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.PARAMETER" Width="1.5" PointX="3.375" PointY="13.125" Height="1.8694466145833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.PART" Width="1.5" PointX="8.25" PointY="5.5" Height="2.047893066406246" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.SUBKIND" Width="1.5" PointX="14.625" PointY="11.5" Height="2.4047859700520888" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.SUBZONE" Width="1.5" PointX="14.25" PointY="8" Height="2.583232421874996" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.SYSTEM" Width="1.5" PointX="2.625" PointY="10" Height="2.4047859700520888" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.SYSTEM_PARAMETER" Width="1.5" PointX="6.625" PointY="15.125" Height="2.047893066406246" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.TRANSACTION_DETAIL" Width="1.875" PointX="5.375" PointY="9.375" Height="2.5832324218750031" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.TRANSACTION_HEADER" Width="2.5" PointX="8.625" PointY="8.25" Height="4.7245898437500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.TYPE_ASSET" Width="1.5" PointX="10.25" PointY="4.625" Height="1.8694466145833388" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.VALIDATY" Width="1.5" PointX="2.375" PointY="7.875" Height="1.8694466145833326" IsExpanded="true" />
+        <EntityTypeShape EntityType="AFN2Model.ZONE" Width="1.5" PointX="11.875" PointY="7.625" Height="2.4047859700520835" IsExpanded="true" />
         <AssociationConnector Association="AFN2Model.FK__BATCHS_AR__aprov__7AF13DF7" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="4.4705000813802087" />
-          <ConnectorPoint PointX="5" PointY="4.4705000813802087" />
+          <ConnectorPoint PointX="4.125" PointY="6.26445556640625" />
+          <ConnectorPoint PointX="6.25" PointY="6.26445556640625" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__BATCHS_AR__origi__7BE56230" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="3.1756697591145819" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.1756697591145815" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="3.1756697591145819" />
-          <ConnectorPoint PointX="5" PointY="3.1756697591145819" />
+          <ConnectorPoint PointX="2" PointY="4.65625" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="4.6562499999999991" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="4.65625" />
+          <ConnectorPoint PointX="3.2916666666666665" PointY="4.6562499999999991" />
+          <ConnectorPoint PointX="3.4583333333333335" PointY="4.65625" />
+          <ConnectorPoint PointX="6.25" PointY="4.65625" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__BATCHS_AR__type___7CD98669" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.125" PointY="2.6847233072916694" />
-          <ConnectorPoint PointX="6.5" PointY="2.6847233072916694" />
-        </AssociationConnector>
-        <AssociationConnector Association="AFN2Model.FK__DOCUMENTS__batch__038683F8" ManuallyRouted="false">
-          <ConnectorPoint PointX="5" PointY="2.0506697591145819" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="2.0506697591145815" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="2.0506697591145819" />
-          <ConnectorPoint PointX="4" PointY="2.0506697591145819" />
+          <ConnectorPoint PointX="10.25" PointY="5.03125" />
+          <ConnectorPoint PointX="7.75" PointY="5.03125" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PARTS__article_i__39E294A9" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.5" PointY="4.3002323404947909" />
-          <ConnectorPoint PointX="7.125" PointY="4.3002323404947909" />
+          <ConnectorPoint PointX="7.75" PointY="6.26445556640625" />
+          <ConnectorPoint PointX="8.25" PointY="6.26445556640625" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__categ__4A18FC72" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.25" PointY="12.25" />
-          <ConnectorPoint PointX="10.25" PointY="11.099589843750003" />
+          <ConnectorPoint PointX="10.125" PointY="14.125" />
+          <ConnectorPoint PointX="10.125" PointY="12.974589843750003" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SYSTEMS__currenc__11D4A34F" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="8.5330000813802087" />
-          <ConnectorPoint PointX="2.625" PointY="8.5330000813802087" />
+          <ConnectorPoint PointX="2" PointY="10.184723307291666" />
+          <ConnectorPoint PointX="2.625" PointY="10.184723307291666" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SYSTEMS__enviorm__10E07F16" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="10.077392985026044" />
-          <ConnectorPoint PointX="2.625" PointY="10.077392985026044" />
+          <ConnectorPoint PointX="2" PointY="11.639892985026044" />
+          <ConnectorPoint PointX="2.625" PointY="11.639892985026044" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__KINDS__type_asse__65F62111" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.625" PointY="3.6194466145833388" />
-          <ConnectorPoint PointX="11.125" PointY="4" />
+          <ConnectorPoint PointX="11.28125" PointY="6.4944466145833388" />
+          <ConnectorPoint PointX="11.28125" PointY="13.301107584635417" />
+          <ConnectorPoint PointX="11.416666666666666" PointY="13.301107584635417" />
+          <ConnectorPoint PointX="11.583333333333334" PointY="13.301107584635417" />
+          <ConnectorPoint PointX="12.125" PointY="13.301107584635417" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PACKAGE_P__kind___6D9742D9" ManuallyRouted="false">
-          <ConnectorPoint PointX="12.625" PointY="4.59375" />
-          <ConnectorPoint PointX="14.09375" PointY="4.59375" />
-          <ConnectorPoint PointX="14.09375" PointY="3.7444466145833353" />
+          <ConnectorPoint PointX="13.625" PointY="11.398946533203123" />
+          <ConnectorPoint PointX="19.75" PointY="11.398946533203123" />
+          <ConnectorPoint PointX="19.75" PointY="10.494446614583335" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SUBKINDS__kind_i__2B947552" ManuallyRouted="false">
-          <ConnectorPoint PointX="12.625" PointY="6.595062662760415" />
-          <ConnectorPoint PointX="13.625" PointY="6.595062662760415" />
+          <ConnectorPoint PointX="13.625" PointY="12.532562662760416" />
+          <ConnectorPoint PointX="14.625" PointY="12.532562662760416" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__kind___4830B400" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.125" PointY="6.657562662760415" />
-          <ConnectorPoint PointX="10.625" PointY="6.657562662760415" />
+          <ConnectorPoint PointX="12.125" PointY="11.799794921875002" />
+          <ConnectorPoint PointX="11.583333333333334" PointY="11.799794921875002" />
+          <ConnectorPoint PointX="11.416666666666666" PointY="11.799794921875002" />
+          <ConnectorPoint PointX="11.364583333333334" PointY="11.799794921875002" />
+          <ConnectorPoint PointX="11.197916666666666" PointY="11.799794921875002" />
+          <ConnectorPoint PointX="11.125" PointY="11.799794921875002" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__manag__4B0D20AB" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.09375" PointY="12.25" />
-          <ConnectorPoint PointX="13.09375" PointY="10.775079781901042" />
-          <ConnectorPoint PointX="10.625" PointY="10.775079781901042" />
+          <ConnectorPoint PointX="11.875" PointY="14.125" />
+          <ConnectorPoint PointX="11.5" PointY="13.75" />
+          <ConnectorPoint PointX="11.5" PointY="11.009179941813152" />
+          <ConnectorPoint PointX="11.364583333333334" PointY="11.009179941813152" />
+          <ConnectorPoint PointX="11.197916666666666" PointY="11.009179941813152" />
+          <ConnectorPoint PointX="11.125" PointY="11.009179941813152" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PACKAGE_K__type___5E54FF49" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.625" PointY="2.148946533203123" />
-          <ConnectorPoint PointX="11.5" PointY="2.148946533203123" />
+          <ConnectorPoint PointX="11.75" PointY="6.4274198404947995" />
+          <ConnectorPoint PointX="12.495128205128205" PointY="6.4274198404947986" />
+          <ConnectorPoint PointX="12.661794871794873" PointY="6.4274198404947995" />
+          <ConnectorPoint PointX="12.823589743589743" PointY="6.4274198404947986" />
+          <ConnectorPoint PointX="12.990256410256411" PointY="6.4274198404947995" />
+          <ConnectorPoint PointX="13.270128205128204" PointY="6.4274198404947986" />
+          <ConnectorPoint PointX="13.436794871794872" PointY="6.4274198404947995" />
+          <ConnectorPoint PointX="17.28125" PointY="6.4274198404947995" />
+          <ConnectorPoint PointX="17.28125" PointY="9.25" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PACKAGE_P__packa__6E8B6712" ManuallyRouted="false">
-          <ConnectorPoint PointX="13" PointY="2.211446533203123" />
-          <ConnectorPoint PointX="13.75" PointY="2.211446533203123" />
+          <ConnectorPoint PointX="18.25" PointY="9.8722233072916676" />
+          <ConnectorPoint PointX="19" PointY="9.8722233072916676" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SYSTEMS_P__param__1E3A7A34" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.75" PointY="13.119446614583332" />
-          <ConnectorPoint PointX="4.75" PointY="13.730720766601561" />
-          <ConnectorPoint PointX="7" PointY="13.730720766601561" />
-        </AssociationConnector>
-        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__parat__5E1FF51F" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.5" PointY="12.014892985026044" />
-          <ConnectorPoint PointX="6.5" PointY="12.014892985026044" />
+          <ConnectorPoint PointX="4.125" PointY="14.994446614583332" />
+          <ConnectorPoint PointX="4.125" PointY="16.148946533203123" />
+          <ConnectorPoint PointX="6.625" PointY="16.148946533203123" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__artic__45544755" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.625" PointY="5.797893066406246" />
-          <ConnectorPoint PointX="9.125" PointY="6.375" />
+          <ConnectorPoint PointX="9.1875" PointY="7.547893066406246" />
+          <ConnectorPoint PointX="9.1875" PointY="8.25" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__subki__4924D839" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.625" PointY="7.345062662760415" />
-          <ConnectorPoint PointX="10.625" PointY="7.345062662760415" />
+          <ConnectorPoint PointX="14.625" PointY="13.76620564778646" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="13.76620564778646" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="13.76620564778646" />
+          <ConnectorPoint PointX="9.3437475" PointY="13.76620564778646" />
+          <ConnectorPoint PointX="9.3437475" PointY="12.974589843750003" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SUBZONES__zone_i__52E34C9D" ManuallyRouted="false">
-          <ConnectorPoint PointX="12.75" PointY="9.5506697591145837" />
-          <ConnectorPoint PointX="13.875" PointY="9.5506697591145837" />
+          <ConnectorPoint PointX="13.375" PointY="9.01489298502604" />
+          <ConnectorPoint PointX="14.25" PointY="9.01489298502604" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__subzo__473C8FC7" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.875" PointY="10.388064720052091" />
-          <ConnectorPoint PointX="10.625" PointY="10.388064720052091" />
+          <ConnectorPoint PointX="14.25" PointY="10.218564961751302" />
+          <ConnectorPoint PointX="11.364583333333334" PointY="10.218564961751302" />
+          <ConnectorPoint PointX="11.197916666666666" PointY="10.218564961751302" />
+          <ConnectorPoint PointX="11.125" PointY="10.218564961751302" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SYSTEMS_P__syste__1D4655FB" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.071775703125" PointY="10.529785970052089" />
-          <ConnectorPoint PointX="3.071775703125" PointY="14.273946533203123" />
-          <ConnectorPoint PointX="7" PointY="14.273946533203123" />
+          <ConnectorPoint PointX="2.96875" PointY="12.404785970052089" />
+          <ConnectorPoint PointX="2.96875" PointY="15.605720766601561" />
+          <ConnectorPoint PointX="4.041666666666667" PointY="15.605720766601561" />
+          <ConnectorPoint PointX="4.208333333333333" PointY="15.605720766601561" />
+          <ConnectorPoint PointX="6.625" PointY="15.605720766601561" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__syste__53A266AC" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="9.1041162109375016" />
-          <ConnectorPoint PointX="5.375" PointY="9.1041162109375016" />
-        </AssociationConnector>
-        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.6296403515625" PointY="10.529785970052089" />
-          <ConnectorPoint PointX="3.6296403515625" PointY="10.889895485026045" />
-          <ConnectorPoint PointX="6.5" PointY="10.889895485026045" />
+          <ConnectorPoint PointX="4.125" PointY="10.979116210937502" />
+          <ConnectorPoint PointX="5.375" PointY="10.979116210937502" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__trx_h__52AE4273" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.125" PointY="8.7916162109375016" />
-          <ConnectorPoint PointX="7.25" PointY="8.7916162109375016" />
+          <ConnectorPoint PointX="8.625" PointY="10.666616210937502" />
+          <ConnectorPoint PointX="7.25" PointY="10.666616210937502" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__valid__54968AE5" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.46875" PointY="7.512553710937496" />
-          <ConnectorPoint PointX="2.46875" PointY="7.7875273554687485" />
-          <ConnectorPoint PointX="5.375" PointY="7.7875273554687485" />
-        </AssociationConnector>
-        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.125" PointY="10.737294921875002" />
-          <ConnectorPoint PointX="8.625" PointY="10.737294921875002" />
+          <ConnectorPoint PointX="3.875" PointY="9.5597233072916659" />
+          <ConnectorPoint PointX="5.375" PointY="9.5597233072916659" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__zone___46486B8E" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="8.8631697591145837" />
-          <ConnectorPoint PointX="10.625" PointY="8.8631697591145837" />
+          <ConnectorPoint PointX="11.875" PointY="9.13989298502604" />
+          <ConnectorPoint PointX="11.364583333333334" PointY="9.13989298502604" />
+          <ConnectorPoint PointX="11.197916666666666" PointY="9.13989298502604" />
+          <ConnectorPoint PointX="11.125" PointY="9.13989298502604" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AFN2Model.CORRECTION_MONETARY_VALUE" Width="1.5" PointX="0.75" PointY="14.625" Height="1.6910001627604174" />
+        <EntityTypeShape EntityType="AFN2Model.BASE_GLOBAL_AFN_CALC" Width="1.5" PointX="2.625" PointY="18.75" Height="9.5426440429687531" />
+        <EntityTypeShape EntityType="AFN2Model.BASE_LOCAL_AFN_CALC" Width="1.5" PointX="0.875" PointY="18.75" Height="9.5426440429687531" />
+        <EntityTypeShape EntityType="AFN2Model.TRANSACTION_PARAMETER_DETAIL" Width="2.625" PointX="5.5" PointY="12.375" Height="2.4047859700520746" />
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__parat__5E1FF51F" >
+          <ConnectorPoint PointX="4.875" PointY="13.952392985026037" />
+          <ConnectorPoint PointX="5.5" PointY="13.952392985026037" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__syste__5D2BD0E6" >
+          <ConnectorPoint PointX="3.1718775" PointY="12.404785970052089" />
+          <ConnectorPoint PointX="3.1718775" PointY="12.764895485026045" />
+          <ConnectorPoint PointX="5.5" PointY="12.764895485026045" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" >
+          <ConnectorPoint PointX="8.625" PointY="12.674794921875002" />
+          <ConnectorPoint PointX="8.125" PointY="12.674794921875002" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AFN2Model.SITUATION" Width="1.5" PointX="0.5" PointY="5.875" Height="2.0478930664062602" />
+        <AssociationConnector Association="AFN2Model.FK__SITUATION__estad__10AB74EC" >
+          <ConnectorPoint PointX="2.375" PointY="8.8097233072916659" />
+          <ConnectorPoint PointX="2.183" PointY="8.8097233072916659" />
+          <ConnectorPoint PointX="2.183" PointY="8.11489306640626" />
+          <ConnectorPoint PointX="1.25" PointY="8.11489306640626" />
+          <ConnectorPoint PointX="1.25" PointY="7.92289306640626" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SITUATION__estad__119F9925" >
+          <ConnectorPoint PointX="3.125" PointY="7.875" />
+          <ConnectorPoint PointX="3.125" PointY="7.575" />
+          <ConnectorPoint PointX="2.3" PointY="7.575" />
+          <ConnectorPoint PointX="2.3" PointY="6.89894653320313" />
+          <ConnectorPoint PointX="2" PointY="6.89894653320313" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AFN2Model.ASSET_IN_PROGRESS_DETAIL" Width="1.5" PointX="15.625" PointY="2" Height="2.0478930664062602" />
+        <EntityTypeShape EntityType="AFN2Model.ASSET_IN_PROGRESS_HEAD" Width="1.5" PointX="12.375" PointY="2.375" Height="3.8323575846354156" />
+        <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__aprov__1940BAED" >
+          <ConnectorPoint PointX="3.375" PointY="5.5" />
+          <ConnectorPoint PointX="3.375" PointY="3.0506697591145837" />
+          <ConnectorPoint PointX="4.510416666666667" PointY="3.0506697591145833" />
+          <ConnectorPoint PointX="4.677083333333333" PointY="3.0506697591145837" />
+          <ConnectorPoint PointX="10.072916666666666" PointY="3.0506697591145833" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="3.0506697591145837" />
+          <ConnectorPoint PointX="12.375" PointY="3.0506697591145837" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__curre__1EF99443" >
+          <ConnectorPoint PointX="1.25" PointY="8.5" />
+          <ConnectorPoint PointX="1.25" PointY="8.17289306640626" />
+          <ConnectorPoint PointX="2.0625" PointY="8.17289306640626" />
+          <ConnectorPoint PointX="2.0625" PointY="7.625" />
+          <ConnectorPoint PointX="2.375" PointY="7.625" />
+          <ConnectorPoint PointX="2.375" PointY="3.02394653320313" />
+          <ConnectorPoint PointX="4.510416666666667" PointY="3.0239465332031297" />
+          <ConnectorPoint PointX="4.677083333333333" PointY="3.02394653320313" />
+          <ConnectorPoint PointX="10.072916666666666" PointY="3.0239465332031297" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="3.02394653320313" />
+          <ConnectorPoint PointX="12.125" PointY="3.02394653320313" />
+          <ConnectorPoint PointX="12.125" PointY="2.125" />
+          <ConnectorPoint PointX="15.25" PointY="2.125" />
+          <ConnectorPoint PointX="15.25" PointY="2.767957899902354" />
+          <ConnectorPoint PointX="15.625" PointY="2.767957899902354" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__head___1E05700A" >
+          <ConnectorPoint PointX="13.875" PointY="3.5984197998046952" />
+          <ConnectorPoint PointX="15.625" PointY="3.5984197998046952" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__batch__184C96B4" >
+          <ConnectorPoint PointX="7.75" PointY="3.7082735990397104" />
+          <ConnectorPoint PointX="10.072916666666666" PointY="3.70827359903971" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="3.7082735990397104" />
+          <ConnectorPoint PointX="12.375" PointY="3.7082735990397104" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__entra__1758727B" >
+          <ConnectorPoint PointX="12.906923076923077" PointY="6.2073575846354156" />
+          <ConnectorPoint PointX="12.906923076923077" PointY="6.5823575846354156" />
+          <ConnectorPoint PointX="13.353461538461538" PointY="6.5823575846354156" />
+          <ConnectorPoint PointX="13.353461538461538" PointY="6.2073575846354156" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__zone___16644E42" >
+          <ConnectorPoint PointX="12.578461538461539" PointY="7.625" />
+          <ConnectorPoint PointX="12.578461538461539" PointY="6.2073575846354156" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AFN2Model.DOCS_BATCH" Width="1.5" PointX="3.5" PointY="0.5" Height="1.8694466145833388" />
+        <EntityTypeShape EntityType="AFN2Model.DOCS_OBC" Width="1.5" PointX="10.125" PointY="0.5" Height="1.8694466145833388" />
+        <EntityTypeShape EntityType="AFN2Model.DOCUMENT" Width="1.5" PointX="6.875" PointY="0.5" Height="2.2263395182291674" />
+        <AssociationConnector Association="AFN2Model.FK__DOCS_OBC__obc_id__35DCF99B" >
+          <ConnectorPoint PointX="12.375" PointY="4.1665471980794209" />
+          <ConnectorPoint PointX="10.15625" PointY="4.1665471980794209" />
+          <ConnectorPoint PointX="10.15625" PointY="2.3694466145833388" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__DOCS_BATC__batch__3E723F9C" >
+          <ConnectorPoint PointX="6.25" PointY="3.9843724999999992" />
+          <ConnectorPoint PointX="4.59375" PointY="3.9843724999999992" />
+          <ConnectorPoint PointX="4.59375" PointY="2.3694466145833388" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__DOCS_BATC__docum__3D7E1B63" >
+          <ConnectorPoint PointX="6.875" PointY="0.90486165364583471" />
+          <ConnectorPoint PointX="5" PointY="0.90486165364583471" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__DOCS_OBC__docume__34E8D562" >
+          <ConnectorPoint PointX="8.375" PointY="1.4347233072916694" />
+          <ConnectorPoint PointX="10.125" PointY="1.4347233072916694" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

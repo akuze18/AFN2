@@ -11,8 +11,8 @@ namespace AFN_WF_C.ServiceProcess.Repositories
     class DOCUMENTS
     {
         private List<DOCUMENT> _source;
-        public DOCUMENTS(ObjectSet<DOCUMENT> source) { _source = source.ToList(); }
-        public DOCUMENTS(List<DOCUMENT> source) { _source = source; }
+        public DOCUMENTS(ObjectSet<DOCUMENT> source) { _source = source.Include("DOCS_BATCH").Include("DOCS_OBC").ToList(); }
+        //public DOCUMENTS(List<DOCUMENT> source) { _source = source; }
 
         public DOCUMENT ById(int idFind)
         {
@@ -24,7 +24,23 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         }
         public List<DOCUMENT> ByBatch(int batch_id)
         {
-            return _source.Where(x => x.batch_article_id == batch_id).ToList();
+            return _source.Where(
+                doc => doc.DOCS_BATCH.Where(dc => dc.batch_id == batch_id).Count() > 0
+               ).ToList();
+        }
+
+        public DOCUMENT ByNumProv(string numero, string proveedor_id)
+        {
+            if (numero != "SIN_DOCUMENTO" && proveedor_id != "SIN_PROVEED")
+            {
+                return _source.Where(
+                    doc =>
+                        doc.docnumber == numero &&
+                        doc.proveedor_id == proveedor_id
+                    ).FirstOrDefault();
+            }
+            else
+                return null;
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AFN_WF_C.ServiceProcess.DataContract
 {
-    class RespuestaAccion
+    public class RespuestaAccion
     {
 
         int _codigo = 0;
