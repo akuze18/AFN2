@@ -53,10 +53,14 @@ namespace AFN_WF_C.PCClient.Vistas
             var box = new Reportes.bajas();
             box.ShowFrom(this);
         }
-
         private void smReporte03_Click(object sender, EventArgs e)
         {
             var box = new Reportes.cuadro_movimiento();
+            box.ShowFrom(this);
+        }
+        private void smReporte04_Click(object sender, EventArgs e)
+        {
+            var box = new Reportes.fixed_assets();
             box.ShowFrom(this);
         }
         #endregion
@@ -130,6 +134,8 @@ namespace AFN_WF_C.PCClient.Vistas
         }
 
         #endregion
+
+        
 
     }
 }

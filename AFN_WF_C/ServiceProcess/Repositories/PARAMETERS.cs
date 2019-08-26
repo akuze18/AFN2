@@ -12,7 +12,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
     {
         private List<PARAMETER> _source;
         public PARAMETERS(ObjectSet<PARAMETER> source) { _source = source.ToList(); }
-        public PARAMETERS(List<PARAMETER> source) { _source = source; }
+        //public PARAMETERS(List<PARAMETER> source) { _source = source; }
 
         public PARAMETER ById(int idFind)
         {

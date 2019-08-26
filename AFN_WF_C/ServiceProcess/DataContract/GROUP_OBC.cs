@@ -7,10 +7,10 @@ namespace AFN_WF_C.ServiceProcess.DataContract
 {
     public class GROUP_OBC
     {
-        public double saldo_inicial;
-        public double incremento;
-        public double dec_to_activo;
-        public double dec_to_gasto;
-        public double saldo_final;
+        public decimal saldo_inicial;
+        public decimal incremento;
+        public decimal dec_to_activo;
+        public decimal dec_to_gasto;
+        public decimal saldo_final;
     }
 }

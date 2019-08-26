@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 using System.Data.Objects.DataClasses;
 
 using Newtonsoft.Json;
@@ -25,6 +26,7 @@ namespace AFN_WF_C.ServiceProcess
         private HelperServiceAFN.TIPO _Tipos;
         private HelperServiceAFN.SITUACION _Situaciones;
         private HelperServiceAFN.MONEDA _Monedas;
+        private HelperServiceAFN.PACKAGE_CLASE _Pack_Clases;
 
         public HelperServiceAFN.ZONA Zonas {
             get
@@ -128,6 +130,16 @@ namespace AFN_WF_C.ServiceProcess
                 return _Det_Param;
             }
         }
+
+        public HelperServiceAFN.PACKAGE_CLASE PackageClases
+        {
+            get
+            {
+                if (_Pack_Clases == null)
+                    _Pack_Clases = new HelperServiceAFN.PACKAGE_CLASE();
+                return _Pack_Clases;
+            }
+        }
         
 
         #endregion
@@ -223,8 +235,36 @@ namespace AFN_WF_C.ServiceProcess
             var vigentes = new int[] { 1 };
             return base_movimiento(sistema, fecha_corte,vigentes,null,null);
         }
-        
-        public RespuestaAccion GuardarProcesoDepreciacion(List<DETAIL_DEPRECIATE> lineas, DateTime fecha_proceso)
+
+        public List<DETAIL_DEPRECIATE> DepreciacionProcesoMensual(int año, int mes)
+        {
+            var result = new List<DETAIL_DEPRECIATE>();
+            var periodo = new ACode.Vperiodo(año, mes);
+
+            Repositories.CORRECTIONS_MONETARIES_VALUES CM;
+            using (AFN2Entities context = new AFN2Entities())
+            using (var repo = new Repositories.Main(context))
+            {
+                repo.set_correccion_monetaria(periodo.lastDB.Substring(0, 6));
+                CM = repo.correcciones_monetarias;
+            }
+            //var CM = CorreccionMonetaria.ByPeriodo(periodo.lastDB.Substring(0, 6));
+
+            var sistemas = Sistemas.All();
+            foreach (var S in sistemas)
+            {
+                var activos = base_movimiento(S, periodo.last);
+                foreach (var act in activos)
+                {
+                    decimal cmVal = CM.byAplica(act.fecha_compra, periodo).amount;
+                    var proceso = new DETAIL_DEPRECIATE(act, cmVal, periodo);
+                    result.Add(proceso);
+                }
+            }
+            GuardarProcesoDepreciacion(result, periodo.last);
+            return result;
+        }
+        private RespuestaAccion GuardarProcesoDepreciacion(List<DETAIL_DEPRECIATE> lineas, DateTime fecha_proceso)
         {
             var informe = new RespuestaAccion();
             using (AFN2Entities context = new AFN2Entities())
@@ -628,10 +668,88 @@ namespace AFN_WF_C.ServiceProcess
             return resultado;
         }
 
+        public List<GROUP_MOVEMENT> reporte_fixed_assets(Vperiodo periodo, GENERIC_VALUE tipo, SYSTEM sistema)
+        {
+            var resultado = new List<GROUP_MOVEMENT>();
+            if (tipo.type == "TYPE_ASSET")
+            {
+                GENERIC_VALUE clase;
+                if (tipo.id == 1)
+                    clase = Clases.Activos;
+                else if (tipo.id == 2)
+                    clase = Clases.Intagibles;
+                else
+                    clase = Clases.Activos;
+
+                var detalle = reporte_completo(periodo, clase, null, sistema);
+
+                var agrupa = PackageClases.ByType(tipo.id);
+
+                foreach (var PClase in agrupa)
+                {
+                    var linea = new GROUP_MOVEMENT();
+                    linea.clase = PClase;
+                    if (PClase.id == 8) //obras en construccion
+                    {
+                        var movimiento = movimiento_obras(periodo.first, periodo.last, sistema.CURRENCY.id);
+                        //linea.zona = null;  //no tiene importancia completar este valor para este reporte
+                        //linea.lugar = null; //no tiene importancia completar este valor para este reporte
+                        linea.saldo_inicial_activo = movimiento.saldo_inicial;
+                        linea.adiciones_regular = movimiento.incremento;
+                        linea.adiciones_obc = 0;
+                        linea.valor_inicial_activo = movimiento.saldo_inicial + movimiento.incremento;
+                        linea.cm_activo = 0;
+                        linea.credito = 0;
+                        linea.castigo_activo = movimiento.dec_to_gasto;
+                        linea.venta_activo = movimiento.dec_to_activo;
+                        linea.valor_final_activo = movimiento.saldo_final;
+                        linea.depreciacion_acumulada_inicial = 0;
+                        linea.cm_depreciacion = 0;
+                        linea.valor_residual = 0;
+                        linea.depreciacion_ejercicio = 0;
+                        linea.castigo_depreciacion = 0;
+                        linea.venta_depreciacion = 0;
+                        linea.depreciacion_acumulada_final = 0;
+                        linea.valor_libro = 0;
+                        
+                    }
+                    else
+                    {
+                        var CurrentGroup = detalle.Where(d => d.clase.id == PClase.related.id).DefaultIfEmpty(new DETAIL_MOVEMENT());
+                        linea.zona = (from a in CurrentGroup select a.zona).First();  //no tiene importancia completar este valor para este reporte
+                        linea.lugar = (from a in CurrentGroup select a.subzona).First(); //no tiene importancia completar este valor para este reporte
+                        linea.saldo_inicial_activo = CurrentGroup.Where(a => a.fecha_compra < periodo.first).Sum(a => a.valor_activo_inicial);
+                        linea.adiciones_regular = CurrentGroup.Where(a => a.fecha_compra >= periodo.first && a.origen.code != "OBC").Sum(a => a.valor_activo_inicial);
+                        linea.adiciones_obc = CurrentGroup.Where(a => a.fecha_compra >= periodo.first && a.origen.code == "OBC").Sum(a => a.valor_activo_inicial);
+                        //linea.valor_inicial_activo = FirstGroup.Sum(a => a.valor_activo_inicial);
+                        linea.valor_inicial_activo = linea.saldo_inicial_activo + linea.adiciones_regular + linea.adiciones_obc;
+                        linea.cm_activo = CurrentGroup.Sum(a => a.valor_activo_cm);
+                        linea.credito = CurrentGroup.Sum(a => a.credito_monto);
+                        linea.castigo_activo = CurrentGroup.Where(a => a.situacion == "BAJA" && a.vigencia.id == 3).Sum(a => (a.valor_activo_inicial)) * -1;
+                        linea.venta_activo = CurrentGroup.Where(a => a.situacion == "BAJA" && a.vigencia.id == 2).Sum(a => (a.valor_activo_inicial)) * -1;
+                        linea.valor_final_activo = CurrentGroup.Where(a => a.situacion != "BAJA").Sum(a => a.valor_activo_final);
+                        linea.depreciacion_acumulada_inicial = CurrentGroup.Sum(a => a.depreciacion_acum_inicial);
+                        linea.cm_depreciacion = CurrentGroup.Sum(a => a.depreciacion_acum_cm);
+                        linea.valor_residual = CurrentGroup.Sum(a => a.valor_residual);
+                        linea.depreciacion_ejercicio = CurrentGroup.Sum(a => a.depreciacion_ejercicio);
+                        linea.castigo_depreciacion = CurrentGroup.Where(a => a.situacion == "BAJA" && a.vigencia.id == 3).Sum(a => a.depreciacion_acum_final) * -1;
+                        linea.venta_depreciacion = CurrentGroup.Where(a => a.situacion == "BAJA" && a.vigencia.id == 2).Sum(a => a.depreciacion_acum_final) * -1;
+                        linea.depreciacion_acumulada_final = CurrentGroup.Where(a => a.situacion != "BAJA").Sum(a => a.depreciacion_acum_final);
+                        linea.valor_libro = CurrentGroup.Where(a => a.situacion != "BAJA").Sum(a => a.valor_libro);
+                    }
+                    linea.orden1 = linea.clase.code;
+                    linea.orden2 = string.Empty;
+                    linea.orden3 = string.Empty;
+                    resultado.Add(linea);
+                }
+            }
+            return resultado;
+        }
+
         public List<DETAIL_OBC> saldo_obras(DateTime fecha_consulta, int currency_id)
         {
             using (AFN2Entities context = new AFN2Entities())
-            using (var repo = new Repositories.Main(context))
+            //using (var repo = new Repositories.Main(context))
             {
                 List<DETAIL_OBC> resultado = new List<DETAIL_OBC>();
                 var entradas = (from head in context.ASSETS_IN_PROGRESS_HEAD
@@ -660,9 +778,9 @@ namespace AFN_WF_C.ServiceProcess
                     detail_obc.description = fila.head.descrip;
                     detail_obc.txFecha = fila.head.trx_date;
                     detail_obc.glFecha = fila.head.post_date;
-                    detail_obc.zona = fila.head.ZONE;
-                    detail_obc.monto = (double)(fila.detail.amount);
-                    detail_obc.ocupado = (double)(salidas
+                    detail_obc.zona = (SV_ZONE)(fila.head.ZONE);
+                    detail_obc.monto = (fila.detail.amount);
+                    detail_obc.ocupado = (salidas
                         .Where(s => s.entrada_id == fila.head.id && s.aproval_state_id == 2)
                         .Select(s=> s.amount)
                         .DefaultIfEmpty(0)
@@ -706,9 +824,9 @@ namespace AFN_WF_C.ServiceProcess
                                ).ToList();
                 var resultado = new GROUP_OBC();
                 resultado.saldo_inicial = saldo_inicial.Sum();
-                resultado.incremento = (double) entradas.DefaultIfEmpty(0).Sum() ;
-                resultado.dec_to_activo = (double)salidas.Where(s => s.head_batch_id != null).Select(s => s.detail_amount).DefaultIfEmpty(0).Sum();
-                resultado.dec_to_gasto = (double)salidas.Where(s => s.head_batch_id == null).Select(s => s.detail_amount).DefaultIfEmpty(0).Sum();
+                resultado.incremento = entradas.DefaultIfEmpty(0).Sum() ;
+                resultado.dec_to_activo = salidas.Where(s => s.head_batch_id != null).Select(s => s.detail_amount).DefaultIfEmpty(0).Sum();
+                resultado.dec_to_gasto = salidas.Where(s => s.head_batch_id == null).Select(s => s.detail_amount).DefaultIfEmpty(0).Sum();
                 resultado.saldo_final = saldo_final.Sum();
                 return resultado;
             }

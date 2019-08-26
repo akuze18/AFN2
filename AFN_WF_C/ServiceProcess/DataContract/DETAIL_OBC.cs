@@ -13,9 +13,9 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         public DateTime txFecha;
         public DateTime glFecha;
         public GENERIC_VALUE zona;
-        public double monto;
-        public double ocupado;
-        public double saldo{ get { return monto-ocupado; } }
+        public decimal monto;
+        public decimal ocupado;
+        public decimal saldo { get { return monto - ocupado; } }
 
 
 

@@ -10,7 +10,7 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         public long id { get; set; }
         public string code { get; set; }
         public string name { get; set; }
-        public double value { get; set; }
+        public decimal value { get; set; }
 
         public static implicit operator PARAM_VALUE(TRANSACTION_PARAMETER_DETAIL tpd)
         {
@@ -20,7 +20,7 @@ namespace AFN_WF_C.ServiceProcess.DataContract
                 me.id = tpd.id;
                 me.code = tpd.PARAMETER.code;
                 me.name = tpd.PARAMETER.name;
-                me.value = (double)tpd.parameter_value;
+                me.value = tpd.parameter_value;
             }
             return me;
         }

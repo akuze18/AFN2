@@ -75,24 +75,27 @@ namespace AFN_WF_C.PCClient
         {
             foreach (Control cnt in this.Controls)
             {
-                if (cnt.GetType() == typeof(ComboBox))
+                if (cnt.Enabled)
                 {
-                    var combo = (ComboBox)cnt;
-                    if (combo.SelectedIndex < 0)
+                    if (cnt.GetType() == typeof(ComboBox))
                     {
-                        MessageBox.Show("Debe seleccionar una opción para " + combo.Tag.ToString());
-                        combo.Focus();
-                        return false;
+                        var combo = (ComboBox)cnt;
+                        if (combo.SelectedIndex < 0)
+                        {
+                            Mensaje.Advert("Debe seleccionar una opción para " + combo.Tag.ToString());
+                            combo.Focus();
+                            return false;
+                        }
                     }
-                }
-                if (cnt.GetType() == typeof(ListBox))
-                {
-                    var listbox = (ListBox)cnt;
-                    if (listbox.SelectedIndex < 0)
+                    if (cnt.GetType() == typeof(ListBox))
                     {
-                        MessageBox.Show("Debe seleccionar una opción para " + listbox.Tag.ToString());
-                        listbox.Focus();
-                        return false;
+                        var listbox = (ListBox)cnt;
+                        if (listbox.SelectedIndex < 0)
+                        {
+                            Mensaje.Advert("Debe seleccionar una opción para " + listbox.Tag.ToString());
+                            listbox.Focus();
+                            return false;
+                        }
                     }
                 }
             }

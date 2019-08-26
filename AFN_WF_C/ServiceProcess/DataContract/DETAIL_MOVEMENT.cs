@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AFN_WF_C.ServiceProcess.DataContract
 {
-    public class DETAIL_MOVEMENT
+    public class DETAIL_MOVEMENT : IElemento
     {
 
         public SYSTEM sistema { get; set; }
@@ -36,32 +36,32 @@ namespace AFN_WF_C.ServiceProcess.DataContract
 
         //public GENERIC_VALUE aprobacion { get; set; }
 
-        public double valor_activo_inicial { get; set; }
-        public double credito_monto { get; set; }
-        public double valor_activo_final { get; set; }
-        public double depreciacion_acum_inicial { get; set; }
-        public double deterioro { get; set; }
-        public double valor_residual { get; set; }
-        public double valor_sujeto_dep { get; set; }
+        public decimal valor_activo_inicial { get; set; }
+        public decimal credito_monto { get; set; }
+        public decimal valor_activo_final { get; set; }
+        public decimal depreciacion_acum_inicial { get; set; }
+        public decimal deterioro { get; set; }
+        public decimal valor_residual { get; set; }
+        public decimal valor_sujeto_dep { get; set; }
         public int vida_util_asignada { get; set; }
         public int vida_util_ocupada { get; set; }
         public int vida_util_residual { get; set; }
-        public double depreciacion_ejercicio { get; set; }
-        public double depreciacion_acum_final { get; set; }
-        public double valor_libro { get; set; }
+        public decimal depreciacion_ejercicio { get; set; }
+        public decimal depreciacion_acum_final { get; set; }
+        public decimal valor_libro { get; set; }
         //public string usuario { get; set; }             
-        //public double precio_inicial { get; set; }     
-        public double porcentaje_cm { get; set; }
-        public double valor_activo_cm { get; set; }
-        public double valor_activo_update { get; set; }
-        public double depreciacion_acum_cm { get; set; }
-        public double depreciacion_acum_update { get; set; }
-        public double preparacion { get; set; }
-        public double desmantelamiento { get; set; }
-        public double transporte { get; set; }
-        public double montaje { get; set; }
-        public double honorario { get; set; }
-        public double revalorizacion { get; set; }
+        //public decimal precio_inicial { get; set; }     
+        public decimal porcentaje_cm { get; set; }
+        public decimal valor_activo_cm { get; set; }
+        public decimal valor_activo_update { get; set; }
+        public decimal depreciacion_acum_cm { get; set; }
+        public decimal depreciacion_acum_update { get; set; }
+        public decimal preparacion { get; set; }
+        public decimal desmantelamiento { get; set; }
+        public decimal transporte { get; set; }
+        public decimal montaje { get; set; }
+        public decimal honorario { get; set; }
+        public decimal revalorizacion { get; set; }
 
         public string situacion { get; set; }
 

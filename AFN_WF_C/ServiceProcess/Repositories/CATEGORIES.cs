@@ -5,14 +5,15 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     class CATEGORIES
     {
-        private List<CATEGORY> _source;
-        public CATEGORIES(ObjectSet<CATEGORY> source) { _source = source.ToList(); }
-        public CATEGORIES(List<CATEGORY> source) { _source = source; }
+        private List<SV_CATEGORY> _source;
+        public CATEGORIES(ObjectSet<CATEGORY> source) { _source = source.ToList().ConvertAll(c => (SV_CATEGORY)c); }
+        //public CATEGORIES(List<CATEGORY> source) { _source = source; }
 
         public GENERIC_VALUE ById(int idFind)
         {

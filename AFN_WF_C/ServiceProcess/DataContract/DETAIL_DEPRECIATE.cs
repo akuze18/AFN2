@@ -8,18 +8,18 @@ namespace AFN_WF_C.ServiceProcess.DataContract
     public class DETAIL_DEPRECIATE
     {
         private DETAIL_PROCESS _detail;
-        private double _porcentaje_cm;
-        private double _valor_inicial_unitario;
-        private double _depreciacion_inicial_unitaria;
-        private double _deterioro_unitario;
-        private double _valor_residual_unitario;
+        private decimal _porcentaje_cm;
+        private decimal _valor_inicial_unitario;
+        private decimal _depreciacion_inicial_unitaria;
+        private decimal _deterioro_unitario;
+        private decimal _valor_residual_unitario;
         private int _vida_util;
-        private double _credito_unitario;
+        private decimal _credito_unitario;
         //private double _credit_rate;
         private string _depreciation_rate;
         private ACode.Vperiodo _periodo_calc;
 
-        public DETAIL_DEPRECIATE(DETAIL_PROCESS p, double porcentaje_cm, ACode.Vperiodo periodo_calc)
+        public DETAIL_DEPRECIATE(DETAIL_PROCESS p, decimal porcentaje_cm, ACode.Vperiodo periodo_calc)
         {
             _detail = p;
             _valor_inicial_unitario = p.parametros.GetPrecioBase.value;
@@ -49,81 +49,81 @@ namespace AFN_WF_C.ServiceProcess.DataContract
 
         #region Calculando
 
-        public double porcentaje_cm
+        public decimal porcentaje_cm
         {
             get { return _porcentaje_cm; }
         }
 
-        public double valor_anterior_base
+        public decimal valor_anterior_base
         {
             get{ return _valor_inicial_unitario * cantidad; }
         }
-        public double cm_activo
+        public decimal cm_activo
         { 
             get { 
                 return Math.Round(_valor_inicial_unitario * porcentaje_cm / 100, 0) * cantidad; 
             } 
         }
-        public double valor_anterior_cm
+        public decimal valor_anterior_cm
         {
             get { return valor_anterior_base + cm_activo; }
         }
 
-        public double cred_adi_base
+        public decimal cred_adi_base
         { 
             get 
             {
                 return _credito_unitario * cantidad;   
             } 
         }
-        public double cm_cred
+        public decimal cm_cred
         {
             get
             {
                 return Math.Round(_credito_unitario * porcentaje_cm / 100, 0) * cantidad; 
             }
         }
-        public double credi_adi_cm
+        public decimal credi_adi_cm
         {
             get { return cred_adi_base + cm_cred; }
         }
 
-        public double val_AF_base
+        public decimal val_AF_base
         { 
             get { return valor_anterior_base + cred_adi_base; } 
         }
-        public double val_AF_cm
+        public decimal val_AF_cm
         {
             get { return valor_anterior_cm + credi_adi_cm; } 
         }
 
-        public double DA_anterior_base
+        public decimal DA_anterior_base
         {
             get { return _depreciacion_inicial_unitaria * cantidad; }
         }
-        public double cm_depreciacion
+        public decimal cm_depreciacion
         {
             get { return Math.Round(_depreciacion_inicial_unitaria * porcentaje_cm / 100, 0) * cantidad; }
         }
-        public double DA_anterior_cm
+        public decimal DA_anterior_cm
         {
             get { return DA_anterior_base + cm_depreciacion; }
         }
 
-        public double deter
+        public decimal deter
         {
             get { return _deterioro_unitario * cantidad; }
         }
-        public double val_res
+        public decimal val_res
         {
             get { return _valor_residual_unitario * cantidad; }
         }
 
-        public double val_suj_dep_base
+        public decimal val_suj_dep_base
         {
             get { return val_AF_base + DA_anterior_base + deter + val_res; }
         }
-        public double val_suj_dep
+        public decimal val_suj_dep
         {
             get{ return val_AF_cm + DA_anterior_cm + deter + val_res;}
         }
@@ -170,7 +170,7 @@ namespace AFN_WF_C.ServiceProcess.DataContract
             get { return vu_asig - vu_ocup; }
         }
 
-        public double dep_eje
+        public decimal dep_eje
         {
             get
             {
@@ -181,7 +181,7 @@ namespace AFN_WF_C.ServiceProcess.DataContract
                 return Math.Round(val_suj_dep / cantidad / vu_asig * vu_ocup, 0) * -cantidad;
             }
         }
-        public double dep_eje_base
+        public decimal dep_eje_base
         {
             get
             {
@@ -193,16 +193,16 @@ namespace AFN_WF_C.ServiceProcess.DataContract
             }
         }
 
-        public double DA_AF
+        public decimal DA_AF
         {
             get { return DA_anterior_cm + dep_eje; }
         }
-        public double DA_AF_base
+        public decimal DA_AF_base
         {
             get { return DA_anterior_base + dep_eje_base; }
         }
 
-        public double val_libro
+        public decimal val_libro
         {
             get { return val_AF_base + DA_AF; }
         }

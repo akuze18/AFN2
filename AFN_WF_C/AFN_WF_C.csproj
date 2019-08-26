@@ -49,6 +49,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -98,6 +99,7 @@
       <DependentUpon>FormBase.cs</DependentUpon>
     </Compile>
     <Compile Include="PCClient\Procesos\Consultas.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\ColumnData.cs" />
     <Compile Include="PCClient\Procesos\Estructuras\TituloCabera.cs" />
     <Compile Include="PCClient\Procesos\Migracion.cs" />
     <Compile Include="PCClient\Procesos\Reportes.cs" />
@@ -131,6 +133,12 @@
     <Compile Include="PCClient\Vistas\Reportes\cuadro_movimiento.Designer.cs">
       <DependentUpon>cuadro_movimiento.cs</DependentUpon>
     </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\fixed_assets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\fixed_assets.Designer.cs">
+      <DependentUpon>fixed_assets.cs</DependentUpon>
+    </Compile>
     <Compile Include="PCClient\Vistas\Reportes\vigentes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +169,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AFNold.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ServiceProcess\DataContract\GENERIC_RELATED.cs" />
     <Compile Include="ServiceProcess\DataContract\DETAIL_DEPRECIATE.cs" />
     <Compile Include="ServiceProcess\DataContract\DETAIL_MOVEMENT.cs" />
     <Compile Include="ServiceProcess\DataContract\DETAIL_OBC.cs" />
@@ -176,11 +185,20 @@
     <Compile Include="ServiceProcess\DataContract\RespuestaAccion.cs" />
     <Compile Include="ServiceProcess\DataContract\SYSTEM.cs" />
     <Compile Include="ServiceProcess\DataContract\TRANSACTION_HEADER.cs" />
+    <Compile Include="ServiceProcess\DataView\SV_APROVAL_STATE.cs" />
+    <Compile Include="ServiceProcess\DataView\SV_BATCH_ARTICLE.cs" />
+    <Compile Include="ServiceProcess\DataView\SV_CATEGORY.cs" />
+    <Compile Include="ServiceProcess\DataView\SV_CORRECTION_MONETARY_VALUE.cs" />
+    <Compile Include="ServiceProcess\DataView\SV_KIND.cs" />
+    <Compile Include="ServiceProcess\DataView\SV_SYSTEM_PARAMETER.cs" />
+    <Compile Include="ServiceProcess\DataView\SV_TRANSACTION_PARAMETER_DETAIL.cs" />
+    <Compile Include="ServiceProcess\DataView\SV_ZONE.cs" />
     <Compile Include="ServiceProcess\HelperServiceAFN\CABECERA.cs" />
     <Compile Include="ServiceProcess\HelperServiceAFN\CLASE.cs" />
     <Compile Include="ServiceProcess\HelperServiceAFN\CORRECCION_MONETARIA.cs" />
     <Compile Include="ServiceProcess\HelperServiceAFN\DETALLE_PARAMETRO.cs" />
     <Compile Include="ServiceProcess\HelperServiceAFN\MONEDA.cs" />
+    <Compile Include="ServiceProcess\HelperServiceAFN\PACKAGE_CLASE.cs" />
     <Compile Include="ServiceProcess\HelperServiceAFN\PARTE.cs" />
     <Compile Include="ServiceProcess\HelperServiceAFN\SISTEMA.cs" />
     <Compile Include="ServiceProcess\HelperServiceAFN\SITUACION.cs" />
@@ -198,6 +216,7 @@
     <Compile Include="ServiceProcess\Repositories\KINDS.cs" />
     <Compile Include="ServiceProcess\Repositories\MANAGEMENTS.cs" />
     <Compile Include="ServiceProcess\Repositories\ORIGINS.cs" />
+    <Compile Include="ServiceProcess\Repositories\PACKAGE_KINDS.cs" />
     <Compile Include="ServiceProcess\Repositories\PARAMETERS.cs" />
     <Compile Include="ServiceProcess\Repositories\PARTS.cs" />
     <Compile Include="ServiceProcess\Repositories\SITUATIONS.cs" />
@@ -232,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PCClient\Vistas\Reportes\cuadro_movimiento.resx">
       <DependentUpon>cuadro_movimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Reportes\fixed_assets.resx">
+      <DependentUpon>fixed_assets.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PCClient\Vistas\Reportes\vigentes.resx">
       <DependentUpon>vigentes.cs</DependentUpon>

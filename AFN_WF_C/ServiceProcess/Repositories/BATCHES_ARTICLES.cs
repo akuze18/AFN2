@@ -5,16 +5,18 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     class BATCHES_ARTICLES
     {
-        private List<BATCH_ARTICLE> _source;
+        private List<SV_BATCH_ARTICLE> _source;
 
-        public BATCHES_ARTICLES(ObjectSet<BATCH_ARTICLE> source) { _source = source.ToList(); }
+        public BATCHES_ARTICLES(ObjectSet<BATCH_ARTICLE> source) { _source = source.ToList().ConvertAll(ba => (SV_BATCH_ARTICLE) ba); }
 
-        public void add_new(BATCH_ARTICLE batch){
+        public void add_new(SV_BATCH_ARTICLE batch)
+        {
             _source.Add(batch);
         }
     }

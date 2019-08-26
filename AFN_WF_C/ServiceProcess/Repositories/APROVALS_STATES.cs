@@ -5,14 +5,15 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     class APROVALS_STATES
     {
-        private List<APROVAL_STATE> _source;
-        public APROVALS_STATES(ObjectSet<APROVAL_STATE> source) { _source = source.ToList(); }
-        public APROVALS_STATES(List<APROVAL_STATE> source) { _source = source; }
+        private List<SV_APROVAL_STATE> _source;
+        public APROVALS_STATES(ObjectSet<APROVAL_STATE> source) { _source = source.ToList().ConvertAll(ap => (SV_APROVAL_STATE)ap); }
+        //public APROVALS_STATES(List<APROVAL_STATE> source) { _source = source; }
 
         public GENERIC_VALUE ById(int idFind)
         {

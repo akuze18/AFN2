@@ -5,28 +5,28 @@ using System.Text;
 
 namespace AFN_WF_C.ServiceProcess.DataContract
 {
-    public class GROUP_MOVEMENT
+    public class GROUP_MOVEMENT: IElemento
     {
         public GENERIC_VALUE clase;
         public GENERIC_VALUE zona;
         public GENERIC_VALUE lugar;
-        public double saldo_inicial_activo;
-        public double adiciones_regular;
-        public double adiciones_obc;
-        public double valor_inicial_activo; //saldo_inicial_activo+adiciones_regular+adiciones_obc
-        public double cm_activo;
-        public double credito;
-        public double castigo_activo;
-        public double venta_activo;
-        public double valor_final_activo;
-        public double depreciacion_acumulada_inicial;
-        public double cm_depreciacion;
-        public double valor_residual;
-        public double depreciacion_ejercicio;
-        public double castigo_depreciacion;
-        public double venta_depreciacion;
-        public double depreciacion_acumulada_final;
-        public double valor_libro;
+        public decimal saldo_inicial_activo;
+        public decimal adiciones_regular;
+        public decimal adiciones_obc;
+        public decimal valor_inicial_activo; //saldo_inicial_activo+adiciones_regular+adiciones_obc
+        public decimal cm_activo;
+        public decimal credito;
+        public decimal castigo_activo;
+        public decimal venta_activo;
+        public decimal valor_final_activo;
+        public decimal depreciacion_acumulada_inicial;
+        public decimal cm_depreciacion;
+        public decimal valor_residual;
+        public decimal depreciacion_ejercicio;
+        public decimal castigo_depreciacion;
+        public decimal venta_depreciacion;
+        public decimal depreciacion_acumulada_final;
+        public decimal valor_libro;
         public string orden1;
         public string orden2;
         public string orden3;

@@ -169,6 +169,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _corr_monets;
             }
         }
+        public void set_correccion_monetaria(string periodo)
+        {
+            _corr_monets = new CORRECTIONS_MONETARIES_VALUES(_context.CORRECTIONS_MONETARIES_VALUES, periodo);
+        }
+
         public TRANSACTIONS_HEADERS cabeceras
         {
             get
@@ -192,6 +197,10 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 if (_transactions_parameters == null) _transactions_parameters = new TRANSACTIONS_PARAM_DET(_context.TRANSACTIONS_PARAMETERS_DETAILS);
                 return _transactions_parameters;
             }
+        }
+        public void set_detalle_parametros(int SystemId, int[] HeadsIdSelected)
+        {
+            _transactions_parameters = new TRANSACTIONS_PARAM_DET(_context.TRANSACTIONS_PARAMETERS_DETAILS, SystemId, HeadsIdSelected);
         }
 
         #endregion
@@ -250,50 +259,83 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                              A.account_date <= corte &&
                              aprovados.Contains(A.APROVAL_STATE.code) &&
                              D.system_id == sistema.id
-                         select new { Batch = A, Part = B, Head = C, Detail = D });
+                         select new {
+                             //Batch = A, 
+                             BatchId = A.id,
+                             BatchDescription = A.descrip,
+                             BatchPurchaseDate = A.purchase_date,
+                             BatchAprovalStateId = A.aproval_state_id,
+                             BatchInitialPrice = A.initial_price,
+                             BatchInitialLifeTime = A.initial_life_time,
+                             BatchAccountDate = A.account_date,
+                             BatchOriginId = A.origin_id,
+                             BatchAssetId = A.type_asset_id,
+                             //Part = B, 
+                             PartIndex = B.part_index,
+                             PartQuantity = B.quantity,
+                             PartId = B.id,
+                             //Head = C, 
+                             HeadTrxIni = C.trx_ini,
+                             HeadTrxEnd = C.trx_end,
+                             HeadZoneId = C.zone_id,
+                             HeadKindId = C.kind_id,
+                             HeadCategoryId = C.category_id,
+                             HeadSubZoneId = C.subzone_id,
+                             HeadSubkindId = C.subkind_id,
+                             HeadManageId = C.manage_id,
+                             HeadUserOwn = C.user_own,
+                             HeadId = C.id,
+                             HeadRefSource = C.ref_source,
+                             //Detail = D 
+                             DetailValidityId = D.validity_id,
+                             DetailDepreciate = D.depreciate,
+                             DetailAllowCredit = D.allow_credit
+                         });
 
+            var selectedHeads = datos.Select(d => d.HeadId).Distinct().ToArray();
+            set_detalle_parametros(sistema.id, selectedHeads);
             var all_params = this.parametros_sistemas.BySystem(sistema.id);
 
             foreach (var d in datos)
             {
                 var line = new DETAIL_PROCESS();
                 line.sistema = sistema;
-                line.cod_articulo = d.Batch.id;
-                line.parte = d.Part.part_index;
-                line.fecha_inicio = d.Head.trx_ini;
-                line.fecha_fin = d.Head.trx_end;
-                line.zona = this.zonas.ById(d.Head.zone_id);
-                line.vigencia = this.validaciones.ById(d.Detail.validity_id);
-                line.cantidad = d.Part.quantity;
-                line.clase = this.clases.ById(d.Head.kind_id);
-                line.categoria = this.categorias.ById(d.Head.category_id);
-                line.subzona = this.subzonas.ById(d.Head.subzone_id);
-                line.subclase = this.subclases.ById(d.Head.subkind_id);
-                line.gestion = this.gestiones.ById(d.Head.manage_id);
-                line.usuario = d.Head.user_own;
-                line.se_deprecia = d.Detail.depreciate;
-                line.aprobacion = this.aprobaciones.ById(d.Batch.aproval_state_id);
-                line.dscrp = d.Batch.descrip;
-                line.dsc_extra = d.Batch.descrip;
-                line.fecha_compra = d.Batch.purchase_date;
-                line.documentos = this.documentos.ByBatch(d.Batch);
-                line.precio_inicial = d.Batch.initial_price;
+                line.cod_articulo = d.BatchId;
+                line.parte = d.PartIndex;
+                line.fecha_inicio = d.HeadTrxIni;
+                line.fecha_fin = d.HeadTrxEnd;
+                line.zona = this.zonas.ById(d.HeadZoneId);
+                line.vigencia = this.validaciones.ById(d.DetailValidityId);
+                line.cantidad = d.PartQuantity;
+                line.clase = this.clases.ById(d.HeadKindId);
+                line.categoria = this.categorias.ById(d.HeadCategoryId);
+                line.subzona = this.subzonas.ById(d.HeadSubZoneId);
+                line.subclase = this.subclases.ById(d.HeadSubkindId);
+                line.gestion = this.gestiones.ById(d.HeadManageId);
+                line.usuario = d.HeadUserOwn;
+                line.se_deprecia = d.DetailDepreciate;
+                line.aprobacion = this.aprobaciones.ById(d.BatchAprovalStateId);
+                line.dscrp = d.BatchDescription;
+                line.dsc_extra = d.BatchDescription;
+                line.fecha_compra = d.BatchPurchaseDate;
+                line.documentos = this.documentos.ByBatch(d.BatchId);
+                line.precio_inicial = d.BatchInitialPrice;
                 if (sistema.ENVIORMENT.code == "IFRS")
-                    line.vida_util_inicial = (int)(Math.Round((double)(d.Batch.initial_life_time / 12 * 365), 0));
+                    line.vida_util_inicial = (int)(Math.Round((double)(d.BatchInitialLifeTime / 12 * 365), 0));
                 else
-                    line.vida_util_inicial = d.Batch.initial_life_time;
-                line.derecho_credito = d.Detail.allow_credit;
-                line.fecha_ing = d.Batch.account_date;
-                line.origen = this.origenes.ById(d.Batch.origin_id);
-                line.tipo = this.tipos.ById(d.Batch.type_asset_id);
+                    line.vida_util_inicial = d.BatchInitialLifeTime;
+                line.derecho_credito = d.DetailAllowCredit;
+                line.fecha_ing = d.BatchAccountDate;
+                line.origen = this.origenes.ById(d.BatchOriginId);
+                line.tipo = this.tipos.ById(d.BatchAssetId);
 
-                line.PartId = d.Part.id;
-                line.HeadId = d.Head.id;
-                line.RefSource = d.Head.ref_source;
+                line.PartId = d.PartId;
+                line.HeadId = d.HeadId;
+                line.RefSource = d.HeadRefSource;
                 if (WithParameters)
                 {
                     var valores = new LIST_PARAM_VALUE();
-                    var curr_vals = this.detalle_parametros.ByHead_Sys(d.Head.id, sistema.id);
+                    var curr_vals = this.detalle_parametros.ByHead_Sys(d.HeadId, sistema.id);
                     foreach (var par in all_params)
                     {
                         PARAMETER meta_param = this.parametros.ById(par.parameter_id);

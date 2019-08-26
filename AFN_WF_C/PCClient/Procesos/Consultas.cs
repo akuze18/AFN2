@@ -11,26 +11,8 @@ namespace AFN_WF_C.PCClient.Procesos
     {
         public static List<SC.DETAIL_DEPRECIATE> depreciar(int año, int mes)
         {
-            var result = new List<SC.DETAIL_DEPRECIATE>();
-
             var pServ = new ServiceProcess.ServiceAFN();
-            var periodo = new ACode.Vperiodo(año, mes);
-            var CM = pServ.CorreccionMonetaria.ByPeriodo(periodo.lastDB.Substring(0,6));
-            
-            //ServCont.SYSTEM S1 = pServ.Sistemas.ByCodes("FIN", "CLP");
-            var sistemas = pServ.Sistemas.All();
-            foreach (var S in sistemas)
-            {
-                var activos = pServ.base_movimiento(S, periodo.last);
-                foreach (var act in activos)
-                {
-                    double cmVal = (double)CM.byAplica(act.fecha_compra, periodo).amount;
-                    var proceso = new SC.DETAIL_DEPRECIATE(act, cmVal, periodo);
-                    result.Add(proceso);
-                }
-            }
-            pServ.GuardarProcesoDepreciacion(result, periodo.last);
-            return result;
+            return pServ.DepreciacionProcesoMensual(año,mes);
         }
 
         public static List<SC.DETAIL_PROCESS> buscar_Articulo(DateTime desde, DateTime hasta, int codigo, string descrip, string zona, int[] vigencias, string[] origenes)
@@ -226,7 +208,6 @@ namespace AFN_WF_C.PCClient.Procesos
                 return x;
             }
         }
-
         public static List<SC.GENERIC_VALUE> opciones_menu_obc
         {
             get

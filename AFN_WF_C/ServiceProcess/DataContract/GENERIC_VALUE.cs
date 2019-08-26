@@ -172,29 +172,29 @@ namespace AFN_WF_C.ServiceProcess.DataContract
     #endregion
 
     #region Convertions
-        public static implicit operator GENERIC_VALUE(ZONE z) {
-            var me = new GENERIC_VALUE();
-            if (z != null)
-            {
-                me.id = z.id;
-                me.code = z.codDept;
-                me.description = z.name;
-                me.type = z.GetType().Name;
-            }
-            return me;
-        }
-        public static implicit operator GENERIC_VALUE(KIND k)
-        {
-            var me = new GENERIC_VALUE();
-            if (k != null)
-            {
-                me.id = k.id;
-                me.code = k.cod;
-                me.description = k.descrip;
-                me.type = k.GetType().Name;
-            }
-            return me;
-        }
+        //public static implicit operator GENERIC_VALUE(ZONE z) {
+        //    var me = new GENERIC_VALUE();
+        //    if (z != null)
+        //    {
+        //        me.id = z.id;
+        //        me.code = z.codDept;
+        //        me.description = z.name;
+        //        me.type = z.GetType().Name;
+        //    }
+        //    return me;
+        //}
+        //public static implicit operator GENERIC_VALUE(KIND k)
+        //{
+        //    var me = new GENERIC_VALUE();
+        //    if (k != null)
+        //    {
+        //        me.id = k.id;
+        //        me.code = k.cod;
+        //        me.description = k.descrip;
+        //        me.type = k.GetType().Name;
+        //    }
+        //    return me;
+        //}
         public static implicit operator GENERIC_VALUE(VALIDATY v)
         {
             var me = new GENERIC_VALUE();
@@ -207,18 +207,18 @@ namespace AFN_WF_C.ServiceProcess.DataContract
             }
             return me;
         }
-        public static implicit operator GENERIC_VALUE(CATEGORY c)
-        {
-            var me = new GENERIC_VALUE();
-            if (c != null)
-            {
-                me.id = c.id;
-                me.code = c.code;
-                me.description = c.descrip;
-                me.type = c.GetType().Name;
-            }
-            return me;
-        }
+        //public static implicit operator GENERIC_VALUE(CATEGORY c)
+        //{
+        //    var me = new GENERIC_VALUE();
+        //    if (c != null)
+        //    {
+        //        me.id = c.id;
+        //        me.code = c.code;
+        //        me.description = c.descrip;
+        //        me.type = c.GetType().Name;
+        //    }
+        //    return me;
+        //}
         public static implicit operator GENERIC_VALUE(SUBZONE sz)
         {
             var me = new GENERIC_VALUE();
@@ -312,6 +312,18 @@ namespace AFN_WF_C.ServiceProcess.DataContract
                 me.code = c.code;
                 me.description = c.name;
                 me.type = c.GetType().Name;
+            }
+            return me;
+        }
+        public static implicit operator GENERIC_VALUE(PARAMETER p)
+        {
+            var me = new GENERIC_VALUE();
+            if (p != null)
+            {
+                me.id = p.id;
+                me.code = p.code;
+                me.description = p.name;
+                me.type = p.GetType().Name;
             }
             return me;
         }

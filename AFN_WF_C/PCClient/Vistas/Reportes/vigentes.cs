@@ -72,8 +72,11 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
                 return;
             if (check_reporte())
             {
+                var ini = DateTime.Now;
                 P.Reportes.vigentes_detalle(año, mes, clase, zona, acum, reporte);
-                Mensaje.Info("Reporte OK");
+                var fin = DateTime.Now;
+                var lapsed = fin - ini;
+                Mensaje.Info("Reporte OK : " + (lapsed).ToString());
             }
 
         }

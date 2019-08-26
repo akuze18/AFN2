@@ -9,42 +9,20 @@ namespace AFN_WF_C.PCClient.Procesos.Estructuras
     {
         public int Index { get; set; }
         public string ColTitulo { get; set; }
-        public string ColTipo { get; set; }
         public string FormatTipo { get; set; }
 
-        public TituloCabera(int Ind, string cTitulo, string cTipo) {
+        public TituloCabera(int Ind,string cTitulo, string fTipo) {
             Index = Ind;
             ColTitulo = cTitulo;
-            ColTipo = cTipo;
-            FormatTipo = cTipo;
-        }
-        public TituloCabera(int Ind, string cTitulo, Type cTipo)
-        {
-            Index = Ind;
-            ColTitulo = cTitulo;
-            ColTipo = cTipo.Name;
-            FormatTipo = cTipo.Name;
-        }
-        public TituloCabera(int Ind, string cTitulo, string cTipo, string fTipo)
-        {
-            Index = Ind;
-            ColTitulo = cTitulo;
-            ColTipo = cTipo;
             FormatTipo = fTipo;
         }
-        public TituloCabera(int Ind, string cTitulo, Type cTipo, Type fTipo)
+       
+        public TituloCabera(int Ind, string cTitulo)
         {
             Index = Ind;
             ColTitulo = cTitulo;
-            ColTipo = cTipo.Name;
-            FormatTipo = fTipo.Name;
+            FormatTipo = string.Empty;
         }
-        public TituloCabera(int Ind, string cTitulo, Type cTipo, string fTipo)
-        {
-            Index = Ind;
-            ColTitulo = cTitulo;
-            ColTipo = cTipo.Name;
-            FormatTipo = fTipo;
-        }
+
     }
 }

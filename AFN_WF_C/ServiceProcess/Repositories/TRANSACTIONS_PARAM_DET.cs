@@ -5,14 +5,28 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     class TRANSACTIONS_PARAM_DET
     {
-        private List<TRANSACTION_PARAMETER_DETAIL> _source;
-        public TRANSACTIONS_PARAM_DET(ObjectSet<TRANSACTION_PARAMETER_DETAIL> source) 
-        { _source = source.Include("PARAMETER") .ToList(); }
+        private List<SV_TRANSACTION_PARAMETER_DETAIL> _source;
+        public TRANSACTIONS_PARAM_DET(ObjectSet<TRANSACTION_PARAMETER_DETAIL> source)
+        { 
+            _source = source
+                .Include("PARAMETER")
+                .ToList()
+                .ConvertAll(c => (SV_TRANSACTION_PARAMETER_DETAIL)c); 
+        }
+        public TRANSACTIONS_PARAM_DET(ObjectSet<TRANSACTION_PARAMETER_DETAIL> source, int SystemId, int[] Heads)
+        { 
+            _source = source
+                .Include("PARAMETER")
+                .Where(tpd => tpd.system_id == SystemId && Heads.Contains(tpd.trx_head_id))
+                .ToList()
+                .ConvertAll(c => (SV_TRANSACTION_PARAMETER_DETAIL)c); 
+        }
 
         public List<PARAM_VALUE> ByHead_Sys(int HeadId, int SysId)
         {
