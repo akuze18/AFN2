@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class BATCHES_ARTICLES
+    public class BATCHES_ARTICLES
     {
         private List<SV_BATCH_ARTICLE> _source;
 

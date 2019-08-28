@@ -8,7 +8,7 @@ using AFN_WF_C.ServiceProcess.DataContract;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class TYPES_ASSETS
+    public class TYPES_ASSETS
     {
         private List<TYPE_ASSET> _source;
         public TYPES_ASSETS(ObjectSet<TYPE_ASSET> source) { _source = source.ToList(); }

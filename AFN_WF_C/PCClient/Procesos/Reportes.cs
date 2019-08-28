@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ACode;
-
+using AFN_WF_C.PCClient.Procesos.Estructuras;
+using Exc = Microsoft.Office.Interop.Excel;
 using SC = AFN_WF_C.ServiceProcess.DataContract;
 using SV = AFN_WF_C.ServiceProcess.DataView;
-using Exc = Microsoft.Office.Interop.Excel;
-using AFN_WF_C.PCClient.Procesos.Estructuras;
 
 namespace AFN_WF_C.PCClient.Procesos
 {
@@ -78,9 +77,10 @@ namespace AFN_WF_C.PCClient.Procesos
         #region Vigentes Detalle
         public static void vigentes_detalle(int año, int mes, SC.GENERIC_VALUE clase, SC.GENERIC_VALUE zona, SC.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
         {
-            var pServ = new ServiceProcess.ServiceAFN();
+            List<SC.DETAIL_MOVEMENT> detalle;
             var periodo = new Vperiodo(año, mes, acumulado.id);
-            var detalle = pServ.reporte_vigentes(periodo, clase, zona, sistema);
+            using (var cServ = new ServiceProcess.ServiceAFN2())
+                detalle = cServ.Proceso.reporte_vigentes(periodo, clase, zona, sistema);
 
             vigentes_detalle_toExcel(detalle, periodo, clase, zona, sistema);
 
@@ -240,10 +240,12 @@ namespace AFN_WF_C.PCClient.Procesos
         #region Vigentes Resumen
         public static void vigentes_resumen(int año, int mes, SC.GENERIC_VALUE clase, SC.GENERIC_VALUE zona, SC.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
         {
-            var pServ = new ServiceProcess.ServiceAFN();
+            List<SC.GROUP_MOVEMENT> resumen;
             var periodo = new Vperiodo(año, mes, acumulado.id);
-            var resumen = pServ.reporte_vigente_resumen(periodo, clase, zona, sistema, "C");
-
+            using (var pServ = new ServiceProcess.ServiceAFN2())
+            {
+                resumen = pServ.Proceso.reporte_vigente_resumen(periodo, clase, zona, sistema, "C");
+            }
             vigentes_resumen_toExcel(resumen, periodo, clase, zona, sistema);
 
         }
@@ -390,8 +392,9 @@ namespace AFN_WF_C.PCClient.Procesos
         #region Bajas
         public static void bajas_detalle(Vperiodo desde, Vperiodo hasta, int situacion, SV.SV_SYSTEM sistema)
         {
-            var pServ = new ServiceProcess.ServiceAFN();
-            var detalle = pServ.reporte_bajas(desde, hasta, situacion, sistema);
+            List<SC.DETAIL_MOVEMENT> detalle;
+            using (var cServ = new ServiceProcess.ServiceAFN2())
+                detalle = cServ.Proceso.reporte_bajas(desde, hasta, situacion, sistema);
 
             bajas_detalle_toExcel(detalle,desde, hasta, situacion, sistema);
         }
@@ -488,9 +491,10 @@ namespace AFN_WF_C.PCClient.Procesos
         #region Cuadro Movimiento
         public static void cuadro_movimiento(int año, int mes, SC.GENERIC_VALUE tipo, SC.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
         {
-            var pServ = new ServiceProcess.ServiceAFN();
+            List<SC.GROUP_MOVEMENT> cuadro_mov;
             var periodo = new Vperiodo(año, mes, acumulado.id);
-            var cuadro_mov = pServ.reporte_cuadro_movimiento(periodo, tipo, sistema);
+            using (var cServ = new ServiceProcess.ServiceAFN2())
+                cuadro_mov = cServ.Proceso.reporte_cuadro_movimiento(periodo, tipo, sistema);
 
             cuadro_movimiento_toExcel(cuadro_mov, periodo, tipo, acumulado, sistema);
             
@@ -586,9 +590,10 @@ namespace AFN_WF_C.PCClient.Procesos
         #region Fixed Assets
         public static void fixed_assets(int año, int mes, SC.GENERIC_VALUE tipo, int acumulado, SV.SV_SYSTEM sistema)
         {
-            var pServ = new ServiceProcess.ServiceAFN();
+            List<SC.GROUP_MOVEMENT> fix_rep;
             var periodo = new Vperiodo(año, mes, acumulado);
-            var fix_rep = pServ.reporte_fixed_assets(periodo, tipo, sistema);
+            using (var cServ = new ServiceProcess.ServiceAFN2())
+                fix_rep = cServ.Proceso.reporte_fixed_assets(periodo, tipo, sistema);
 
             fixed_assets_toExcel(fix_rep, periodo, tipo, acumulado, sistema);
 
@@ -684,20 +689,23 @@ namespace AFN_WF_C.PCClient.Procesos
         #region Obras en Construccion
         public static void obc_detalle(SC.GENERIC_VALUE reporte, int año, int mes, SC.GENERIC_VALUE moneda, SC.GENERIC_VALUE acumulado)
         {
-            var pServ = new ServiceProcess.ServiceAFN();
             DateTime fecha_proceso = new ACode.Vperiodo(año, mes).last;
             List<SC.DETAIL_OBC> detalle;
-            switch (reporte.id)
+
+            using (var cServ = new ServiceProcess.ServiceAFN2())
             {
-                case 1:
-                    detalle = pServ.saldo_obras(fecha_proceso, moneda);
-                    break;
-                case 2:
-                    detalle = pServ.saldo_obras(fecha_proceso, moneda);
-                    break;
-                default:
-                    detalle = pServ.saldo_obras(fecha_proceso, moneda);
-                    break;
+                switch (reporte.id)
+                {
+                    case 1:
+                        detalle = cServ.Proceso.saldo_obras(fecha_proceso, moneda);
+                        break;
+                    case 2:
+                        detalle = cServ.Proceso.saldo_obras(fecha_proceso, moneda);
+                        break;
+                    default:
+                        detalle = cServ.Proceso.saldo_obras(fecha_proceso, moneda);
+                        break;
+                }
             }
             obc_detalle_toExcel(detalle, fecha_proceso,moneda);
         }

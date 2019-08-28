@@ -8,7 +8,7 @@ using AFN_WF_C.ServiceProcess.DataContract;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class VALIDATIES
+    public class VALIDATIES
     {
         private List<VALIDATY> _source;
         public VALIDATIES(ObjectSet<VALIDATY> source) { _source = source.ToList(); }
@@ -39,6 +39,13 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 .Where(v => v.id == 1)
                 .ToList()
                 .ConvertAll(v => (GENERIC_VALUE)v);
+        }
+
+        public List<GENERIC_VALUE> SearchDownsList()
+        {
+            var resulta = Downs();
+            resulta.Insert(0, new GENERIC_VALUE() { id = 0, type = "OPTION", description = "TODOS" });
+            return resulta;
         }
     }
 }

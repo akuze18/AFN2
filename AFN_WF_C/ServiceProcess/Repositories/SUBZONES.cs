@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class SUBZONES
+    public class SUBZONES
     {
         private List<SV_SUBZONE> _source;
         public SUBZONES(ObjectSet<SUBZONE> source) { _source = source.ToList().ConvertAll(sz =>(SV_SUBZONE)sz); }        

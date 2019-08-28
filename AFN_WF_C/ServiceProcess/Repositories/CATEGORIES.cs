@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class CATEGORIES
+    public class CATEGORIES
     {
         private List<SV_CATEGORY> _source;
         public CATEGORIES(ObjectSet<CATEGORY> source) { _source = source.ToList().ConvertAll(c => (SV_CATEGORY)c); }

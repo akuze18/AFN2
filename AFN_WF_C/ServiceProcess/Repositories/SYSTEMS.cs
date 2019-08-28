@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class SYSTEMS
+    public class SYSTEMS
     {
         private List<SV_SYSTEM> _source;
         public SYSTEMS(ObjectSet<SYSTEM> source) 

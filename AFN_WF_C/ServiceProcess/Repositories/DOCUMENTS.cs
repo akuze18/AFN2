@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class DOCUMENTS
+    public class DOCUMENTS
     {
         private List<SV_DOCUMENT> _source;
         public DOCUMENTS(ObjectSet<DOCUMENT> source) {

@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class TRANSACTIONS_PARAM_DET
+    public class TRANSACTIONS_PARAM_DET
     {
         private List<SV_TRANSACTION_PARAMETER_DETAIL> _source;
         public TRANSACTIONS_PARAM_DET(ObjectSet<TRANSACTION_PARAMETER_DETAIL> source)

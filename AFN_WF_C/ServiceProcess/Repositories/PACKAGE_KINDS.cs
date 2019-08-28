@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class PACKAGE_KINDS
+    public class PACKAGE_KINDS
     {
         private List<SV_PACKAGE_KIND> _source;
         public PACKAGE_KINDS(ObjectSet<PACKAGE_KIND> source) 

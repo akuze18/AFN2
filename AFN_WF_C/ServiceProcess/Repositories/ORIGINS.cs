@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class ORIGINS
+    public class ORIGINS
     {
         private List<SV_ORIGIN> _source;
         public ORIGINS(ObjectSet<ORIGIN> source) 

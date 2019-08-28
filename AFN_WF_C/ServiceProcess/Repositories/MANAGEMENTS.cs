@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class MANAGEMENTS
+    public class MANAGEMENTS
     {
         private List<SV_MANAGEMENT> _source;
         public MANAGEMENTS(ObjectSet<MANAGEMENT> source) { _source = source.ToList().ConvertAll(m => (SV_MANAGEMENT)m); }

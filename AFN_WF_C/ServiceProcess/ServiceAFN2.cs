@@ -6,13 +6,17 @@ using System.Text;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
 
+
+
 namespace AFN_WF_C.ServiceProcess
 {
-    class ServiceAFN2 : IDisposable
+    public class ServiceAFN2 : IDisposable
     {
         private DataContract.AFN2Entities _context;
         private Repositories.Main _main;
-
+        private Migration _migration;
+        private Process _process;
+        
         public ServiceAFN2()
         {
             _context = new DataContract.AFN2Entities();
@@ -22,6 +26,29 @@ namespace AFN_WF_C.ServiceProcess
         public Repositories.Main Repo
         {
             get { return _main; }
+        }
+
+        public DataContract.AFN2Entities DB
+        {
+            get { return _context; }
+        }
+
+        public Migration Migracion
+        {
+            get
+            {
+                if (_migration == null) _migration = new Migration();
+                return _migration;
+            }
+        }
+
+        public Process Proceso
+        {
+            get
+            {
+                if (_process == null) _process = new Process(this);
+                return _process;
+            }
         }
 
         #region IDispose

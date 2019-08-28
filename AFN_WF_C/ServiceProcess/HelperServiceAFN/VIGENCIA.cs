@@ -14,7 +14,7 @@ namespace AFN_WF_C.ServiceProcess.HelperServiceAFN
             using (AFN2Entities context = new AFN2Entities())
             using (Repositories.Main repo = new Repositories.Main(context))
             {
-                var AllValid = repo.validaciones.All();
+                var AllValid = repo.Vigencias.All();
                 return AllValid;
             }
         }
@@ -23,7 +23,7 @@ namespace AFN_WF_C.ServiceProcess.HelperServiceAFN
             using (AFN2Entities context = new AFN2Entities())
             using (Repositories.Main repo = new Repositories.Main(context))
             {
-                var DownsValid = repo.validaciones.Downs();
+                var DownsValid = repo.Vigencias.Downs();
                 return DownsValid;
             }
         }
@@ -33,7 +33,7 @@ namespace AFN_WF_C.ServiceProcess.HelperServiceAFN
             using (AFN2Entities context = new AFN2Entities())
             using (Repositories.Main repo = new Repositories.Main(context))
             {
-                var UpsValid = repo.validaciones.Ups();
+                var UpsValid = repo.Vigencias.Ups();
                 return UpsValid;
             }
         }

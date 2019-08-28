@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class SYSTEMS_PARAMETERS
+    public class SYSTEMS_PARAMETERS
     {
         private List<SV_SYSTEM_PARAMETER> _source;
         public SYSTEMS_PARAMETERS(ObjectSet<SYSTEM_PARAMETER> source) { _source = source.ToList().ConvertAll(sp=>(SV_SYSTEM_PARAMETER)sp); }

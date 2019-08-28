@@ -7,7 +7,7 @@ using C = AFN_WF_C.ServiceProcess.DataContract;
 
 namespace AFN_WF_C.ServiceProcess.DataView
 {
-    class SV_CORRECTION_MONETARY_VALUE
+    public class SV_CORRECTION_MONETARY_VALUE
     {
         private int _id;
         private string _period;

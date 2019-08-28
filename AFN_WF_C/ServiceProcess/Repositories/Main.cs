@@ -11,7 +11,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class Main : IDisposable
+    public class Main : IDisposable
     {
         // Flag: Has Dispose already been called?
         bool disposed = false;
@@ -32,6 +32,10 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private APROVALS_STATES _aprovals_states;
         private ORIGINS _origins;
         private TYPES_ASSETS _type_assets;
+        private CURRENCIES _currencies;
+        private PARTS _parts;
+        private SITUATIONS _situation;
+        private PACKAGE_KINDS _package_kinds;
         private PARAMETERS _parameters;
         private DOCUMENTS _documents;
         private SYSTEMS _systems;
@@ -58,7 +62,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _zones;
             }
         }
-        public VALIDATIES validaciones
+        public VALIDATIES Vigencias
         {
             get
             {
@@ -66,7 +70,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _validaties;
             }
         }
-        public KINDS clases
+        public KINDS Clases
         {
             get
             {
@@ -106,6 +110,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _managements;
             }
         }
+        //TODO: cambiar nombre a EstadoAprovacion
         public APROVALS_STATES aprobaciones
         {
             get
@@ -122,6 +127,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _origins;
             }
         }
+        //TODO: cambiar nombre a TIPOS
         public TYPES_ASSETS tipos
         {
             get
@@ -129,6 +135,25 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 if (_type_assets == null) { _type_assets = new TYPES_ASSETS(_context.TYPES_ASSETS); }
                 return _type_assets;
             }
+        }
+        public CURRENCIES Monedas
+        {
+            get {
+                if (_currencies == null) { _currencies = new CURRENCIES(_context.CURRENCIES); }
+                return _currencies;
+            }
+        }
+        public PARTS Partes
+        {
+            get { if (_parts == null) { _parts = new PARTS(_context.PARTS); } return _parts; }
+        }
+        public SITUATIONS Situaciones
+        {
+            get { if (_situation == null) { _situation = new SITUATIONS(_context.SITUATIONS); } return _situation; }
+        }
+        public PACKAGE_KINDS PackageClases
+        {
+            get { if (_package_kinds == null) { _package_kinds = new PACKAGE_KINDS(_context.PACKAGE_KINDS); } return _package_kinds; }
         }
         public PARAMETERS parametros
         {
@@ -191,6 +216,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _batches_articles;
             }
         }
+        //TODO: cambiar nombre a DetallesParametros
         public TRANSACTIONS_PARAM_DET detalle_parametros
         {
             get
@@ -306,9 +332,9 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 line.fecha_inicio = d.HeadTrxIni;
                 line.fecha_fin = d.HeadTrxEnd;
                 line.zona = this.zonas.ById(d.HeadZoneId);
-                line.vigencia = this.validaciones.ById(d.DetailValidityId);
+                line.vigencia = this.Vigencias.ById(d.DetailValidityId);
                 line.cantidad = d.PartQuantity;
-                line.clase = this.clases.ById(d.HeadKindId);
+                line.clase = this.Clases.ById(d.HeadKindId);
                 line.categoria = this.categorias.ById(d.HeadCategoryId);
                 line.subzona = this.subzonas.ById(d.HeadSubZoneId);
                 line.subclase = this.subclases.ById(d.HeadSubkindId);
@@ -443,5 +469,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             disposed = true;
         }
         #endregion
+
+        
     }
 }

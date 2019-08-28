@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class CORRECTIONS_MONETARIES_VALUES
+    public class CORRECTIONS_MONETARIES_VALUES
     {
         private List<SV_CORRECTION_MONETARY_VALUE> _source;
         public CORRECTIONS_MONETARIES_VALUES(ObjectSet<CORRECTION_MONETARY_VALUE> source) 

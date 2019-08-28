@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class APROVALS_STATES
+    public class APROVALS_STATES
     {
         private List<SV_APROVAL_STATE> _source;
         public APROVALS_STATES(ObjectSet<APROVAL_STATE> source) { _source = source.ToList().ConvertAll(ap => (SV_APROVAL_STATE)ap); }

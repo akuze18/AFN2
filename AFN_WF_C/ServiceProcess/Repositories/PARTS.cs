@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class PARTS
+    public class PARTS
     {
         private List<SV_PART> _source;
 

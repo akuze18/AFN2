@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class SUBKINDS
+    public class SUBKINDS
     {
         private List<SV_SUBKIND> _source;
         public SUBKINDS(ObjectSet<SUBKIND> source) { _source = source.ToList().ConvertAll(sk=>(SV_SUBKIND)sk); }

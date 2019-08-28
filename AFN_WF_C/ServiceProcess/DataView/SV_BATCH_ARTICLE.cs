@@ -7,7 +7,7 @@ using C = AFN_WF_C.ServiceProcess.DataContract;
 
 namespace AFN_WF_C.ServiceProcess.DataView
 {
-    class SV_BATCH_ARTICLE
+    public class SV_BATCH_ARTICLE
     {
         private int _id;
         private int _aproval_state_id;

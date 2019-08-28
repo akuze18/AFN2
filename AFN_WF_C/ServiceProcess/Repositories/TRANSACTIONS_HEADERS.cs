@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class TRANSACTIONS_HEADERS
+    public class TRANSACTIONS_HEADERS
     {
         private List<SV_TRANSACTION_HEADER> _source;
         public TRANSACTIONS_HEADERS(ObjectSet<TRANSACTION_HEADER> source) 

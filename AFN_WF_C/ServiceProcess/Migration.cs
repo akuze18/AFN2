@@ -45,13 +45,13 @@ namespace AFN_WF_C.ServiceProcess
                 using(Repositories.Main Repo = new Repositories.Main(context))
                 {
                     context.CommandTimeout = 3000;
-                    SV_SYSTEM sistema = Process.SistemaDefecto();
+                    SV_SYSTEM sistema = Repo.sistemas.Default;
 
                     var currentPars = (from a in context.PARTS
                                        join b in context.BATCHS_ARTICLES on a.article_id equals b.id
                                        where lotes.Contains(b.id)
                                        select new { a, b }).ToList();
-                    var parametros = new Repositories.PARAMETERS(context.PARAMETERS);
+                    var parametros = Repo.parametros;
                     foreach (var parte in currentPars)
                     {
                         var myFin_CLP = origen_fin_clp
@@ -1055,7 +1055,7 @@ namespace AFN_WF_C.ServiceProcess
                             cab_new.zone_id = cZona.id;
                             //var cSubzone = (from sz in context.SUBZONES where sz.id == ((int)(inv_fin_clp.subzona)+1) select sz.id).First();
                             cab_new.subzone_id = (int)(LineaFinCLP.cod_subzona) + 1;
-                            var cClase = repo.clases.ByCode(LineaFinCLP.clase);
+                            var cClase = repo.Clases.ByCode(LineaFinCLP.clase);
                             cab_new.kind_id = cClase.id;
 
                             var cSubclase = repo.subclases.ByCode(LineaFinCLP.cod_subclase);

@@ -9,7 +9,7 @@ using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class CURRENCIES
+    public class CURRENCIES
     {
         private List<SV_CURRENCY> _source;
 

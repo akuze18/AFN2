@@ -8,7 +8,7 @@ using AFN_WF_C.ServiceProcess.DataContract;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class PARAMETERS
+    public class PARAMETERS
     {
         private List<PARAMETER> _source;
         public PARAMETERS(ObjectSet<PARAMETER> source) { _source = source.ToList(); }

@@ -12,31 +12,31 @@ namespace AFN_WF_C.PCClient.Procesos
     {
         public static List<SC.DETAIL_DEPRECIATE> depreciar(int año, int mes)
         {
-            var pServ = new ServiceProcess.ServiceAFN();
-            return pServ.DepreciacionProcesoMensual(año,mes);
+            using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Proceso.DepreciacionProcesoMensual(año, mes);
         }
 
         public static List<SC.DETAIL_PROCESS> buscar_Articulo(DateTime desde, DateTime hasta, int codigo, string descrip, string zona, int[] vigencias, string[] origenes)
         {
-            var cServ = new ServiceProcess.ServiceAFN();
-            return cServ.buscar_Articulo(desde, hasta, codigo, descrip, zona, vigencias, origenes);
+            using(var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Proceso.buscar_Articulo(desde, hasta, codigo, descrip, zona, vigencias, origenes);
         }
 
         internal class sistema {
             public static SV.SV_SYSTEM ByCodes(string ambiente, string moneda) {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.Sistemas.ByCodes(ambiente,moneda);
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.sistemas.ByCodes(ambiente,moneda);
             }
             public static List<SV.SV_SYSTEM> All()
             {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.Sistemas.All();
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.sistemas.All();
             }
         }
         internal class zonas { 
             public static List<SC.GENERIC_VALUE> All() {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.Zonas.All();
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.zonas.All();
             }
             public static List<SC.GENERIC_VALUE> SearchList()
             {
@@ -50,60 +50,70 @@ namespace AFN_WF_C.PCClient.Procesos
             {
                 get
                 {
-                    var cServ = new ServiceProcess.ServiceAFN();
-                    var estados = cServ.EstadoAprovacion.All;
-                    return estados.Select(e => e.code).ToArray();
+                    using (var cServ = new ServiceProcess.ServiceAFN2())
+                    {
+                        var estados = cServ.Repo.aprobaciones.All;
+                        return estados.Select(e => e.code).ToArray();
+                    }
                 }
             }
             public static string[] OnlyActive
             {
                 get
                 {
-                    var cServ = new ServiceProcess.ServiceAFN();
-                    var estados = cServ.EstadoAprovacion.OnlyActive;
-                    return estados.Select(e => e.code).ToArray();
+                    using (var cServ = new ServiceProcess.ServiceAFN2())
+                    {
+                        var estados = cServ.Repo.aprobaciones.OnlyActive;
+                        return estados.Select(e => e.code).ToArray();
+                    }
                 }
             }
             public static string[] OnlyDigited
             {
                 get
                 {
-                    var cServ = new ServiceProcess.ServiceAFN();
-                    var estados = cServ.EstadoAprovacion.OnlyDigited;
-                    return estados.Select(e => e.code).ToArray();
+                    using (var cServ = new ServiceProcess.ServiceAFN2())
+                    {
+                        var estados = cServ.Repo.aprobaciones.OnlyDigited;
+                        return estados.Select(e => e.code).ToArray();
+                    }
                 }
             }
             public static string[] NoDeleted
             {
                 get
                 {
-                    var cServ = new ServiceProcess.ServiceAFN();
-                    var estados = cServ.EstadoAprovacion.NoDeleted;
-                    return estados.Select(e => e.code).ToArray();
+                    using (var cServ = new ServiceProcess.ServiceAFN2())
+                    {
+                        var estados = cServ.Repo.aprobaciones.NoDeleted;
+                        return estados.Select(e => e.code).ToArray();
+                    }
                 }
             }
             public static string[] Default {
                 get
                 {
-                    var cServ = new ServiceProcess.ServiceAFN();
-                    var estados = cServ.EstadoAprovacion.Default;
-                    return estados.Select(e=> e.code).ToArray();
+                    using (var cServ = new ServiceProcess.ServiceAFN2())
+                    {
+                        var estados = cServ.Repo.aprobaciones.Default;
+                        return estados.Select(e => e.code).ToArray();
+                    }
                 }
             }
         }
         internal class clases {
             public static List<SC.GENERIC_VALUE> SearchList()
             {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.Clases.SearchList();
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.Clases.SearchList();
             }
         }
         internal class vigencias
         {
             public static List<SC.GENERIC_VALUE> SearchDownsList()
             {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.Vigencias.SearchDownsList();
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.Vigencias.SearchDownsList();
             }
 
         }
@@ -111,16 +121,16 @@ namespace AFN_WF_C.PCClient.Procesos
         {
             public static List<SC.GENERIC_VALUE> All()
             {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.Tipos.All();
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.tipos.All();
             }
         }
         internal class monedas
         {
             public static SC.GENERIC_VALUE[] All()
             {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.Monedas.All().ToArray();
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.Monedas.All().ToArray();
             }
         }
 
@@ -128,24 +138,24 @@ namespace AFN_WF_C.PCClient.Procesos
         {
             public static List<SV.SV_PART> ByLote(int lote)
             {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.Partes.ByLote(lote); ;
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.Partes.ByLote(lote); ;
             }
         }
         internal class cabeceras
         {
             public static List<SV.SV_TRANSACTION_HEADER> ByParte(int parte)
             {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.Cabeceras.ByParte(parte); 
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.cabeceras.ByParte(parte); 
             }
         }
         internal class detalle_parametros
         {
             public static List<SC.PARAM_VALUE> ByHead_Sys(int HeadId, int SysId)
             {
-                var cServ = new ServiceProcess.ServiceAFN();
-                return cServ.DetallesParametros.ByHead_Sys(HeadId, SysId); 
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                return cServ.Repo.detalle_parametros.ByHead_Sys(HeadId, SysId); 
             }
         }
         
