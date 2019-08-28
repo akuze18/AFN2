@@ -7,6 +7,7 @@ using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
 
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
@@ -219,7 +220,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         #endregion
 
         #region Datos Generales
-        public List<DETAIL_PROCESS> get_detailed(SYSTEM sistema, DateTime corte, int codigo, string[] aprovados, bool WithParameters, GENERIC_VALUE clase, GENERIC_VALUE zona)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, string[] aprovados, bool WithParameters, GENERIC_VALUE clase, GENERIC_VALUE zona)
         {
             var salida = new List<DETAIL_PROCESS>();
             int default_clase = 1;
@@ -361,39 +362,41 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
             return salida;
         }
-        public List<DETAIL_PROCESS> get_detailed(SYSTEM sistema, DateTime corte, int codigo, string[] aprovados, bool WithParameters) {
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, string[] aprovados, bool WithParameters)
+        {
             return get_detailed(sistema, corte, codigo, aprovados, WithParameters, null, null);
         }
-        public List<DETAIL_PROCESS> get_detailed(SYSTEM sistema, DateTime corte, int codigo, string[] aprovados)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, string[] aprovados)
         {
 
             return this.get_detailed(sistema, corte, codigo, aprovados, _def_with_param);
         }
-        public List<DETAIL_PROCESS> get_detailed(SYSTEM sistema, DateTime corte, int codigo, bool WithParameters)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, bool WithParameters)
         {
 
             return this.get_detailed(sistema, corte, codigo, _def_apro, WithParameters);
         }
-        public List<DETAIL_PROCESS> get_detailed(SYSTEM sistema, DateTime corte, int codigo)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo)
         {
 
             return this.get_detailed(sistema, corte, codigo, _def_apro, _def_with_param);
         }
-        public List<DETAIL_PROCESS> get_detailed(SYSTEM sistema, DateTime corte, string[] aprovados, bool WithParameters)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, string[] aprovados, bool WithParameters)
         {
 
             return this.get_detailed(sistema, corte, 0, aprovados, WithParameters);
         }
-        public List<DETAIL_PROCESS> get_detailed(SYSTEM sistema, DateTime corte, string[] aprovados )
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, string[] aprovados)
         {
             return this.get_detailed(sistema, corte, 0, aprovados, _def_with_param);
         }
-        public List<DETAIL_PROCESS> get_detailed(SYSTEM sistema, DateTime corte, bool WithParameters)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, bool WithParameters)
         {
 
             return this.get_detailed(sistema, corte, 0, _def_apro, WithParameters);
         }
-        public List<DETAIL_PROCESS> get_detailed(SYSTEM sistema, DateTime corte) {
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte)
+        {
 
             return this.get_detailed(sistema, corte, 0, _def_apro, _def_with_param);
         }

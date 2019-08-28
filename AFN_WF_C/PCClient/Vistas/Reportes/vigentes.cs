@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using P = AFN_WF_C.PCClient.Procesos;
 using C = AFN_WF_C.ServiceProcess.DataContract;
+using V = AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.PCClient.Vistas.Reportes
 {
@@ -50,12 +51,12 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
         private C.GENERIC_VALUE clase { get { return (C.GENERIC_VALUE)cb_clase.SelectedItem; } }
         private C.GENERIC_VALUE zona { get { return (C.GENERIC_VALUE)cb_zona.SelectedItem; } }
         private C.GENERIC_VALUE acum { get { return (C.GENERIC_VALUE)cb_acum.SelectedItem; } }
-        private C.SYSTEM reporte
+        private V.SV_SYSTEM reporte
         {
             get
             {
                 if (check_reporte())
-                    return (C.SYSTEM)listaReporte.SelectedItem;
+                    return (V.SV_SYSTEM)listaReporte.SelectedItem;
                 else
                     return null;
             }
@@ -63,7 +64,7 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
 
         private bool check_reporte()
         {
-            return listaReporte.SelectedItem.GetType() == typeof(C.SYSTEM);
+            return listaReporte.SelectedItem.GetType() == typeof(V.SV_SYSTEM);
         }
 
         private void button_detalle_Click(object sender, EventArgs e)

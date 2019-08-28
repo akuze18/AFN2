@@ -5,16 +5,17 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     class PARTS
     {
-        private List<PART> _source;
+        private List<SV_PART> _source;
 
-        public PARTS(ObjectSet<PART> source) { _source = source.ToList(); }
+        public PARTS(ObjectSet<PART> source) { _source = source.ToList().ConvertAll(p => (SV_PART)p); }
 
-        public List<PART> ByLote(int Lote)
+        public List<SV_PART> ByLote(int Lote)
         {
             return _source.Where(p => p.article_id == Lote).ToList();
         }

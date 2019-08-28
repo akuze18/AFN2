@@ -5,13 +5,19 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     class PACKAGE_KINDS
     {
-        private List<PACKAGE_KIND> _source;
-        public PACKAGE_KINDS(ObjectSet<PACKAGE_KIND> source) { _source = source.Include("PACKAGE_PAIR_KINDS").ToList(); }
+        private List<SV_PACKAGE_KIND> _source;
+        public PACKAGE_KINDS(ObjectSet<PACKAGE_KIND> source) 
+        { 
+            _source = source
+                .Include("PACKAGE_PAIR_KINDS")
+                .ToList()
+                .ConvertAll(pk => (SV_PACKAGE_KIND)pk); }
 
         public List<GENERIC_RELATED> All()
         {

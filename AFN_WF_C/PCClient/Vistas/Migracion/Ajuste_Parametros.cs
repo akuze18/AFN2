@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 using AFN_WF_C.PCClient.Procesos;
 using C = AFN_WF_C.ServiceProcess.DataContract;
+using V = AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.PCClient.Vistas.Migracion
 {
@@ -53,7 +54,7 @@ namespace AFN_WF_C.PCClient.Vistas.Migracion
                 else
                 {
                     CbTHead.Items.Clear();
-                    var selected = (C.PART)cb.SelectedItem;
+                    var selected = (V.SV_PART)cb.SelectedItem;
                     CbTHead.Items.AddRange(consultas.cabeceras.ByParte(selected.id).ToArray());
 
                 }
@@ -73,7 +74,7 @@ namespace AFN_WF_C.PCClient.Vistas.Migracion
                 {
                     LParametros.RemoveObjects(LParametros.SelectedObjects);
                     var SelectedHead = (C.TRANSACTION_HEADER)(CbTHead.SelectedItem);
-                    var SelectedSystem = (C.SYSTEM)(CbSistema.SelectedItem);
+                    var SelectedSystem = (V.SV_SYSTEM)(CbSistema.SelectedItem);
                     var param = consultas.detalle_parametros.ByHead_Sys(SelectedHead.id, SelectedSystem.id).ToArray();
                     LParametros.SetObjects(param);
 

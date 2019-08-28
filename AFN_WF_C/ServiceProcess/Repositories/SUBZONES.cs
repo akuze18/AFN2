@@ -5,14 +5,14 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     class SUBZONES
     {
-        private List<SUBZONE> _source;
-        public SUBZONES(ObjectSet<SUBZONE> source) { _source = source.ToList(); }
-        public SUBZONES(List<SUBZONE> source) { _source = source; }
+        private List<SV_SUBZONE> _source;
+        public SUBZONES(ObjectSet<SUBZONE> source) { _source = source.ToList().ConvertAll(sz =>(SV_SUBZONE)sz); }        
 
         public GENERIC_VALUE ById(int idFind)
         {

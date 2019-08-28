@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 using P = AFN_WF_C.PCClient.Procesos;
 using C = AFN_WF_C.ServiceProcess.DataContract;
+using V = AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.PCClient.Vistas.Reportes
 {
@@ -45,7 +46,7 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
         private int mes { get { return ((C.GENERIC_VALUE)(cb_month.SelectedItem)).id; } }
         private C.GENERIC_VALUE tipo { get { return ((C.GENERIC_VALUE)(cb_tipo.SelectedItem)); } }
         private C.GENERIC_VALUE acum { get { return ((C.GENERIC_VALUE)(cb_acum.SelectedItem)); } }
-        private C.SYSTEM reporte { get { return ((C.SYSTEM)(cb_sistema.SelectedItem)); } }
+        private V.SV_SYSTEM reporte { get { return ((V.SV_SYSTEM)(cb_sistema.SelectedItem)); } }
 
         private void button_visualizar_Click(object sender, EventArgs e)
         {

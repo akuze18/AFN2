@@ -7,33 +7,33 @@ using C = AFN_WF_C.ServiceProcess.DataContract;
 
 namespace AFN_WF_C.ServiceProcess.DataView
 {
-    public class SV_CATEGORY
+    public class SV_MANAGEMENT
     {
         private int _id;
         private string _code;
-        private string _descrip;
+        private string _name;
 
         public int id { get { return _id; } }
         public string code { get { return _code; } }
-        public string descrip { get { return _descrip; } }
+        public string name { get { return _name; } }
 
         #region Convertions
-        public static implicit operator SV_CATEGORY(C.CATEGORY od)
+        public static implicit operator SV_MANAGEMENT(C.MANAGEMENT od)
         {
-            return new SV_CATEGORY()
+            return new SV_MANAGEMENT()
             {
                 _id = od.id,
                 _code = od.code,
-                _descrip = od.descrip,
+                _name = od.name,
             };
         }
-        public static implicit operator C.GENERIC_VALUE(SV_CATEGORY sv)
+        public static implicit operator C.GENERIC_VALUE(SV_MANAGEMENT sv)
         {
             return new C.GENERIC_VALUE()
             {
                 id = sv.id,
                 code = sv.code,
-                description = sv.descrip,
+                description = sv.name,
                 type = sv.GetType().Name.Substring(3),
             };
         }

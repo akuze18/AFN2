@@ -7,7 +7,7 @@ using C = AFN_WF_C.ServiceProcess.DataContract;
 
 namespace AFN_WF_C.ServiceProcess.DataView
 {
-    public class SV_CATEGORY
+    public class SV_ORIGIN
     {
         private int _id;
         private string _code;
@@ -18,16 +18,16 @@ namespace AFN_WF_C.ServiceProcess.DataView
         public string descrip { get { return _descrip; } }
 
         #region Convertions
-        public static implicit operator SV_CATEGORY(C.CATEGORY od)
+        public static implicit operator SV_ORIGIN(C.ORIGIN od)
         {
-            return new SV_CATEGORY()
+            return new SV_ORIGIN()
             {
                 _id = od.id,
                 _code = od.code,
                 _descrip = od.descrip,
             };
         }
-        public static implicit operator C.GENERIC_VALUE(SV_CATEGORY sv)
+        public static implicit operator C.GENERIC_VALUE(SV_ORIGIN sv)
         {
             return new C.GENERIC_VALUE()
             {

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 using P = AFN_WF_C.PCClient.Procesos;
 using C = AFN_WF_C.ServiceProcess.DataContract;
+using V = AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.PCClient.Vistas.Reportes
 {
@@ -87,9 +88,9 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
             desde = new ACode.Vperiodo(año_desde, mes_desde);
             hasta = new ACode.Vperiodo(año_hasta, mes_hasta, acumulado);
             int situacion = ((C.GENERIC_VALUE)cb_situacion.SelectedItem).id;
-            if (lb_reporte.SelectedItem.GetType() == typeof(C.SYSTEM))
+            if (lb_reporte.SelectedItem.GetType() == typeof(V.SV_SYSTEM))
             {
-                var sistema = (C.SYSTEM)lb_reporte.SelectedItem;
+                var sistema = (V.SV_SYSTEM)lb_reporte.SelectedItem;
                 P.Reportes.bajas_detalle(desde, hasta, situacion, sistema);
                 MessageBox.Show("Reporte OK");
             }

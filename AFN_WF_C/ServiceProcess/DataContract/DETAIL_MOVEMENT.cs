@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using SV = AFN_WF_C.ServiceProcess.DataView;
+
 namespace AFN_WF_C.ServiceProcess.DataContract
 {
     public class DETAIL_MOVEMENT : IElemento
     {
 
-        public SYSTEM sistema { get; set; }
+        public SV.SV_SYSTEM sistema { get; set; }
         public int cod_articulo { get; set; }
         public int parte { get; set; }
         public DateTime fecha_compra { get; set; }

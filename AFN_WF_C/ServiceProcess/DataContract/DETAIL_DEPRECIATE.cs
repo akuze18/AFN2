@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using V = AFN_WF_C.ServiceProcess.DataView;
+
 namespace AFN_WF_C.ServiceProcess.DataContract
 {
     public class DETAIL_DEPRECIATE
@@ -37,7 +39,7 @@ namespace AFN_WF_C.ServiceProcess.DataContract
             _depreciation_rate = sistema.ENVIORMENT.depreciation_rate;
         }
 
-        public SYSTEM sistema { get { return _detail.sistema; } }
+        public V.SV_SYSTEM sistema { get { return _detail.sistema; } }
         public int cod_articulo { get { return _detail.cod_articulo; } }
         public int parte { get { return _detail.parte; } }
         public DateTime fecha_compra { get { return _detail.fecha_compra; } }

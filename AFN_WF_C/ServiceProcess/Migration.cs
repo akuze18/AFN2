@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 using System.Data.Objects.DataClasses;
 
 using Newtonsoft.Json;
@@ -41,9 +42,10 @@ namespace AFN_WF_C.ServiceProcess
                 }
 
                 using (AFN2Entities context = new AFN2Entities())
+                using(Repositories.Main Repo = new Repositories.Main(context))
                 {
                     context.CommandTimeout = 3000;
-                    SYSTEM sistema = Process.SistemaDefecto();
+                    SV_SYSTEM sistema = Process.SistemaDefecto();
 
                     var currentPars = (from a in context.PARTS
                                        join b in context.BATCHS_ARTICLES on a.article_id equals b.id
@@ -196,7 +198,7 @@ namespace AFN_WF_C.ServiceProcess
                                 AFN_INVENTARIO_FYEN curr_fin_yen = (from FY in origen_fin_yen where FY.id_articulo == parte.b.id && FY.parte == parte.a.part_index && FY.fecha_inicio == cab.trx_ini select FY).FirstOrDefault();
                                 if (curr_fin_yen != null)
                                 {
-                                    SYSTEM sistema2 = (from S in context.SYSTEMS where S.ENVIORMENT.code == "FIN" && S.CURRENCY.code == "YEN" select S).First();
+                                    SV_SYSTEM sistema2 = Repo.sistemas.FinYEN;
                                     var detail2 = new TRANSACTION_DETAIL();
                                     detail2.trx_head_id = cab.id;
                                     detail2.system_id = sistema2.id;
@@ -258,7 +260,7 @@ namespace AFN_WF_C.ServiceProcess
                                 AFN_INVENTARIO_TRIB curr_trib_clp = (from FY in origen_trib_clp where FY.id_articulo == parte.b.id && FY.parte == parte.a.part_index && FY.fecha_inicio == cab.trx_ini select FY).FirstOrDefault();
                                 if (curr_trib_clp != null)
                                 {
-                                    SYSTEM sistema3 = (from S in context.SYSTEMS where S.ENVIORMENT.code == "TRIB" && S.CURRENCY.code == "CLP" select S).First();
+                                    SV_SYSTEM sistema3 = Repo.sistemas.TribCLP;
                                     var detail3 = new TRANSACTION_DETAIL();
                                     detail3.trx_head_id = cab.id;
                                     detail3.system_id = sistema3.id;
@@ -320,7 +322,7 @@ namespace AFN_WF_C.ServiceProcess
                                 AFN_INVENTARIO_IFRS curr_ifrs_clp = (from FY in origen_ifrs_clp where FY.id_articulo == parte.b.id && FY.parte == parte.a.part_index && FY.fecha_inicio == cab.trx_ini select FY).FirstOrDefault();
                                 if (curr_ifrs_clp != null)
                                 {
-                                    SYSTEM sistema4 = (from S in context.SYSTEMS where S.ENVIORMENT.code == "IFRS" && S.CURRENCY.code == "CLP" select S).First();
+                                    SV_SYSTEM sistema4 = Repo.sistemas.IfrsCLP;
                                     var detail4 = new TRANSACTION_DETAIL();
                                     detail4.trx_head_id = cab.id;
                                     detail4.system_id = sistema4.id;
@@ -436,7 +438,7 @@ namespace AFN_WF_C.ServiceProcess
                                 AFN_INVENTARIO_IFRS_YEN curr_ifrs_yen = (from FY in origen_ifrs_yen where FY.id_articulo == parte.b.id && FY.parte == parte.a.part_index && FY.fecha_inicio == cab.trx_ini select FY).FirstOrDefault();
                                 if (curr_ifrs_yen != null)
                                 {
-                                    SYSTEM sistema5 = (from S in context.SYSTEMS where S.ENVIORMENT.code == "IFRS" && S.CURRENCY.code == "YEN" select S).First();
+                                    SV_SYSTEM sistema5 = Repo.sistemas.IfrsYEN;
                                     var detail5 = new TRANSACTION_DETAIL();
                                     detail5.trx_head_id = cab.id;
                                     detail5.system_id = sistema5.id;
@@ -1039,7 +1041,8 @@ namespace AFN_WF_C.ServiceProcess
 
                             #region cabecera
 
-                            TRANSACTION_HEADER cab_origin = repo.cabeceras.byPartFecha(parte.a.id, per.last);
+                            SV_TRANSACTION_HEADER view_cab_origin = repo.cabeceras.byPartFecha(parte.a.id, per.last);
+                            TRANSACTION_HEADER cab_origin = (from c in context.TRANSACTIONS_HEADERS where c.id == view_cab_origin.id select c).First();
                             DateTime f_fin_origin = cab_origin.trx_end;
                             cab_origin.trx_end = per.last;
 
@@ -1156,8 +1159,8 @@ namespace AFN_WF_C.ServiceProcess
                 var infos_old = (from D in context.BASE_GLOBAL_AFN_CALC
                                 where articles.Contains(D.cod_articulo)
                                 select D).ToList();
-                SYSTEM ifrs_clp = repo.sistemas.IfrsCLP;
-                SYSTEM ifrs_yen = repo.sistemas.IfrsYEN;
+                SV_SYSTEM ifrs_clp = repo.sistemas.IfrsCLP;
+                SV_SYSTEM ifrs_yen = repo.sistemas.IfrsYEN;
                 var parametros = repo.parametros;
                 foreach (var cab in cabeceras_baja)
                 {
@@ -1249,6 +1252,7 @@ namespace AFN_WF_C.ServiceProcess
 
                     //reviso documento
                     DOCUMENT WorkDoc;
+                    DOCS_OBC association = new DOCS_OBC();
                     var DocumentFounded = repo.documentos.ByNumProv(fila.num_doc,fila.proveedor);
                     if (DocumentFounded == null)
                     {
@@ -1258,14 +1262,15 @@ namespace AFN_WF_C.ServiceProcess
                         WorkDoc.comment = "";
                         WorkDoc.proveedor_name = ""; //traer posteriormente el nombre del proveedor
                         //context.AddToDOCUMENTS(WorkDoc);
+                        association.DOCUMENT = WorkDoc;
+                        
                     }
                     else
                     {
-                        WorkDoc = DocumentFounded;
+                        association.document_id = DocumentFounded.id;
                     }
-                    DOCS_OBC association = new DOCS_OBC();
-                    association.ASSETS_IN_PROGRESS_HEAD = NuevaHead;
-                    association.DOCUMENT = WorkDoc;
+
+                    association.obc_id = NuevaHead.id;
                     context.AddToDOCS_OBC(association);
                     context.SaveChanges();
                 }

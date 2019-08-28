@@ -7,32 +7,35 @@ using C = AFN_WF_C.ServiceProcess.DataContract;
 
 namespace AFN_WF_C.ServiceProcess.DataView
 {
-    public class SV_CATEGORY
+    public class SV_PACKAGE_KIND
     {
         private int _id;
-        private string _code;
         private string _descrip;
+        private bool _display;
+        private int _type_asset_id;
 
         public int id { get { return _id; } }
-        public string code { get { return _code; } }
         public string descrip { get { return _descrip; } }
+        public bool display { get { return _display; } }
+        public int type_asset_id { get { return _type_asset_id; } }
 
         #region Convertions
-        public static implicit operator SV_CATEGORY(C.CATEGORY od)
+        public static implicit operator SV_PACKAGE_KIND(C.PACKAGE_KIND od)
         {
-            return new SV_CATEGORY()
+            return new SV_PACKAGE_KIND()
             {
                 _id = od.id,
-                _code = od.code,
                 _descrip = od.descrip,
+                _display = od.display,
+                _type_asset_id = od.type_asset_id,
             };
         }
-        public static implicit operator C.GENERIC_VALUE(SV_CATEGORY sv)
+        public static implicit operator C.GENERIC_VALUE(SV_PACKAGE_KIND sv)
         {
             return new C.GENERIC_VALUE()
             {
                 id = sv.id,
-                code = sv.code,
+                code = sv.descrip,
                 description = sv.descrip,
                 type = sv.GetType().Name.Substring(3),
             };

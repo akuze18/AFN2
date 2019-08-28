@@ -7,7 +7,7 @@ using C = AFN_WF_C.ServiceProcess.DataContract;
 
 namespace AFN_WF_C.ServiceProcess.DataView
 {
-    class SV_SYSTEM_PARAMETER
+    public class SV_SYSTEM_PARAMETER
     {
         private int _id;
         private int _system_id;

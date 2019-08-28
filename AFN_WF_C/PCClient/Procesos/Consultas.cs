@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using SC = AFN_WF_C.ServiceProcess.DataContract;
+using SV = AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.PCClient.Procesos
 {
@@ -22,11 +23,11 @@ namespace AFN_WF_C.PCClient.Procesos
         }
 
         internal class sistema {
-            public static SC.SYSTEM ByCodes(string ambiente, string moneda) {
+            public static SV.SV_SYSTEM ByCodes(string ambiente, string moneda) {
                 var cServ = new ServiceProcess.ServiceAFN();
                 return cServ.Sistemas.ByCodes(ambiente,moneda);
             }
-            public static List<SC.SYSTEM> All()
+            public static List<SV.SV_SYSTEM> All()
             {
                 var cServ = new ServiceProcess.ServiceAFN();
                 return cServ.Sistemas.All();
@@ -125,7 +126,7 @@ namespace AFN_WF_C.PCClient.Procesos
 
         internal class partes
         {
-            public static List<SC.PART> ByLote(int lote)
+            public static List<SV.SV_PART> ByLote(int lote)
             {
                 var cServ = new ServiceProcess.ServiceAFN();
                 return cServ.Partes.ByLote(lote); ;
@@ -133,7 +134,7 @@ namespace AFN_WF_C.PCClient.Procesos
         }
         internal class cabeceras
         {
-            public static List<SC.TRANSACTION_HEADER> ByParte(int parte)
+            public static List<SV.SV_TRANSACTION_HEADER> ByParte(int parte)
             {
                 var cServ = new ServiceProcess.ServiceAFN();
                 return cServ.Cabeceras.ByParte(parte); 

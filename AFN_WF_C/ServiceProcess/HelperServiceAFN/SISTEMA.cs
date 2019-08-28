@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.HelperServiceAFN
 {
     public class SISTEMA
     {
-        public List<SYSTEM> All() {
+        public List<SV_SYSTEM> All() {
             using (AFN2Entities context = new AFN2Entities())
             using (Repositories.Main repo = new Repositories.Main(context))
             {
@@ -17,7 +18,7 @@ namespace AFN_WF_C.ServiceProcess.HelperServiceAFN
                 return AllSystem;
             }
         }
-        public SYSTEM ByCodes(string codeEnv, string codeCurr)
+        public SV_SYSTEM ByCodes(string codeEnv, string codeCurr)
         {
             using (AFN2Entities context = new AFN2Entities())
             using (Repositories.Main repo = new Repositories.Main(context))

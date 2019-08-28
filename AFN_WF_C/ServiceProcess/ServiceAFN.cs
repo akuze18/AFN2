@@ -160,7 +160,7 @@ namespace AFN_WF_C.ServiceProcess
             using (var repo = new Repositories.Main(context))
             {
                 DateTime current = DateTime.Now;
-                SYSTEM sis = repo.sistemas.Default;
+                SV_SYSTEM sis = repo.sistemas.Default;
 
                 List<DETAIL_PROCESS> consulta;
                 
@@ -206,8 +206,8 @@ namespace AFN_WF_C.ServiceProcess
                 return consulta;
             }
         }
-        
-        public List<DETAIL_PROCESS> base_movimiento(SYSTEM sistema, DateTime fecha_corte, int[] vigencia, GENERIC_VALUE clase, GENERIC_VALUE zona)
+
+        public List<DETAIL_PROCESS> base_movimiento(SV_SYSTEM sistema, DateTime fecha_corte, int[] vigencia, GENERIC_VALUE clase, GENERIC_VALUE zona)
         {
             var salida = new List<DETAIL_PROCESS>();
             using (AFN2Entities context = new AFN2Entities())
@@ -221,16 +221,16 @@ namespace AFN_WF_C.ServiceProcess
             //return JsonConvert.SerializeObject(salida.First()).Substring(0,200);
             return salida;
         }
-        public List<DETAIL_PROCESS> base_movimiento(SYSTEM sistema, DateTime fecha_corte, GENERIC_VALUE clase, GENERIC_VALUE zona)
+        public List<DETAIL_PROCESS> base_movimiento(SV_SYSTEM sistema, DateTime fecha_corte, GENERIC_VALUE clase, GENERIC_VALUE zona)
         {
             var vigentes = new int[] { 1 };
             return base_movimiento(sistema, fecha_corte, vigentes, clase, zona);
         }
-        public List<DETAIL_PROCESS> base_movimiento(SYSTEM sistema, DateTime fecha_corte, int[] vigencia)
+        public List<DETAIL_PROCESS> base_movimiento(SV_SYSTEM sistema, DateTime fecha_corte, int[] vigencia)
         {
             return base_movimiento(sistema, fecha_corte, vigencia, null, null);
         }
-        public List<DETAIL_PROCESS> base_movimiento(SYSTEM sistema, DateTime fecha_corte)
+        public List<DETAIL_PROCESS> base_movimiento(SV_SYSTEM sistema, DateTime fecha_corte)
         {
             var vigentes = new int[] { 1 };
             return base_movimiento(sistema, fecha_corte,vigentes,null,null);
@@ -449,7 +449,7 @@ namespace AFN_WF_C.ServiceProcess
             return NewDetail;
         }
 
-        public List<DETAIL_MOVEMENT> reporte_vigentes(Vperiodo periodo, GENERIC_VALUE clase, GENERIC_VALUE zona, SYSTEM sistema) 
+        public List<DETAIL_MOVEMENT> reporte_vigentes(Vperiodo periodo, GENERIC_VALUE clase, GENERIC_VALUE zona, SV_SYSTEM sistema) 
         {
             var result = new List<DETAIL_MOVEMENT>();
             var vig = this.Vigencias.All().Select(v => v.id).ToArray();
@@ -462,7 +462,7 @@ namespace AFN_WF_C.ServiceProcess
             }
             return result;
         }
-        public List<DETAIL_MOVEMENT> reporte_bajas(Vperiodo desde, Vperiodo hasta, int situacion, SYSTEM sistema)
+        public List<DETAIL_MOVEMENT> reporte_bajas(Vperiodo desde, Vperiodo hasta, int situacion, SV_SYSTEM sistema)
         {
             var result = new List<DETAIL_MOVEMENT>();
             var vig_down = this.Vigencias.Downs().Select(v => v.id).ToArray();
@@ -484,7 +484,7 @@ namespace AFN_WF_C.ServiceProcess
             }
             return result;
         }
-        public List<DETAIL_MOVEMENT> reporte_completo(Vperiodo periodo, GENERIC_VALUE clase, GENERIC_VALUE zona, SYSTEM sistema)
+        public List<DETAIL_MOVEMENT> reporte_completo(Vperiodo periodo, GENERIC_VALUE clase, GENERIC_VALUE zona, SV_SYSTEM sistema)
         {
             var result = new List<DETAIL_MOVEMENT>();
             var vig = this.Vigencias.All().Select(v => v.id).ToArray();
@@ -504,7 +504,7 @@ namespace AFN_WF_C.ServiceProcess
         }
 
 
-        public List<GROUP_MOVEMENT> reporte_vigente_resumen(Vperiodo periodo, GENERIC_VALUE clase, GENERIC_VALUE zona, SYSTEM sistema, string orderBy)
+        public List<GROUP_MOVEMENT> reporte_vigente_resumen(Vperiodo periodo, GENERIC_VALUE clase, GENERIC_VALUE zona, SV_SYSTEM sistema, string orderBy)
         {
             var resultado = new List<GROUP_MOVEMENT>();
             var detalle = reporte_vigentes(periodo, clase, zona, sistema);
@@ -588,7 +588,7 @@ namespace AFN_WF_C.ServiceProcess
             return resultado;
         }
 
-        public List<GROUP_MOVEMENT> reporte_cuadro_movimiento(Vperiodo periodo, GENERIC_VALUE tipo, SYSTEM sistema )
+        public List<GROUP_MOVEMENT> reporte_cuadro_movimiento(Vperiodo periodo, GENERIC_VALUE tipo, SV_SYSTEM sistema)
         {
             var resultado = new List<GROUP_MOVEMENT>();
             if (tipo.type == "TYPE_ASSET")
@@ -668,7 +668,7 @@ namespace AFN_WF_C.ServiceProcess
             return resultado;
         }
 
-        public List<GROUP_MOVEMENT> reporte_fixed_assets(Vperiodo periodo, GENERIC_VALUE tipo, SYSTEM sistema)
+        public List<GROUP_MOVEMENT> reporte_fixed_assets(Vperiodo periodo, GENERIC_VALUE tipo, SV_SYSTEM sistema)
         {
             var resultado = new List<GROUP_MOVEMENT>();
             if (tipo.type == "TYPE_ASSET")
@@ -773,7 +773,7 @@ namespace AFN_WF_C.ServiceProcess
                 foreach (var fila in entradas)
                 {
                     var detail_obc = new DETAIL_OBC();
-                    detail_obc.moneda = fila.detail.CURRENCY;
+                    detail_obc.moneda = (SV_CURRENCY)fila.detail.CURRENCY;
                     detail_obc.codMov = fila.head.id;
                     detail_obc.description = fila.head.descrip;
                     detail_obc.txFecha = fila.head.trx_date;

@@ -5,14 +5,19 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     class ORIGINS
     {
-        private List<ORIGIN> _source;
-        public ORIGINS(ObjectSet<ORIGIN> source) { _source = source.ToList(); }
-        public ORIGINS(List<ORIGIN> source) { _source = source; }
+        private List<SV_ORIGIN> _source;
+        public ORIGINS(ObjectSet<ORIGIN> source) 
+        { 
+            _source = source
+                .ToList()
+                .ConvertAll(o =>(SV_ORIGIN)o ); 
+        }
 
         public GENERIC_VALUE ById(int idFind)
         {

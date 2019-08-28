@@ -5,14 +5,15 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.DataView;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     class CURRENCIES
     {
-        private List<CURRENCY> _source;
+        private List<SV_CURRENCY> _source;
 
-        public CURRENCIES(ObjectSet<CURRENCY> source) { _source = source.ToList(); }
+        public CURRENCIES(ObjectSet<CURRENCY> source) { _source = source.ToList().ConvertAll(c=>(SV_CURRENCY)c); }
 
         public GENERIC_VALUE ById(int idFind)
         {
