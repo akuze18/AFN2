@@ -7,17 +7,13 @@ using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
 
 using AFN_WF_C.ServiceProcess.DataContract;
-using AFN_WF_C.ServiceProcess.DataView;
+using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     public class Main : IDisposable
     {
-        // Flag: Has Dispose already been called?
-        bool disposed = false;
-        // Instantiate a SafeHandle instance.
-        SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
-
+        
         private string[] _def_apro;
         private bool _def_with_param;
 
@@ -48,7 +44,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         public Main(AFN2Entities context)
         {
             _context = context;
-            _def_apro = this.aprobaciones.Default.Select(x => x.code).ToArray();
+            _def_apro = this.EstadoAprobacion.Default.Select(x => x.code).ToArray();
             _def_with_param = false;
         }
 
@@ -110,8 +106,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _managements;
             }
         }
-        //TODO: cambiar nombre a EstadoAprovacion
-        public APROVALS_STATES aprobaciones
+        public APROVALS_STATES EstadoAprobacion
         {
             get
             {
@@ -127,8 +122,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _origins;
             }
         }
-        //TODO: cambiar nombre a TIPOS
-        public TYPES_ASSETS tipos
+        public TYPES_ASSETS Tipos
         {
             get
             {
@@ -216,8 +210,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _batches_articles;
             }
         }
-        //TODO: cambiar nombre a DetallesParametros
-        public TRANSACTIONS_PARAM_DET detalle_parametros
+        public TRANSACTIONS_PARAM_DET DetallesParametros
         {
             get
             {
@@ -341,7 +334,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 line.gestion = this.gestiones.ById(d.HeadManageId);
                 line.usuario = d.HeadUserOwn;
                 line.se_deprecia = d.DetailDepreciate;
-                line.aprobacion = this.aprobaciones.ById(d.BatchAprovalStateId);
+                line.aprobacion = this.EstadoAprobacion.ById(d.BatchAprovalStateId);
                 line.dscrp = d.BatchDescription;
                 line.dsc_extra = d.BatchDescription;
                 line.fecha_compra = d.BatchPurchaseDate;
@@ -354,7 +347,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 line.derecho_credito = d.DetailAllowCredit;
                 line.fecha_ing = d.BatchAccountDate;
                 line.origen = this.origenes.ById(d.BatchOriginId);
-                line.tipo = this.tipos.ById(d.BatchAssetId);
+                line.tipo = this.Tipos.ById(d.BatchAssetId);
 
                 line.PartId = d.PartId;
                 line.HeadId = d.HeadId;
@@ -362,7 +355,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 if (WithParameters)
                 {
                     var valores = new LIST_PARAM_VALUE();
-                    var curr_vals = this.detalle_parametros.ByHead_Sys(d.HeadId, sistema.id);
+                    var curr_vals = this.DetallesParametros.ByHead_Sys(d.HeadId, sistema.id);
                     foreach (var par in all_params)
                     {
                         PARAMETER meta_param = this.parametros.ById(par.parameter_id);
@@ -430,6 +423,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         #endregion
 
         #region Dispose
+        // Flag: Has Dispose already been called?
+        bool disposed = false;
+        // Instantiate a SafeHandle instance.
+        SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
+
         // Public implementation of Dispose pattern callable by consumers.
         public void Dispose()
         {

@@ -12,7 +12,7 @@ using System.Data.Objects.DataClasses;
 using ACode;
 
 using AFN_WF_C.ServiceProcess.DataContract;
-using AFN_WF_C.ServiceProcess.DataView;
+using AFN_WF_C.ServiceProcess.PublicData;
 
 
 namespace AFN_WF_C.ServiceProcess
@@ -85,7 +85,7 @@ namespace AFN_WF_C.ServiceProcess
             using (AFN2Entities context = new AFN2Entities())
             using (var repo = new Repositories.Main(context))
             {
-                var aprovados = repo.aprobaciones.OnlyActive.Select(x => x.code).ToArray();
+                var aprovados = repo.EstadoAprobacion.OnlyActive.Select(x => x.code).ToArray();
                 salida = repo.get_detailed(sistema, fecha_corte, 0, aprovados, true, clase, zona);
             }
             if (vigencia.Count() > 0)

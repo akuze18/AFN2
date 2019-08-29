@@ -7,8 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using P = AFN_WF_C.PCClient.Procesos;
-using C = AFN_WF_C.ServiceProcess.DataContract;
-using V = AFN_WF_C.ServiceProcess.DataView;
+using V = AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.PCClient.Vistas.Reportes
 {
@@ -79,15 +78,15 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
             }
 
             //Obtengo valores del formulario
-            int año_desde = ((C.GENERIC_VALUE)cb_desde_y.SelectedItem).id;
-            int mes_desde = ((C.GENERIC_VALUE)cb_desde_m.SelectedItem).id;
-            int año_hasta = ((C.GENERIC_VALUE)cb_hasta_y.SelectedItem).id;
-            int mes_hasta = ((C.GENERIC_VALUE)cb_hasta_m.SelectedItem).id;
-            int acumulado = ((C.GENERIC_VALUE)cb_acum.SelectedItem).id;
+            int año_desde = ((V.GENERIC_VALUE)cb_desde_y.SelectedItem).id;
+            int mes_desde = ((V.GENERIC_VALUE)cb_desde_m.SelectedItem).id;
+            int año_hasta = ((V.GENERIC_VALUE)cb_hasta_y.SelectedItem).id;
+            int mes_hasta = ((V.GENERIC_VALUE)cb_hasta_m.SelectedItem).id;
+            int acumulado = ((V.GENERIC_VALUE)cb_acum.SelectedItem).id;
             ACode.Vperiodo desde, hasta;
             desde = new ACode.Vperiodo(año_desde, mes_desde);
             hasta = new ACode.Vperiodo(año_hasta, mes_hasta, acumulado);
-            int situacion = ((C.GENERIC_VALUE)cb_situacion.SelectedItem).id;
+            int situacion = ((V.GENERIC_VALUE)cb_situacion.SelectedItem).id;
             if (lb_reporte.SelectedItem.GetType() == typeof(V.SV_SYSTEM))
             {
                 var sistema = (V.SV_SYSTEM)lb_reporte.SelectedItem;

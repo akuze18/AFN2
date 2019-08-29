@@ -7,8 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using P = AFN_WF_C.PCClient.Procesos;
-using C = AFN_WF_C.ServiceProcess.DataContract;
-using V = AFN_WF_C.ServiceProcess.DataView;
+using V = AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.PCClient.Vistas.Reportes
 {
@@ -42,9 +41,9 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
             cb_sistema.Tag = label4.Text;
         }
 
-        private int año { get { return ((C.GENERIC_VALUE)(cb_year.SelectedItem)).id; } }
-        private int mes { get { return ((C.GENERIC_VALUE)(cb_month.SelectedItem)).id; } }
-        private C.GENERIC_VALUE tipo { get { return ((C.GENERIC_VALUE)(cb_tipo.SelectedItem)); } }
+        private int año { get { return ((V.GENERIC_VALUE)(cb_year.SelectedItem)).id; } }
+        private int mes { get { return ((V.GENERIC_VALUE)(cb_month.SelectedItem)).id; } }
+        private V.GENERIC_VALUE tipo { get { return ((V.GENERIC_VALUE)(cb_tipo.SelectedItem)); } }
         private int acum { get { return 1; } }
         private V.SV_SYSTEM reporte { get { return ((V.SV_SYSTEM)(cb_sistema.SelectedItem)); } }
 

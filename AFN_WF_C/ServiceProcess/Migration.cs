@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using AFN_WF_C.ServiceProcess.DataContract;
-using AFN_WF_C.ServiceProcess.DataView;
+using AFN_WF_C.ServiceProcess.PublicData;
 using System.Data.Objects.DataClasses;
 
 using Newtonsoft.Json;

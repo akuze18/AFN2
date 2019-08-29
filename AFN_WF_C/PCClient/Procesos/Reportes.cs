@@ -5,18 +5,17 @@ using System.Text;
 using ACode;
 using AFN_WF_C.PCClient.Procesos.Estructuras;
 using Exc = Microsoft.Office.Interop.Excel;
-using SC = AFN_WF_C.ServiceProcess.DataContract;
-using SV = AFN_WF_C.ServiceProcess.DataView;
+using SV = AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.PCClient.Procesos
 {
     internal class Reportes
     {
-        private static ColumnData RawDataColumn(IEnumerable<SC.IElemento> detail, TituloCabera titulo)
+        private static ColumnData RawDataColumn(IEnumerable<SV.IElemento> detail, TituloCabera titulo)
         {
             return RawDataColumn(detail.ToList(), titulo);
         }
-        private static ColumnData RawDataColumn(List<SC.IElemento> detail, TituloCabera titulo)
+        private static ColumnData RawDataColumn(List<SV.IElemento> detail, TituloCabera titulo)
         {
             object[,] result = new object[detail.Count, 1];
             Type tipo = null;
@@ -30,7 +29,7 @@ namespace AFN_WF_C.PCClient.Procesos
                 {
                     case "GENERIC_VALUE":
                     case "GENERIC_RELATED":
-                        var val_d = (SC.GENERIC_VALUE)selected;
+                        var val_d = (SV.GENERIC_VALUE)selected;
                         string formato = titulo_proc.FormatTipo;
                         if (formato == "CODE")
                             result[j, 0] = val_d.code;
@@ -75,9 +74,9 @@ namespace AFN_WF_C.PCClient.Procesos
         }
 
         #region Vigentes Detalle
-        public static void vigentes_detalle(int año, int mes, SC.GENERIC_VALUE clase, SC.GENERIC_VALUE zona, SC.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
+        public static void vigentes_detalle(int año, int mes, SV.GENERIC_VALUE clase, SV.GENERIC_VALUE zona, SV.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
         {
-            List<SC.DETAIL_MOVEMENT> detalle;
+            List<SV.DETAIL_MOVEMENT> detalle;
             var periodo = new Vperiodo(año, mes, acumulado.id);
             using (var cServ = new ServiceProcess.ServiceAFN2())
                 detalle = cServ.Proceso.reporte_vigentes(periodo, clase, zona, sistema);
@@ -86,7 +85,7 @@ namespace AFN_WF_C.PCClient.Procesos
 
         }
 
-        private static void vigentes_detalle_toExcel(List<SC.DETAIL_MOVEMENT> det, ACode.Vperiodo periodo, SC.GENERIC_VALUE clase, SC.GENERIC_VALUE zona, SV.SV_SYSTEM sistema)
+        private static void vigentes_detalle_toExcel(List<SV.DETAIL_MOVEMENT> det, ACode.Vperiodo periodo, SV.GENERIC_VALUE clase, SV.GENERIC_VALUE zona, SV.SV_SYSTEM sistema)
         {
             Exc.Application excel;
             Exc.Workbook worKbooK;
@@ -238,9 +237,9 @@ namespace AFN_WF_C.PCClient.Procesos
         #endregion
 
         #region Vigentes Resumen
-        public static void vigentes_resumen(int año, int mes, SC.GENERIC_VALUE clase, SC.GENERIC_VALUE zona, SC.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
+        public static void vigentes_resumen(int año, int mes, SV.GENERIC_VALUE clase, SV.GENERIC_VALUE zona, SV.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
         {
-            List<SC.GROUP_MOVEMENT> resumen;
+            List<SV.GROUP_MOVEMENT> resumen;
             var periodo = new Vperiodo(año, mes, acumulado.id);
             using (var pServ = new ServiceProcess.ServiceAFN2())
             {
@@ -250,7 +249,7 @@ namespace AFN_WF_C.PCClient.Procesos
 
         }
 
-        private static void vigentes_resumen_toExcel(List<SC.GROUP_MOVEMENT> det, ACode.Vperiodo periodo, SC.GENERIC_VALUE clase, SC.GENERIC_VALUE zona, SV.SV_SYSTEM sistema)
+        private static void vigentes_resumen_toExcel(List<SV.GROUP_MOVEMENT> det, ACode.Vperiodo periodo, SV.GENERIC_VALUE clase, SV.GENERIC_VALUE zona, SV.SV_SYSTEM sistema)
         {
             Exc.Application excel;
             Exc.Workbook worKbooK;
@@ -392,14 +391,14 @@ namespace AFN_WF_C.PCClient.Procesos
         #region Bajas
         public static void bajas_detalle(Vperiodo desde, Vperiodo hasta, int situacion, SV.SV_SYSTEM sistema)
         {
-            List<SC.DETAIL_MOVEMENT> detalle;
+            List<SV.DETAIL_MOVEMENT> detalle;
             using (var cServ = new ServiceProcess.ServiceAFN2())
                 detalle = cServ.Proceso.reporte_bajas(desde, hasta, situacion, sistema);
 
             bajas_detalle_toExcel(detalle,desde, hasta, situacion, sistema);
         }
 
-        private static void bajas_detalle_toExcel(List<SC.DETAIL_MOVEMENT> det, Vperiodo desde, Vperiodo hasta, int situacion, SV.SV_SYSTEM sistema)
+        private static void bajas_detalle_toExcel(List<SV.DETAIL_MOVEMENT> det, Vperiodo desde, Vperiodo hasta, int situacion, SV.SV_SYSTEM sistema)
         {
             Exc.Application excel;
             Exc.Workbook worKbooK;
@@ -489,9 +488,9 @@ namespace AFN_WF_C.PCClient.Procesos
         #endregion
 
         #region Cuadro Movimiento
-        public static void cuadro_movimiento(int año, int mes, SC.GENERIC_VALUE tipo, SC.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
+        public static void cuadro_movimiento(int año, int mes, SV.GENERIC_VALUE tipo, SV.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
         {
-            List<SC.GROUP_MOVEMENT> cuadro_mov;
+            List<SV.GROUP_MOVEMENT> cuadro_mov;
             var periodo = new Vperiodo(año, mes, acumulado.id);
             using (var cServ = new ServiceProcess.ServiceAFN2())
                 cuadro_mov = cServ.Proceso.reporte_cuadro_movimiento(periodo, tipo, sistema);
@@ -499,7 +498,7 @@ namespace AFN_WF_C.PCClient.Procesos
             cuadro_movimiento_toExcel(cuadro_mov, periodo, tipo, acumulado, sistema);
             
         }
-        private static void cuadro_movimiento_toExcel(List<SC.GROUP_MOVEMENT> det, Vperiodo periodo, SC.GENERIC_VALUE tipo, SC.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
+        private static void cuadro_movimiento_toExcel(List<SV.GROUP_MOVEMENT> det, Vperiodo periodo, SV.GENERIC_VALUE tipo, SV.GENERIC_VALUE acumulado, SV.SV_SYSTEM sistema)
         {
             Exc.Application excel;
             Exc.Workbook worKbooK;
@@ -588,9 +587,9 @@ namespace AFN_WF_C.PCClient.Procesos
         #endregion
 
         #region Fixed Assets
-        public static void fixed_assets(int año, int mes, SC.GENERIC_VALUE tipo, int acumulado, SV.SV_SYSTEM sistema)
+        public static void fixed_assets(int año, int mes, SV.GENERIC_VALUE tipo, int acumulado, SV.SV_SYSTEM sistema)
         {
-            List<SC.GROUP_MOVEMENT> fix_rep;
+            List<SV.GROUP_MOVEMENT> fix_rep;
             var periodo = new Vperiodo(año, mes, acumulado);
             using (var cServ = new ServiceProcess.ServiceAFN2())
                 fix_rep = cServ.Proceso.reporte_fixed_assets(periodo, tipo, sistema);
@@ -598,7 +597,7 @@ namespace AFN_WF_C.PCClient.Procesos
             fixed_assets_toExcel(fix_rep, periodo, tipo, acumulado, sistema);
 
         }
-        private static void fixed_assets_toExcel(List<SC.GROUP_MOVEMENT> det, Vperiodo periodo, SC.GENERIC_VALUE tipo, int acumulado, SV.SV_SYSTEM sistema)
+        private static void fixed_assets_toExcel(List<SV.GROUP_MOVEMENT> det, Vperiodo periodo, SV.GENERIC_VALUE tipo, int acumulado, SV.SV_SYSTEM sistema)
         {
             Exc.Application excel;
             Exc.Workbook worKbooK;
@@ -687,10 +686,10 @@ namespace AFN_WF_C.PCClient.Procesos
         #endregion
 
         #region Obras en Construccion
-        public static void obc_detalle(SC.GENERIC_VALUE reporte, int año, int mes, SC.GENERIC_VALUE moneda, SC.GENERIC_VALUE acumulado)
+        public static void obc_detalle(SV.GENERIC_VALUE reporte, int año, int mes, SV.GENERIC_VALUE moneda, SV.GENERIC_VALUE acumulado)
         {
             DateTime fecha_proceso = new ACode.Vperiodo(año, mes).last;
-            List<SC.DETAIL_OBC> detalle;
+            List<SV.DETAIL_OBC> detalle;
 
             using (var cServ = new ServiceProcess.ServiceAFN2())
             {
@@ -709,7 +708,7 @@ namespace AFN_WF_C.PCClient.Procesos
             }
             obc_detalle_toExcel(detalle, fecha_proceso,moneda);
         }
-        private static void obc_detalle_toExcel(List<SC.DETAIL_OBC> data, DateTime fecha, SC.GENERIC_VALUE moneda)
+        private static void obc_detalle_toExcel(List<SV.DETAIL_OBC> data, DateTime fecha, SV.GENERIC_VALUE moneda)
         {
             Exc.Application excel;
             Exc.Workbook worKbooK;

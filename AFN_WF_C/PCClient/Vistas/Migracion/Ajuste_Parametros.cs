@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 using AFN_WF_C.PCClient.Procesos;
 using C = AFN_WF_C.ServiceProcess.DataContract;
-using V = AFN_WF_C.ServiceProcess.DataView;
+using V = AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.PCClient.Vistas.Migracion
 {

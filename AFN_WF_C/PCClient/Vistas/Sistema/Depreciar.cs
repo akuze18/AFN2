@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using ServAFN = AFN_WF_C.ServiceProcess.DataContract;
+using ServAFN = AFN_WF_C.ServiceProcess.PublicData;
 using AFN_WF_C.PCClient.Procesos;
 using BrightIdeasSoftware;
 

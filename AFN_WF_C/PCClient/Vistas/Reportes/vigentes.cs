@@ -6,8 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using P = AFN_WF_C.PCClient.Procesos;
-using C = AFN_WF_C.ServiceProcess.DataContract;
-using V = AFN_WF_C.ServiceProcess.DataView;
+using V = AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.PCClient.Vistas.Reportes
 {
@@ -46,11 +45,11 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
             listaReporte.Tag = label5.Text;
         }
 
-        private int año { get { return ((C.GENERIC_VALUE)cb_year.SelectedItem).id; } }
-        private int mes { get { return ((C.GENERIC_VALUE)cb_month.SelectedItem).id; } }
-        private C.GENERIC_VALUE clase { get { return (C.GENERIC_VALUE)cb_clase.SelectedItem; } }
-        private C.GENERIC_VALUE zona { get { return (C.GENERIC_VALUE)cb_zona.SelectedItem; } }
-        private C.GENERIC_VALUE acum { get { return (C.GENERIC_VALUE)cb_acum.SelectedItem; } }
+        private int año { get { return ((V.GENERIC_VALUE)cb_year.SelectedItem).id; } }
+        private int mes { get { return ((V.GENERIC_VALUE)cb_month.SelectedItem).id; } }
+        private V.GENERIC_VALUE clase { get { return (V.GENERIC_VALUE)cb_clase.SelectedItem; } }
+        private V.GENERIC_VALUE zona { get { return (V.GENERIC_VALUE)cb_zona.SelectedItem; } }
+        private V.GENERIC_VALUE acum { get { return (V.GENERIC_VALUE)cb_acum.SelectedItem; } }
         private V.SV_SYSTEM reporte
         {
             get

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-using DC = AFN_WF_C.ServiceProcess.DataContract;
+using PD = AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Tracking
 {
@@ -16,7 +16,7 @@ namespace AFN_WF_C.ServiceProcess.Tracking
             return currentPath + FileName + ".txt";
         }
 
-        public static void FileText(List<DC.DETAIL_PROCESS> ListData, string FileName)
+        public static void FileText(List<PD.DETAIL_PROCESS> ListData, string FileName)
         {
             string FullFile = FullFileName( FileName );
             using (StreamWriter file = new StreamWriter(FullFile,false, Encoding.UTF8))
@@ -69,7 +69,7 @@ namespace AFN_WF_C.ServiceProcess.Tracking
                 #endregion
             }
         }
-        public static void FileText(List<DC.DETAIL_MOVEMENT> ListData, string FileName)
+        public static void FileText(List<PD.DETAIL_MOVEMENT> ListData, string FileName)
         {
             string FullFile = FullFileName( FileName );
             using (StreamWriter file = new StreamWriter(FullFile, false, Encoding.UTF8))

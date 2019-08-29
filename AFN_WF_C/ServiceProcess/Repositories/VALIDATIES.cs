@@ -5,14 +5,14 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     public class VALIDATIES
     {
-        private List<VALIDATY> _source;
-        public VALIDATIES(ObjectSet<VALIDATY> source) { _source = source.ToList(); }
-        public VALIDATIES(List<VALIDATY> source) { _source = source; }
+        private List<SV_VALIDATY> _source;
+        public VALIDATIES(ObjectSet<VALIDATY> source) { _source = source.ToList().ConvertAll(v => (SV_VALIDATY)v); }
 
         public GENERIC_VALUE ById(int idFind)
         {

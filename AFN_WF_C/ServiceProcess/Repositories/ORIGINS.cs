@@ -5,7 +5,7 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
-using AFN_WF_C.ServiceProcess.DataView;
+using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {

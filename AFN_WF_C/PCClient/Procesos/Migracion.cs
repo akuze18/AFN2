@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using SC = AFN_WF_C.ServiceProcess.DataContract;
+using PD = AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.PCClient.Procesos
 {
@@ -15,7 +15,7 @@ namespace AFN_WF_C.PCClient.Procesos
             pServ.Migracion.CargaDepreciacion(año, mes);
         }
 
-        public static SC.RespuestaAccion CargaTransacciones(int grupo)
+        public static PD.RespuestaAccion CargaTransacciones(int grupo)
         {
             var pServ = new ServiceProcess.ServiceAFN2();
             return pServ.Migracion.CargaDatosDesdeAFN(grupo);
