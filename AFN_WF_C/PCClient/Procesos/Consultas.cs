@@ -25,18 +25,18 @@ namespace AFN_WF_C.PCClient.Procesos
         internal class sistema {
             public static SV.SV_SYSTEM ByCodes(string ambiente, string moneda) {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.sistemas.ByCodes(ambiente,moneda);
+                    return cServ.Repo.sistemas.ByCodes(ambiente,moneda);
             }
             public static List<SV.SV_SYSTEM> All()
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.sistemas.All();
+                    return cServ.Repo.sistemas.All();
             }
         }
         internal class zonas { 
             public static List<SC.GENERIC_VALUE> All() {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.zonas.All();
+                    return cServ.Repo.zonas.All();
             }
             public static List<SC.GENERIC_VALUE> SearchList()
             {
@@ -53,7 +53,7 @@ namespace AFN_WF_C.PCClient.Procesos
                     using (var cServ = new ServiceProcess.ServiceAFN2())
                     {
                         var estados = cServ.Repo.aprobaciones.All;
-                        return estados.Select(e => e.code).ToArray();
+                            return estados.Select(e => e.code).ToArray();
                     }
                 }
             }
@@ -105,7 +105,7 @@ namespace AFN_WF_C.PCClient.Procesos
             public static List<SC.GENERIC_VALUE> SearchList()
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.Clases.SearchList();
+                    return cServ.Repo.Clases.SearchList();
             }
         }
         internal class vigencias
@@ -113,7 +113,7 @@ namespace AFN_WF_C.PCClient.Procesos
             public static List<SC.GENERIC_VALUE> SearchDownsList()
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.Vigencias.SearchDownsList();
+                    return cServ.Repo.Vigencias.SearchDownsList();
             }
 
         }
@@ -122,7 +122,7 @@ namespace AFN_WF_C.PCClient.Procesos
             public static List<SC.GENERIC_VALUE> All()
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.tipos.All();
+                    return cServ.Repo.tipos.All();
             }
         }
         internal class monedas
@@ -130,7 +130,7 @@ namespace AFN_WF_C.PCClient.Procesos
             public static SC.GENERIC_VALUE[] All()
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.Monedas.All().ToArray();
+                    return cServ.Repo.Monedas.All().ToArray();
             }
         }
 
@@ -139,7 +139,7 @@ namespace AFN_WF_C.PCClient.Procesos
             public static List<SV.SV_PART> ByLote(int lote)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.Partes.ByLote(lote); ;
+                    return cServ.Repo.Partes.ByLote(lote); ;
             }
         }
         internal class cabeceras
@@ -147,7 +147,7 @@ namespace AFN_WF_C.PCClient.Procesos
             public static List<SV.SV_TRANSACTION_HEADER> ByParte(int parte)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.cabeceras.ByParte(parte); 
+                    return cServ.Repo.cabeceras.ByParte(parte); 
             }
         }
         internal class detalle_parametros
@@ -155,7 +155,7 @@ namespace AFN_WF_C.PCClient.Procesos
             public static List<SC.PARAM_VALUE> ByHead_Sys(int HeadId, int SysId)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                return cServ.Repo.detalle_parametros.ByHead_Sys(HeadId, SysId); 
+                    return cServ.Repo.detalle_parametros.ByHead_Sys(HeadId, SysId); 
             }
         }
         

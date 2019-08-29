@@ -13,7 +13,9 @@ namespace AFN_WF_C.ServiceProcess.Repositories
     {
         private List<SV_BATCH_ARTICLE> _source;
 
-        public BATCHES_ARTICLES(ObjectSet<BATCH_ARTICLE> source) { _source = source.ToList().ConvertAll(ba => (SV_BATCH_ARTICLE) ba); }
+        public BATCHES_ARTICLES(ObjectSet<BATCH_ARTICLE> source) { 
+            _source = source.ToList().ConvertAll(ba => (SV_BATCH_ARTICLE) ba); 
+        }
 
         public void add_new(SV_BATCH_ARTICLE batch)
         {

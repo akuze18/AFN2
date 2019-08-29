@@ -202,17 +202,6 @@
     <Compile Include="ServiceProcess\DataView\SV_TRANSACTION_HEADER.cs" />
     <Compile Include="ServiceProcess\DataView\SV_TRANSACTION_PARAMETER_DETAIL.cs" />
     <Compile Include="ServiceProcess\DataView\SV_ZONE.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\CABECERA.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\CLASE.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\CORRECCION_MONETARIA.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\DETALLE_PARAMETRO.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\MONEDA.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\PACKAGE_CLASE.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\PARTE.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\SISTEMA.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\SITUACION.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\TIPO.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\VIGENCIA.cs" />
     <Compile Include="ServiceProcess\Migration.cs" />
     <Compile Include="ServiceProcess\Process.cs" />
     <Compile Include="ServiceProcess\Repositories\BATCHES_ARTICLES.cs" />
@@ -238,9 +227,6 @@
     <Compile Include="ServiceProcess\Repositories\TYPES_ASSETS.cs" />
     <Compile Include="ServiceProcess\Repositories\VALIDATIES.cs" />
     <Compile Include="ServiceProcess\Repositories\ZONES.cs" />
-    <Compile Include="ServiceProcess\ServiceAFN.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\ESTADO_APROVACION.cs" />
-    <Compile Include="ServiceProcess\HelperServiceAFN\ZONA.cs" />
     <Compile Include="ServiceProcess\ServiceAFN2.cs" />
     <Compile Include="ServiceProcess\Tracking\ExportTo.cs" />
     <Compile Include="Settings.cs" />
