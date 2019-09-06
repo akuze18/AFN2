@@ -24,7 +24,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.Where(z => z.id == idFind).FirstOrDefault();
         }
         
-        public List<SV_DOCUMENT> ByBatch(BATCH_ARTICLE b)
+        public List<SV_DOCUMENT> ByBatch(SV_BATCH_ARTICLE b)
         {
             return ByBatch(b.id);
         }

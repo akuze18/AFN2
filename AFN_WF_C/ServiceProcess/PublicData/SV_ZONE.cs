@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     class SV_ZONE
@@ -22,7 +20,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public string codOld { get { return _codOld; } }
 
         #region Convertions
-        public static implicit operator SV_ZONE(C.ZONE od)
+        public static implicit operator SV_ZONE(DataContract.ZONE od)
         {
             return new SV_ZONE()
             {

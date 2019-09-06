@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows.Forms;
 
 using AFN_WF_C.PCClient.Procesos;
-using C = AFN_WF_C.ServiceProcess.DataContract;
 using V = AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.PCClient.Vistas.Migracion
@@ -73,7 +72,7 @@ namespace AFN_WF_C.PCClient.Vistas.Migracion
                 else
                 {
                     LParametros.RemoveObjects(LParametros.SelectedObjects);
-                    var SelectedHead = (C.TRANSACTION_HEADER)(CbTHead.SelectedItem);
+                    var SelectedHead = (V.SV_TRANSACTION_HEADER)(CbTHead.SelectedItem);
                     var SelectedSystem = (V.SV_SYSTEM)(CbSistema.SelectedItem);
                     var param = consultas.detalle_parametros.ByHead_Sys(SelectedHead.id, SelectedSystem.id).ToArray();
                     LParametros.SetObjects(param);

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     class SV_KIND
@@ -27,7 +25,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
 
         #region Convertions
-        public static implicit operator SV_KIND(C.KIND od)
+        public static implicit operator SV_KIND(DataContract.KIND od)
         {
             return new SV_KIND()
             {

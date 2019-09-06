@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_ENVIORMENT
@@ -25,7 +23,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public bool allow_cm_neg { get { return _allow_cm_neg; } }
 
         #region Convertions
-        public static implicit operator SV_ENVIORMENT(C.ENVIORMENT od)
+        public static implicit operator SV_ENVIORMENT(DataContract.ENVIORMENT od)
         {
             return new SV_ENVIORMENT()
             {

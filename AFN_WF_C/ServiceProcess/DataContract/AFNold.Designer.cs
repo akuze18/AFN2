@@ -186,6 +186,22 @@ namespace AFN_WF_C.ServiceProcess.DataContract
             }
         }
         private ObjectSet<AFN_OBRA_CONS> _AFN_OBRA_CONS;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<PM00200> PM00200
+        {
+            get
+            {
+                if ((_PM00200 == null))
+                {
+                    _PM00200 = base.CreateObjectSet<PM00200>("PM00200");
+                }
+                return _PM00200;
+            }
+        }
+        private ObjectSet<PM00200> _PM00200;
 
         #endregion
 
@@ -245,6 +261,14 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         public void AddToAFN_OBRA_CONS(AFN_OBRA_CONS aFN_OBRA_CONS)
         {
             base.AddObject("AFN_OBRA_CONS", aFN_OBRA_CONS);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet PM00200. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToPM00200(PM00200 pM00200)
+        {
+            base.AddObject("PM00200", pM00200);
         }
 
         #endregion
@@ -4379,6 +4403,193 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         private global::System.String _estado_aprov;
         partial void Onestado_aprovChanging(global::System.String value);
         partial void Onestado_aprovChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AFNModel", Name="PM00200")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PM00200 : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto PM00200.
+        /// </summary>
+        /// <param name="pARVENDID">Valor inicial de la propiedad PARVENDID.</param>
+        /// <param name="vNDCLSID">Valor inicial de la propiedad VNDCLSID.</param>
+        /// <param name="fUENTE">Valor inicial de la propiedad FUENTE.</param>
+        public static PM00200 CreatePM00200(global::System.String pARVENDID, global::System.String vNDCLSID, global::System.String fUENTE)
+        {
+            PM00200 pM00200 = new PM00200();
+            pM00200.PARVENDID = pARVENDID;
+            pM00200.VNDCLSID = vNDCLSID;
+            pM00200.FUENTE = fUENTE;
+            return pM00200;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String COD
+        {
+            get
+            {
+                return _COD;
+            }
+            set
+            {
+                OnCODChanging(value);
+                ReportPropertyChanging("COD");
+                _COD = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("COD");
+                OnCODChanged();
+            }
+        }
+        private global::System.String _COD;
+        partial void OnCODChanging(global::System.String value);
+        partial void OnCODChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TEXTO
+        {
+            get
+            {
+                return _TEXTO;
+            }
+            set
+            {
+                OnTEXTOChanging(value);
+                ReportPropertyChanging("TEXTO");
+                _TEXTO = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("TEXTO");
+                OnTEXTOChanged();
+            }
+        }
+        private global::System.String _TEXTO;
+        partial void OnTEXTOChanging(global::System.String value);
+        partial void OnTEXTOChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PARVENDID
+        {
+            get
+            {
+                return _PARVENDID;
+            }
+            set
+            {
+                if (_PARVENDID != value)
+                {
+                    OnPARVENDIDChanging(value);
+                    ReportPropertyChanging("PARVENDID");
+                    _PARVENDID = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("PARVENDID");
+                    OnPARVENDIDChanged();
+                }
+            }
+        }
+        private global::System.String _PARVENDID;
+        partial void OnPARVENDIDChanging(global::System.String value);
+        partial void OnPARVENDIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String VENDNAME
+        {
+            get
+            {
+                return _VENDNAME;
+            }
+            set
+            {
+                OnVENDNAMEChanging(value);
+                ReportPropertyChanging("VENDNAME");
+                _VENDNAME = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("VENDNAME");
+                OnVENDNAMEChanged();
+            }
+        }
+        private global::System.String _VENDNAME;
+        partial void OnVENDNAMEChanging(global::System.String value);
+        partial void OnVENDNAMEChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String VNDCLSID
+        {
+            get
+            {
+                return _VNDCLSID;
+            }
+            set
+            {
+                if (_VNDCLSID != value)
+                {
+                    OnVNDCLSIDChanging(value);
+                    ReportPropertyChanging("VNDCLSID");
+                    _VNDCLSID = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("VNDCLSID");
+                    OnVNDCLSIDChanged();
+                }
+            }
+        }
+        private global::System.String _VNDCLSID;
+        partial void OnVNDCLSIDChanging(global::System.String value);
+        partial void OnVNDCLSIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FUENTE
+        {
+            get
+            {
+                return _FUENTE;
+            }
+            set
+            {
+                if (_FUENTE != value)
+                {
+                    OnFUENTEChanging(value);
+                    ReportPropertyChanging("FUENTE");
+                    _FUENTE = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("FUENTE");
+                    OnFUENTEChanged();
+                }
+            }
+        }
+        private global::System.String _FUENTE;
+        partial void OnFUENTEChanging(global::System.String value);
+        partial void OnFUENTEChanged();
 
         #endregion
 

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_PART
@@ -20,7 +18,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int quantity { get { return _quantity; } }
 
         #region Convertions
-        public static implicit operator SV_PART(C.PART od)
+        public static implicit operator SV_PART(DataContract.PART od)
         {
             return new SV_PART()
             {

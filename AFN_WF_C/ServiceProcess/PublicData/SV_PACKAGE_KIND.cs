@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_PACKAGE_KIND
@@ -20,7 +18,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int type_asset_id { get { return _type_asset_id; } }
 
         #region Convertions
-        public static implicit operator SV_PACKAGE_KIND(C.PACKAGE_KIND od)
+        public static implicit operator SV_PACKAGE_KIND(DataContract.PACKAGE_KIND od)
         {
             return new SV_PACKAGE_KIND()
             {

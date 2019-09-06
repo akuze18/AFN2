@@ -17,6 +17,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             _source = source.ToList().ConvertAll(ba => (SV_BATCH_ARTICLE) ba); 
         }
 
+        public SV_BATCH_ARTICLE ById(int Id)
+        {
+            return _source.Where(b => b.id == Id).FirstOrDefault();
+        }
+
         public void add_new(SV_BATCH_ARTICLE batch)
         {
             _source.Add(batch);

@@ -27,8 +27,8 @@ namespace AFN_WF_C.ServiceProcess
         }
         public List<DETAIL_PROCESS> buscar_Articulo(DateTime desde, DateTime hasta, int codigo, string descrip, string zona, int[] vigencias, string[] aprovados)
         {
-            using (AFN2Entities context = new AFN2Entities())
-            using (var repo = new Repositories.Main(context))
+
+            var repo = _svr.Repo;
             {
                 DateTime current = DateTime.Now;
                 SV_SYSTEM sis = repo.sistemas.Default;
@@ -82,8 +82,8 @@ namespace AFN_WF_C.ServiceProcess
         public List<DETAIL_PROCESS> base_movimiento(SV_SYSTEM sistema, DateTime fecha_corte, int[] vigencia, GENERIC_VALUE clase, GENERIC_VALUE zona)
         {
             var salida = new List<DETAIL_PROCESS>();
-            using (AFN2Entities context = new AFN2Entities())
-            using (var repo = new Repositories.Main(context))
+
+            var repo = _svr.Repo;
             {
                 var aprovados = repo.EstadoAprobacion.OnlyActive.Select(x => x.code).ToArray();
                 salida = repo.get_detailed(sistema, fecha_corte, 0, aprovados, true, clase, zona);
@@ -114,8 +114,7 @@ namespace AFN_WF_C.ServiceProcess
             var periodo = new ACode.Vperiodo(año, mes);
 
             Repositories.CORRECTIONS_MONETARIES_VALUES CM;
-            using (AFN2Entities context = new AFN2Entities())
-            using (var repo = new Repositories.Main(context))
+            var repo = _svr.Repo;
             {
                 repo.set_correccion_monetaria(periodo.lastDB.Substring(0, 6));
                 CM = repo.correcciones_monetarias;
@@ -139,8 +138,7 @@ namespace AFN_WF_C.ServiceProcess
         private RespuestaAccion GuardarProcesoDepreciacion(List<DETAIL_DEPRECIATE> lineas, DateTime fecha_proceso)
         {
             var informe = new RespuestaAccion();
-            using (AFN2Entities context = new AFN2Entities())
-            using (Repositories.Main repo = new Repositories.Main(context))
+            Repositories.Main repo = _svr.Repo;
             {
                 var default_system = repo.sistemas.Default;
                 var wholeArticles = lineas.Select(x => new { arti = x.cod_articulo, part = x.parte }).Distinct();
@@ -230,7 +228,7 @@ namespace AFN_WF_C.ServiceProcess
                         }
                         #region Header
                         //debo cortar los registros en sus tiempos
-                        var linea_anterior = (from h in context.TRANSACTIONS_HEADERS
+                        var linea_anterior = (from h in _svr.DB.TRANSACTIONS_HEADERS
                                               where h.id == defaultTransac.HeadId
                                               select h).First();
                         linea_anterior.trx_end = fecha_proceso;
@@ -249,9 +247,9 @@ namespace AFN_WF_C.ServiceProcess
                         head_t_new.manage_id = (defaultTransac.gestion.id == 0 ? (int?)(null) : defaultTransac.gestion.id);
                         head_t_new.TRANSACTIONS_PARAMETERS_DETAILS = parameters;
                         head_t_new.TRANSACTIONS_DETAILS = details;
-                        context.TRANSACTIONS_HEADERS.AddObject(head_t_new);
+                        _svr.DB.TRANSACTIONS_HEADERS.AddObject(head_t_new);
                         #endregion
-                        context.SaveChanges();
+                        _svr.DB.SaveChanges();
 
                     }
                     else
@@ -622,7 +620,7 @@ namespace AFN_WF_C.ServiceProcess
 
         public List<DETAIL_OBC> saldo_obras(DateTime fecha_consulta, int currency_id)
         {
-            using (AFN2Entities context = new AFN2Entities())
+            var context = _svr.DB;
             //using (var repo = new Repositories.Main(context))
             {
                 List<DETAIL_OBC> resultado = new List<DETAIL_OBC>();
@@ -676,8 +674,8 @@ namespace AFN_WF_C.ServiceProcess
             var saldo_inicial = saldo_obras(desde, currency_id).Select(i => i.saldo);
             var saldo_final = saldo_obras(hasta, currency_id).Select(f => f.saldo);
 
-            using (AFN2Entities context = new AFN2Entities())
-            using (var repo = new Repositories.Main(context))
+            var context = _svr.DB;
+            var repo = _svr.Repo;
             {
                 var entradas = (from head in context.ASSETS_IN_PROGRESS_HEAD
                                 join detail in context.ASSETS_IN_PROGRESS_DETAIL on head.id equals detail.head_id

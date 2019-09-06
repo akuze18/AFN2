@@ -78,6 +78,7 @@
             this.smMigracion04 = new System.Windows.Forms.ToolStripMenuItem();
             this.smMigracion05 = new System.Windows.Forms.ToolStripMenuItem();
             this.smMigracion06 = new System.Windows.Forms.ToolStripMenuItem();
+            this.smMigracion07 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -138,6 +139,7 @@
             this.smConsulta03.Name = "smConsulta03";
             this.smConsulta03.Size = new System.Drawing.Size(220, 22);
             this.smConsulta03.Text = "Ficha Cambio";
+            this.smConsulta03.Click += new System.EventHandler(this.smConsulta03_Click);
             // 
             // smConsulta04
             // 
@@ -189,18 +191,21 @@
             this.smCambio01.Name = "smCambio01";
             this.smCambio01.Size = new System.Drawing.Size(270, 22);
             this.smCambio01.Text = "Mantenedor de Bienes";
+            this.smCambio01.Click += new System.EventHandler(this.smCambio01_Click);
             // 
             // smCambio02
             // 
             this.smCambio02.Name = "smCambio02";
             this.smCambio02.Size = new System.Drawing.Size(270, 22);
             this.smCambio02.Text = "Actualizar Descripciones";
+            this.smCambio02.Click += new System.EventHandler(this.smCambio02_Click);
             // 
             // smCambio03
             // 
             this.smCambio03.Name = "smCambio03";
             this.smCambio03.Size = new System.Drawing.Size(270, 22);
             this.smCambio03.Text = "Actualizar Gestion";
+            this.smCambio03.Click += new System.EventHandler(this.smCambio03_Click);
             // 
             // toolStripSeparator2
             // 
@@ -212,24 +217,28 @@
             this.smCambio04.Name = "smCambio04";
             this.smCambio04.Size = new System.Drawing.Size(270, 22);
             this.smCambio04.Text = "Venta de Bienes";
+            this.smCambio04.Click += new System.EventHandler(this.smCambio04_Click);
             // 
             // smCambio05
             // 
             this.smCambio05.Name = "smCambio05";
             this.smCambio05.Size = new System.Drawing.Size(270, 22);
             this.smCambio05.Text = "Indicar Precio de Venta";
+            this.smCambio05.Click += new System.EventHandler(this.smCambio05_Click);
             // 
             // smCambio06
             // 
             this.smCambio06.Name = "smCambio06";
             this.smCambio06.Size = new System.Drawing.Size(270, 22);
             this.smCambio06.Text = "Castigo de Bienes";
+            this.smCambio06.Click += new System.EventHandler(this.smCambio06_Click);
             // 
             // smCambio07
             // 
             this.smCambio07.Name = "smCambio07";
             this.smCambio07.Size = new System.Drawing.Size(270, 22);
             this.smCambio07.Text = "Traspaso de Zona/Subzona de Bienes";
+            this.smCambio07.Click += new System.EventHandler(this.smCambio07_Click);
             // 
             // toolStripSeparator3
             // 
@@ -241,18 +250,21 @@
             this.smCambio08.Name = "smCambio08";
             this.smCambio08.Size = new System.Drawing.Size(270, 22);
             this.smCambio08.Text = "Ingreso Obras en Construccion";
+            this.smCambio08.Click += new System.EventHandler(this.smCambio08_Click);
             // 
             // smCambio09
             // 
             this.smCambio09.Name = "smCambio09";
             this.smCambio09.Size = new System.Drawing.Size(270, 22);
             this.smCambio09.Text = "Termino Obras en Construccion";
+            this.smCambio09.Click += new System.EventHandler(this.smCambio09_Click);
             // 
             // smCambio10
             // 
             this.smCambio10.Name = "smCambio10";
             this.smCambio10.Size = new System.Drawing.Size(270, 22);
             this.smCambio10.Text = "Obras en Contruccion a Gastos";
+            this.smCambio10.Click += new System.EventHandler(this.smCambio10_Click);
             // 
             // procesosToolStripMenuItem
             // 
@@ -313,6 +325,7 @@
             this.smReporte05.Name = "smReporte05";
             this.smReporte05.Size = new System.Drawing.Size(196, 22);
             this.smReporte05.Text = "Contabilizar Activo Fijo";
+            this.smReporte05.Click += new System.EventHandler(this.smReporte05_Click);
             // 
             // inventarioToolStripMenuItem
             // 
@@ -331,12 +344,14 @@
             this.smInventario01.Name = "smInventario01";
             this.smInventario01.Size = new System.Drawing.Size(229, 22);
             this.smInventario01.Text = "Imprimir Etiquetas";
+            this.smInventario01.Click += new System.EventHandler(this.smInventario01_Click);
             // 
             // smInventario02
             // 
             this.smInventario02.Name = "smInventario02";
             this.smInventario02.Size = new System.Drawing.Size(229, 22);
             this.smInventario02.Text = "Imprimir Listado Conteo";
+            this.smInventario02.Click += new System.EventHandler(this.smInventario02_Click);
             // 
             // toolStripSeparator4
             // 
@@ -348,12 +363,14 @@
             this.smInventario03.Name = "smInventario03";
             this.smInventario03.Size = new System.Drawing.Size(229, 22);
             this.smInventario03.Text = "Mantenedor Toma Inventario";
+            this.smInventario03.Click += new System.EventHandler(this.smInventario03_Click);
             // 
             // smInventario04
             // 
             this.smInventario04.Name = "smInventario04";
             this.smInventario04.Size = new System.Drawing.Size(229, 22);
             this.smInventario04.Text = "Revision Toma Inventario";
+            this.smInventario04.Click += new System.EventHandler(this.smInventario04_Click);
             // 
             // sistemaToolStripMenuItem
             // 
@@ -373,24 +390,28 @@
             this.smSistema01.Name = "smSistema01";
             this.smSistema01.Size = new System.Drawing.Size(257, 22);
             this.smSistema01.Text = "Mantenedor Correccion Monetaria";
+            this.smSistema01.Click += new System.EventHandler(this.smSistema01_Click);
             // 
             // smSistema02
             // 
             this.smSistema02.Name = "smSistema02";
             this.smSistema02.Size = new System.Drawing.Size(257, 22);
             this.smSistema02.Text = "Carga de Saldos Iniciales (anual)";
+            this.smSistema02.Click += new System.EventHandler(this.smSistema02_Click);
             // 
             // smSistema03
             // 
             this.smSistema03.Name = "smSistema03";
             this.smSistema03.Size = new System.Drawing.Size(257, 22);
             this.smSistema03.Text = "Cuentas Contables Activo Fijo";
+            this.smSistema03.Click += new System.EventHandler(this.smSistema03_Click);
             // 
             // smSistema04
             // 
             this.smSistema04.Name = "smSistema04";
             this.smSistema04.Size = new System.Drawing.Size(257, 22);
             this.smSistema04.Text = "Configuraciones";
+            this.smSistema04.Click += new System.EventHandler(this.smSistema04_Click);
             // 
             // smSistema05
             // 
@@ -414,7 +435,8 @@
             this.smMigracion03,
             this.smMigracion04,
             this.smMigracion05,
-            this.smMigracion06});
+            this.smMigracion06,
+            this.smMigracion07});
             this.migracionToolStripMenuItem.Name = "migracionToolStripMenuItem";
             this.migracionToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.migracionToolStripMenuItem.Text = "Migracion";
@@ -422,44 +444,51 @@
             // smMigracion01
             // 
             this.smMigracion01.Name = "smMigracion01";
-            this.smMigracion01.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion01.Size = new System.Drawing.Size(266, 22);
             this.smMigracion01.Text = "Traer Datos desde AFN1";
             this.smMigracion01.Click += new System.EventHandler(this.smMigracion01_Click);
             // 
             // smMigracion02
             // 
             this.smMigracion02.Name = "smMigracion02";
-            this.smMigracion02.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion02.Size = new System.Drawing.Size(266, 22);
             this.smMigracion02.Text = "Traer Depreciacion desde AFN1";
             this.smMigracion02.Click += new System.EventHandler(this.smMigracion02_Click);
             // 
             // smMigracion03
             // 
             this.smMigracion03.Name = "smMigracion03";
-            this.smMigracion03.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion03.Size = new System.Drawing.Size(266, 22);
             this.smMigracion03.Text = "Agregar Credito";
             this.smMigracion03.Click += new System.EventHandler(this.smMigracion03_Click);
             // 
             // smMigracion04
             // 
             this.smMigracion04.Name = "smMigracion04";
-            this.smMigracion04.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion04.Size = new System.Drawing.Size(266, 22);
             this.smMigracion04.Text = "Mantenedor Parametros";
             this.smMigracion04.Click += new System.EventHandler(this.smMigracion04_Click);
             // 
             // smMigracion05
             // 
             this.smMigracion05.Name = "smMigracion05";
-            this.smMigracion05.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion05.Size = new System.Drawing.Size(266, 22);
             this.smMigracion05.Text = "Corregir Bajas desde AFN1";
             this.smMigracion05.Click += new System.EventHandler(this.smMigracion05_Click);
             // 
             // smMigracion06
             // 
             this.smMigracion06.Name = "smMigracion06";
-            this.smMigracion06.Size = new System.Drawing.Size(239, 22);
+            this.smMigracion06.Size = new System.Drawing.Size(266, 22);
             this.smMigracion06.Text = "Agregar OBC desde AFN1";
             this.smMigracion06.Click += new System.EventHandler(this.smMigracion06_Click);
+            // 
+            // smMigracion07
+            // 
+            this.smMigracion07.Name = "smMigracion07";
+            this.smMigracion07.Size = new System.Drawing.Size(266, 22);
+            this.smMigracion07.Text = "Sincronizar Informacion desde AFN1";
+            this.smMigracion07.Click += new System.EventHandler(this.smMigracion07_Click);
             // 
             // statusStrip1
             // 
@@ -592,5 +621,6 @@
         private System.Windows.Forms.ToolStripMenuItem smMigracion04;
         private System.Windows.Forms.ToolStripMenuItem smMigracion05;
         private System.Windows.Forms.ToolStripMenuItem smMigracion06;
+        private System.Windows.Forms.ToolStripMenuItem smMigracion07;
     }
 }

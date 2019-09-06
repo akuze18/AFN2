@@ -1278,5 +1278,88 @@ namespace AFN_WF_C.ServiceProcess
                 //context.Connection.Close();
             }
         }
+
+        public void SincronizarAFN()
+        {
+            List<AFN_LOTE_ARTICULOS> lotes_old;
+            List<PM00200> proveedor_master;
+            //reviso existencia de lotes
+            using (AFNoldEntities contextOld = new AFNoldEntities())
+            {
+                lotes_old = contextOld.AFN_LOTE_ARTICULOS.ToList();
+                proveedor_master = contextOld.PM00200.ToList();
+            }
+            using (AFN2Entities context = new AFN2Entities())
+            using (var repo = new Repositories.Main(context))
+            {
+                foreach (var lote_old in lotes_old)
+                {
+                    var buscar_lote = repo.lotes.ById(lote_old.cod);
+                    if (buscar_lote == null)
+                    {
+                        //no existe el lote, hay que migrarlo
+                        var lote_new = new BATCH_ARTICLE();
+                        lote_new.aproval_state_id = repo.EstadoAprobacion.ByCode(lote_old.estado_aprov).id;
+                        lote_new.descrip = lote_old.descripcion;
+                        lote_new.purchase_date = (DateTime)lote_old.fecha_compra;
+                        lote_new.initial_price = (decimal)lote_old.precio_inicial;
+                        lote_new.initial_life_time = (int)lote_old.vida_util_inicial;
+                        lote_new.account_date = (DateTime)lote_old.fecha_ing;
+                        lote_new.origin_id = repo.origenes.ByCode(lote_old.origen).id;
+                        lote_new.type_asset_id = repo.Tipos.ByDescrip(lote_old.consistencia).id;
+
+                        //Analizo documento a migrar
+                        if (lote_old.num_doc != "SIN_DOCUMENTO")
+                        {
+                            var new_doc = new DOCUMENT();
+                            new_doc.docnumber = lote_old.num_doc;
+                            new_doc.comment = string.Empty;
+                            new_doc.proveedor_id = lote_old.proveedor;
+                            new_doc.proveedor_name = proveedor_master
+                                .Where(pm => pm.COD == lote_old.proveedor)
+                                .Select(pm => pm.VENDNAME)
+                                .DefaultIfEmpty(string.Empty)
+                                .First();
+
+                            var new_rel = new DOCS_BATCH();
+                            new_rel.DOCUMENT = new_doc;
+                            new_rel.BATCHS_ARTICLES = lote_new;
+
+                            context.DOCS_BATCH.AddObject(new_rel);
+                        }
+                        else
+                        {
+                            //ingreso solo lote, sin documento asociado
+                            context.BATCHS_ARTICLES.AddObject(lote_new);
+                        }
+                    }
+                    else
+                    {
+                        //TODO: Revisar si cambiaron los valores
+                        //Batch ya existe, analizamos documentos
+                        var findDocs = repo.documentos.ByBatch(lote_old.cod);
+                        if (lote_old.num_doc != "SIN_DOCUMENTO" && findDocs.Count() == 0)
+                        {
+                            var new_doc = new DOCUMENT();
+                            new_doc.docnumber = lote_old.num_doc;
+                            new_doc.comment = string.Empty;
+                            new_doc.proveedor_id = lote_old.proveedor;
+                            new_doc.proveedor_name = proveedor_master
+                                .Where(pm => pm.COD == lote_old.proveedor)
+                                .Select(pm => pm.VENDNAME)
+                                .DefaultIfEmpty(string.Empty)
+                                .First();
+
+                            var new_rel = new DOCS_BATCH();
+                            new_rel.DOCUMENT = new_doc;
+                            new_rel.batch_id = buscar_lote.id;
+
+                            context.DOCS_BATCH.AddObject(new_rel);
+                        }
+                    }
+                }
+                context.SaveChanges();
+            }
+        }
     }
 }

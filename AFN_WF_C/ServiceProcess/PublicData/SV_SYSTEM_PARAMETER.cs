@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_SYSTEM_PARAMETER
@@ -20,7 +18,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public bool isRequired { get { return _isRequired; } }
 
         #region Convertions
-        public static implicit operator SV_SYSTEM_PARAMETER(C.SYSTEM_PARAMETER od)
+        public static implicit operator SV_SYSTEM_PARAMETER(DataContract.SYSTEM_PARAMETER od)
         {
             return new SV_SYSTEM_PARAMETER()
             {

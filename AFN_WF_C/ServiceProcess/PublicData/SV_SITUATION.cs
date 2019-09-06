@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_SITUATION
@@ -20,7 +18,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public string condicion { get { return _condicion; } }
 
         #region Convertions
-        public static implicit operator SV_SITUATION(C.SITUATION od)
+        public static implicit operator SV_SITUATION(DataContract.SITUATION od)
         {
             return new SV_SITUATION()
             {

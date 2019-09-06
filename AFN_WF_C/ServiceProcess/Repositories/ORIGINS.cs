@@ -21,7 +21,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
         public GENERIC_VALUE ById(int idFind)
         {
-            return _source.Where(z => z.id == idFind).FirstOrDefault();
+            return _source.Where(o => o.id == idFind).FirstOrDefault();
+        }
+        public GENERIC_VALUE ByCode(string CodeFind)
+        {
+            return _source.Where(o => o.code == CodeFind).FirstOrDefault();
         }
     }
 }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     class SV_APROVAL_STATE
@@ -18,7 +16,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public string descrip { get { return _descrip; } }
 
         #region Convertions
-        public static implicit operator SV_APROVAL_STATE(C.APROVAL_STATE od)
+        public static implicit operator SV_APROVAL_STATE(DataContract.APROVAL_STATE od)
         {
             return new SV_APROVAL_STATE()
             {

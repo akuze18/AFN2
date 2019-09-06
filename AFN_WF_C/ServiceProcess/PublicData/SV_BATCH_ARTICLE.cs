@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_BATCH_ARTICLE
@@ -30,7 +28,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int type_asset_id { get { return _type_asset_id; } }
 
         #region Convertions
-        public static implicit operator SV_BATCH_ARTICLE(C.BATCH_ARTICLE od)
+        public static implicit operator SV_BATCH_ARTICLE(DataContract.BATCH_ARTICLE od)
         {
             return new SV_BATCH_ARTICLE()
             {

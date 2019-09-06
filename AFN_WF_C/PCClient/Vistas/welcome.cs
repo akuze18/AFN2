@@ -29,17 +29,64 @@ namespace AFN_WF_C.PCClient.Vistas
             }
             finder = null;
         }
-
         private void smConsulta02_Click(object sender, EventArgs e)
         {
             
         }
-        
+        private void smConsulta03_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
         private void smConsulta06_Click(object sender, EventArgs e)
         {
             var box = new Consultas.saldos_obc();
             box.ShowFrom(this);
         }
+        #endregion
+
+        #region Menu Cambios
+
+        private void smCambio01_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smCambio02_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smCambio03_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smCambio04_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smCambio05_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smCambio06_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smCambio07_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smCambio08_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smCambio09_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smCambio10_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+
         #endregion
 
         #region Menu Reporte
@@ -63,6 +110,31 @@ namespace AFN_WF_C.PCClient.Vistas
             var box = new Reportes.fixed_assets();
             box.ShowFrom(this);
         }
+        private void smReporte05_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        #endregion
+
+        #region Menu Inventario
+
+        private void smInventario01_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smInventario02_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smInventario03_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smInventario04_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+
         #endregion
 
         #region Menu Sistema
@@ -74,7 +146,22 @@ namespace AFN_WF_C.PCClient.Vistas
 
             MessageBox.Show("Fin Test");
         }
-
+        private void smSistema01_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smSistema02_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smSistema03_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
+        private void smSistema04_Click(object sender, EventArgs e)
+        {
+            Mensaje.Info("Opción aun no migrada");
+        }
         private void smSistema05_Click(object sender, EventArgs e)
         {
             var menu = new Sistema.Depreciar();
@@ -82,7 +169,6 @@ namespace AFN_WF_C.PCClient.Vistas
         }
         
         #endregion
-
 
         #region Migracion
         private void smMigracion01_Click(object sender, EventArgs e)
@@ -97,7 +183,7 @@ namespace AFN_WF_C.PCClient.Vistas
                 }
 
             }
-            MessageBox.Show("Importacion de datos desde AFN1 ha terminado");
+            Mensaje.Info("Importacion de datos desde AFN1 ha terminado");
         }
         private void smMigracion02_Click(object sender, EventArgs e)
         {
@@ -110,12 +196,12 @@ namespace AFN_WF_C.PCClient.Vistas
                 if (accion == DialogResult.Cancel)
                     break;
             }
-            MessageBox.Show("Finaliza proceso carga de depreciacion");
+            Mensaje.Info("Finaliza proceso carga de depreciacion");
         }
         private void smMigracion03_Click(object sender, EventArgs e)
         {
             Procesos.Migracion.agregar_credito();
-            MessageBox.Show("Proceso Credito Terminado");
+            Mensaje.Info("Proceso Credito Terminado");
         }
         private void smMigracion04_Click(object sender, EventArgs e)
         {
@@ -125,17 +211,19 @@ namespace AFN_WF_C.PCClient.Vistas
         private void smMigracion05_Click(object sender, EventArgs e)
         {
             Procesos.Migracion.corregir_bajas();
-            MessageBox.Show("Proceso Correccion Bajas Terminado");
+            Mensaje.Info("Proceso Correccion Bajas Terminado");
         }
         private void smMigracion06_Click(object sender, EventArgs e)
         {
             Procesos.Migracion.CargarDatosOBC();
-            MessageBox.Show("Proceso Carga OBC Terminado");
+            Mensaje.Info("Proceso Carga OBC Terminado");
         }
-
+        private void smMigracion07_Click(object sender, EventArgs e)
+        {
+            Procesos.Migracion.SincronizarAFN1();
+            Mensaje.Info("Proceso Sincronización Terminado");
+        }
         #endregion
-
-        
 
     }
 }

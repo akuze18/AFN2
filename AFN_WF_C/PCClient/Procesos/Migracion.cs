@@ -11,32 +11,38 @@ namespace AFN_WF_C.PCClient.Procesos
     {
         public static void CargaDepreciacion(int año, int mes)
         {
-            var pServ = new ServiceProcess.ServiceAFN2();
-            pServ.Migracion.CargaDepreciacion(año, mes);
+            using(var pServ = new ServiceProcess.ServiceAFN2())
+                pServ.Migracion.CargaDepreciacion(año, mes);
         }
 
         public static PD.RespuestaAccion CargaTransacciones(int grupo)
         {
-            var pServ = new ServiceProcess.ServiceAFN2();
-            return pServ.Migracion.CargaDatosDesdeAFN(grupo);
+            using(var pServ = new ServiceProcess.ServiceAFN2())
+                return pServ.Migracion.CargaDatosDesdeAFN(grupo);
         }
 
         public static void agregar_credito()
         {
-            var pServ = new ServiceProcess.ServiceAFN2();
-            pServ.Migracion.AgregarCredito();
+            using(var pServ = new ServiceProcess.ServiceAFN2())
+                pServ.Migracion.AgregarCredito();
         }
 
         public static void corregir_bajas()
         {
-            var pServ = new ServiceProcess.ServiceAFN2();
-            pServ.Migracion.CorregirBajas();
+            using(var pServ = new ServiceProcess.ServiceAFN2())
+                pServ.Migracion.CorregirBajas();
         }
 
         public static void CargarDatosOBC()
         {
-            var pServ = new ServiceProcess.ServiceAFN2();
-            pServ.Migracion.CargarDatosOBC();
+            using(var pServ = new ServiceProcess.ServiceAFN2())
+                pServ.Migracion.CargarDatosOBC();
+        }
+
+        public static void SincronizarAFN1()
+        {
+            using (var pServ = new ServiceProcess.ServiceAFN2())
+                pServ.Migracion.SincronizarAFN();
         }
     }
 }

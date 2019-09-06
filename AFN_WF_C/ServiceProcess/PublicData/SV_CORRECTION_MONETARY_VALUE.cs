@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_CORRECTION_MONETARY_VALUE
@@ -27,7 +25,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         }
 
         #region Convertions
-        public static implicit operator SV_CORRECTION_MONETARY_VALUE(C.CORRECTION_MONETARY_VALUE od)
+        public static implicit operator SV_CORRECTION_MONETARY_VALUE(DataContract.CORRECTION_MONETARY_VALUE od)
         {
             return new SV_CORRECTION_MONETARY_VALUE()
             {

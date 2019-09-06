@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_TRANSACTION_HEADER
@@ -36,7 +34,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int? manage_id { get { return _manage_id; } }
 
         #region Convertions
-        public static implicit operator SV_TRANSACTION_HEADER(C.TRANSACTION_HEADER od)
+        public static implicit operator SV_TRANSACTION_HEADER(DataContract.TRANSACTION_HEADER od)
         {
             return new SV_TRANSACTION_HEADER()
             {

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     class SV_TRANSACTION_PARAMETER_DETAIL
@@ -25,7 +23,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
 
         #region Convertions
-        public static implicit operator SV_TRANSACTION_PARAMETER_DETAIL(C.TRANSACTION_PARAMETER_DETAIL od)
+        public static implicit operator SV_TRANSACTION_PARAMETER_DETAIL(DataContract.TRANSACTION_PARAMETER_DETAIL od)
         {
             return new SV_TRANSACTION_PARAMETER_DETAIL()
                 {

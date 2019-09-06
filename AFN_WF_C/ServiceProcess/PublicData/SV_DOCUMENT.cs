@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_DOCUMENT
@@ -33,7 +31,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
 
         #region Convertions
-        public static implicit operator SV_DOCUMENT(C.DOCUMENT od)
+        public static implicit operator SV_DOCUMENT(DataContract.DOCUMENT od)
         {
             return new SV_DOCUMENT()
             {

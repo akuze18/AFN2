@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_CURRENCY
@@ -18,7 +16,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public string name { get { return _name; } }
 
         #region Convertions
-        public static implicit operator SV_CURRENCY(C.CURRENCY od)
+        public static implicit operator SV_CURRENCY(DataContract.CURRENCY od)
         {
             return new SV_CURRENCY()
             {

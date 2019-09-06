@@ -19,6 +19,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.Where(z => z.id == idFind).FirstOrDefault();
         }
 
+        public GENERIC_VALUE ByDescrip(string DescFind)
+        {
+            return _source.Where(t => t.descrip == DescFind).FirstOrDefault();
+        }
+
         public List<GENERIC_VALUE> All()
         {
             return _source.ConvertAll(x => (GENERIC_VALUE)x);

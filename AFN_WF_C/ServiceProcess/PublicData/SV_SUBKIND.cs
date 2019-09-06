@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_SUBKIND
@@ -24,7 +22,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int? kind_id { get { return _kind_id; } }
 
         #region Convertions
-        public static implicit operator SV_SUBKIND(C.SUBKIND od)
+        public static implicit operator SV_SUBKIND(DataContract.SUBKIND od)
         {
             return new SV_SUBKIND()
             {

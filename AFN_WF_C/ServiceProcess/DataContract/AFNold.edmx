@@ -29,6 +29,16 @@
       [AFN_OBRA_CONS].[estado_aprov] AS [estado_aprov]
       FROM [dbo].[AFN_OBRA_CONS] AS [AFN_OBRA_CONS]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="PM00200" EntityType="AFNModel.Store.PM00200" store:Type="Views" store:Schema="dbo" store:Name="PM00200">
+            <DefiningQuery>SELECT 
+      [PM00200].[COD] AS [COD], 
+      [PM00200].[TEXTO] AS [TEXTO], 
+      [PM00200].[PARVENDID] AS [PARVENDID], 
+      [PM00200].[VENDNAME] AS [VENDNAME], 
+      [PM00200].[VNDCLSID] AS [VNDCLSID], 
+      [PM00200].[FUENTE] AS [FUENTE]
+      FROM [dbo].[PM00200] AS [PM00200]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS" Association="AFNModel.Store.FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS">
             <End Role="AFN_LOTE_ARTICULOS" EntitySet="AFN_LOTE_ARTICULOS" />
             <End Role="AFN_INVENTARIO" EntitySet="AFN_INVENTARIO" />
@@ -237,6 +247,22 @@
           <Property Name="glfecha" Type="datetime" />
           <Property Name="estado_aprov" Type="varchar" Nullable="false" MaxLength="20" />
         </EntityType>
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'AFN.dbo.PM00200' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+      -->
+        <EntityType Name="PM00200">
+          <Key>
+            <PropertyRef Name="PARVENDID" />
+            <PropertyRef Name="VNDCLSID" />
+            <PropertyRef Name="FUENTE" />
+          </Key>
+          <Property Name="COD" Type="varchar(max)" />
+          <Property Name="TEXTO" Type="varchar(max)" />
+          <Property Name="PARVENDID" Type="char" Nullable="false" MaxLength="15" />
+          <Property Name="VENDNAME" Type="varchar(max)" />
+          <Property Name="VNDCLSID" Type="char" Nullable="false" MaxLength="11" />
+          <Property Name="FUENTE" Type="varchar" Nullable="false" MaxLength="3" />
+        </EntityType>
         <Association Name="FK_AFN_INVENTARIO_AFN_LOTE_ARTICULOS">
           <End Role="AFN_LOTE_ARTICULOS" Type="AFNModel.Store.AFN_LOTE_ARTICULOS" Multiplicity="1" />
           <End Role="AFN_INVENTARIO" Type="AFNModel.Store.AFN_INVENTARIO" Multiplicity="*" />
@@ -329,6 +355,7 @@
             <End Role="AFN_INVENTARIO_TRIB" EntitySet="AFN_INVENTARIO_TRIB" />
           </AssociationSet>
           <EntitySet Name="AFN_OBRA_CONS" EntityType="AFNModel.AFN_OBRA_CONS" />
+          <EntitySet Name="PM00200" EntityType="AFNModel.PM00200" />
         </EntityContainer>
         <EntityType Name="AFN_INVENTARIO">
           <Key>
@@ -584,6 +611,19 @@
           <Property Type="DateTime" Name="glfecha" />
           <Property Type="String" Name="estado_aprov" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="PM00200">
+          <Key>
+            <PropertyRef Name="PARVENDID" />
+            <PropertyRef Name="VNDCLSID" />
+            <PropertyRef Name="FUENTE" />
+          </Key>
+          <Property Type="String" Name="COD" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TEXTO" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PARVENDID" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="VENDNAME" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="VNDCLSID" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="FUENTE" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -776,6 +816,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PM00200">
+            <EntityTypeMapping TypeName="AFNModel.PM00200">
+              <MappingFragment StoreEntitySet="PM00200">
+                <ScalarProperty Name="FUENTE" ColumnName="FUENTE" />
+                <ScalarProperty Name="VNDCLSID" ColumnName="VNDCLSID" />
+                <ScalarProperty Name="VENDNAME" ColumnName="VENDNAME" />
+                <ScalarProperty Name="PARVENDID" ColumnName="PARVENDID" />
+                <ScalarProperty Name="TEXTO" ColumnName="TEXTO" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -826,6 +878,7 @@
           <ConnectorPoint PointX="8" PointY="8.75" />
         </AssociationConnector>
         <EntityTypeShape EntityType="AFNModel.AFN_OBRA_CONS" Width="1.5" PointX="2.5" PointY="12" Height="3.2970182291666674" />
+        <EntityTypeShape EntityType="AFNModel.PM00200" Width="1.5" PointX="5.375" PointY="14.75" Height="2.0478930664062496" />
       </Diagram>
     </Diagrams>
   </Designer>

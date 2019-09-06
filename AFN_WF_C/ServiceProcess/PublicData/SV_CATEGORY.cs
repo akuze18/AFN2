@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using C = AFN_WF_C.ServiceProcess.DataContract;
-
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
     public class SV_CATEGORY
@@ -18,7 +16,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public string descrip { get { return _descrip; } }
 
         #region Convertions
-        public static implicit operator SV_CATEGORY(C.CATEGORY od)
+        public static implicit operator SV_CATEGORY(DataContract.CATEGORY od)
         {
             return new SV_CATEGORY()
             {
