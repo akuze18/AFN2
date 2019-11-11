@@ -556,13 +556,11 @@ namespace AFN_WF_C.ServiceProcess
                         }
                     }
                 }
-                r.codigo = 1;
-                r.descripcion = "OK";
+                r.set_ok();
             }
             catch (Exception ex)
             {
-                r.codigo = -1;
-                r.descripcion = JsonConvert.SerializeObject(ex);
+                r.set(-1, JsonConvert.SerializeObject(ex));
             }
             return r;
         }
@@ -1041,7 +1039,7 @@ namespace AFN_WF_C.ServiceProcess
 
                             #region cabecera
 
-                            SV_TRANSACTION_HEADER view_cab_origin = repo.cabeceras.byPartFecha(parte.a.id, per.last);
+                            SV_TRANSACTION_HEADER view_cab_origin = repo.cabeceras.byPartFechaValid(parte.a.id, per.last);
                             TRANSACTION_HEADER cab_origin = (from c in context.TRANSACTIONS_HEADERS where c.id == view_cab_origin.id select c).First();
                             DateTime f_fin_origin = cab_origin.trx_end;
                             cab_origin.trx_end = per.last;
@@ -1098,8 +1096,8 @@ namespace AFN_WF_C.ServiceProcess
             using (Repositories.Main repo = new Repositories.Main(context))
             {
                 var begin_year = new DateTime(2019, 1, 1);
-                PARAMETER credito = repo.parametros.Credito;
-                PARAMETER precio = repo.parametros.PrecioBase;
+                SV_PARAMETER credito = repo.parametros.Credito;
+                SV_PARAMETER precio = repo.parametros.PrecioBase;
                 var transacs = (from H in context.TRANSACTIONS_HEADERS
                                .Include("TRANSACTIONS_PARAMETERS_DETAILS")
                                 where H.trx_ini >= begin_year
@@ -1145,8 +1143,8 @@ namespace AFN_WF_C.ServiceProcess
             using (AFN2Entities context = new AFN2Entities())
             using (Repositories.Main repo = new Repositories.Main(context))
             {
-                DateTime desde = new DateTime(2019, 1, 1);
-                DateTime hasta = new DateTime(2019, 6, 30);
+                DateTime desde = new DateTime(2019, 7, 1);
+                DateTime hasta = new DateTime(2019, 9, 30);
                 var cabeceras_baja = (from H in context.TRANSACTIONS_HEADERS
                                       join P in context.PARTS on H.article_part_id equals P.id
                                       join L in context.BATCHS_ARTICLES on P.article_id equals L.id
@@ -1170,40 +1168,46 @@ namespace AFN_WF_C.ServiceProcess
                             x.parte == cab.P.part_index &&
                             x.fecha_corte >= cab.H.trx_ini &&
                             x.fuente == "GC"
-                           ).First();
-                    var params_ifrs_clp = (from TPD in context.TRANSACTIONS_PARAMETERS_DETAILS
-                                 where TPD.trx_head_id == cab.H.id
-                                 && TPD.system_id == ifrs_clp.id
-                                 select TPD);
-                    foreach (var param in params_ifrs_clp)
+                           ).FirstOrDefault();
+                    if (info_old_clp != null)
                     {
-                        //if (param.paratemer_id == parametros.PrecioBase.id)
-                        //    param.parameter_value = info_old_clp.val_AF;
-                        if (param.paratemer_id == parametros.DepreciacionAcum.id)
-                            param.parameter_value = info_old_clp.DA_AF / info_old_clp.cantidad;
-                        if (param.paratemer_id == parametros.VidaUtil.id)
-                            param.parameter_value = info_old_clp.vu_resi;
-                        //if (param.paratemer_id == parametros.ValorResidual.id)
-                        //    param.parameter_value = info_old_clp.val_res;
-                        
-                    }
-                    //Seccion IFRS YEN
-                    var info_old_yen = infos_old.Where(x =>
-                            x.cod_articulo == cab.L.id &&
-                            x.parte == cab.P.part_index &&
-                            x.fecha_corte >= cab.H.trx_ini &&
-                            x.fuente == "GY"
-                           ).First();
-                    var params_ifrs_yen = (from TPD in context.TRANSACTIONS_PARAMETERS_DETAILS
-                                           where TPD.trx_head_id == cab.H.id
-                                           && TPD.system_id == ifrs_yen.id
-                                           select TPD);
-                    foreach (var param in params_ifrs_yen)
-                    {
-                        if (param.paratemer_id == parametros.DepreciacionAcum.id)
-                            param.parameter_value = info_old_yen.DA_AF / info_old_yen.cantidad;
-                        if (param.paratemer_id == parametros.VidaUtil.id)
-                            param.parameter_value = info_old_yen.vu_resi;
+                        var params_ifrs_clp = (from TPD in context.TRANSACTIONS_PARAMETERS_DETAILS
+                                               where TPD.trx_head_id == cab.H.id
+                                               && TPD.system_id == ifrs_clp.id
+                                               select TPD);
+                        foreach (var param in params_ifrs_clp)
+                        {
+                            //if (param.paratemer_id == parametros.PrecioBase.id)
+                            //    param.parameter_value = info_old_clp.val_AF;
+                            if (param.paratemer_id == parametros.DepreciacionAcum.id)
+                                param.parameter_value = info_old_clp.DA_AF / info_old_clp.cantidad;
+                            if (param.paratemer_id == parametros.VidaUtil.id)
+                                param.parameter_value = info_old_clp.vu_resi;
+                            //if (param.paratemer_id == parametros.ValorResidual.id)
+                            //    param.parameter_value = info_old_clp.val_res;
+
+                        }
+                        //Seccion IFRS YEN
+                        var info_old_yen = infos_old.Where(x =>
+                                x.cod_articulo == cab.L.id &&
+                                x.parte == cab.P.part_index &&
+                                x.fecha_corte >= cab.H.trx_ini &&
+                                x.fuente == "GY"
+                               ).FirstOrDefault();
+                        if (info_old_yen != null)
+                        {
+                            var params_ifrs_yen = (from TPD in context.TRANSACTIONS_PARAMETERS_DETAILS
+                                                   where TPD.trx_head_id == cab.H.id
+                                                   && TPD.system_id == ifrs_yen.id
+                                                   select TPD);
+                            foreach (var param in params_ifrs_yen)
+                            {
+                                if (param.paratemer_id == parametros.DepreciacionAcum.id)
+                                    param.parameter_value = info_old_yen.DA_AF / info_old_yen.cantidad;
+                                if (param.paratemer_id == parametros.VidaUtil.id)
+                                    param.parameter_value = info_old_yen.vu_resi;
+                            }
+                        }
                     }
                     
                 }
@@ -1279,86 +1283,553 @@ namespace AFN_WF_C.ServiceProcess
             }
         }
 
+        //public void TestSave()
+        //{
+        //    using (AFN2Entities context = new AFN2Entities())
+        //    using (var repo = new Repositories.Main(context))
+        //    {
+        //        repo.test_add();
+        //        repo.test_add("adios", 2, DateTime.Today);
+        //    }
+        //}
+
         public void SincronizarAFN()
         {
             List<AFN_LOTE_ARTICULOS> lotes_old;
+            List<AFN_INVENTARIO> inventarios_fin_clp_old;
+            List<AFN_INVENTARIO_FYEN> origen_fin_yen;
+            List<AFN_INVENTARIO_TRIB> origen_trib_clp;
+            List<AFN_INVENTARIO_IFRS> origen_ifrs_clp;
+            List<AFN_INVENTARIO_IFRS_YEN> origen_ifrs_yen;
             List<PM00200> proveedor_master;
             //reviso existencia de lotes
             using (AFNoldEntities contextOld = new AFNoldEntities())
             {
+                var fcorte = new DateTime(2019,1,1);
                 lotes_old = contextOld.AFN_LOTE_ARTICULOS.ToList();
+                inventarios_fin_clp_old = (from a in contextOld.AFN_INVENTARIO.Include("AFN_LOTE_ARTICULOS")
+                                      where a.fecha_inicio > fcorte
+                                      select a).ToList();
+                origen_fin_yen = (from a in contextOld.AFN_INVENTARIO_FYEN.Include("AFN_LOTE_ARTICULOS") 
+                                      where a.fecha_inicio > fcorte 
+                                  select a).ToList();
+                origen_trib_clp = (from a in contextOld.AFN_INVENTARIO_TRIB.Include("AFN_LOTE_ARTICULOS") 
+                                      where a.fecha_inicio > fcorte 
+                                   select a).ToList();
+                origen_ifrs_clp = (from a in contextOld.AFN_INVENTARIO_IFRS.Include("AFN_LOTE_ARTICULOS")
+                                      where a.fecha_inicio > fcorte 
+                                   select a).ToList();
+                origen_ifrs_yen = (from a in contextOld.AFN_INVENTARIO_IFRS_YEN.Include("AFN_LOTE_ARTICULOS")
+                                      where a.fecha_inicio > fcorte 
+                                   select a).ToList();
+
                 proveedor_master = contextOld.PM00200.ToList();
             }
+
+            var resumen_partes = (from s in inventarios_fin_clp_old
+                                  group s by new
+                                    {
+                                        s.id_articulo,
+                                        s.parte,
+                                        s.cantidad
+                                    } into g
+                                    select g.Key);
             using (AFN2Entities context = new AFN2Entities())
             using (var repo = new Repositories.Main(context))
             {
+                repo.proveedor_master = proveedor_master;
                 foreach (var lote_old in lotes_old)
                 {
+                    #region Trabajamos con BATCH_ARTICLE
                     var buscar_lote = repo.lotes.ById(lote_old.cod);
                     if (buscar_lote == null)
                     {
                         //no existe el lote, hay que migrarlo
-                        var lote_new = new BATCH_ARTICLE();
-                        lote_new.aproval_state_id = repo.EstadoAprobacion.ByCode(lote_old.estado_aprov).id;
-                        lote_new.descrip = lote_old.descripcion;
-                        lote_new.purchase_date = (DateTime)lote_old.fecha_compra;
-                        lote_new.initial_price = (decimal)lote_old.precio_inicial;
-                        lote_new.initial_life_time = (int)lote_old.vida_util_inicial;
-                        lote_new.account_date = (DateTime)lote_old.fecha_ing;
-                        lote_new.origin_id = repo.origenes.ByCode(lote_old.origen).id;
-                        lote_new.type_asset_id = repo.Tipos.ByDescrip(lote_old.consistencia).id;
-
-                        //Analizo documento a migrar
-                        if (lote_old.num_doc != "SIN_DOCUMENTO")
-                        {
-                            var new_doc = new DOCUMENT();
-                            new_doc.docnumber = lote_old.num_doc;
-                            new_doc.comment = string.Empty;
-                            new_doc.proveedor_id = lote_old.proveedor;
-                            new_doc.proveedor_name = proveedor_master
-                                .Where(pm => pm.COD == lote_old.proveedor)
-                                .Select(pm => pm.VENDNAME)
-                                .DefaultIfEmpty(string.Empty)
-                                .First();
-
-                            var new_rel = new DOCS_BATCH();
-                            new_rel.DOCUMENT = new_doc;
-                            new_rel.BATCHS_ARTICLES = lote_new;
-
-                            context.DOCS_BATCH.AddObject(new_rel);
-                        }
-                        else
-                        {
-                            //ingreso solo lote, sin documento asociado
-                            context.BATCHS_ARTICLES.AddObject(lote_new);
-                        }
+                        repo.BATCH_ARTICLE_NEW(lote_old);
                     }
                     else
                     {
                         //TODO: Revisar si cambiaron los valores
                         //Batch ya existe, analizamos documentos
-                        var findDocs = repo.documentos.ByBatch(lote_old.cod);
-                        if (lote_old.num_doc != "SIN_DOCUMENTO" && findDocs.Count() == 0)
+                        repo.DOC_BATCH_NEW(buscar_lote.id,lote_old);
+                    }
+                    #endregion
+                    #region Trabajamos con PARTS
+                    var current_parts = resumen_partes.Where(i => i.id_articulo == lote_old.cod);
+                    foreach (var sPart in current_parts)
+                    {
+                        var buscar_parts = repo.Partes.ByLotePart(sPart.id_articulo, sPart.parte);
+                        if (buscar_parts == null)
                         {
-                            var new_doc = new DOCUMENT();
-                            new_doc.docnumber = lote_old.num_doc;
-                            new_doc.comment = string.Empty;
-                            new_doc.proveedor_id = lote_old.proveedor;
-                            new_doc.proveedor_name = proveedor_master
-                                .Where(pm => pm.COD == lote_old.proveedor)
-                                .Select(pm => pm.VENDNAME)
-                                .DefaultIfEmpty(string.Empty)
-                                .First();
-
-                            var new_rel = new DOCS_BATCH();
-                            new_rel.DOCUMENT = new_doc;
-                            new_rel.batch_id = buscar_lote.id;
-
-                            context.DOCS_BATCH.AddObject(new_rel);
+                            //no existe parte ingresada, la ingresamos
+                            repo.PART_NEW(sPart.id_articulo, sPart.parte, sPart.cantidad);
+                        }
+                        else
+                        {
+                            //ya existe, vemos si la cantidad cambio
+                            if (buscar_parts.quantity != sPart.cantidad)
+                            {
+                                repo.PART_UPDATE(buscar_parts.id,sPart.cantidad);
+                            }
                         }
                     }
+                    #endregion
                 }
-                context.SaveChanges();
+                SV_SYSTEM sistema = repo.sistemas.Default;
+                var parametros = repo.parametros;
+
+                foreach (var iFinClpOld in inventarios_fin_clp_old)
+                {
+                    #region Trabajamos con TRANSACTION_HEAD
+                    //var x = 0;
+                    //Busco PART asociada a la trasaccion
+                    var CurrPart = repo.Partes.ByLotePart(iFinClpOld.id_articulo, iFinClpOld.parte);
+                    var BuscaHead = repo.cabeceras.byPartFechaFix(CurrPart.id, iFinClpOld.fecha_inicio);
+                    //DEBE existir una cabecera que su fecha inicio sea igual, puesto que eso representa un hito de la historia del lote
+                    if (BuscaHead == null)
+                    {
+                        SV_TRANSACTION_HEADER current_head;
+                        var BuscaRangHead = repo.cabeceras.byPartFechaValid(CurrPart.id, iFinClpOld.fecha_inicio);
+                        if (BuscaRangHead != null)
+                        {
+                            //ya hay una cabecera con validez para la parte y fecha
+                            //creamos una nueva linea que cortará la que
+                            current_head = repo.TRANSACTION_HEAD_NEW(BuscaRangHead, iFinClpOld);
+                        }
+                        else
+                        {
+                            //no hay cabecera valida, por lo tanto, creamos una nueva a partir de los datos antiguo sistema
+                            //en teoría no debería entrar aca
+                            current_head = repo.TRANSACTION_HEAD_NEW(CurrPart , iFinClpOld);
+                        }
+                        
+                        #region detale fin clp (principal)
+                        var detail = new TRANSACTION_DETAIL();
+                        detail.trx_head_id = current_head.id;
+                        detail.system_id = sistema.id;
+                        detail.validity_id = iFinClpOld.cod_estado;
+                        detail.depreciate = (bool)iFinClpOld.se_deprecia;
+                        detail.allow_credit = (iFinClpOld.AFN_LOTE_ARTICULOS.derecho_credito == "SI");
+                        context.TRANSACTIONS_DETAILS.AddObject(detail);
+                        
+                        List<TRANSACTION_PARAMETER_DETAIL> listP = new List<TRANSACTION_PARAMETER_DETAIL>();
+                        if (iFinClpOld.precio_base != 0)
+                        {
+                            var param1_s1 = new TRANSACTION_PARAMETER_DETAIL();
+                            param1_s1.trx_head_id = current_head.id;
+                            param1_s1.system_id = sistema.id;
+                            param1_s1.paratemer_id = parametros.PrecioBase.id;
+                            param1_s1.parameter_value = iFinClpOld.precio_base;
+                            listP.Add(param1_s1);
+                        }
+                        if (iFinClpOld.depreciacion_acum != 0 && iFinClpOld.depreciacion_acum != null)
+                        {
+                            var param2_s1 = new TRANSACTION_PARAMETER_DETAIL();
+                            param2_s1.trx_head_id = current_head.id;
+                            param2_s1.system_id = sistema.id;
+                            param2_s1.paratemer_id = parametros.DepreciacionAcum.id;
+                            param2_s1.parameter_value = (decimal)iFinClpOld.depreciacion_acum;
+                            listP.Add(param2_s1);
+                        }
+                        if (iFinClpOld.deteriodo != 0 && iFinClpOld.deteriodo != null)
+                        {
+                            var param3_s1 = new TRANSACTION_PARAMETER_DETAIL();
+                            param3_s1.trx_head_id = current_head.id;
+                            param3_s1.system_id = sistema.id;
+                            param3_s1.paratemer_id = parametros.Deterioro.id;
+                            param3_s1.parameter_value = (decimal)iFinClpOld.deteriodo;
+                            listP.Add(param3_s1);
+                        }
+                        if (iFinClpOld.valor_residual != 0 && iFinClpOld.valor_residual != null)
+                        {
+                            var param4_s1 = new TRANSACTION_PARAMETER_DETAIL();
+                            param4_s1.trx_head_id = current_head.id;
+                            param4_s1.system_id = sistema.id;
+                            param4_s1.paratemer_id = parametros.ValorResidual.id;
+                            param4_s1.parameter_value = -(decimal)iFinClpOld.valor_residual * -1;
+                            listP.Add(param4_s1);
+                        }
+                        if (iFinClpOld.vida_util_base != 0 && iFinClpOld.vida_util_base != null)
+                        {
+                            var param5_s1 = new TRANSACTION_PARAMETER_DETAIL();
+                            param5_s1.trx_head_id = current_head.id;
+                            param5_s1.system_id = sistema.id;
+                            param5_s1.paratemer_id = parametros.VidaUtil.id;
+                            param5_s1.parameter_value = (decimal)iFinClpOld.vida_util_base;
+                            listP.Add(param5_s1);
+                        }
+                        #endregion
+                        #region detalle fin yen
+
+                        AFN_INVENTARIO_FYEN curr_fin_yen = (from FY in origen_fin_yen where FY.id_articulo == CurrPart.article_id && FY.parte == CurrPart.part_index && FY.fecha_inicio == current_head.trx_ini select FY).FirstOrDefault();
+                        if (curr_fin_yen != null)
+                        {
+                            SV_SYSTEM sistema2 = repo.sistemas.FinYEN;
+                            var detail2 = new TRANSACTION_DETAIL();
+                            detail2.trx_head_id = current_head.id;
+                            detail2.system_id = sistema2.id;
+                            detail2.validity_id = curr_fin_yen.cod_estado;
+                            detail2.depreciate = (bool)curr_fin_yen.se_deprecia;
+                            detail2.allow_credit = (curr_fin_yen.AFN_LOTE_ARTICULOS.derecho_credito == "SI");
+                            context.TRANSACTIONS_DETAILS.AddObject(detail2);
+
+                            if (curr_fin_yen.precio_base != 0)
+                            {
+                                var param1_s2 = new TRANSACTION_PARAMETER_DETAIL();
+                                param1_s2.trx_head_id = current_head.id;
+                                param1_s2.system_id = sistema2.id;
+                                param1_s2.paratemer_id = parametros.PrecioBase.id;
+                                param1_s2.parameter_value = curr_fin_yen.precio_base;
+                                listP.Add(param1_s2);
+                            }
+                            if (curr_fin_yen.depreciacion_acum != 0 && curr_fin_yen.depreciacion_acum != null)
+                            {
+                                var param2_s2 = new TRANSACTION_PARAMETER_DETAIL();
+                                param2_s2.trx_head_id = current_head.id;
+                                param2_s2.system_id = sistema2.id;
+                                param2_s2.paratemer_id = parametros.DepreciacionAcum.id;
+                                param2_s2.parameter_value = (decimal)curr_fin_yen.depreciacion_acum;
+                                listP.Add(param2_s2);
+                            }
+                            if (curr_fin_yen.deteriodo != 0 && curr_fin_yen.deteriodo != null)
+                            {
+                                var param3_s2 = new TRANSACTION_PARAMETER_DETAIL();
+                                param3_s2.trx_head_id = current_head.id;
+                                param3_s2.system_id = sistema2.id;
+                                param3_s2.paratemer_id = parametros.Deterioro.id;
+                                param3_s2.parameter_value = (decimal)curr_fin_yen.deteriodo;
+                                listP.Add(param3_s2);
+                            }
+                            if (curr_fin_yen.valor_residual != 0 && curr_fin_yen.valor_residual != null)
+                            {
+                                var param4_s2 = new TRANSACTION_PARAMETER_DETAIL();
+                                param4_s2.trx_head_id = current_head.id;
+                                param4_s2.system_id = sistema2.id;
+                                param4_s2.paratemer_id = parametros.ValorResidual.id;
+                                param4_s2.parameter_value = -(decimal)curr_fin_yen.valor_residual;
+                                listP.Add(param4_s2);
+                            }
+                            if (curr_fin_yen.vida_util_base != 0 && curr_fin_yen.vida_util_base != null)
+                            {
+                                var param5_s2 = new TRANSACTION_PARAMETER_DETAIL();
+                                param5_s2.trx_head_id = current_head.id;
+                                param5_s2.system_id = sistema2.id;
+                                param5_s2.paratemer_id = parametros.VidaUtil.id;
+                                param5_s2.parameter_value = (decimal)curr_fin_yen.vida_util_base;
+                                listP.Add(param5_s2);
+                            }
+                        }
+
+                        #endregion
+                        #region detalle trib clp
+
+                        AFN_INVENTARIO_TRIB curr_trib_clp = (from FY in origen_trib_clp where FY.id_articulo == CurrPart.article_id && FY.parte == CurrPart.part_index && FY.fecha_inicio == current_head.trx_ini select FY).FirstOrDefault();
+                        if (curr_trib_clp != null)
+                        {
+                            SV_SYSTEM sistema3 = repo.sistemas.TribCLP;
+                            var detail3 = new TRANSACTION_DETAIL();
+                            detail3.trx_head_id = current_head.id;
+                            detail3.system_id = sistema3.id;
+                            detail3.validity_id = curr_trib_clp.cod_estado;
+                            detail3.depreciate = (bool)curr_trib_clp.se_deprecia;
+                            detail3.allow_credit = (curr_trib_clp.AFN_LOTE_ARTICULOS.derecho_credito == "SI");
+                            context.TRANSACTIONS_DETAILS.AddObject(detail3);
+
+                            if (curr_trib_clp.precio_base != 0)
+                            {
+                                var param1_s3 = new TRANSACTION_PARAMETER_DETAIL();
+                                param1_s3.trx_head_id = current_head.id;
+                                param1_s3.system_id = sistema3.id;
+                                param1_s3.paratemer_id = parametros.PrecioBase.id;
+                                param1_s3.parameter_value = curr_trib_clp.precio_base;
+                                listP.Add(param1_s3);
+                            }
+                            if (curr_trib_clp.depreciacion_acum != 0 && curr_trib_clp.depreciacion_acum != null)
+                            {
+                                var param2_s3 = new TRANSACTION_PARAMETER_DETAIL();
+                                param2_s3.trx_head_id = current_head.id;
+                                param2_s3.system_id = sistema3.id;
+                                param2_s3.paratemer_id = parametros.DepreciacionAcum.id;
+                                param2_s3.parameter_value = (decimal)curr_trib_clp.depreciacion_acum;
+                                listP.Add(param2_s3);
+                            }
+                            if (curr_trib_clp.deteriodo != 0 && curr_trib_clp.deteriodo != null)
+                            {
+                                var param3_s3 = new TRANSACTION_PARAMETER_DETAIL();
+                                param3_s3.trx_head_id = current_head.id;
+                                param3_s3.system_id = sistema3.id;
+                                param3_s3.paratemer_id = parametros.Deterioro.id;
+                                param3_s3.parameter_value = (decimal)curr_trib_clp.deteriodo;
+                                listP.Add(param3_s3);
+                            }
+                            if (curr_trib_clp.valor_residual != 0 && curr_trib_clp.valor_residual != null)
+                            {
+                                var param4_s3 = new TRANSACTION_PARAMETER_DETAIL();
+                                param4_s3.trx_head_id = current_head.id;
+                                param4_s3.system_id = sistema3.id;
+                                param4_s3.paratemer_id = parametros.ValorResidual.id;
+                                param4_s3.parameter_value = -(decimal)curr_trib_clp.valor_residual;
+                                listP.Add(param4_s3);
+                            }
+                            if (curr_trib_clp.vida_util_base != 0 && curr_trib_clp.vida_util_base != null)
+                            {
+                                var param5_s3 = new TRANSACTION_PARAMETER_DETAIL();
+                                param5_s3.trx_head_id = current_head.id;
+                                param5_s3.system_id = sistema3.id;
+                                param5_s3.paratemer_id = parametros.VidaUtil.id;
+                                param5_s3.parameter_value = (decimal)curr_trib_clp.vida_util_base;
+                                listP.Add(param5_s3);
+                            }
+                        }
+
+                        #endregion
+                        #region detalle ifrs clp
+
+                        AFN_INVENTARIO_IFRS curr_ifrs_clp = (from FY in origen_ifrs_clp where FY.id_articulo == CurrPart.article_id && FY.parte == CurrPart.part_index && FY.fecha_inicio == current_head.trx_ini select FY).FirstOrDefault();
+                        if (curr_ifrs_clp != null)
+                        {
+                            SV_SYSTEM sistema4 = repo.sistemas.IfrsCLP;
+                            var detail4 = new TRANSACTION_DETAIL();
+                            detail4.trx_head_id = current_head.id;
+                            detail4.system_id = sistema4.id;
+                            detail4.validity_id = curr_ifrs_clp.cod_estado;
+                            detail4.depreciate = (bool)curr_ifrs_clp.se_deprecia;
+                            detail4.allow_credit = (curr_ifrs_clp.AFN_LOTE_ARTICULOS.derecho_credito == "SI");
+                            context.TRANSACTIONS_DETAILS.AddObject(detail4);
+
+                            if (curr_ifrs_clp.precio_base != 0)
+                            {
+                                var param1_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param1_s4.trx_head_id = current_head.id;
+                                param1_s4.system_id = sistema4.id;
+                                param1_s4.paratemer_id = parametros.PrecioBase.id;
+                                param1_s4.parameter_value = curr_ifrs_clp.precio_base;
+                                listP.Add(param1_s4);
+                            }
+                            if (curr_ifrs_clp.depreciacion_acum != 0 && curr_ifrs_clp.depreciacion_acum != null)
+                            {
+                                var param2_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param2_s4.trx_head_id = current_head.id;
+                                param2_s4.system_id = sistema4.id;
+                                param2_s4.paratemer_id = parametros.DepreciacionAcum.id;
+                                param2_s4.parameter_value = (decimal)curr_ifrs_clp.depreciacion_acum;
+                                listP.Add(param2_s4);
+                            }
+                            if (curr_ifrs_clp.deteriodo != 0 && curr_ifrs_clp.deteriodo != null)
+                            {
+                                var param3_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param3_s4.trx_head_id = current_head.id;
+                                param3_s4.system_id = sistema4.id;
+                                param3_s4.paratemer_id = parametros.Deterioro.id;
+                                param3_s4.parameter_value = (decimal)curr_ifrs_clp.deteriodo;
+                                listP.Add(param3_s4);
+                            }
+                            if (curr_ifrs_clp.valor_residual != 0 && curr_ifrs_clp.valor_residual != null)
+                            {
+                                var param4_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param4_s4.trx_head_id = current_head.id;
+                                param4_s4.system_id = sistema4.id;
+                                param4_s4.paratemer_id = parametros.ValorResidual.id;
+                                param4_s4.parameter_value = -(decimal)curr_ifrs_clp.valor_residual;
+                                listP.Add(param4_s4);
+                            }
+                            if (curr_ifrs_clp.vida_util_base != 0 && curr_ifrs_clp.vida_util_base != null)
+                            {
+                                var param5_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param5_s4.trx_head_id = current_head.id;
+                                param5_s4.system_id = sistema4.id;
+                                param5_s4.paratemer_id = parametros.VidaUtil.id;
+                                param5_s4.parameter_value = (decimal)curr_ifrs_clp.vida_util_base;
+                                listP.Add(param5_s4);
+                            }
+                            if (curr_ifrs_clp.preparacion != 0 && curr_ifrs_clp.preparacion != null)
+                            {
+                                var param6_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param6_s4.trx_head_id = current_head.id;
+                                param6_s4.system_id = sistema4.id;
+                                param6_s4.paratemer_id = parametros.Preparacion.id;
+                                param6_s4.parameter_value = (decimal)curr_ifrs_clp.preparacion;
+                                listP.Add(param6_s4);
+                            }
+                            if (curr_ifrs_clp.transporte != 0 && curr_ifrs_clp.transporte != null)
+                            {
+                                var param7_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param7_s4.trx_head_id = current_head.id;
+                                param7_s4.system_id = sistema4.id;
+                                param7_s4.paratemer_id = parametros.Transporte.id;
+                                param7_s4.parameter_value = (decimal)curr_ifrs_clp.transporte;
+                                listP.Add(param7_s4);
+                            }
+                            if (curr_ifrs_clp.montaje != 0 && curr_ifrs_clp.montaje != null)
+                            {
+                                var param8_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param8_s4.trx_head_id = current_head.id;
+                                param8_s4.system_id = sistema4.id;
+                                param8_s4.paratemer_id = parametros.Montaje.id;
+                                param8_s4.parameter_value = (decimal)curr_ifrs_clp.montaje;
+                                listP.Add(param8_s4);
+                            }
+                            if (curr_ifrs_clp.desmantel != 0 && curr_ifrs_clp.desmantel != null)
+                            {
+                                var param9_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param9_s4.trx_head_id = current_head.id;
+                                param9_s4.system_id = sistema4.id;
+                                param9_s4.paratemer_id = parametros.Desmantelamiento.id;
+                                param9_s4.parameter_value = (decimal)curr_ifrs_clp.desmantel;
+                                listP.Add(param9_s4);
+                            }
+                            if (curr_ifrs_clp.honorario != 0 && curr_ifrs_clp.honorario != null)
+                            {
+                                var param10_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param10_s4.trx_head_id = current_head.id;
+                                param10_s4.system_id = sistema4.id;
+                                param10_s4.paratemer_id = parametros.Honorario.id;
+                                param10_s4.parameter_value = (decimal)curr_ifrs_clp.honorario;
+                                listP.Add(param10_s4);
+                            }
+                            if (curr_ifrs_clp.revalorizacion != 0 && curr_ifrs_clp.revalorizacion != null)
+                            {
+                                var param11_s4 = new TRANSACTION_PARAMETER_DETAIL();
+                                param11_s4.trx_head_id = current_head.id;
+                                param11_s4.system_id = sistema4.id;
+                                param11_s4.paratemer_id = parametros.Revalorizacion.id;
+                                param11_s4.parameter_value = (decimal)curr_ifrs_clp.revalorizacion;
+                                listP.Add(param11_s4);
+                            }
+                        }
+
+                        #endregion
+                        #region detalle ifrs yen
+
+                        AFN_INVENTARIO_IFRS_YEN curr_ifrs_yen = (from FY in origen_ifrs_yen where FY.id_articulo == CurrPart.article_id && FY.parte == CurrPart.part_index && FY.fecha_inicio == current_head.trx_ini select FY).FirstOrDefault();
+                        if (curr_ifrs_yen != null)
+                        {
+                            SV_SYSTEM sistema5 = repo.sistemas.IfrsYEN;
+                            var detail5 = new TRANSACTION_DETAIL();
+                            detail5.trx_head_id = current_head.id;
+                            detail5.system_id = sistema5.id;
+                            detail5.validity_id = curr_ifrs_yen.cod_estado;
+                            detail5.depreciate = (bool)curr_ifrs_yen.se_deprecia;
+                            detail5.allow_credit = (curr_ifrs_yen.AFN_LOTE_ARTICULOS.derecho_credito == "SI");
+                            context.TRANSACTIONS_DETAILS.AddObject(detail5);
+
+                            if (curr_ifrs_yen.precio_base != 0)
+                            {
+                                var param1_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param1_s5.trx_head_id = current_head.id;
+                                param1_s5.system_id = sistema5.id;
+                                param1_s5.paratemer_id = parametros.PrecioBase.id;
+                                param1_s5.parameter_value = curr_ifrs_yen.precio_base;
+                                listP.Add(param1_s5);
+                            }
+                            if (curr_ifrs_yen.depreciacion_acum != 0)
+                            {
+                                var param2_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param2_s5.trx_head_id = current_head.id;
+                                param2_s5.system_id = sistema5.id;
+                                param2_s5.paratemer_id = parametros.DepreciacionAcum.id;
+                                param2_s5.parameter_value = (decimal)curr_ifrs_yen.depreciacion_acum;
+                                listP.Add(param2_s5);
+                            }
+                            if (curr_ifrs_yen.deteriodo != 0 && curr_ifrs_yen.deteriodo != null)
+                            {
+                                var param3_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param3_s5.trx_head_id = current_head.id;
+                                param3_s5.system_id = sistema5.id;
+                                param3_s5.paratemer_id = parametros.Deterioro.id;
+                                param3_s5.parameter_value = (decimal)curr_ifrs_yen.deteriodo;
+                                listP.Add(param3_s5);
+                            }
+                            if (curr_ifrs_yen.valor_residual != 0)
+                            {
+                                var param4_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param4_s5.trx_head_id = current_head.id;
+                                param4_s5.system_id = sistema5.id;
+                                param4_s5.paratemer_id = parametros.ValorResidual.id;
+                                param4_s5.parameter_value = -(decimal)curr_ifrs_yen.valor_residual;
+                                listP.Add(param4_s5);
+                            }
+                            if (curr_ifrs_yen.vida_util_base != 0)
+                            {
+                                var param5_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param5_s5.trx_head_id = current_head.id;
+                                param5_s5.system_id = sistema5.id;
+                                param5_s5.paratemer_id = parametros.VidaUtil.id;
+                                param5_s5.parameter_value = (decimal)curr_ifrs_yen.vida_util_base;
+                                listP.Add(param5_s5);
+                            }
+                            if (curr_ifrs_yen.preparacion != 0 && curr_ifrs_yen.preparacion != null)
+                            {
+                                var param6_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param6_s5.trx_head_id = current_head.id;
+                                param6_s5.system_id = sistema5.id;
+                                param6_s5.paratemer_id = parametros.Preparacion.id;
+                                param6_s5.parameter_value = (decimal)curr_ifrs_yen.preparacion;
+                                listP.Add(param6_s5);
+                            }
+                            if (curr_ifrs_yen.transporte != 0 && curr_ifrs_yen.transporte != null)
+                            {
+                                var param7_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param7_s5.trx_head_id = current_head.id;
+                                param7_s5.system_id = sistema5.id;
+                                param7_s5.paratemer_id = parametros.Transporte.id;
+                                param7_s5.parameter_value = (decimal)curr_ifrs_yen.transporte;
+                                listP.Add(param7_s5);
+                            }
+                            if (curr_ifrs_yen.montaje != 0 && curr_ifrs_yen.montaje != null)
+                            {
+                                var param8_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param8_s5.trx_head_id = current_head.id;
+                                param8_s5.system_id = sistema5.id;
+                                param8_s5.paratemer_id = parametros.Montaje.id;
+                                param8_s5.parameter_value = (decimal)curr_ifrs_yen.montaje;
+                                listP.Add(param8_s5);
+                            }
+                            if (curr_ifrs_yen.desmantel != 0 && curr_ifrs_yen.desmantel != null)
+                            {
+                                var param9_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param9_s5.trx_head_id = current_head.id;
+                                param9_s5.system_id = sistema5.id;
+                                param9_s5.paratemer_id = parametros.Desmantelamiento.id;
+                                param9_s5.parameter_value = (decimal)curr_ifrs_yen.desmantel;
+                                listP.Add(param9_s5);
+                            }
+                            if (curr_ifrs_yen.honorario != 0 && curr_ifrs_yen.honorario != null)
+                            {
+                                var param10_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param10_s5.trx_head_id = current_head.id;
+                                param10_s5.system_id = sistema5.id;
+                                param10_s5.paratemer_id = parametros.Honorario.id;
+                                param10_s5.parameter_value = (decimal)curr_ifrs_yen.honorario;
+                                listP.Add(param10_s5);
+                            }
+                            if (curr_ifrs_yen.revalorizacion != 0 && curr_ifrs_yen.revalorizacion != null)
+                            {
+                                var param11_s5 = new TRANSACTION_PARAMETER_DETAIL();
+                                param11_s5.trx_head_id = current_head.id;
+                                param11_s5.system_id = sistema5.id;
+                                param11_s5.paratemer_id = parametros.Revalorizacion.id;
+                                param11_s5.parameter_value = (decimal)curr_ifrs_yen.revalorizacion;
+                                listP.Add(param11_s5);
+                            }
+                        }
+
+                        #endregion
+
+                        listP.ForEach(p => context.TRANSACTIONS_PARAMETERS_DETAILS.AddObject(p));
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        //TODO: checkear que la cabecera tiene los valores iguales en ambos lados
+                        //se asume que si ya existe, están bien los valores
+                    }
+
+
+
+                    #endregion
+
+                }
             }
         }
     }

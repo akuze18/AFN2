@@ -20,15 +20,15 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
 
         private void fixed_assets_Load(object sender, EventArgs e)
         {
-            cb_year.Items.AddRange(P.consultas.arr.years);
+            cb_year.Items.AddRange(P.Consultas.arr.years);
             cb_year.SelectedIndex = 0;
             cb_year.Tag = label1.Text;
 
-            cb_month.Items.AddRange(P.consultas.arr.meses);
+            cb_month.Items.AddRange(P.Consultas.arr.meses);
             cb_month.SelectedIndex = Today.Month - 1;
             cb_month.Tag = label1.Text;
 
-            cb_tipo.Items.AddRange(P.consultas.tipos.All().ToArray());
+            cb_tipo.Items.AddRange(P.Consultas.tipos.All().ToArray());
             cb_tipo.SelectedIndex = 0;
             cb_tipo.Tag = label2.Text;
 
@@ -36,7 +36,7 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
             //cb_acum.SelectedIndex = 0;
             //cb_acum.Tag = label3.Text;
 
-            cb_sistema.Items.AddRange(P.consultas.sistema.All().ToArray());
+            cb_sistema.Items.AddRange(P.Consultas.sistema.All().ToArray());
             cb_sistema.SelectedIndex = 0;
             cb_sistema.Tag = label4.Text;
         }

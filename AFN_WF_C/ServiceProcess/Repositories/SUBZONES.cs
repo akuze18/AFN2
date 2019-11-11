@@ -18,5 +18,12 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return _source.Where(z => z.id == idFind).FirstOrDefault();
         }
+
+        public List<GENERIC_VALUE> ByZone(GENERIC_VALUE zone)
+        {
+            return _source.Where(sz => sz.zone_id == zone.id)
+                .Where(sz => sz.active)
+                .ToList().ConvertAll(sz => (GENERIC_VALUE)sz);
+        }
     }
 }

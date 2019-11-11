@@ -6,44 +6,107 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using ServAFN = AFN_WF_C.ServiceProcess.PublicData;
-using AFN_WF_C.PCClient.Procesos;
+using PD = AFN_WF_C.ServiceProcess.PublicData;
+using P = AFN_WF_C.PCClient.Procesos;
 
 namespace AFN_WF_C.PCClient.Vistas.Busquedas
 {
-    //public enum tipo_estado { 
-    //    soloActivos,
-    //    soloDigitados,
-    //    noBorrados,
-    //    todos
-    //}
+    public enum tipo_estado
+    {
+        soloActivos,
+        soloDigitados,
+        noBorrados,
+        todos
+    }
+    public enum tipo_vigencia
+    {
+        vigentes,
+        bajas,
+        ventas,
+        castigos,
+        todos
+    }
+
+    public enum moment_data
+    {
+        today,
+        first
+    }
     public partial class articulo : PCClient.FormBase
     {
-        int[] _vigencias;
-        string[] _estado;
-        int _parte, _cod;
+        int[] _vigencias_toFind;
+        string[] _estados_toFind;
+        moment_data _cuando_toFind;
+        int _parte_result, _cod_result;
+        bool _activado_result;
+        private PD.DETAIL_PROCESS _full_data;
+        
         public articulo()
         {
             InitializeComponent();
-            _vigencias = new int[] {1};
-            _estado = consultas.estados_aprobacion.NoDeleted;
-            _cod = 0;
-            _parte = -1;
+            _vigencias_toFind = P.Consultas.vigencias.Actives;
+            _estados_toFind = P.Consultas.estados_aprobacion.NoDeleted;
+            _cuando_toFind = moment_data.today;
+            _cod_result = 0;
+            _parte_result = -1;
+            _activado_result = false;
+            _full_data = null;
         }
 
-        //public void set_criterios(int[] vigencias = null, string[] estado = null)
-        //{
-        //    if (vigencias == null) { vigencias = new int[] {1}; }
-        //    _vigencias = vigencias;
-        //    //_estado = estado;
-        //}
+        private void set_vigencias(tipo_vigencia vigencias)
+        {
+            switch (vigencias)
+            {
+                case tipo_vigencia.todos:
+                    _vigencias_toFind = P.Consultas.vigencias.All;
+                    break;
+                case tipo_vigencia.bajas:
+                    _vigencias_toFind = P.Consultas.vigencias.Downs;
+                    break;
+                case tipo_vigencia.ventas:
+                    _vigencias_toFind = P.Consultas.vigencias.Sells;
+                    break;
+                case tipo_vigencia.castigos:
+                    _vigencias_toFind = P.Consultas.vigencias.Disposals;
+                    break;
+                default:    //case tipo_vigencia.vigentes:
+                    _vigencias_toFind = P.Consultas.vigencias.Actives;
+                    break;
+            }
+        }
+        private void set_estados(tipo_estado estado)
+        {
+            switch (estado)
+            {
+                case tipo_estado.soloActivos:
+                    _estados_toFind = P.Consultas.estados_aprobacion.OnlyActive;
+                    break;
+                case tipo_estado.soloDigitados:
+                    _estados_toFind = P.Consultas.estados_aprobacion.OnlyDigited;
+                    break;
+                case tipo_estado.noBorrados:
+                    _estados_toFind = P.Consultas.estados_aprobacion.NoDeleted;
+                    break;
+                default:    //case tipo_estado.todos:
+                    _estados_toFind = P.Consultas.estados_aprobacion.NoDeleted;
+                    break;
+            }
+        }
+        private void set_momento(moment_data cuando)
+        {
+            _cuando_toFind = cuando;
+        }
 
-        public int codigo {
-            get { return _cod; }
+        public void set_criterios(tipo_vigencia vigencias, tipo_estado estado)
+        {
+            set_vigencias(vigencias);
+            set_estados(estado);
         }
-        public int parte{
-            get { return _parte; }
-        }
+
+        public int codigo { get { return _cod_result; }}
+        public int parte { get { return _parte_result; }}
+        public bool activado { get { return _activado_result; }}
+        public PD.DETAIL_PROCESS full_data { get { return _full_data; }}
 
         private void articulo_Load(object sender, EventArgs e)
         {
@@ -63,7 +126,7 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
             Fhasta.MaxDate = LastDayTM;
             
             //cboZona
-            var tabla_zona = consultas.zonas.All().ToArray();
+            var tabla_zona = P.Consultas.zonas.All().ToArray();
             cboZona.Items.AddRange(tabla_zona);
             cboZona.SelectedIndex = -1;
         }
@@ -80,7 +143,7 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
                 bZona = "00";
             }
             else{
-                var sel = (ServAFN.GENERIC_VALUE)(cboZona.SelectedItem);
+                var sel = (PD.GENERIC_VALUE)(cboZona.SelectedItem);
                 bZona = sel.code;
             }
             if (!int.TryParse(Tcodigo.Text,out Bcodigo)){
@@ -92,7 +155,7 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
             if(Fdesde.Checked){fecha_min = Fdesde.Value;}
             if(Fhasta.Checked){fecha_max = Fhasta.Value;}
 
-            var resultado = consultas.buscar_Articulo(fecha_min, fecha_max, Bcodigo, Bdescrip, bZona, _vigencias, _estado);
+            var resultado = P.Consultas.buscar_Articulo(fecha_min, fecha_max, Bcodigo, Bdescrip, bZona, _vigencias_toFind, _estados_toFind, _cuando_toFind);
             MosResult.SetObjects(resultado);
             //Lresultado.Text = "Resultados : " + resultado.Length.ToString();
             Lresultado.Text = "Resultados : " + resultado.Count.ToString();
@@ -103,13 +166,15 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
         {
             if (MosResult.SelectedItem != null)
             {
-                var seleccionado = (ServAFN.DETAIL_PROCESS)MosResult.SelectedItem.RowObject;
-                _cod = seleccionado.cod_articulo;
-                _parte = seleccionado.parte;
+                var seleccionado = (PD.DETAIL_PROCESS)MosResult.SelectedItem.RowObject;
+                _cod_result = seleccionado.cod_articulo;
+                _parte_result = seleccionado.parte;
+                _activado_result = (seleccionado.aprobacion.code == "CLOSE");
+                _full_data = seleccionado;
                 this.DialogResult = DialogResult.OK;
             }
             else {
-                MessageBox.Show("No ha seleccionado ningún articulo", "NIPPON CHILE");
+                P.Mensaje.Info("No ha seleccionado ningún articulo");
             }            
         }
 

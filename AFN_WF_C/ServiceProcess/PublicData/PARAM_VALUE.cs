@@ -24,5 +24,19 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             }
             return me;
         }
+
+        public static PARAM_VALUE NoValue(SV_PARAMETER param)
+        {
+            return NoValue(param.code, param.name);
+        }
+
+        public static PARAM_VALUE NoValue(string param_code, string param_name)
+        {
+            var det = new PARAM_VALUE();
+            det.code = param_code;
+            det.name = param_name;
+            det.value = 0;
+            return det;
+        }
     }
 }

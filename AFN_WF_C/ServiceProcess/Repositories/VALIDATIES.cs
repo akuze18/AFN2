@@ -31,6 +31,22 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 .ToList()
                 .ConvertAll(v => (GENERIC_VALUE)v);
         }
+        public List<GENERIC_VALUE> Sells()
+        {
+
+            return _source
+                .Where(v => v.id == 2)
+                .ToList()
+                .ConvertAll(v => (GENERIC_VALUE)v);
+        }
+        public List<GENERIC_VALUE> Disposals()
+        {
+
+            return _source
+                .Where(v => v.id == 3)
+                .ToList()
+                .ConvertAll(v => (GENERIC_VALUE)v);
+        }
 
         public List<GENERIC_VALUE> Ups()
         {

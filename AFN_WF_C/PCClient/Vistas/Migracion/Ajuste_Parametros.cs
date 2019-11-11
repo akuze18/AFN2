@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using AFN_WF_C.PCClient.Procesos;
-using V = AFN_WF_C.ServiceProcess.PublicData;
+using P = AFN_WF_C.PCClient.Procesos;
+using PD = AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.PCClient.Vistas.Migracion
 {
@@ -28,7 +28,7 @@ namespace AFN_WF_C.PCClient.Vistas.Migracion
                     {
                         //MessageBox.Show("Tu numero " +codigo.ToString());
                         CbParte.Items.Clear();
-                        CbParte.Items.AddRange(consultas.partes.ByLote(codigo).ToArray());
+                        CbParte.Items.AddRange(P.Consultas.partes.ByLote(codigo).ToArray());
                         
                     }
                     else {
@@ -53,8 +53,8 @@ namespace AFN_WF_C.PCClient.Vistas.Migracion
                 else
                 {
                     CbTHead.Items.Clear();
-                    var selected = (V.SV_PART)cb.SelectedItem;
-                    CbTHead.Items.AddRange(consultas.cabeceras.ByParte(selected.id).ToArray());
+                    var selected = (PD.SV_PART)cb.SelectedItem;
+                    CbTHead.Items.AddRange(P.Consultas.cabeceras.ByParte(selected.id).ToArray());
 
                 }
             }
@@ -72,9 +72,9 @@ namespace AFN_WF_C.PCClient.Vistas.Migracion
                 else
                 {
                     LParametros.RemoveObjects(LParametros.SelectedObjects);
-                    var SelectedHead = (V.SV_TRANSACTION_HEADER)(CbTHead.SelectedItem);
-                    var SelectedSystem = (V.SV_SYSTEM)(CbSistema.SelectedItem);
-                    var param = consultas.detalle_parametros.ByHead_Sys(SelectedHead.id, SelectedSystem.id).ToArray();
+                    var SelectedHead = (PD.SV_TRANSACTION_HEADER)(CbTHead.SelectedItem);
+                    var SelectedSystem = (PD.SV_SYSTEM)(CbSistema.SelectedItem);
+                    var param = P.Consultas.detalle_parametros.ByHead_Sys(SelectedHead.id, SelectedSystem.id).ToArray();
                     LParametros.SetObjects(param);
 
                 }
@@ -83,7 +83,7 @@ namespace AFN_WF_C.PCClient.Vistas.Migracion
 
         private void Ajuste_Parametros_Load(object sender, EventArgs e)
         {
-            CbSistema.Items.AddRange(consultas.sistema.All().ToArray());
+            CbSistema.Items.AddRange(P.Consultas.sistema.All().ToArray());
         }
 
 

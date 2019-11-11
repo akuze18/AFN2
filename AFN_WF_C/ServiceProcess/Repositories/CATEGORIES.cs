@@ -24,5 +24,10 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return _source.Where(c => c.code == codeFind).FirstOrDefault();
         }
+
+        public List<GENERIC_VALUE> All()
+        {
+            return _source.ConvertAll(c => (GENERIC_VALUE)c);
+        }
     }
 }

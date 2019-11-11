@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
-    class SV_PARAMETER
+    public class SV_PARAMETER
     {
         private int _id;
         private string _code;

@@ -22,7 +22,14 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
         public List<GENERIC_VALUE> SearchList()
         {
-            return _source.Where(k => k.show_rep == true).ToList().ConvertAll(x => (GENERIC_VALUE)x);
+            return _source.Where(k   => k.show_rep == true).ToList().ConvertAll(x => (GENERIC_VALUE)x);
+        }
+
+        public List<GENERIC_VALUE> ByType(GENERIC_VALUE tipo, bool para_ingreso)
+        {
+            return _source.Where(k => k.type_asset_id == tipo.id)
+                .Where(k => k.show_in || !(para_ingreso))
+                .ToList().ConvertAll(k => (GENERIC_VALUE) k);
         }
 
         public GENERIC_VALUE ByCode(string codeFind)

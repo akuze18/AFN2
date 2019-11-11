@@ -21,6 +21,7 @@
           <EntitySet Name="ENVIORMENTS" EntityType="AFN2Model.Store.ENVIORMENTS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="KINDS" EntityType="AFN2Model.Store.KINDS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MANAGEMENTS" EntityType="AFN2Model.Store.MANAGEMENTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="METHOD_REVALUES" EntityType="AFN2Model.Store.METHOD_REVALUES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ORIGINS" EntityType="AFN2Model.Store.ORIGINS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PACKAGE_KINDS" EntityType="AFN2Model.Store.PACKAGE_KINDS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PACKAGE_PAIR_KINDS" EntityType="AFN2Model.Store.PACKAGE_PAIR_KINDS" store:Type="Tables" Schema="dbo" />
@@ -37,6 +38,48 @@
           <EntitySet Name="TYPES_ASSETS" EntityType="AFN2Model.Store.TYPES_ASSETS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="VALIDATIES" EntityType="AFN2Model.Store.VALIDATIES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZONES" EntityType="AFN2Model.Store.ZONES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SALES_DETAIL" EntityType="AFN2Model.Store.SALES_DETAIL" store:Type="Tables" Schema="sales" />
+          <EntitySet Name="SALES_HEAD" EntityType="AFN2Model.Store.SALES_HEAD" store:Type="Tables" Schema="sales" />
+          <EntitySet Name="PM00200A" EntityType="AFN2Model.Store.PM00200A" store:Type="Views" store:Schema="dbo" store:Name="PM00200A">
+            <DefiningQuery>SELECT 
+      [PM00200A].[COD] AS [COD], 
+      [PM00200A].[TEXTO] AS [TEXTO], 
+      [PM00200A].[PARVENDID] AS [PARVENDID], 
+      [PM00200A].[VENDNAME] AS [VENDNAME], 
+      [PM00200A].[VNDCLSID] AS [VNDCLSID], 
+      [PM00200A].[FUENTE] AS [FUENTE]
+      FROM [dbo].[PM00200A] AS [PM00200A]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SY40100" EntityType="AFN2Model.Store.SY40100" store:Type="Views" store:Schema="GP" store:Name="SY40100">
+            <DefiningQuery>SELECT 
+      [SY40100].[CLOSED] AS [CLOSED], 
+      [SY40100].[SERIES] AS [SERIES], 
+      [SY40100].[ODESCTN] AS [ODESCTN], 
+      [SY40100].[FORIGIN] AS [FORIGIN], 
+      [SY40100].[PERIODID] AS [PERIODID], 
+      [SY40100].[PERIODDT] AS [PERIODDT], 
+      [SY40100].[PERNAME] AS [PERNAME], 
+      [SY40100].[PSERIES_1] AS [PSERIES_1], 
+      [SY40100].[PSERIES_2] AS [PSERIES_2], 
+      [SY40100].[PSERIES_3] AS [PSERIES_3], 
+      [SY40100].[PSERIES_4] AS [PSERIES_4], 
+      [SY40100].[PSERIES_5] AS [PSERIES_5], 
+      [SY40100].[PSERIES_6] AS [PSERIES_6], 
+      [SY40100].[YEAR1] AS [YEAR1], 
+      [SY40100].[PERDENDT] AS [PERDENDT], 
+      [SY40100].[DEX_ROW_ID] AS [DEX_ROW_ID]
+      FROM [GP].[SY40100] AS [SY40100]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SY40101" EntityType="AFN2Model.Store.SY40101" store:Type="Views" store:Schema="GP" store:Name="SY40101">
+            <DefiningQuery>SELECT 
+      [SY40101].[YEAR1] AS [YEAR1], 
+      [SY40101].[FSTFSCDY] AS [FSTFSCDY], 
+      [SY40101].[LSTFSCDY] AS [LSTFSCDY], 
+      [SY40101].[NUMOFPER] AS [NUMOFPER], 
+      [SY40101].[HISTORYR] AS [HISTORYR], 
+      [SY40101].[DEX_ROW_ID] AS [DEX_ROW_ID]
+      FROM [GP].[SY40101] AS [SY40101]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__ASSETS_IN__aprov__1940BAED" Association="AFN2Model.Store.FK__ASSETS_IN__aprov__1940BAED">
             <End Role="APROVAL_STATES" EntitySet="APROVAL_STATES" />
             <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
@@ -108,6 +151,26 @@
           <AssociationSet Name="FK__PARTS__article_i__39E294A9" Association="AFN2Model.Store.FK__PARTS__article_i__39E294A9">
             <End Role="BATCHS_ARTICLES" EntitySet="BATCHS_ARTICLES" />
             <End Role="PARTS" EntitySet="PARTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SALES_DET__head___6A50C1DA" Association="AFN2Model.Store.FK__SALES_DET__head___6A50C1DA">
+            <End Role="SALES_HEAD" EntitySet="SALES_HEAD" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SALES_DET__kind___6E2152BE" Association="AFN2Model.Store.FK__SALES_DET__kind___6E2152BE">
+            <End Role="KINDS" EntitySet="KINDS" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SALES_DET__part___6B44E613" Association="AFN2Model.Store.FK__SALES_DET__part___6B44E613">
+            <End Role="PARTS" EntitySet="PARTS" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SALES_DET__subzo__6D2D2E85" Association="AFN2Model.Store.FK__SALES_DET__subzo__6D2D2E85">
+            <End Role="SUBZONES" EntitySet="SUBZONES" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SALES_DET__zone___6C390A4C" Association="AFN2Model.Store.FK__SALES_DET__zone___6C390A4C">
+            <End Role="ZONES" EntitySet="ZONES" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
           </AssociationSet>
           <AssociationSet Name="FK__SITUATION__estad__10AB74EC" Association="AFN2Model.Store.FK__SITUATION__estad__10AB74EC">
             <End Role="VALIDATIES" EntitySet="VALIDATIES" />
@@ -191,6 +254,10 @@
           </AssociationSet>
           <AssociationSet Name="FK__TRANSACTI__zone___46486B8E" Association="AFN2Model.Store.FK__TRANSACTI__zone___46486B8E">
             <End Role="ZONES" EntitySet="ZONES" />
+            <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTIONS_HEADERS__method" Association="AFN2Model.Store.FK__TRANSACTIONS_HEADERS__method">
+            <End Role="METHOD_REVALUES" EntitySet="METHOD_REVALUES" />
             <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
           </AssociationSet>
         </EntityContainer>
@@ -427,6 +494,13 @@
           <Property Name="code" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
+        <EntityType Name="METHOD_REVALUES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
         <EntityType Name="ORIGINS">
           <Key>
             <PropertyRef Name="id" />
@@ -468,6 +542,7 @@
           <Property Name="article_id" Type="int" Nullable="false" />
           <Property Name="part_index" Type="int" Nullable="false" />
           <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="first_date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="SITUATION">
           <Key>
@@ -545,6 +620,7 @@
           <Property Name="category_id" Type="int" Nullable="false" />
           <Property Name="user_own" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="manage_id" Type="int" />
+          <Property Name="method_revalue_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TRANSACTIONS_PARAMETERS_DETAILS">
           <Key>
@@ -579,6 +655,106 @@
           <Property Name="active" Type="bit" Nullable="false" />
           <Property Name="codDept" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="codOld" Type="varchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SALES_DETAIL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="head_id" Type="int" Nullable="false" />
+          <Property Name="part_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="unit_cost" Type="numeric" Nullable="false" Scale="5" />
+          <Property Name="ext_cost" Type="numeric" Nullable="false" Scale="5" />
+          <Property Name="unit_price" Type="numeric" Nullable="false" Scale="5" />
+          <Property Name="ext_price" Type="numeric" Nullable="false" Scale="5" />
+          <Property Name="zone_id" Type="int" Nullable="false" />
+          <Property Name="subzone_id" Type="int" Nullable="false" />
+          <Property Name="kind_id" Type="int" Nullable="false" />
+          <Property Name="docline" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SALES_HEAD">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="docventa" Type="varchar" Nullable="false" MaxLength="31" />
+          <Property Name="cost_ext" Type="numeric" Nullable="false" Scale="3" />
+          <Property Name="docdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'AFN2.dbo.PM00200A' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+      -->
+        <EntityType Name="PM00200A">
+          <Key>
+            <PropertyRef Name="PARVENDID" />
+            <PropertyRef Name="VNDCLSID" />
+            <PropertyRef Name="FUENTE" />
+          </Key>
+          <Property Name="COD" Type="varchar(max)" />
+          <Property Name="TEXTO" Type="varchar(max)" />
+          <Property Name="PARVENDID" Type="char" Nullable="false" MaxLength="15" />
+          <Property Name="VENDNAME" Type="varchar(max)" />
+          <Property Name="VNDCLSID" Type="char" Nullable="false" MaxLength="11" />
+          <Property Name="FUENTE" Type="varchar" Nullable="false" MaxLength="3" />
+        </EntityType>
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'AFN2.GP.SY40100' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+      -->
+        <EntityType Name="SY40100">
+          <Key>
+            <PropertyRef Name="CLOSED" />
+            <PropertyRef Name="SERIES" />
+            <PropertyRef Name="ODESCTN" />
+            <PropertyRef Name="FORIGIN" />
+            <PropertyRef Name="PERIODID" />
+            <PropertyRef Name="PERIODDT" />
+            <PropertyRef Name="PERNAME" />
+            <PropertyRef Name="PSERIES_1" />
+            <PropertyRef Name="PSERIES_2" />
+            <PropertyRef Name="PSERIES_3" />
+            <PropertyRef Name="PSERIES_4" />
+            <PropertyRef Name="PSERIES_5" />
+            <PropertyRef Name="PSERIES_6" />
+            <PropertyRef Name="YEAR1" />
+            <PropertyRef Name="PERDENDT" />
+            <PropertyRef Name="DEX_ROW_ID" />
+          </Key>
+          <Property Name="CLOSED" Type="tinyint" Nullable="false" />
+          <Property Name="SERIES" Type="smallint" Nullable="false" />
+          <Property Name="ODESCTN" Type="char" Nullable="false" MaxLength="51" />
+          <Property Name="FORIGIN" Type="tinyint" Nullable="false" />
+          <Property Name="PERIODID" Type="smallint" Nullable="false" />
+          <Property Name="PERIODDT" Type="datetime" Nullable="false" />
+          <Property Name="PERNAME" Type="char" Nullable="false" MaxLength="21" />
+          <Property Name="PSERIES_1" Type="tinyint" Nullable="false" />
+          <Property Name="PSERIES_2" Type="tinyint" Nullable="false" />
+          <Property Name="PSERIES_3" Type="tinyint" Nullable="false" />
+          <Property Name="PSERIES_4" Type="tinyint" Nullable="false" />
+          <Property Name="PSERIES_5" Type="tinyint" Nullable="false" />
+          <Property Name="PSERIES_6" Type="tinyint" Nullable="false" />
+          <Property Name="YEAR1" Type="smallint" Nullable="false" />
+          <Property Name="PERDENDT" Type="datetime" Nullable="false" />
+          <Property Name="DEX_ROW_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'AFN2.GP.SY40101' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+      -->
+        <EntityType Name="SY40101">
+          <Key>
+            <PropertyRef Name="YEAR1" />
+            <PropertyRef Name="FSTFSCDY" />
+            <PropertyRef Name="LSTFSCDY" />
+            <PropertyRef Name="NUMOFPER" />
+            <PropertyRef Name="HISTORYR" />
+            <PropertyRef Name="DEX_ROW_ID" />
+          </Key>
+          <Property Name="YEAR1" Type="smallint" Nullable="false" />
+          <Property Name="FSTFSCDY" Type="datetime" Nullable="false" />
+          <Property Name="LSTFSCDY" Type="datetime" Nullable="false" />
+          <Property Name="NUMOFPER" Type="smallint" Nullable="false" />
+          <Property Name="HISTORYR" Type="tinyint" Nullable="false" />
+          <Property Name="DEX_ROW_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK__ASSETS_IN__aprov__1940BAED">
           <End Role="APROVAL_STATES" Type="AFN2Model.Store.APROVAL_STATES" Multiplicity="1" />
@@ -793,6 +969,66 @@
             </Principal>
             <Dependent Role="PARTS">
               <PropertyRef Name="article_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SALES_DET__head___6A50C1DA">
+          <End Role="SALES_HEAD" Type="AFN2Model.Store.SALES_HEAD" Multiplicity="1" />
+          <End Role="SALES_DETAIL" Type="AFN2Model.Store.SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SALES_HEAD">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="head_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SALES_DET__kind___6E2152BE">
+          <End Role="KINDS" Type="AFN2Model.Store.KINDS" Multiplicity="1" />
+          <End Role="SALES_DETAIL" Type="AFN2Model.Store.SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SALES_DET__part___6B44E613">
+          <End Role="PARTS" Type="AFN2Model.Store.PARTS" Multiplicity="1" />
+          <End Role="SALES_DETAIL" Type="AFN2Model.Store.SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SALES_DET__subzo__6D2D2E85">
+          <End Role="SUBZONES" Type="AFN2Model.Store.SUBZONES" Multiplicity="1" />
+          <End Role="SALES_DETAIL" Type="AFN2Model.Store.SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBZONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="subzone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SALES_DET__zone___6C390A4C">
+          <End Role="ZONES" Type="AFN2Model.Store.ZONES" Multiplicity="1" />
+          <End Role="SALES_DETAIL" Type="AFN2Model.Store.SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="zone_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1048,6 +1284,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TRANSACTIONS_HEADERS__method">
+          <End Role="METHOD_REVALUES" Type="AFN2Model.Store.METHOD_REVALUES" Multiplicity="1" />
+          <End Role="TRANSACTIONS_HEADERS" Type="AFN2Model.Store.TRANSACTIONS_HEADERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="METHOD_REVALUES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTIONS_HEADERS">
+              <PropertyRef Name="method_revalue_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1240,6 +1488,36 @@
             <End Role="DOCUMENT" EntitySet="DOCUMENTS" />
             <End Role="DOCS_OBC" EntitySet="DOCS_OBC" />
           </AssociationSet>
+          <EntitySet Name="METHOD_REVALUES" EntityType="AFN2Model.METHOD_REVALUE" />
+          <AssociationSet Name="FK__TRANSACTIONS_HEADERS__method" Association="AFN2Model.FK__TRANSACTIONS_HEADERS__method">
+            <End Role="METHOD_REVALUES" EntitySet="METHOD_REVALUES" />
+            <End Role="TRANSACTION_HEADER" EntitySet="TRANSACTIONS_HEADERS" />
+          </AssociationSet>
+          <EntitySet Name="SALES_DETAIL" EntityType="AFN2Model.SALES_DETAIL" />
+          <EntitySet Name="SALES_HEAD" EntityType="AFN2Model.SALES_HEAD" />
+          <EntitySet Name="SY40100" EntityType="AFN2Model.SY40100" />
+          <EntitySet Name="SY40101" EntityType="AFN2Model.SY40101" />
+          <AssociationSet Name="FK__SALES_DET__kind___6E2152BE" Association="AFN2Model.FK__SALES_DET__kind___6E2152BE">
+            <End Role="KIND" EntitySet="KINDS" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SALES_DET__part___6B44E613" Association="AFN2Model.FK__SALES_DET__part___6B44E613">
+            <End Role="PART" EntitySet="PARTS" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SALES_DET__subzo__6D2D2E85" Association="AFN2Model.FK__SALES_DET__subzo__6D2D2E85">
+            <End Role="SUBZONE" EntitySet="SUBZONES" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SALES_DET__zone___6C390A4C" Association="AFN2Model.FK__SALES_DET__zone___6C390A4C">
+            <End Role="ZONE" EntitySet="ZONES" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SALES_DET__head___6A50C1DA" Association="AFN2Model.FK__SALES_DET__head___6A50C1DA">
+            <End Role="SALES_HEAD" EntitySet="SALES_HEAD" />
+            <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
+          </AssociationSet>
+          <EntitySet Name="PM00200A" EntityType="AFN2Model.PM00200A" />
         </EntityContainer>
         <EntityType Name="APROVAL_STATE">
           <Key>
@@ -1317,6 +1595,7 @@
           <NavigationProperty Name="PACKAGE_PAIR_KINDS" Relationship="AFN2Model.FK__PACKAGE_P__kind___6D9742D9" FromRole="KINDS" ToRole="PACKAGE_PAIR_KINDS" />
           <NavigationProperty Name="SUBKINDS" Relationship="AFN2Model.FK__SUBKINDS__kind_i__2B947552" FromRole="KINDS" ToRole="SUBKINDS" />
           <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__kind___4830B400" FromRole="KINDS" ToRole="TRANSACTIONS_HEADERS" />
+          <NavigationProperty Name="SALES_DETAIL" Relationship="AFN2Model.FK__SALES_DET__kind___6E2152BE" FromRole="KIND" ToRole="SALES_DETAIL" />
         </EntityType>
         <EntityType Name="MANAGEMENT">
           <Key>
@@ -1377,6 +1656,8 @@
           <Property Name="quantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__PARTS__article_i__39E294A9" FromRole="PARTS" ToRole="BATCHS_ARTICLES" />
           <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__artic__45544755" FromRole="PARTS" ToRole="TRANSACTIONS_HEADERS" />
+          <Property Type="DateTime" Name="first_date" Nullable="false" />
+          <NavigationProperty Name="SALES_DETAIL" Relationship="AFN2Model.FK__SALES_DET__part___6B44E613" FromRole="PART" ToRole="SALES_DETAIL" />
         </EntityType>
         <EntityType Name="SUBKIND">
           <Key>
@@ -1404,6 +1685,7 @@
           <Property Name="codOld" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="ZONE" Relationship="AFN2Model.FK__SUBZONES__zone_i__52E34C9D" FromRole="SUBZONES" ToRole="ZONES" />
           <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__subzo__473C8FC7" FromRole="SUBZONES" ToRole="TRANSACTIONS_HEADERS" />
+          <NavigationProperty Name="SALES_DETAIL" Relationship="AFN2Model.FK__SALES_DET__subzo__6D2D2E85" FromRole="SUBZONE" ToRole="SALES_DETAIL" />
         </EntityType>
         <EntityType Name="SYSTEM">
           <Key>
@@ -1468,6 +1750,8 @@
           <NavigationProperty Name="TRANSACTIONS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__trx_h__52AE4273" FromRole="TRANSACTIONS_HEADERS" ToRole="TRANSACTIONS_DETAILS" />
           <NavigationProperty Name="ZONE" Relationship="AFN2Model.FK__TRANSACTI__zone___46486B8E" FromRole="TRANSACTIONS_HEADERS" ToRole="ZONES" />
           <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" FromRole="TRANSACTION_HEADER" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
+          <Property Type="Int32" Name="method_revalue_id" Nullable="false" />
+          <NavigationProperty Name="METHOD_REVALUE" Relationship="AFN2Model.FK__TRANSACTIONS_HEADERS__method" FromRole="TRANSACTION_HEADER" ToRole="METHOD_REVALUES" />
         </EntityType>
         <EntityType Name="TYPE_ASSET">
           <Key>
@@ -1501,6 +1785,7 @@
           <NavigationProperty Name="SUBZONES" Relationship="AFN2Model.FK__SUBZONES__zone_i__52E34C9D" FromRole="ZONES" ToRole="SUBZONES" />
           <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__zone___46486B8E" FromRole="ZONES" ToRole="TRANSACTIONS_HEADERS" />
           <NavigationProperty Name="ASSETS_IN_PROGRESS_HEAD" Relationship="AFN2Model.FK__ASSETS_IN__zone___16644E42" FromRole="ZONE" ToRole="ASSETS_IN_PROGRESS_HEAD" />
+          <NavigationProperty Name="SALES_DETAIL" Relationship="AFN2Model.FK__SALES_DET__zone___6C390A4C" FromRole="ZONE" ToRole="SALES_DETAIL" />
         </EntityType>
         <Association Name="FK__BATCHS_AR__aprov__7AF13DF7">
           <End Role="APROVAL_STATES" Type="AFN2Model.APROVAL_STATE" Multiplicity="1" />
@@ -2173,6 +2458,183 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="METHOD_REVALUE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="descrip" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTIONS_HEADERS__method" FromRole="METHOD_REVALUES" ToRole="TRANSACTION_HEADER" />
+        </EntityType>
+        <Association Name="FK__TRANSACTIONS_HEADERS__method">
+          <End Type="AFN2Model.METHOD_REVALUE" Role="METHOD_REVALUES" Multiplicity="1" />
+          <End Type="AFN2Model.TRANSACTION_HEADER" Role="TRANSACTION_HEADER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="METHOD_REVALUES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTION_HEADER">
+              <PropertyRef Name="method_revalue_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SALES_DETAIL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="head_id" Nullable="false" />
+          <Property Type="Int32" Name="part_id" Nullable="false" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+          <Property Type="Decimal" Name="unit_cost" Nullable="false" Precision="18" Scale="5" />
+          <Property Type="Decimal" Name="ext_cost" Nullable="false" Precision="18" Scale="5" />
+          <Property Type="Decimal" Name="unit_price" Nullable="false" Precision="18" Scale="5" />
+          <Property Type="Decimal" Name="ext_price" Nullable="false" Precision="18" Scale="5" />
+          <Property Type="Int32" Name="zone_id" Nullable="false" />
+          <Property Type="Int32" Name="subzone_id" Nullable="false" />
+          <Property Type="Int32" Name="kind_id" Nullable="false" />
+          <Property Type="Int32" Name="docline" Nullable="false" />
+          <NavigationProperty Name="KIND" Relationship="AFN2Model.FK__SALES_DET__kind___6E2152BE" FromRole="SALES_DETAIL" ToRole="KIND" />
+          <NavigationProperty Name="PART" Relationship="AFN2Model.FK__SALES_DET__part___6B44E613" FromRole="SALES_DETAIL" ToRole="PART" />
+          <NavigationProperty Name="SUBZONE" Relationship="AFN2Model.FK__SALES_DET__subzo__6D2D2E85" FromRole="SALES_DETAIL" ToRole="SUBZONE" />
+          <NavigationProperty Name="ZONE" Relationship="AFN2Model.FK__SALES_DET__zone___6C390A4C" FromRole="SALES_DETAIL" ToRole="ZONE" />
+          <NavigationProperty Name="SALES_HEAD" Relationship="AFN2Model.FK__SALES_DET__head___6A50C1DA" FromRole="SALES_DETAIL" ToRole="SALES_HEAD" />
+        </EntityType>
+        <EntityType Name="SALES_HEAD">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="docventa" Nullable="false" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="cost_ext" Nullable="false" Precision="18" Scale="3" />
+          <Property Type="DateTime" Name="docdate" Nullable="false" />
+          <NavigationProperty Name="SALES_DETAIL" Relationship="AFN2Model.FK__SALES_DET__head___6A50C1DA" FromRole="SALES_HEAD" ToRole="SALES_DETAIL" />
+        </EntityType>
+        <EntityType Name="SY40100">
+          <Key>
+            <PropertyRef Name="CLOSED" />
+            <PropertyRef Name="SERIES" />
+            <PropertyRef Name="ODESCTN" />
+            <PropertyRef Name="FORIGIN" />
+            <PropertyRef Name="PERIODID" />
+            <PropertyRef Name="PERIODDT" />
+            <PropertyRef Name="PERNAME" />
+            <PropertyRef Name="PSERIES_1" />
+            <PropertyRef Name="PSERIES_2" />
+            <PropertyRef Name="PSERIES_3" />
+            <PropertyRef Name="PSERIES_4" />
+            <PropertyRef Name="PSERIES_5" />
+            <PropertyRef Name="PSERIES_6" />
+            <PropertyRef Name="YEAR1" />
+            <PropertyRef Name="PERDENDT" />
+            <PropertyRef Name="DEX_ROW_ID" />
+          </Key>
+          <Property Type="Byte" Name="CLOSED" Nullable="false" />
+          <Property Type="Int16" Name="SERIES" Nullable="false" />
+          <Property Type="String" Name="ODESCTN" Nullable="false" MaxLength="51" FixedLength="true" Unicode="false" />
+          <Property Type="Byte" Name="FORIGIN" Nullable="false" />
+          <Property Type="Int16" Name="PERIODID" Nullable="false" />
+          <Property Type="DateTime" Name="PERIODDT" Nullable="false" />
+          <Property Type="String" Name="PERNAME" Nullable="false" MaxLength="21" FixedLength="true" Unicode="false" />
+          <Property Type="Byte" Name="PSERIES_1" Nullable="false" />
+          <Property Type="Byte" Name="PSERIES_2" Nullable="false" />
+          <Property Type="Byte" Name="PSERIES_3" Nullable="false" />
+          <Property Type="Byte" Name="PSERIES_4" Nullable="false" />
+          <Property Type="Byte" Name="PSERIES_5" Nullable="false" />
+          <Property Type="Byte" Name="PSERIES_6" Nullable="false" />
+          <Property Type="Int16" Name="YEAR1" Nullable="false" />
+          <Property Type="DateTime" Name="PERDENDT" Nullable="false" />
+          <Property Type="Int32" Name="DEX_ROW_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="SY40101">
+          <Key>
+            <PropertyRef Name="YEAR1" />
+            <PropertyRef Name="FSTFSCDY" />
+            <PropertyRef Name="LSTFSCDY" />
+            <PropertyRef Name="NUMOFPER" />
+            <PropertyRef Name="HISTORYR" />
+            <PropertyRef Name="DEX_ROW_ID" />
+          </Key>
+          <Property Type="Int16" Name="YEAR1" Nullable="false" />
+          <Property Type="DateTime" Name="FSTFSCDY" Nullable="false" />
+          <Property Type="DateTime" Name="LSTFSCDY" Nullable="false" />
+          <Property Type="Int16" Name="NUMOFPER" Nullable="false" />
+          <Property Type="Byte" Name="HISTORYR" Nullable="false" />
+          <Property Type="Int32" Name="DEX_ROW_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK__SALES_DET__kind___6E2152BE">
+          <End Type="AFN2Model.KIND" Role="KIND" Multiplicity="1" />
+          <End Type="AFN2Model.SALES_DETAIL" Role="SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KIND">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SALES_DET__part___6B44E613">
+          <End Type="AFN2Model.PART" Role="PART" Multiplicity="1" />
+          <End Type="AFN2Model.SALES_DETAIL" Role="SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PART">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SALES_DET__subzo__6D2D2E85">
+          <End Type="AFN2Model.SUBZONE" Role="SUBZONE" Multiplicity="1" />
+          <End Type="AFN2Model.SALES_DETAIL" Role="SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBZONE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="subzone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SALES_DET__zone___6C390A4C">
+          <End Type="AFN2Model.ZONE" Role="ZONE" Multiplicity="1" />
+          <End Type="AFN2Model.SALES_DETAIL" Role="SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="zone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SALES_DET__head___6A50C1DA">
+          <End Type="AFN2Model.SALES_HEAD" Role="SALES_HEAD" Multiplicity="1" />
+          <End Type="AFN2Model.SALES_DETAIL" Role="SALES_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SALES_HEAD">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SALES_DETAIL">
+              <PropertyRef Name="head_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PM00200A">
+          <Key>
+            <PropertyRef Name="PARVENDID" />
+            <PropertyRef Name="VNDCLSID" />
+            <PropertyRef Name="FUENTE" />
+          </Key>
+          <Property Type="String" Name="COD" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TEXTO" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PARVENDID" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="VENDNAME" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="VNDCLSID" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="FUENTE" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2295,6 +2757,7 @@
           <EntitySetMapping Name="PARTS">
             <EntityTypeMapping TypeName="AFN2Model.PART">
               <MappingFragment StoreEntitySet="PARTS">
+                <ScalarProperty Name="first_date" ColumnName="first_date" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="article_id" ColumnName="article_id" />
                 <ScalarProperty Name="part_index" ColumnName="part_index" />
@@ -2361,6 +2824,7 @@
           <EntitySetMapping Name="TRANSACTIONS_HEADERS">
             <EntityTypeMapping TypeName="AFN2Model.TRANSACTION_HEADER">
               <MappingFragment StoreEntitySet="TRANSACTIONS_HEADERS">
+                <ScalarProperty Name="method_revalue_id" ColumnName="method_revalue_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="article_part_id" ColumnName="article_part_id" />
                 <ScalarProperty Name="trx_ini" ColumnName="trx_ini" />
@@ -2596,6 +3060,88 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="METHOD_REVALUES">
+            <EntityTypeMapping TypeName="AFN2Model.METHOD_REVALUE">
+              <MappingFragment StoreEntitySet="METHOD_REVALUES">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SALES_DETAIL">
+            <EntityTypeMapping TypeName="AFN2Model.SALES_DETAIL">
+              <MappingFragment StoreEntitySet="SALES_DETAIL">
+                <ScalarProperty Name="docline" ColumnName="docline" />
+                <ScalarProperty Name="kind_id" ColumnName="kind_id" />
+                <ScalarProperty Name="subzone_id" ColumnName="subzone_id" />
+                <ScalarProperty Name="zone_id" ColumnName="zone_id" />
+                <ScalarProperty Name="ext_price" ColumnName="ext_price" />
+                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+                <ScalarProperty Name="ext_cost" ColumnName="ext_cost" />
+                <ScalarProperty Name="unit_cost" ColumnName="unit_cost" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="part_id" ColumnName="part_id" />
+                <ScalarProperty Name="head_id" ColumnName="head_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SALES_HEAD">
+            <EntityTypeMapping TypeName="AFN2Model.SALES_HEAD">
+              <MappingFragment StoreEntitySet="SALES_HEAD">
+                <ScalarProperty Name="docdate" ColumnName="docdate" />
+                <ScalarProperty Name="cost_ext" ColumnName="cost_ext" />
+                <ScalarProperty Name="docventa" ColumnName="docventa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SY40100">
+            <EntityTypeMapping TypeName="AFN2Model.SY40100">
+              <MappingFragment StoreEntitySet="SY40100">
+                <ScalarProperty Name="DEX_ROW_ID" ColumnName="DEX_ROW_ID" />
+                <ScalarProperty Name="PERDENDT" ColumnName="PERDENDT" />
+                <ScalarProperty Name="YEAR1" ColumnName="YEAR1" />
+                <ScalarProperty Name="PSERIES_6" ColumnName="PSERIES_6" />
+                <ScalarProperty Name="PSERIES_5" ColumnName="PSERIES_5" />
+                <ScalarProperty Name="PSERIES_4" ColumnName="PSERIES_4" />
+                <ScalarProperty Name="PSERIES_3" ColumnName="PSERIES_3" />
+                <ScalarProperty Name="PSERIES_2" ColumnName="PSERIES_2" />
+                <ScalarProperty Name="PSERIES_1" ColumnName="PSERIES_1" />
+                <ScalarProperty Name="PERNAME" ColumnName="PERNAME" />
+                <ScalarProperty Name="PERIODDT" ColumnName="PERIODDT" />
+                <ScalarProperty Name="PERIODID" ColumnName="PERIODID" />
+                <ScalarProperty Name="FORIGIN" ColumnName="FORIGIN" />
+                <ScalarProperty Name="ODESCTN" ColumnName="ODESCTN" />
+                <ScalarProperty Name="SERIES" ColumnName="SERIES" />
+                <ScalarProperty Name="CLOSED" ColumnName="CLOSED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SY40101">
+            <EntityTypeMapping TypeName="AFN2Model.SY40101">
+              <MappingFragment StoreEntitySet="SY40101">
+                <ScalarProperty Name="DEX_ROW_ID" ColumnName="DEX_ROW_ID" />
+                <ScalarProperty Name="HISTORYR" ColumnName="HISTORYR" />
+                <ScalarProperty Name="NUMOFPER" ColumnName="NUMOFPER" />
+                <ScalarProperty Name="LSTFSCDY" ColumnName="LSTFSCDY" />
+                <ScalarProperty Name="FSTFSCDY" ColumnName="FSTFSCDY" />
+                <ScalarProperty Name="YEAR1" ColumnName="YEAR1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PM00200A">
+            <EntityTypeMapping TypeName="AFN2Model.PM00200A">
+              <MappingFragment StoreEntitySet="PM00200A">
+                <ScalarProperty Name="FUENTE" ColumnName="FUENTE" />
+                <ScalarProperty Name="VNDCLSID" ColumnName="VNDCLSID" />
+                <ScalarProperty Name="VENDNAME" ColumnName="VENDNAME" />
+                <ScalarProperty Name="PARVENDID" ColumnName="PARVENDID" />
+                <ScalarProperty Name="TEXTO" ColumnName="TEXTO" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2616,7 +3162,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="AFN2" ZoomLevel="64">
+      <Diagram Name="AFN2" ZoomLevel="65">
         <EntityTypeShape EntityType="AFN2Model.APROVAL_STATE" Width="1.5" PointX="2.625" PointY="5.5" Height="1.8694466145833326" IsExpanded="true" />
         <EntityTypeShape EntityType="AFN2Model.BATCH_ARTICLE" Width="1.5" PointX="6.25" PointY="3.375" Height="3.6539111328124996" IsExpanded="true" />
         <EntityTypeShape EntityType="AFN2Model.CATEGORY" Width="1.5" PointX="9.375" PointY="14.125" Height="1.6910001627604165" IsExpanded="true" />
@@ -2652,6 +3198,8 @@
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__BATCHS_AR__type___7CD98669" ManuallyRouted="false">
           <ConnectorPoint PointX="10.25" PointY="5.03125" />
+          <ConnectorPoint PointX="10.083333333333334" PointY="5.0312499999999991" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="5.03125" />
           <ConnectorPoint PointX="7.75" PointY="5.03125" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PARTS__article_i__39E294A9" ManuallyRouted="false">
@@ -2660,7 +3208,7 @@
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__categ__4A18FC72" ManuallyRouted="false">
           <ConnectorPoint PointX="10.125" PointY="14.125" />
-          <ConnectorPoint PointX="10.125" PointY="12.974589843750003" />
+          <ConnectorPoint PointX="10.125" PointY="13.331482747395832" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SYSTEMS__currenc__11D4A34F" ManuallyRouted="false">
           <ConnectorPoint PointX="2" PointY="10.184723307291666" />
@@ -2671,59 +3219,56 @@
           <ConnectorPoint PointX="2.625" PointY="11.639892985026044" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__KINDS__type_asse__65F62111" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.28125" PointY="6.4944466145833388" />
-          <ConnectorPoint PointX="11.28125" PointY="13.301107584635417" />
-          <ConnectorPoint PointX="11.416666666666666" PointY="13.301107584635417" />
-          <ConnectorPoint PointX="11.583333333333334" PointY="13.301107584635417" />
-          <ConnectorPoint PointX="12.125" PointY="13.301107584635417" />
+          <ConnectorPoint PointX="11.34375" PointY="6.4944466145833388" />
+          <ConnectorPoint PointX="11.34375" PointY="13.568777262369791" />
+          <ConnectorPoint PointX="11.416666666666666" PointY="13.568777262369791" />
+          <ConnectorPoint PointX="11.583333333333334" PointY="13.568777262369791" />
+          <ConnectorPoint PointX="12.125" PointY="13.568777262369791" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PACKAGE_P__kind___6D9742D9" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.625" PointY="11.398946533203123" />
-          <ConnectorPoint PointX="19.75" PointY="11.398946533203123" />
+          <ConnectorPoint PointX="13.625" PointY="11.408584899902342" />
+          <ConnectorPoint PointX="19.75" PointY="11.408584899902342" />
           <ConnectorPoint PointX="19.75" PointY="10.494446614583335" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SUBKINDS__kind_i__2B947552" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.625" PointY="12.532562662760416" />
-          <ConnectorPoint PointX="14.625" PointY="12.532562662760416" />
+          <ConnectorPoint PointX="13.625" PointY="12.621785888671875" />
+          <ConnectorPoint PointX="14.625" PointY="12.621785888671875" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__kind___4830B400" ManuallyRouted="false">
-          <ConnectorPoint PointX="12.125" PointY="11.799794921875002" />
-          <ConnectorPoint PointX="11.583333333333334" PointY="11.799794921875002" />
-          <ConnectorPoint PointX="11.416666666666666" PointY="11.799794921875002" />
-          <ConnectorPoint PointX="11.364583333333334" PointY="11.799794921875002" />
-          <ConnectorPoint PointX="11.197916666666666" PointY="11.799794921875002" />
-          <ConnectorPoint PointX="11.125" PointY="11.799794921875002" />
+          <ConnectorPoint PointX="12.125" PointY="12.373565498924258" />
+          <ConnectorPoint PointX="11.583333333333334" PointY="12.373565498924256" />
+          <ConnectorPoint PointX="11.260416666666666" PointY="12.373565498924258" />
+          <ConnectorPoint PointX="11.125" PointY="12.373565498924258" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__manag__4B0D20AB" ManuallyRouted="false">
           <ConnectorPoint PointX="11.875" PointY="14.125" />
           <ConnectorPoint PointX="11.5" PointY="13.75" />
-          <ConnectorPoint PointX="11.5" PointY="11.009179941813152" />
-          <ConnectorPoint PointX="11.364583333333334" PointY="11.009179941813152" />
-          <ConnectorPoint PointX="11.197916666666666" PointY="11.009179941813152" />
-          <ConnectorPoint PointX="11.125" PointY="11.009179941813152" />
+          <ConnectorPoint PointX="11.5" PointY="11.290648250452684" />
+          <ConnectorPoint PointX="11.427083333333334" PointY="11.290648250452684" />
+          <ConnectorPoint PointX="11.260416666666666" PointY="11.290648250452684" />
+          <ConnectorPoint PointX="11.125" PointY="11.290648250452684" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PACKAGE_K__type___5E54FF49" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.75" PointY="6.4274198404947995" />
-          <ConnectorPoint PointX="12.495128205128205" PointY="6.4274198404947986" />
-          <ConnectorPoint PointX="12.661794871794873" PointY="6.4274198404947995" />
-          <ConnectorPoint PointX="12.823589743589743" PointY="6.4274198404947986" />
-          <ConnectorPoint PointX="12.990256410256411" PointY="6.4274198404947995" />
-          <ConnectorPoint PointX="13.270128205128204" PointY="6.4274198404947986" />
-          <ConnectorPoint PointX="13.436794871794872" PointY="6.4274198404947995" />
-          <ConnectorPoint PointX="17.28125" PointY="6.4274198404947995" />
-          <ConnectorPoint PointX="17.28125" PointY="9.25" />
+          <ConnectorPoint PointX="11.75" PointY="6.4932917684294926" />
+          <ConnectorPoint PointX="12.126154846153845" PointY="6.8694466145833388" />
+          <ConnectorPoint PointX="12.495128205128205" PointY="6.8694466145833379" />
+          <ConnectorPoint PointX="12.661794871794873" PointY="6.8694466145833388" />
+          <ConnectorPoint PointX="17.3749995" PointY="6.8694466145833388" />
+          <ConnectorPoint PointX="17.3749995" PointY="9.25" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PACKAGE_P__packa__6E8B6712" ManuallyRouted="false">
           <ConnectorPoint PointX="18.25" PointY="9.8722233072916676" />
+          <ConnectorPoint PointX="18.541666666666668" PointY="9.8722233072916676" />
+          <ConnectorPoint PointX="18.708333333333332" PointY="9.8722233072916676" />
           <ConnectorPoint PointX="19" PointY="9.8722233072916676" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SYSTEMS_P__param__1E3A7A34" ManuallyRouted="false">
           <ConnectorPoint PointX="4.125" PointY="14.994446614583332" />
-          <ConnectorPoint PointX="4.125" PointY="16.148946533203123" />
-          <ConnectorPoint PointX="6.625" PointY="16.148946533203123" />
+          <ConnectorPoint PointX="4.125" PointY="16.273949033203124" />
+          <ConnectorPoint PointX="6.625" PointY="16.273949033203124" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__artic__45544755" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.1875" PointY="7.547893066406246" />
+          <ConnectorPoint PointX="9.1875" PointY="7.9047859700520826" />
           <ConnectorPoint PointX="9.1875" PointY="8.25" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__subki__4924D839" ManuallyRouted="false">
@@ -2731,24 +3276,24 @@
           <ConnectorPoint PointX="10.208333333333334" PointY="13.76620564778646" />
           <ConnectorPoint PointX="10.041666666666666" PointY="13.76620564778646" />
           <ConnectorPoint PointX="9.3437475" PointY="13.76620564778646" />
-          <ConnectorPoint PointX="9.3437475" PointY="12.974589843750003" />
+          <ConnectorPoint PointX="9.3437475" PointY="13.331482747395832" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SUBZONES__zone_i__52E34C9D" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.375" PointY="9.01489298502604" />
-          <ConnectorPoint PointX="14.25" PointY="9.01489298502604" />
+          <ConnectorPoint PointX="13.375" PointY="9.1041162109375" />
+          <ConnectorPoint PointX="14.25" PointY="9.1041162109375" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__subzo__473C8FC7" ManuallyRouted="false">
-          <ConnectorPoint PointX="14.25" PointY="10.218564961751302" />
-          <ConnectorPoint PointX="11.364583333333334" PointY="10.218564961751302" />
-          <ConnectorPoint PointX="11.197916666666666" PointY="10.218564961751302" />
-          <ConnectorPoint PointX="11.125" PointY="10.218564961751302" />
+          <ConnectorPoint PointX="14.25" PointY="10.4166162109375" />
+          <ConnectorPoint PointX="11.427083333333334" PointY="10.4166162109375" />
+          <ConnectorPoint PointX="11.260416666666666" PointY="10.4166162109375" />
+          <ConnectorPoint PointX="11.125" PointY="10.4166162109375" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SYSTEMS_P__syste__1D4655FB" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.96875" PointY="12.404785970052089" />
-          <ConnectorPoint PointX="2.96875" PointY="15.605720766601561" />
-          <ConnectorPoint PointX="4.041666666666667" PointY="15.605720766601561" />
-          <ConnectorPoint PointX="4.208333333333333" PointY="15.605720766601561" />
-          <ConnectorPoint PointX="6.625" PointY="15.605720766601561" />
+          <ConnectorPoint PointX="2.86718625" PointY="12.404785970052089" />
+          <ConnectorPoint PointX="2.86718625" PointY="15.3125" />
+          <ConnectorPoint PointX="4.041666666666667" PointY="15.3125" />
+          <ConnectorPoint PointX="4.208333333333333" PointY="15.3125" />
+          <ConnectorPoint PointX="6.625" PointY="15.3125" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__syste__53A266AC" ManuallyRouted="false">
           <ConnectorPoint PointX="4.125" PointY="10.979116210937502" />
@@ -2763,10 +3308,10 @@
           <ConnectorPoint PointX="5.375" PointY="9.5597233072916659" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__zone___46486B8E" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.875" PointY="9.13989298502604" />
-          <ConnectorPoint PointX="11.364583333333334" PointY="9.13989298502604" />
-          <ConnectorPoint PointX="11.197916666666666" PointY="9.13989298502604" />
-          <ConnectorPoint PointX="11.125" PointY="9.13989298502604" />
+          <ConnectorPoint PointX="11.875" PointY="9.2291162109375" />
+          <ConnectorPoint PointX="11.427083333333334" PointY="9.2291162109375" />
+          <ConnectorPoint PointX="11.260416666666666" PointY="9.2291162109375" />
+          <ConnectorPoint PointX="11.125" PointY="9.2291162109375" />
         </AssociationConnector>
         <EntityTypeShape EntityType="AFN2Model.CORRECTION_MONETARY_VALUE" Width="1.5" PointX="0.75" PointY="14.625" Height="1.6910001627604174" />
         <EntityTypeShape EntityType="AFN2Model.BASE_GLOBAL_AFN_CALC" Width="1.5" PointX="2.625" PointY="18.75" Height="9.5426440429687531" />
@@ -2782,8 +3327,8 @@
           <ConnectorPoint PointX="5.5" PointY="12.764895485026045" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" >
-          <ConnectorPoint PointX="8.625" PointY="12.674794921875002" />
-          <ConnectorPoint PointX="8.125" PointY="12.674794921875002" />
+          <ConnectorPoint PointX="8.625" PointY="12.853241373697916" />
+          <ConnectorPoint PointX="8.125" PointY="12.853241373697916" />
         </AssociationConnector>
         <EntityTypeShape EntityType="AFN2Model.SITUATION" Width="1.5" PointX="0.5" PointY="5.875" Height="2.0478930664062602" />
         <AssociationConnector Association="AFN2Model.FK__SITUATION__estad__10AB74EC" >
@@ -2817,16 +3362,18 @@
           <ConnectorPoint PointX="2.0625" PointY="8.17289306640626" />
           <ConnectorPoint PointX="2.0625" PointY="7.625" />
           <ConnectorPoint PointX="2.375" PointY="7.625" />
-          <ConnectorPoint PointX="2.375" PointY="3.02394653320313" />
-          <ConnectorPoint PointX="4.510416666666667" PointY="3.0239465332031297" />
-          <ConnectorPoint PointX="4.677083333333333" PointY="3.02394653320313" />
-          <ConnectorPoint PointX="10.072916666666666" PointY="3.0239465332031297" />
-          <ConnectorPoint PointX="10.239583333333334" PointY="3.02394653320313" />
-          <ConnectorPoint PointX="12.125" PointY="3.02394653320313" />
-          <ConnectorPoint PointX="12.125" PointY="2.125" />
-          <ConnectorPoint PointX="15.25" PointY="2.125" />
-          <ConnectorPoint PointX="15.25" PointY="2.767957899902354" />
-          <ConnectorPoint PointX="15.625" PointY="2.767957899902354" />
+          <ConnectorPoint PointX="2.375" PointY="2.96144653320313" />
+          <ConnectorPoint PointX="2.9166666666666665" PointY="2.9614465332031297" />
+          <ConnectorPoint PointX="3.0833333333333335" PointY="2.96144653320313" />
+          <ConnectorPoint PointX="4.510416666666667" PointY="2.9614465332031297" />
+          <ConnectorPoint PointX="4.677083333333333" PointY="2.96144653320313" />
+          <ConnectorPoint PointX="10.072916666666666" PointY="2.9614465332031297" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="2.96144653320313" />
+          <ConnectorPoint PointX="12.125" PointY="2.96144653320313" />
+          <ConnectorPoint PointX="12.125" PointY="2.1249999999999991" />
+          <ConnectorPoint PointX="15.25" PointY="2.1249999999999991" />
+          <ConnectorPoint PointX="15.25" PointY="3.02394653320313" />
+          <ConnectorPoint PointX="15.625" PointY="3.02394653320313" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__head___1E05700A" >
           <ConnectorPoint PointX="13.875" PointY="3.5984197998046952" />
@@ -2834,7 +3381,7 @@
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__batch__184C96B4" >
           <ConnectorPoint PointX="7.75" PointY="3.7082735990397104" />
-          <ConnectorPoint PointX="10.072916666666666" PointY="3.70827359903971" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="3.7082735990397091" />
           <ConnectorPoint PointX="10.239583333333334" PointY="3.7082735990397104" />
           <ConnectorPoint PointX="12.375" PointY="3.7082735990397104" />
         </AssociationConnector>
@@ -2869,6 +3416,64 @@
           <ConnectorPoint PointX="8.375" PointY="1.4347233072916694" />
           <ConnectorPoint PointX="10.125" PointY="1.4347233072916694" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="AFN2Model.METHOD_REVALUE" Width="1.5" PointX="0.75" PointY="0.875" Height="1.512553710937496" />
+        <AssociationConnector Association="AFN2Model.FK__TRANSACTIONS_HEADERS__method" >
+          <ConnectorPoint PointX="2.25" PointY="1.631276855468748" />
+          <ConnectorPoint PointX="3" PointY="1.631276855468748" />
+          <ConnectorPoint PointX="3" PointY="3.2263395182291674" />
+          <ConnectorPoint PointX="3.2916666666666665" PointY="3.226339518229167" />
+          <ConnectorPoint PointX="3.4583333333333335" PointY="3.2263395182291674" />
+          <ConnectorPoint PointX="4.510416666666667" PointY="3.226339518229167" />
+          <ConnectorPoint PointX="4.677083333333333" PointY="3.2263395182291674" />
+          <ConnectorPoint PointX="10" PointY="3.2263395182291674" />
+          <ConnectorPoint PointX="10" PointY="7.875" />
+          <ConnectorPoint PointX="10.187502" PointY="7.875" />
+          <ConnectorPoint PointX="10.187502" PointY="8.25" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AFN2Model.SALES_DETAIL" Width="1.5" PointX="18" PointY="3.5" Height="4.0108040364583388" />
+        <EntityTypeShape EntityType="AFN2Model.SALES_HEAD" Width="1.5" PointX="20.125" PointY="3.625" Height="1.8694466145833228" />
+        <EntityTypeShape EntityType="AFN2Model.SY40100" Width="1.5" PointX="7" PointY="20.125" Height="3.8323575846354174" />
+        <EntityTypeShape EntityType="AFN2Model.SY40101" Width="1.5" PointX="5.125" PointY="20.125" Height="2.0478930664062602" />
+        <AssociationConnector Association="AFN2Model.FK__SALES_DET__kind___6E2152BE" >
+          <ConnectorPoint PointX="13.625" PointY="11.384488983154295" />
+          <ConnectorPoint PointX="18.625" PointY="11.384488983154295" />
+          <ConnectorPoint PointX="18.625" PointY="7.5108040364583388" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SALES_DET__part___6B44E613" >
+          <ConnectorPoint PointX="9.75" PointY="7.2526253255208388" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="7.2526253255208379" />
+          <ConnectorPoint PointX="10.083333333333334" PointY="7.2526253255208388" />
+          <ConnectorPoint PointX="11.260416666666666" PointY="7.2526253255208379" />
+          <ConnectorPoint PointX="11.427083333333334" PointY="7.2526253255208388" />
+          <ConnectorPoint PointX="12.495128205128205" PointY="7.2526253255208379" />
+          <ConnectorPoint PointX="12.661794871794873" PointY="7.2526253255208388" />
+          <ConnectorPoint PointX="17.291666166666669" PointY="7.2526253255208379" />
+          <ConnectorPoint PointX="17.458332833333333" PointY="7.2526253255208388" />
+          <ConnectorPoint PointX="18" PointY="7.2526253255208388" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SALES_DET__subzo__6D2D2E85" >
+          <ConnectorPoint PointX="15.75" PointY="8.28125" />
+          <ConnectorPoint PointX="17.291666166666669" PointY="8.28125" />
+          <ConnectorPoint PointX="17.458332833333333" PointY="8.28125" />
+          <ConnectorPoint PointX="18.4374975" PointY="8.28125" />
+          <ConnectorPoint PointX="18.4374975" PointY="7.5108040364583388" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SALES_DET__zone___6C390A4C" >
+          <ConnectorPoint PointX="13.375" PointY="7.78125" />
+          <ConnectorPoint PointX="17.291666166666669" PointY="7.7812499999999991" />
+          <ConnectorPoint PointX="17.458332833333333" PointY="7.78125" />
+          <ConnectorPoint PointX="18.354164166666667" PointY="7.7812499999999991" />
+          <ConnectorPoint PointX="18.520830833333331" PointY="7.78125" />
+          <ConnectorPoint PointX="18.541666666666668" PointY="7.7812499999999991" />
+          <ConnectorPoint PointX="18.708333333333332" PointY="7.78125" />
+          <ConnectorPoint PointX="18.8125025" PointY="7.78125" />
+          <ConnectorPoint PointX="18.8125025" PointY="7.5108040364583388" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__SALES_DET__head___6A50C1DA" >
+          <ConnectorPoint PointX="20.125" PointY="4.5597233072916614" />
+          <ConnectorPoint PointX="19.5" PointY="4.5597233072916614" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AFN2Model.PM00200A" Width="1.5" PointX="14.375" PointY="14.75" Height="2.0478930664062602" />
       </Diagram>
     </Diagrams>
   </Designer>

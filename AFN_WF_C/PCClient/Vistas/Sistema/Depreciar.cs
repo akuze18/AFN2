@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using ServAFN = AFN_WF_C.ServiceProcess.PublicData;
-using AFN_WF_C.PCClient.Procesos;
+using PD = AFN_WF_C.ServiceProcess.PublicData;
+using P = AFN_WF_C.PCClient.Procesos;
 using BrightIdeasSoftware;
 
 namespace AFN_WF_C.PCClient.Vistas.Sistema
@@ -17,7 +17,7 @@ namespace AFN_WF_C.PCClient.Vistas.Sistema
         public Depreciar()
         {
             InitializeComponent();
-            Generator.GenerateColumns(this.objectListView1, typeof(ServAFN.DETAIL_DEPRECIATE), true);
+            Generator.GenerateColumns(this.objectListView1, typeof(PD.DETAIL_DEPRECIATE), true);
             foreach (BrightIdeasSoftware.OLVColumn a in this.objectListView1.Columns) {
                 a.Width = 100;
             }
@@ -27,14 +27,14 @@ namespace AFN_WF_C.PCClient.Vistas.Sistema
             this.inYear.Maximum = Today.Year;
             this.inYear.Value = Today.Year;
 
-            this.inMonth.Items.AddRange(consultas.arr.meses);
+            this.inMonth.Items.AddRange(P.Consultas.arr.meses);
             this.inMonth.SelectedIndex = Today.Month - 1;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var selMonth = (ServAFN.GENERIC_VALUE)(inMonth.SelectedItem);
-            var res = consultas.depreciar((int)inYear.Value, selMonth.id);
+            var selMonth = (PD.GENERIC_VALUE)(inMonth.SelectedItem);
+            var res = P.Consultas.depreciar((int)inYear.Value, selMonth.id);
             objectListView1.SetObjects(res);
             MessageBox.Show("Proceso Terminado");
         }

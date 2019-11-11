@@ -22,10 +22,15 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.Where(x => x.article_part_id == ParteID).ToList();
         }
 
-        public SV_TRANSACTION_HEADER byPartFecha(int PartArtId, DateTime fecha_corte)
+        public SV_TRANSACTION_HEADER byPartFechaValid(int PartArtId, DateTime fecha_corte)
         {
             return _source.Where(th => th.article_part_id == PartArtId && 
                 (th.trx_ini <= fecha_corte && th.trx_end >fecha_corte)).FirstOrDefault();
+        }
+        public SV_TRANSACTION_HEADER byPartFechaFix(int PartArtId, DateTime fecha_corte)
+        {
+            return _source.Where(th => th.article_part_id == PartArtId &&
+                th.trx_ini == fecha_corte).FirstOrDefault();
         }
     }
 }

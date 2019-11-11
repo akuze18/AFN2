@@ -11,11 +11,13 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         private int _article_id;
         private int _part_index;
         private int _quantity;
+        private DateTime _first_date;
 
         public int id { get { return _id; } }
         public int article_id { get { return _article_id; } }
         public int part_index { get { return _part_index; } }
         public int quantity { get { return _quantity; } }
+        public DateTime first_date { get { return _first_date; } }
 
         #region Convertions
         public static implicit operator SV_PART(DataContract.PART od)
@@ -26,6 +28,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 _article_id = od.article_id,
                 _part_index = od.part_index,
                 _quantity = od.quantity,
+                _first_date = od.first_date,
             };
         }
         #endregion

@@ -44,5 +44,11 @@ namespace AFN_WF_C.PCClient.Procesos
             using (var pServ = new ServiceProcess.ServiceAFN2())
                 pServ.Migracion.SincronizarAFN();
         }
+
+        public static void TestSave()
+        {
+        //    using (var pServ = new ServiceProcess.ServiceAFN2())
+        //        pServ.Migracion.TestSave();
+        }
     }
 }

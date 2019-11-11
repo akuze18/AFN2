@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using AFN_WF_C.PCClient.Procesos;
 
 namespace AFN_WF_C.PCClient.Vistas
 {
@@ -24,8 +25,8 @@ namespace AFN_WF_C.PCClient.Vistas
             DialogResult result = finder.DialogFrom(this);
             if (result == DialogResult.OK)
             {
+                Procesos.Reportes.get_ficha_ingreso(finder.codigo);
                 MessageBox.Show("eligio el articulo:" + finder.codigo.ToString() + " - parte:" + finder.parte.ToString());
-                //Procesos.consultas.get_ficha_ingreso(finder.codigo, finder.parte);
             }
             finder = null;
         }
@@ -48,7 +49,9 @@ namespace AFN_WF_C.PCClient.Vistas
 
         private void smCambio01_Click(object sender, EventArgs e)
         {
-            Mensaje.Info("Opción aun no migrada");
+            var box = new Vistas.Cambios.ingreso();
+            box.ShowFrom(this);
+            //Mensaje.Info("Opción aun no migrada");
         }
         private void smCambio02_Click(object sender, EventArgs e)
         {
@@ -143,7 +146,7 @@ namespace AFN_WF_C.PCClient.Vistas
         {
             //Microsoft.VisualBasic.Interaction.InputBox("conexion actual","",Procesos.consultas.coneccion());
             //MessageBox.Show(Procesos.consultas.revisar().ToString());
-
+            Procesos.Migracion.TestSave();
             MessageBox.Show("Fin Test");
         }
         private void smSistema01_Click(object sender, EventArgs e)
@@ -187,7 +190,7 @@ namespace AFN_WF_C.PCClient.Vistas
         }
         private void smMigracion02_Click(object sender, EventArgs e)
         {
-            for (var i = 1; i <= 6; i++)
+            for (var i = 7; i <= 9; i++)
             {
                 DialogResult accion = MessageBox.Show("Desea Procesar el mes " + i.ToString() + "?", "", MessageBoxButtons.YesNoCancel);
                 if (accion == DialogResult.Yes)

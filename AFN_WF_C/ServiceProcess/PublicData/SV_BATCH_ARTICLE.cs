@@ -16,6 +16,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         private DateTime _account_date;
         private int _origin_id;
         private int _type_asset_id;
+        private List<SV_DOCUMENT> _documents;
 
         public int id { get { return _id; } }
         public int aproval_state_id { get { return _aproval_state_id; } }
@@ -26,10 +27,12 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public DateTime account_date { get { return _account_date; } }
         public int origin_id { get { return _origin_id; } }
         public int type_asset_id { get { return _type_asset_id; } }
+        public List<SV_DOCUMENT> documents { get { return _documents; } }
 
         #region Convertions
         public static implicit operator SV_BATCH_ARTICLE(DataContract.BATCH_ARTICLE od)
         {
+            //od.DOCS_BATCH.Load();
             return new SV_BATCH_ARTICLE()
             {
                 _id = od.id,
@@ -41,6 +44,9 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 _account_date = od.account_date,
                 _type_asset_id = od.type_asset_id,
                 _origin_id = od.origin_id,
+                _documents = od.DOCS_BATCH.Select(db => db.DOCUMENT)
+                        .ToList()
+                        .ConvertAll(d => (SV_DOCUMENT)d),
             };
         }
         //public static implicit operator C.GENERIC_VALUE(SV_BATCH_ARTICLE sv)

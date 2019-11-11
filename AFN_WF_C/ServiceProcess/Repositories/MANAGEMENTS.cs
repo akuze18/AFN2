@@ -22,5 +22,10 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             }
             else { return new GENERIC_VALUE() { type = "MANAGEMENT"}; }
         }
+
+        public List<GENERIC_VALUE> All()
+        {
+            return _source.ConvertAll(m => (GENERIC_VALUE)m);
+        }
     }
 }

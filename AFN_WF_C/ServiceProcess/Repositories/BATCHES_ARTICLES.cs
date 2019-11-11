@@ -14,7 +14,10 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private List<SV_BATCH_ARTICLE> _source;
 
         public BATCHES_ARTICLES(ObjectSet<BATCH_ARTICLE> source) { 
-            _source = source.ToList().ConvertAll(ba => (SV_BATCH_ARTICLE) ba); 
+            _source = source
+                .Include("DOCS_BATCH")
+                //.Include("DOCUMENT")
+                .ToList().ConvertAll(ba => (SV_BATCH_ARTICLE) ba); 
         }
 
         public SV_BATCH_ARTICLE ById(int Id)

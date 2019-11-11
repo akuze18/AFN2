@@ -19,27 +19,27 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
 
         private void vigentes_Load(object sender, EventArgs e)
         {
-            cb_year.Items.AddRange(P.consultas.arr.years);
+            cb_year.Items.AddRange(P.Consultas.arr.years);
             cb_year.SelectedIndex = 0;
             cb_year.Tag = label1.Text;
 
-            cb_month.Items.AddRange(P.consultas.arr.meses);
+            cb_month.Items.AddRange(P.Consultas.arr.meses);
             cb_month.SelectedIndex = Today.Month-1;
             cb_month.Tag = label1.Text;
 
-            cb_zona.Items.AddRange(P.consultas.zonas.SearchList().ToArray());
+            cb_zona.Items.AddRange(P.Consultas.zonas.SearchList().ToArray());
             cb_zona.SelectedIndex = 0;
             cb_zona.Tag = label4.Text;
 
-            cb_clase.Items.AddRange(P.consultas.clases.SearchList().ToArray());
+            cb_clase.Items.AddRange(P.Consultas.clases.SearchList().ToArray());
             cb_clase.SelectedIndex = 0;
             cb_clase.Tag = label3.Text;
 
-            cb_acum.Items.AddRange(P.consultas.arr.acumulados);
+            cb_acum.Items.AddRange(P.Consultas.arr.acumulados);
             cb_acum.SelectedIndex = 0;
             cb_acum.Tag = label2.Text;
 
-            listaReporte.Items.AddRange(P.consultas.sistema.All().ToArray());
+            listaReporte.Items.AddRange(P.Consultas.sistema.All().ToArray());
             //listaReporte.Items.AddRange(reportes_especiales);
             listaReporte.SelectedIndex = 0;
             listaReporte.Tag = label5.Text;
@@ -76,7 +76,7 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
                 P.Reportes.vigentes_detalle(año, mes, clase, zona, acum, reporte);
                 var fin = DateTime.Now;
                 var lapsed = fin - ini;
-                Mensaje.Info("Reporte OK : " + (lapsed).ToString());
+                P.Mensaje.Info("Reporte OK : " + (lapsed).ToString());
             }
 
         }
@@ -88,7 +88,7 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
             if (check_reporte())
             {
                 P.Reportes.vigentes_resumen(año, mes, clase, zona, acum, reporte);
-                Mensaje.Info("Reporte OK");
+                P.Mensaje.Info("Reporte OK");
             }
         }
     }

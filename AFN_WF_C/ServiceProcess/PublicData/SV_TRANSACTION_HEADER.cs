@@ -19,6 +19,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         private int _category_id;
         private string _user_own;
         private int? _manage_id;
+        private int _method_revalue_id;
 
         public int id { get { return _id; } }
         public int article_part_id { get { return _article_part_id; } }
@@ -32,6 +33,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int category_id { get { return _category_id; } }
         public string user_own { get { return _user_own; } }
         public int? manage_id { get { return _manage_id; } }
+        public int method_revalue_id { get { return _method_revalue_id; } }
 
         #region Convertions
         public static implicit operator SV_TRANSACTION_HEADER(DataContract.TRANSACTION_HEADER od)
@@ -50,7 +52,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 _category_id = od.category_id,
                 _user_own = od.user_own,
                 _manage_id = od.manage_id,
-
+                _method_revalue_id = od.method_revalue_id,
             };
         }
         #endregion

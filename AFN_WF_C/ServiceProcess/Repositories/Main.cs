@@ -11,11 +11,12 @@ using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    public class Main : IDisposable
+    public partial class Main : IDisposable
     {
         
         private string[] _def_apro;
         private bool _def_with_param;
+        private bool _def_check_post;
 
         private AFN2Entities _context;
         private ZONES _zones;
@@ -40,12 +41,16 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private BATCHES_ARTICLES _batches_articles;
         private TRANSACTIONS_HEADERS _transactions_headers;
         private TRANSACTIONS_PARAM_DET _transactions_parameters;
+        private METHOD_REVALUES _method_revalues;
+        private GP_SY40 _gp_sy40;
+        private GP_PM _gp_pm;
 
         public Main(AFN2Entities context)
         {
             _context = context;
             _def_apro = this.EstadoAprobacion.Default.Select(x => x.code).ToArray();
             _def_with_param = false;
+            _def_check_post = true;
         }
 
         #region Repositorios Especificos
@@ -139,7 +144,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         }
         public PARTS Partes
         {
-            get { if (_parts == null) { _parts = new PARTS(_context.PARTS); } return _parts; }
+            get { if (_parts == null) { _load_parts(); } return _parts; }
         }
         public SITUATIONS Situaciones
         {
@@ -194,11 +199,20 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             _corr_monets = new CORRECTIONS_MONETARIES_VALUES(_context.CORRECTIONS_MONETARIES_VALUES, periodo);
         }
 
+        public METHOD_REVALUES MetodosRev
+        {
+            get
+            {
+                if (_method_revalues == null) { _method_revalues = new METHOD_REVALUES(_context.METHOD_REVALUES); }
+                return _method_revalues;
+            }
+        }
+
         public TRANSACTIONS_HEADERS cabeceras
         {
             get
             {
-                if (_transactions_headers == null) _transactions_headers = new TRANSACTIONS_HEADERS(_context.TRANSACTIONS_HEADERS);
+                if (_transactions_headers == null) _load_transactions_headers();
                 return _transactions_headers;
             }
         }
@@ -206,7 +220,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             get
             {
-                if (_batches_articles == null) _batches_articles = new BATCHES_ARTICLES(_context.BATCHS_ARTICLES);
+                if (_batches_articles == null) _load_batches_articles();
                 return _batches_articles;
             }
         }
@@ -223,23 +237,58 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             _transactions_parameters = new TRANSACTIONS_PARAM_DET(_context.TRANSACTIONS_PARAMETERS_DETAILS, SystemId, HeadsIdSelected);
         }
 
+        public GP_SY40 PeriodoContable
+        {
+            get
+            {
+                if (_gp_sy40 == null) _gp_sy40 = new GP_SY40(_context.SY40100, _context.SY40101);
+                return _gp_sy40;
+            }
+        }
+
+        public GP_PM Proveedor
+        {
+            get
+            {
+                if (_gp_pm == null) _gp_pm = new GP_PM(_context.PM00200A);
+                return _gp_pm;
+            }
+
+        }
+
+        #endregion
+
+        #region Extra Data para Migracion
+
+        internal List<PM00200> proveedor_master;
+
         #endregion
 
         #region Modificacion Datos
-        public BATCH_ARTICLE BATCH_ARTICLE_ADD()
-        {
-            var batch_new = new BATCH_ARTICLE();
-            batch_new.aproval_state_id = 2;
-            _context.BATCHS_ARTICLES.AddObject(batch_new);
-            _context.SaveChanges();
-            if (_batches_articles != null)
-                _batches_articles.add_new(batch_new);
-            return batch_new;
-        }
+        //public test test_add()
+        //{
+
+        //    return test_add("hola", 1, new DateTime(2019, 3, 3));
+        //}
+        //public test test_add(string texto, int numero, DateTime fecha)
+        //{
+        //    var row = new test();
+        //    row.texto = texto;
+        //    row.numero = numero;
+        //    row.fecha = fecha;
+
+        //    var rel = new rel_test();
+        //    rel.texto_rel = texto + numero.ToString();
+        //    rel.test = row;
+        //    //_context.tests.AddObject(row);
+        //    _context.rel_test.AddObject(rel);
+        //    _context.SaveChanges();
+        //    return row;
+        //}
         #endregion
 
         #region Datos Generales
-        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, string[] aprovados, bool WithParameters, GENERIC_VALUE clase, GENERIC_VALUE zona)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, string[] aprobados, bool WithParameters, bool CheckPost, GENERIC_VALUE clase, GENERIC_VALUE zona)
         {
             var salida = new List<DETAIL_PROCESS>();
             int default_clase = 1;
@@ -276,8 +325,8 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                              (C.kind_id == rq_cl || rq_cl == default_clase) &&
                              (C.zone_id == rq_zn || rq_zn == default_zona) &&
                              (A.type_asset_id == rq_type || rq_type == 0) &&
-                             A.account_date <= corte &&
-                             aprovados.Contains(A.APROVAL_STATE.code) &&
+                             (A.account_date <= corte || !CheckPost ) &&
+                             aprobados.Contains(A.APROVAL_STATE.code) &&
                              D.system_id == sistema.id
                          select new {
                              //Batch = A, 
@@ -306,6 +355,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                              HeadUserOwn = C.user_own,
                              HeadId = C.id,
                              HeadRefSource = C.ref_source,
+                             MethodRevalId = C.method_revalue_id,
                              //Detail = D 
                              DetailValidityId = D.validity_id,
                              DetailDepreciate = D.depreciate,
@@ -348,6 +398,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 line.fecha_ing = d.BatchAccountDate;
                 line.origen = this.origenes.ById(d.BatchOriginId);
                 line.tipo = this.Tipos.ById(d.BatchAssetId);
+                line.metodo_reval = this.MetodosRev.ById(d.MethodRevalId);
 
                 line.PartId = d.PartId;
                 line.HeadId = d.HeadId;
@@ -358,20 +409,13 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                     var curr_vals = this.DetallesParametros.ByHead_Sys(d.HeadId, sistema.id);
                     foreach (var par in all_params)
                     {
-                        PARAMETER meta_param = this.parametros.ById(par.parameter_id);
+                        SV_PARAMETER meta_param = this.parametros.ById(par.parameter_id);
                         PARAM_VALUE det;
                         var act_val = curr_vals.Find(x => x.code == meta_param.code);
                         if (act_val == null)
-                        {
-                            det = new PARAM_VALUE();
-                            det.code = meta_param.code;
-                            det.name = meta_param.name;
-                            det.value = 0;
-                        }
+                            det = PARAM_VALUE.NoValue(meta_param);
                         else
-                        {
                             det = act_val;
-                        }
                         valores.Add(det);
                     }
                     line.parametros = valores;
@@ -381,43 +425,38 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
             return salida;
         }
-        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, string[] aprovados, bool WithParameters)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, string[] aprobados, bool WithParameters, bool CheckPost)
         {
-            return get_detailed(sistema, corte, codigo, aprovados, WithParameters, null, null);
+            return get_detailed(sistema, corte, codigo, aprobados, WithParameters, CheckPost, null, null);
         }
-        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, string[] aprovados)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, string[] aprobados)
         {
 
-            return this.get_detailed(sistema, corte, codigo, aprovados, _def_with_param);
+            return this.get_detailed(sistema, corte, codigo, aprobados, _def_with_param,_def_check_post);
         }
         public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, bool WithParameters)
         {
-
-            return this.get_detailed(sistema, corte, codigo, _def_apro, WithParameters);
+            return this.get_detailed(sistema, corte, codigo, _def_apro, WithParameters, _def_check_post);
         }
         public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo)
         {
-
-            return this.get_detailed(sistema, corte, codigo, _def_apro, _def_with_param);
+            return this.get_detailed(sistema, corte, codigo, _def_apro, _def_with_param,_def_check_post);
         }
-        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, string[] aprovados, bool WithParameters)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, string[] aprobados, bool WithParameters)
         {
-
-            return this.get_detailed(sistema, corte, 0, aprovados, WithParameters);
+            return this.get_detailed(sistema, corte, 0, aprobados, WithParameters, _def_check_post);
         }
-        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, string[] aprovados)
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, string[] aprobados)
         {
-            return this.get_detailed(sistema, corte, 0, aprovados, _def_with_param);
+            return this.get_detailed(sistema, corte, 0, aprobados, _def_with_param, _def_check_post);
         }
         public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, bool WithParameters)
         {
-
-            return this.get_detailed(sistema, corte, 0, _def_apro, WithParameters);
+            return this.get_detailed(sistema, corte, 0, _def_apro, WithParameters,_def_check_post);
         }
         public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte)
         {
-
-            return this.get_detailed(sistema, corte, 0, _def_apro, _def_with_param);
+            return this.get_detailed(sistema, corte, 0, _def_apro, _def_with_param,_def_check_post);
         }
 
         #endregion

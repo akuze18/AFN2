@@ -56,7 +56,8 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ACode">
+    <Reference Include="ACode, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>.\ACode.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -67,6 +68,10 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.2.0.0\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -98,9 +103,11 @@
     <Compile Include="PCClient\FormBase.Designer.cs">
       <DependentUpon>FormBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="PCClient\Procesos\Auxiliar.cs" />
     <Compile Include="PCClient\Procesos\Consultas.cs" />
     <Compile Include="PCClient\Procesos\Estructuras\ColumnData.cs" />
     <Compile Include="PCClient\Procesos\Estructuras\TituloCabera.cs" />
+    <Compile Include="PCClient\Procesos\Mensaje.cs" />
     <Compile Include="PCClient\Procesos\Migracion.cs" />
     <Compile Include="PCClient\Procesos\Reportes.cs" />
     <Compile Include="PCClient\Vistas\Busquedas\articulo.cs">
@@ -108,6 +115,42 @@
     </Compile>
     <Compile Include="PCClient\Vistas\Busquedas\articulo.Designer.cs">
       <DependentUpon>articulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\proveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\proveedor.Designer.cs">
+      <DependentUpon>proveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso.Designer.cs">
+      <DependentUpon>ingreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_financiero.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_financiero.Designer.cs">
+      <DependentUpon>ingreso_financiero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_ifrs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_ifrs.Designer.cs">
+      <DependentUpon>ingreso_ifrs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_invent_articulo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_invent_articulo.Designer.cs">
+      <DependentUpon>ingreso_invent_articulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_invent_grup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_invent_grup.Designer.cs">
+      <DependentUpon>ingreso_invent_grup.cs</DependentUpon>
     </Compile>
     <Compile Include="PCClient\Vistas\Consultas\saldos_obc.cs">
       <SubType>Form</SubType>
@@ -181,6 +224,7 @@
     <Compile Include="ServiceProcess\PublicData\LIST_PARAM_VALUE.cs" />
     <Compile Include="ServiceProcess\PublicData\PARAM_VALUE.cs" />
     <Compile Include="ServiceProcess\PublicData\RespuestaAccion.cs" />
+    <Compile Include="ServiceProcess\PublicData\SINGLE_DETAIL.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_APROVAL_STATE.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_BATCH_ARTICLE.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_CATEGORY.cs" />
@@ -190,10 +234,12 @@
     <Compile Include="ServiceProcess\PublicData\SV_ENVIORMENT.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_KIND.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_MANAGEMENT.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_METHOD_REVALUE.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_ORIGIN.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_PACKAGE_KIND.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_PARAMETER.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_PART.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_PROVEEDOR.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_SITUATION.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_SUBKIND.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_SUBZONE.cs" />
@@ -209,12 +255,15 @@
     <Compile Include="ServiceProcess\Repositories\BATCHES_ARTICLES.cs" />
     <Compile Include="ServiceProcess\Repositories\CORRECTIONS_MONETARIES_VALUES.cs" />
     <Compile Include="ServiceProcess\Repositories\CURRENCIES.cs" />
+    <Compile Include="ServiceProcess\Repositories\GP_PM.cs" />
+    <Compile Include="ServiceProcess\Repositories\GP_SY40.cs" />
     <Compile Include="ServiceProcess\Repositories\Main.cs" />
     <Compile Include="ServiceProcess\Repositories\APROVALS_STATES.cs" />
     <Compile Include="ServiceProcess\Repositories\CATEGORIES.cs" />
     <Compile Include="ServiceProcess\Repositories\DOCUMENTS.cs" />
     <Compile Include="ServiceProcess\Repositories\KINDS.cs" />
     <Compile Include="ServiceProcess\Repositories\MANAGEMENTS.cs" />
+    <Compile Include="ServiceProcess\Repositories\METHOD_REVALUES.cs" />
     <Compile Include="ServiceProcess\Repositories\ORIGINS.cs" />
     <Compile Include="ServiceProcess\Repositories\PACKAGE_KINDS.cs" />
     <Compile Include="ServiceProcess\Repositories\PARAMETERS.cs" />
@@ -229,6 +278,12 @@
     <Compile Include="ServiceProcess\Repositories\TYPES_ASSETS.cs" />
     <Compile Include="ServiceProcess\Repositories\VALIDATIES.cs" />
     <Compile Include="ServiceProcess\Repositories\ZONES.cs" />
+    <Compile Include="ServiceProcess\Saving\BATCH_ARTICLE.cs" />
+    <Compile Include="ServiceProcess\Saving\DOCS_BATCH.cs" />
+    <Compile Include="ServiceProcess\Saving\DOCUMENT.cs" />
+    <Compile Include="ServiceProcess\Saving\PART.cs" />
+    <Compile Include="ServiceProcess\Saving\TRANSACTION_HEAD.cs" />
+    <Compile Include="ServiceProcess\Saving\TRANSACTION_PARAMETER_DETAIL.cs" />
     <Compile Include="ServiceProcess\ServiceAFN2.cs" />
     <Compile Include="ServiceProcess\Tracking\ExportTo.cs" />
     <Compile Include="Settings.cs" />
@@ -237,6 +292,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PCClient\Vistas\Busquedas\articulo.resx">
       <DependentUpon>articulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Busquedas\proveedor.resx">
+      <DependentUpon>proveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso.resx">
+      <DependentUpon>ingreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso_financiero.resx">
+      <DependentUpon>ingreso_financiero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso_ifrs.resx">
+      <DependentUpon>ingreso_ifrs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso_invent_articulo.resx">
+      <DependentUpon>ingreso_invent_articulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso_invent_grup.resx">
+      <DependentUpon>ingreso_invent_grup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PCClient\Vistas\Consultas\saldos_obc.resx">
       <DependentUpon>saldos_obc.cs</DependentUpon>

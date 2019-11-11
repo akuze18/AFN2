@@ -22,5 +22,17 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             set { _descripcion = value; }
         }
 
+        public void set(int new_codigo, string new_description)
+        {
+            _codigo = new_codigo;
+            _descripcion = new_description;
+        }
+
+        public void set_ok()
+        {
+            _codigo = 1;
+            _descripcion = "OK";
+        }
+
     }
 }

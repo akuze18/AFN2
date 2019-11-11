@@ -5,70 +5,70 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
     public class PARAMETERS
     {
-        private List<PARAMETER> _source;
-        public PARAMETERS(ObjectSet<PARAMETER> source) { _source = source.ToList(); }
-        //public PARAMETERS(List<PARAMETER> source) { _source = source; }
+        private List<SV_PARAMETER> _source;
+        public PARAMETERS(ObjectSet<PARAMETER> source) { _source = source.ToList().ConvertAll(p => (SV_PARAMETER)p); }
 
-        public PARAMETER ById(int idFind)
+        public SV_PARAMETER ById(int idFind)
         {
             return _source.Where(z => z.id == idFind).FirstOrDefault();
         }
-        public PARAMETER byCode(string codeFind)
+        public SV_PARAMETER byCode(string codeFind)
         {
             return (from p in _source where p.code == codeFind select p).First();
         }
 
-        public PARAMETER PrecioBase
+        public SV_PARAMETER PrecioBase
         {
             get { return byCode("PB"); }
         }
-        public PARAMETER DepreciacionAcum
+        public SV_PARAMETER DepreciacionAcum
         {
             get { return byCode("DA"); }
         }
-        public PARAMETER Deterioro
+        public SV_PARAMETER Deterioro
         {
             get { return byCode("DT"); }
         }
-        public PARAMETER ValorResidual
+        public SV_PARAMETER ValorResidual
         {
             get { return byCode("VR"); }
         }
-        public PARAMETER VidaUtil
+        public SV_PARAMETER VidaUtil
         {
             get { return byCode("VUB"); }
         }
-        public PARAMETER Credito
+        public SV_PARAMETER Credito
         {
             get { return byCode("CRED"); }
         }
 
-        public PARAMETER Preparacion
+        public SV_PARAMETER Preparacion
         {
             get { return byCode("PREP"); }
         }
-        public PARAMETER Transporte
+        public SV_PARAMETER Transporte
         {
             get { return byCode("TRAN"); }
         }
-        public PARAMETER Montaje
+        public SV_PARAMETER Montaje
         {
             get { return byCode("MON"); }
         }
-        public PARAMETER Desmantelamiento
+        public SV_PARAMETER Desmantelamiento
         {
             get { return byCode("DESM"); }
         }
-        public PARAMETER Honorario
+        public SV_PARAMETER Honorario
         {
             get { return byCode("HON"); }
         }
-        public PARAMETER Revalorizacion
+        public SV_PARAMETER Revalorizacion
         {
             get { return byCode("REVAL"); }
         }

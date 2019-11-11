@@ -36,5 +36,27 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             };
         }
         #endregion
+
+        public static bool operator ==(SV_CURRENCY a, string b)
+        {
+            return a.code == b;
+        }
+        public static bool operator !=(SV_CURRENCY a, string b)
+        {
+            return a.code != b;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            if (this.GetType() != obj.GetType()) return false;
+
+            SV_CURRENCY p = (SV_CURRENCY)obj;
+            return (this.id == p.id);
+        }
+        public override int GetHashCode()
+        {
+            return this.id.GetHashCode();
+        }
     }
 }

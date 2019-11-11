@@ -38,6 +38,8 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public GENERIC_VALUE origen { get; set; }              //BATCHS_ARTICLES
         public GENERIC_VALUE tipo { get; set; }                //BATCHS_ARTICLES
 
+        public GENERIC_VALUE metodo_reval { get; set; }         //TRANSACTION HEAD
+
         //parametros
         public LIST_PARAM_VALUE parametros { get; set; }
 

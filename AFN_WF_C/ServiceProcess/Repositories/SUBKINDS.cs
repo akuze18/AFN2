@@ -26,5 +26,16 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _source.Where(sk => sk.id == 1).FirstOrDefault();
             return _source.Where(sk => sk.code == codeFind).FirstOrDefault();
         }
+
+        public List<GENERIC_VALUE> ByKind(GENERIC_VALUE clase)
+        {
+            return _source.Where(sk => sk.kind_id == clase.id && sk.display)
+                .ToList().ConvertAll(sk => (GENERIC_VALUE)sk);
+        }
+
+        public SV_SUBKIND ByGeneric(GENERIC_VALUE subkind)
+        {
+            return _source.Where(sk => sk.id == subkind.id).First();
+        }
     }
 }

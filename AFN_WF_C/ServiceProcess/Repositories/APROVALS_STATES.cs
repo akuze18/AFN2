@@ -61,5 +61,27 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         public List<GENERIC_VALUE> Default {
             get { return this.OnlyActive; }
         }
+
+        public GENERIC_VALUE CLOSE
+        {
+            get
+            {
+                return _source.Where(ap => ap.code == "CLOSE").First();
+            }
+        }
+        public GENERIC_VALUE DELETE
+        {
+            get
+            {
+                return _source.Where(ap => ap.code == "DELETE").First();
+            }
+        }
+        public GENERIC_VALUE OPEN
+        {
+            get
+            {
+                return _source.Where(ap => ap.code == "OPEN").First();
+            }
+        }
     }
 }

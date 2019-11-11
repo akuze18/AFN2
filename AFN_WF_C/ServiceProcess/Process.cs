@@ -25,7 +25,7 @@ namespace AFN_WF_C.ServiceProcess
         {
             _svr = svr;
         }
-        public List<DETAIL_PROCESS> buscar_Articulo(DateTime desde, DateTime hasta, int codigo, string descrip, string zona, int[] vigencias, string[] aprovados)
+        public List<DETAIL_PROCESS> buscar_Articulo(DateTime desde, DateTime hasta, int codigo, string descrip, string zona, int[] vigencias, string[] aprovados, AFN_WF_C.PCClient.Vistas.Busquedas.moment_data cuando)
         {
 
             var repo = _svr.Repo;
@@ -78,6 +78,11 @@ namespace AFN_WF_C.ServiceProcess
                 return consulta;
             }
         }
+        public List<SV_PROVEEDOR> buscar_proveedor(string idRut, string nombre)
+        {
+            var repo = _svr.Repo;
+            return repo.Proveedor.buscar(idRut, nombre);
+        }
 
         public List<DETAIL_PROCESS> base_movimiento(SV_SYSTEM sistema, DateTime fecha_corte, int[] vigencia, GENERIC_VALUE clase, GENERIC_VALUE zona)
         {
@@ -85,8 +90,8 @@ namespace AFN_WF_C.ServiceProcess
 
             var repo = _svr.Repo;
             {
-                var aprovados = repo.EstadoAprobacion.OnlyActive.Select(x => x.code).ToArray();
-                salida = repo.get_detailed(sistema, fecha_corte, 0, aprovados, true, clase, zona);
+                var aprobados = repo.EstadoAprobacion.OnlyActive.Select(x => x.code).ToArray();
+                salida = repo.get_detailed(sistema, fecha_corte, 0, aprobados, true, true, clase, zona);
             }
             if (vigencia.Count() > 0)
                 salida = salida.Where(x => vigencia.Contains(x.vigencia.id)).ToList();
@@ -705,6 +710,65 @@ namespace AFN_WF_C.ServiceProcess
                 return resultado;
             }
         }
+
+        #region Fichas
+
+        public SINGLE_DETAIL ingreso_financiero(int article_id)
+        {
+            var resultado = new SINGLE_DETAIL();
+            var SysFinCLP = _svr.Repo.sistemas.FinCLP;
+            var AllAprob = _svr.Repo.EstadoAprobacion.NoDeleted.Select(ea => ea.code).ToArray();
+            SV_BATCH_ARTICLE lote = _svr.Repo.lotes.ById(article_id);
+            DateTime fecha_min; // = DateTime.Today
+            fecha_min = _svr.Repo.Partes.FirstDateLote(article_id, lote.purchase_date);
+            var resumen = _svr.Repo.get_detailed(SysFinCLP, fecha_min, article_id, WithParameters: true, aprobados: AllAprob, CheckPost: false);
+            if (resumen.Count > 0)
+            {
+                var First = resumen.First();
+                resultado.set_values(First, lote);
+            }
+            return resultado;
+        }
+
+        public bool ingreso_ifrs_check(int article_id)
+        {
+            var SysIFRSCLP = _svr.Repo.sistemas.IfrsCLP;
+            SV_BATCH_ARTICLE lote = _svr.Repo.lotes.ById(article_id);
+            DateTime fecha_min; // = DateTime.Today
+            fecha_min = _svr.Repo.Partes.FirstDateLote(article_id, lote.purchase_date);
+            var resumen = _svr.Repo.get_detailed(SysIFRSCLP, fecha_min, article_id, WithParameters: false);
+            if (resumen.Count > 0)
+            {
+                return true;   
+            }
+            return false;
+        }
+
+        public List<SINGLE_DETAIL> ficha_ingreso1(int article_id)
+        {
+            var resultado = new List<SINGLE_DETAIL>();
+            var AllSistemas = _svr.Repo.sistemas.All();
+            foreach (var curSys in AllSistemas)
+            {
+                var curData = new SINGLE_DETAIL();
+                SV_BATCH_ARTICLE lote = _svr.Repo.lotes.ById(article_id);                
+                DateTime fecha_min; // = DateTime.Today
+                fecha_min = _svr.Repo.Partes.FirstDateLote(article_id, lote.purchase_date);
+
+                var resumen = _svr.Repo.get_detailed(curSys, fecha_min, article_id, WithParameters: true);
+
+                if (resumen.Count > 0)
+                {
+                    var First = resumen.First();
+                    curData.set_values(First, lote);
+                }
+                resultado.Add(curData);
+            }
+            return resultado;
+        }
+        #endregion
+
+        
 
         #region IDispose
         // Flag: Has Dispose already been called?
