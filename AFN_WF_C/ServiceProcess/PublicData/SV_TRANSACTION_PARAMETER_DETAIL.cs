@@ -45,6 +45,17 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 value = sv.parameter_value
             };
         }
+
+        public static implicit operator GENERIC_VALUE(SV_TRANSACTION_PARAMETER_DETAIL sv)
+        {
+            return new GENERIC_VALUE()
+            {
+                id = sv.PARAMETER.id,
+                code = sv.parameter_value.ToString(),
+                description = sv.PARAMETER.code,
+                type = sv.GetType().Name.Substring(3),
+            };
+        }
         #endregion
     }
 }

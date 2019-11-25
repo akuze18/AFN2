@@ -12,6 +12,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public string PARVENDID { get; set; }
         public string VENDNAME { get; set; }
         public string TEXTO { get; set; }
+        public string VNDCLSID { get; set; }
         #region Convertions
         public static implicit operator SV_PROVEEDOR(DataContract.PM00200A od)
         {
@@ -22,6 +23,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 PARVENDID = od.PARVENDID,
                 VENDNAME = od.VENDNAME,
                 TEXTO = od.TEXTO,
+                VNDCLSID = od.VNDCLSID,
             };
         }
         #endregion

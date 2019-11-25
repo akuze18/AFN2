@@ -172,6 +172,18 @@ namespace AFN_WF_C.ServiceProcess.PublicData
     #endregion
 
     #region Convertions
+        public static implicit operator GENERIC_VALUE(DataContract.ARTICLE a)
+        {
+            var me = new GENERIC_VALUE();
+            if (a != null)
+            {
+                me.id = a.id;
+                me.code = a.code;
+                me.description = a.code;
+                me.type = a.GetType().Name;
+            }
+            return me;
+        }
         //public static implicit operator GENERIC_VALUE(ZONE z) {
         //    var me = new GENERIC_VALUE();
         //    if (z != null)

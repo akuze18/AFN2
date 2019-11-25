@@ -40,10 +40,15 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private CORRECTIONS_MONETARIES_VALUES _corr_monets;
         private BATCHES_ARTICLES _batches_articles;
         private TRANSACTIONS_HEADERS _transactions_headers;
+        private TRANSACTIONS_DETAILS _transactions_details;
         private TRANSACTIONS_PARAM_DET _transactions_parameters;
         private METHOD_REVALUES _method_revalues;
         private GP_SY40 _gp_sy40;
         private GP_PM _gp_pm;
+        private ASSETS_IN_PROGRESS _OBC;
+        private GP_MultiCurrency _gp_MC;
+        private ADM_IFRS_DEFAULT _adm_idef;
+        private INVENTORY _inventory;
 
         public Main(AFN2Entities context)
         {
@@ -216,6 +221,14 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _transactions_headers;
             }
         }
+        public TRANSACTIONS_DETAILS detalles
+        {
+            get
+            {
+                if (_transactions_details == null) _transactions_details = new TRANSACTIONS_DETAILS(_context.TRANSACTIONS_DETAILS);
+                return _transactions_details;
+            }
+        }
         public BATCHES_ARTICLES lotes
         {
             get
@@ -237,6 +250,15 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             _transactions_parameters = new TRANSACTIONS_PARAM_DET(_context.TRANSACTIONS_PARAMETERS_DETAILS, SystemId, HeadsIdSelected);
         }
 
+        public ASSETS_IN_PROGRESS ObrasConstruccion
+        {
+            get
+            {
+                if (_OBC == null) _OBC = new ASSETS_IN_PROGRESS(_context.ASSETS_IN_PROGRESS_HEAD);
+                return _OBC;
+            }
+        }
+
         public GP_SY40 PeriodoContable
         {
             get
@@ -245,7 +267,6 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _gp_sy40;
             }
         }
-
         public GP_PM Proveedor
         {
             get
@@ -255,6 +276,32 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             }
 
         }
+        public GP_MultiCurrency TipoCambio
+        {
+            get
+            {
+                if (_gp_MC == null) _gp_MC = new GP_MultiCurrency(_context.MC00101);
+                return _gp_MC;
+            }
+        }
+        public ADM_IFRS_DEFAULT predetIFRS
+        {
+            get
+            {
+                if (_adm_idef == null) _adm_idef = new ADM_IFRS_DEFAULT(_context.IFRS_DEFAULT);
+                return _adm_idef;
+            }
+        }
+
+        public INVENTORY inventario
+        {
+            get 
+            {
+                if (_inventory == null) _inventory = new INVENTORY(_context.ARTICLES);
+                return _inventory;
+            }
+        }
+
 
         #endregion
 

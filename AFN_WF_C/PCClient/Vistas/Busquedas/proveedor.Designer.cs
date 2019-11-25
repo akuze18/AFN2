@@ -76,8 +76,8 @@
             // 
             // olvColumn3
             // 
-            this.olvColumn3.AspectName = "PARVENDID";
-            this.olvColumn3.Text = "PARVENDID";
+            this.olvColumn3.AspectName = "VNDCLSID";
+            this.olvColumn3.Text = "CLASE";
             this.olvColumn3.Width = 142;
             // 
             // Lresultado
@@ -176,6 +176,7 @@
             this.Name = "proveedor";
             this.Text = "Buscar un proveedor";
             this.Load += new System.EventHandler(this.bus_prov_Load);
+            this.Resize += new System.EventHandler(this.proveedor_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.MosResult2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

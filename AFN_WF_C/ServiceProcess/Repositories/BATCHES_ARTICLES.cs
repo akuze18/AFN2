@@ -25,9 +25,9 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.Where(b => b.id == Id).FirstOrDefault();
         }
 
-        public void add_new(SV_BATCH_ARTICLE batch)
-        {
-            _source.Add(batch);
-        }
+        //public void add_new(SV_BATCH_ARTICLE batch)
+        //{
+        //    _source.Add(batch);
+        //}
     }
 }

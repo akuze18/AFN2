@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="AFN2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="AFN2ModelStoreContainer">
+          <EntitySet Name="IFRS_DEFAULT" EntityType="AFN2Model.Store.IFRS_DEFAULT" store:Type="Tables" Schema="adm" />
           <EntitySet Name="APROVAL_STATES" EntityType="AFN2Model.Store.APROVAL_STATES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ASSETS_IN_PROGRESS_DETAIL" EntityType="AFN2Model.Store.ASSETS_IN_PROGRESS_DETAIL" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ASSETS_IN_PROGRESS_HEAD" EntityType="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" store:Type="Tables" Schema="dbo" />
@@ -38,6 +39,8 @@
           <EntitySet Name="TYPES_ASSETS" EntityType="AFN2Model.Store.TYPES_ASSETS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="VALIDATIES" EntityType="AFN2Model.Store.VALIDATIES" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZONES" EntityType="AFN2Model.Store.ZONES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ARTICLES" EntityType="AFN2Model.Store.ARTICLES" store:Type="Tables" Schema="inventory" />
+          <EntitySet Name="PLACES" EntityType="AFN2Model.Store.PLACES" store:Type="Tables" Schema="inventory" />
           <EntitySet Name="SALES_DETAIL" EntityType="AFN2Model.Store.SALES_DETAIL" store:Type="Tables" Schema="sales" />
           <EntitySet Name="SALES_HEAD" EntityType="AFN2Model.Store.SALES_HEAD" store:Type="Tables" Schema="sales" />
           <EntitySet Name="PM00200A" EntityType="AFN2Model.Store.PM00200A" store:Type="Views" store:Schema="dbo" store:Name="PM00200A">
@@ -49,6 +52,17 @@
       [PM00200A].[VNDCLSID] AS [VNDCLSID], 
       [PM00200A].[FUENTE] AS [FUENTE]
       FROM [dbo].[PM00200A] AS [PM00200A]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MC00101" EntityType="AFN2Model.Store.MC00101" store:Type="Views" store:Schema="GP" store:Name="MC00101">
+            <DefiningQuery>SELECT 
+      [MC00101].[EXGTBLID] AS [EXGTBLID], 
+      [MC00101].[CURNCYID] AS [CURNCYID], 
+      [MC00101].[EXCHDATE] AS [EXCHDATE], 
+      [MC00101].[TIME1] AS [TIME1], 
+      [MC00101].[XCHGRATE] AS [XCHGRATE], 
+      [MC00101].[EXPNDATE] AS [EXPNDATE], 
+      [MC00101].[DEX_ROW_ID] AS [DEX_ROW_ID]
+      FROM [GP].[MC00101] AS [MC00101]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="SY40100" EntityType="AFN2Model.Store.SY40100" store:Type="Views" store:Schema="GP" store:Name="SY40100">
             <DefiningQuery>SELECT 
@@ -80,6 +94,14 @@
       [SY40101].[DEX_ROW_ID] AS [DEX_ROW_ID]
       FROM [GP].[SY40101] AS [SY40101]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__ARTICLES__part_i__17236851" Association="AFN2Model.Store.FK__ARTICLES__part_i__17236851">
+            <End Role="PARTS" EntitySet="PARTS" />
+            <End Role="ARTICLES" EntitySet="ARTICLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ARTICLES__ubicac__18178C8A" Association="AFN2Model.Store.FK__ARTICLES__ubicac__18178C8A">
+            <End Role="PLACES" EntitySet="PLACES" />
+            <End Role="ARTICLES" EntitySet="ARTICLES" />
+          </AssociationSet>
           <AssociationSet Name="FK__ASSETS_IN__aprov__1940BAED" Association="AFN2Model.Store.FK__ASSETS_IN__aprov__1940BAED">
             <End Role="APROVAL_STATES" EntitySet="APROVAL_STATES" />
             <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
@@ -131,6 +153,14 @@
           <AssociationSet Name="FK__DOCS_OBC__obc_id__35DCF99B" Association="AFN2Model.Store.FK__DOCS_OBC__obc_id__35DCF99B">
             <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
             <End Role="DOCS_OBC" EntitySet="DOCS_OBC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IFRS_DEFA__kind___7D63964E" Association="AFN2Model.Store.FK__IFRS_DEFA__kind___7D63964E">
+            <End Role="KINDS" EntitySet="KINDS" />
+            <End Role="IFRS_DEFAULT" EntitySet="IFRS_DEFAULT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IFRS_DEFA__metod__7E57BA87" Association="AFN2Model.Store.FK__IFRS_DEFA__metod__7E57BA87">
+            <End Role="METHOD_REVALUES" EntitySet="METHOD_REVALUES" />
+            <End Role="IFRS_DEFAULT" EntitySet="IFRS_DEFAULT" />
           </AssociationSet>
           <AssociationSet Name="FK__KINDS__type_asse__65F62111" Association="AFN2Model.Store.FK__KINDS__type_asse__65F62111">
             <End Role="TYPES_ASSETS" EntitySet="TYPES_ASSETS" />
@@ -261,6 +291,20 @@
             <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="IFRS_DEFAULT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="kind_id" Type="int" Nullable="false" />
+          <Property Name="allow_preparacion" Type="bit" Nullable="false" />
+          <Property Name="allow_desmant" Type="bit" Nullable="false" />
+          <Property Name="allow_transporte" Type="bit" Nullable="false" />
+          <Property Name="allow_montaje" Type="bit" Nullable="false" />
+          <Property Name="allow_honorarios" Type="bit" Nullable="false" />
+          <Property Name="pValRes" Type="numeric" Nullable="false" Scale="5" />
+          <Property Name="metodVal" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="APROVAL_STATES">
           <Key>
             <PropertyRef Name="id" />
@@ -656,6 +700,28 @@
           <Property Name="codDept" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="codOld" Type="varchar" Nullable="false" MaxLength="10" />
         </EntityType>
+        <EntityType Name="ARTICLES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="part_id" Type="int" Nullable="false" />
+          <Property Name="codigo_old" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="ubicacion_id" Type="int" Nullable="false" />
+          <Property Name="desde" Type="datetime" Nullable="false" />
+          <Property Name="hasta" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PLACES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="descrip" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="nivel" Type="int" Nullable="false" />
+          <Property Name="superior" Type="int" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="SALES_DETAIL">
           <Key>
             <PropertyRef Name="id" />
@@ -697,6 +763,27 @@
           <Property Name="VENDNAME" Type="varchar(max)" />
           <Property Name="VNDCLSID" Type="char" Nullable="false" MaxLength="11" />
           <Property Name="FUENTE" Type="varchar" Nullable="false" MaxLength="3" />
+        </EntityType>
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'AFN2.GP.MC00101' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+      -->
+        <EntityType Name="MC00101">
+          <Key>
+            <PropertyRef Name="EXGTBLID" />
+            <PropertyRef Name="CURNCYID" />
+            <PropertyRef Name="EXCHDATE" />
+            <PropertyRef Name="TIME1" />
+            <PropertyRef Name="XCHGRATE" />
+            <PropertyRef Name="EXPNDATE" />
+            <PropertyRef Name="DEX_ROW_ID" />
+          </Key>
+          <Property Name="EXGTBLID" Type="char" Nullable="false" MaxLength="15" />
+          <Property Name="CURNCYID" Type="char" Nullable="false" MaxLength="15" />
+          <Property Name="EXCHDATE" Type="datetime" Nullable="false" />
+          <Property Name="TIME1" Type="datetime" Nullable="false" />
+          <Property Name="XCHGRATE" Type="numeric" Nullable="false" Precision="19" Scale="7" />
+          <Property Name="EXPNDATE" Type="datetime" Nullable="false" />
+          <Property Name="DEX_ROW_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <!--Se encontraron errores durante la generación:
       advertencia 6002: La tabla o vista 'AFN2.GP.SY40100' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
@@ -756,6 +843,30 @@
           <Property Name="HISTORYR" Type="tinyint" Nullable="false" />
           <Property Name="DEX_ROW_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
+        <Association Name="FK__ARTICLES__part_i__17236851">
+          <End Role="PARTS" Type="AFN2Model.Store.PARTS" Multiplicity="1" />
+          <End Role="ARTICLES" Type="AFN2Model.Store.ARTICLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PARTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ARTICLES">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ARTICLES__ubicac__18178C8A">
+          <End Role="PLACES" Type="AFN2Model.Store.PLACES" Multiplicity="1" />
+          <End Role="ARTICLES" Type="AFN2Model.Store.ARTICLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLACES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ARTICLES">
+              <PropertyRef Name="ubicacion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ASSETS_IN__aprov__1940BAED">
           <End Role="APROVAL_STATES" Type="AFN2Model.Store.APROVAL_STATES" Multiplicity="1" />
           <End Role="ASSETS_IN_PROGRESS_HEAD" Type="AFN2Model.Store.ASSETS_IN_PROGRESS_HEAD" Multiplicity="*" />
@@ -909,6 +1020,30 @@
             </Principal>
             <Dependent Role="DOCS_OBC">
               <PropertyRef Name="obc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IFRS_DEFA__kind___7D63964E">
+          <End Role="KINDS" Type="AFN2Model.Store.KINDS" Multiplicity="1" />
+          <End Role="IFRS_DEFAULT" Type="AFN2Model.Store.IFRS_DEFAULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KINDS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IFRS_DEFAULT">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IFRS_DEFA__metod__7E57BA87">
+          <End Role="METHOD_REVALUES" Type="AFN2Model.Store.METHOD_REVALUES" Multiplicity="1" />
+          <End Role="IFRS_DEFAULT" Type="AFN2Model.Store.IFRS_DEFAULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="METHOD_REVALUES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IFRS_DEFAULT">
+              <PropertyRef Name="metodVal" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1462,8 +1597,8 @@
             <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
           </AssociationSet>
           <AssociationSet Name="FK__ASSETS_IN__entra__1758727B" Association="AFN2Model.FK__ASSETS_IN__entra__1758727B">
-            <End Role="ASSETS_IN_PROGRESS_HEAD" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
-            <End Role="ASSETS_IN_PROGRESS_HEAD1" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+            <End Role="ASSET_HEADS_SALIDAS" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
+            <End Role="ASSET_HEAD_ENTRADA" EntitySet="ASSETS_IN_PROGRESS_HEAD" />
           </AssociationSet>
           <AssociationSet Name="FK__ASSETS_IN__zone___16644E42" Association="AFN2Model.FK__ASSETS_IN__zone___16644E42">
             <End Role="ZONE" EntitySet="ZONES" />
@@ -1518,6 +1653,26 @@
             <End Role="SALES_DETAIL" EntitySet="SALES_DETAIL" />
           </AssociationSet>
           <EntitySet Name="PM00200A" EntityType="AFN2Model.PM00200A" />
+          <EntitySet Name="MC00101" EntityType="AFN2Model.MC00101" />
+          <EntitySet Name="IFRS_DEFAULT" EntityType="AFN2Model.IFRS_DEFAULT" />
+          <AssociationSet Name="FK__IFRS_DEFA__kind___7D63964E" Association="AFN2Model.FK__IFRS_DEFA__kind___7D63964E">
+            <End Role="KIND" EntitySet="KINDS" />
+            <End Role="IFRS_DEFAULT" EntitySet="IFRS_DEFAULT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IFRS_DEFA__metod__7E57BA87" Association="AFN2Model.FK__IFRS_DEFA__metod__7E57BA87">
+            <End Role="METHOD_REVALUE" EntitySet="METHOD_REVALUES" />
+            <End Role="IFRS_DEFAULT" EntitySet="IFRS_DEFAULT" />
+          </AssociationSet>
+          <EntitySet Name="ARTICLES" EntityType="AFN2Model.ARTICLE" />
+          <EntitySet Name="PLACES" EntityType="AFN2Model.PLACE" />
+          <AssociationSet Name="FK__ARTICLES__part_i__17236851" Association="AFN2Model.FK__ARTICLES__part_i__17236851">
+            <End Role="PART" EntitySet="PARTS" />
+            <End Role="ARTICLE" EntitySet="ARTICLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ARTICLES__ubicac__18178C8A" Association="AFN2Model.FK__ARTICLES__ubicac__18178C8A">
+            <End Role="PLACE" EntitySet="PLACES" />
+            <End Role="ARTICLE" EntitySet="ARTICLES" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="APROVAL_STATE">
           <Key>
@@ -1596,6 +1751,7 @@
           <NavigationProperty Name="SUBKINDS" Relationship="AFN2Model.FK__SUBKINDS__kind_i__2B947552" FromRole="KINDS" ToRole="SUBKINDS" />
           <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__kind___4830B400" FromRole="KINDS" ToRole="TRANSACTIONS_HEADERS" />
           <NavigationProperty Name="SALES_DETAIL" Relationship="AFN2Model.FK__SALES_DET__kind___6E2152BE" FromRole="KIND" ToRole="SALES_DETAIL" />
+          <NavigationProperty Name="IFRS_DEFAULT" Relationship="AFN2Model.FK__IFRS_DEFA__kind___7D63964E" FromRole="KIND" ToRole="IFRS_DEFAULT" />
         </EntityType>
         <EntityType Name="MANAGEMENT">
           <Key>
@@ -1658,6 +1814,7 @@
           <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTI__artic__45544755" FromRole="PARTS" ToRole="TRANSACTIONS_HEADERS" />
           <Property Type="DateTime" Name="first_date" Nullable="false" />
           <NavigationProperty Name="SALES_DETAIL" Relationship="AFN2Model.FK__SALES_DET__part___6B44E613" FromRole="PART" ToRole="SALES_DETAIL" />
+          <NavigationProperty Name="ARTICLES" Relationship="AFN2Model.FK__ARTICLES__part_i__17236851" FromRole="PART" ToRole="ARTICLE" />
         </EntityType>
         <EntityType Name="SUBKIND">
           <Key>
@@ -2301,8 +2458,8 @@
           <NavigationProperty Name="APROVAL_STATES" Relationship="AFN2Model.FK__ASSETS_IN__aprov__1940BAED" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="APROVAL_STATE" />
           <NavigationProperty Name="ASSETS_IN_PROGRESS_DETAIL" Relationship="AFN2Model.FK__ASSETS_IN__head___1E05700A" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="ASSETS_IN_PROGRESS_DETAIL" />
           <NavigationProperty Name="BATCHS_ARTICLES" Relationship="AFN2Model.FK__ASSETS_IN__batch__184C96B4" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="BATCH_ARTICLE" />
-          <NavigationProperty Name="ASSETS_IN_PROGRESS_HEAD1" Relationship="AFN2Model.FK__ASSETS_IN__entra__1758727B" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="ASSETS_IN_PROGRESS_HEAD1" />
-          <NavigationProperty Name="ASSETS_IN_PROGRESS_HEAD2" Relationship="AFN2Model.FK__ASSETS_IN__entra__1758727B" FromRole="ASSETS_IN_PROGRESS_HEAD1" ToRole="ASSETS_IN_PROGRESS_HEAD" />
+          <NavigationProperty Name="ASSET_HEADS_SALIDAS" Relationship="AFN2Model.FK__ASSETS_IN__entra__1758727B" FromRole="ASSET_HEADS_SALIDAS" ToRole="ASSET_HEAD_ENTRADA" />
+          <NavigationProperty Name="ASSET_HEAD_ENTRADA" Relationship="AFN2Model.FK__ASSETS_IN__entra__1758727B" FromRole="ASSET_HEAD_ENTRADA" ToRole="ASSET_HEADS_SALIDAS" />
           <NavigationProperty Name="ZONE" Relationship="AFN2Model.FK__ASSETS_IN__zone___16644E42" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="ZONE" />
           <NavigationProperty Name="DOCS_OBC" Relationship="AFN2Model.FK__DOCS_OBC__obc_id__35DCF99B" FromRole="ASSETS_IN_PROGRESS_HEAD" ToRole="DOCS_OBC" />
         </EntityType>
@@ -2355,13 +2512,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__ASSETS_IN__entra__1758727B">
-          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSETS_IN_PROGRESS_HEAD" Multiplicity="0..1" />
-          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSETS_IN_PROGRESS_HEAD1" Multiplicity="*" />
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSET_HEADS_SALIDAS" Multiplicity="0..1" />
+          <End Type="AFN2Model.ASSET_IN_PROGRESS_HEAD" Role="ASSET_HEAD_ENTRADA" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ASSETS_IN_PROGRESS_HEAD">
+            <Principal Role="ASSET_HEADS_SALIDAS">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="ASSETS_IN_PROGRESS_HEAD1">
+            <Dependent Role="ASSET_HEAD_ENTRADA">
               <PropertyRef Name="entrada_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -2465,6 +2622,7 @@
           <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="descrip" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TRANSACTIONS_HEADERS" Relationship="AFN2Model.FK__TRANSACTIONS_HEADERS__method" FromRole="METHOD_REVALUES" ToRole="TRANSACTION_HEADER" />
+          <NavigationProperty Name="IFRS_DEFAULT" Relationship="AFN2Model.FK__IFRS_DEFA__metod__7E57BA87" FromRole="METHOD_REVALUE" ToRole="IFRS_DEFAULT" />
         </EntityType>
         <Association Name="FK__TRANSACTIONS_HEADERS__method">
           <End Type="AFN2Model.METHOD_REVALUE" Role="METHOD_REVALUES" Multiplicity="1" />
@@ -2635,6 +2793,113 @@
           <Property Type="String" Name="VNDCLSID" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Type="String" Name="FUENTE" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="MC00101">
+          <Key>
+            <PropertyRef Name="EXGTBLID" />
+            <PropertyRef Name="CURNCYID" />
+            <PropertyRef Name="EXCHDATE" />
+            <PropertyRef Name="TIME1" />
+            <PropertyRef Name="XCHGRATE" />
+            <PropertyRef Name="EXPNDATE" />
+            <PropertyRef Name="DEX_ROW_ID" />
+          </Key>
+          <Property Type="String" Name="EXGTBLID" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="CURNCYID" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="EXCHDATE" Nullable="false" />
+          <Property Type="DateTime" Name="TIME1" Nullable="false" />
+          <Property Type="Decimal" Name="XCHGRATE" Nullable="false" Precision="19" Scale="7" />
+          <Property Type="DateTime" Name="EXPNDATE" Nullable="false" />
+          <Property Type="Int32" Name="DEX_ROW_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="IFRS_DEFAULT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="kind_id" Nullable="false" />
+          <Property Type="Boolean" Name="allow_preparacion" Nullable="false" />
+          <Property Type="Boolean" Name="allow_desmant" Nullable="false" />
+          <Property Type="Boolean" Name="allow_transporte" Nullable="false" />
+          <Property Type="Boolean" Name="allow_montaje" Nullable="false" />
+          <Property Type="Boolean" Name="allow_honorarios" Nullable="false" />
+          <Property Type="Decimal" Name="pValRes" Nullable="false" Precision="18" Scale="5" />
+          <Property Type="Int32" Name="metodVal" Nullable="false" />
+          <NavigationProperty Name="KIND" Relationship="AFN2Model.FK__IFRS_DEFA__kind___7D63964E" FromRole="IFRS_DEFAULT" ToRole="KIND" />
+          <NavigationProperty Name="METHOD_REVALUES" Relationship="AFN2Model.FK__IFRS_DEFA__metod__7E57BA87" FromRole="IFRS_DEFAULT" ToRole="METHOD_REVALUE" />
+        </EntityType>
+        <Association Name="FK__IFRS_DEFA__kind___7D63964E">
+          <End Type="AFN2Model.KIND" Role="KIND" Multiplicity="1" />
+          <End Type="AFN2Model.IFRS_DEFAULT" Role="IFRS_DEFAULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KIND">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IFRS_DEFAULT">
+              <PropertyRef Name="kind_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IFRS_DEFA__metod__7E57BA87">
+          <End Type="AFN2Model.METHOD_REVALUE" Role="METHOD_REVALUE" Multiplicity="1" />
+          <End Type="AFN2Model.IFRS_DEFAULT" Role="IFRS_DEFAULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="METHOD_REVALUE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IFRS_DEFAULT">
+              <PropertyRef Name="metodVal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ARTICLE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="code" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="part_id" Nullable="false" />
+          <Property Type="String" Name="codigo_old" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ubicacion_id" Nullable="false" />
+          <Property Type="DateTime" Name="desde" Nullable="false" />
+          <Property Type="DateTime" Name="hasta" Nullable="false" />
+          <NavigationProperty Name="PART" Relationship="AFN2Model.FK__ARTICLES__part_i__17236851" FromRole="ARTICLE" ToRole="PART" />
+          <NavigationProperty Name="PLACE" Relationship="AFN2Model.FK__ARTICLES__ubicac__18178C8A" FromRole="ARTICLE" ToRole="PLACE" />
+        </EntityType>
+        <EntityType Name="PLACE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="descrip" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="nivel" Nullable="false" />
+          <Property Type="Int32" Name="superior" Nullable="false" />
+          <Property Type="Boolean" Name="activo" Nullable="false" />
+          <NavigationProperty Name="ARTICLES" Relationship="AFN2Model.FK__ARTICLES__ubicac__18178C8A" FromRole="PLACE" ToRole="ARTICLE" />
+        </EntityType>
+        <Association Name="FK__ARTICLES__part_i__17236851">
+          <End Type="AFN2Model.PART" Role="PART" Multiplicity="1" />
+          <End Type="AFN2Model.ARTICLE" Role="ARTICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PART">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ARTICLE">
+              <PropertyRef Name="part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ARTICLES__ubicac__18178C8A">
+          <End Type="AFN2Model.PLACE" Role="PLACE" Multiplicity="1" />
+          <End Type="AFN2Model.ARTICLE" Role="ARTICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLACE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ARTICLE">
+              <PropertyRef Name="ubicacion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3142,6 +3407,58 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MC00101">
+            <EntityTypeMapping TypeName="AFN2Model.MC00101">
+              <MappingFragment StoreEntitySet="MC00101">
+                <ScalarProperty Name="DEX_ROW_ID" ColumnName="DEX_ROW_ID" />
+                <ScalarProperty Name="EXPNDATE" ColumnName="EXPNDATE" />
+                <ScalarProperty Name="XCHGRATE" ColumnName="XCHGRATE" />
+                <ScalarProperty Name="TIME1" ColumnName="TIME1" />
+                <ScalarProperty Name="EXCHDATE" ColumnName="EXCHDATE" />
+                <ScalarProperty Name="CURNCYID" ColumnName="CURNCYID" />
+                <ScalarProperty Name="EXGTBLID" ColumnName="EXGTBLID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IFRS_DEFAULT">
+            <EntityTypeMapping TypeName="AFN2Model.IFRS_DEFAULT">
+              <MappingFragment StoreEntitySet="IFRS_DEFAULT">
+                <ScalarProperty Name="metodVal" ColumnName="metodVal" />
+                <ScalarProperty Name="pValRes" ColumnName="pValRes" />
+                <ScalarProperty Name="allow_honorarios" ColumnName="allow_honorarios" />
+                <ScalarProperty Name="allow_montaje" ColumnName="allow_montaje" />
+                <ScalarProperty Name="allow_transporte" ColumnName="allow_transporte" />
+                <ScalarProperty Name="allow_desmant" ColumnName="allow_desmant" />
+                <ScalarProperty Name="allow_preparacion" ColumnName="allow_preparacion" />
+                <ScalarProperty Name="kind_id" ColumnName="kind_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ARTICLES">
+            <EntityTypeMapping TypeName="AFN2Model.ARTICLE">
+              <MappingFragment StoreEntitySet="ARTICLES">
+                <ScalarProperty Name="hasta" ColumnName="hasta" />
+                <ScalarProperty Name="desde" ColumnName="desde" />
+                <ScalarProperty Name="ubicacion_id" ColumnName="ubicacion_id" />
+                <ScalarProperty Name="codigo_old" ColumnName="codigo_old" />
+                <ScalarProperty Name="part_id" ColumnName="part_id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PLACES">
+            <EntityTypeMapping TypeName="AFN2Model.PLACE">
+              <MappingFragment StoreEntitySet="PLACES">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="superior" ColumnName="superior" />
+                <ScalarProperty Name="nivel" ColumnName="nivel" />
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3162,7 +3479,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="AFN2" ZoomLevel="65">
+      <Diagram Name="AFN2" ZoomLevel="29">
         <EntityTypeShape EntityType="AFN2Model.APROVAL_STATE" Width="1.5" PointX="2.625" PointY="5.5" Height="1.8694466145833326" IsExpanded="true" />
         <EntityTypeShape EntityType="AFN2Model.BATCH_ARTICLE" Width="1.5" PointX="6.25" PointY="3.375" Height="3.6539111328124996" IsExpanded="true" />
         <EntityTypeShape EntityType="AFN2Model.CATEGORY" Width="1.5" PointX="9.375" PointY="14.125" Height="1.6910001627604165" IsExpanded="true" />
@@ -3190,10 +3507,8 @@
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__BATCHS_AR__origi__7BE56230" ManuallyRouted="false">
           <ConnectorPoint PointX="2" PointY="4.65625" />
-          <ConnectorPoint PointX="2.2916666666666665" PointY="4.6562499999999991" />
-          <ConnectorPoint PointX="2.4583333333333335" PointY="4.65625" />
-          <ConnectorPoint PointX="3.2916666666666665" PointY="4.6562499999999991" />
-          <ConnectorPoint PointX="3.4583333333333335" PointY="4.65625" />
+          <ConnectorPoint PointX="3.6041666666666665" PointY="4.6562499999999991" />
+          <ConnectorPoint PointX="3.7708333333333335" PointY="4.65625" />
           <ConnectorPoint PointX="6.25" PointY="4.65625" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__BATCHS_AR__type___7CD98669" ManuallyRouted="false">
@@ -3219,47 +3534,53 @@
           <ConnectorPoint PointX="2.625" PointY="11.639892985026044" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__KINDS__type_asse__65F62111" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.34375" PointY="6.4944466145833388" />
-          <ConnectorPoint PointX="11.34375" PointY="13.568777262369791" />
-          <ConnectorPoint PointX="11.416666666666666" PointY="13.568777262369791" />
-          <ConnectorPoint PointX="11.583333333333334" PointY="13.568777262369791" />
-          <ConnectorPoint PointX="12.125" PointY="13.568777262369791" />
+          <ConnectorPoint PointX="11.46875" PointY="6.4944466145833388" />
+          <ConnectorPoint PointX="11.46875" PointY="13.65800048828125" />
+          <ConnectorPoint PointX="11.604166666666666" PointY="13.65800048828125" />
+          <ConnectorPoint PointX="11.770833333333334" PointY="13.65800048828125" />
+          <ConnectorPoint PointX="12.125" PointY="13.65800048828125" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PACKAGE_P__kind___6D9742D9" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.625" PointY="11.408584899902342" />
-          <ConnectorPoint PointX="19.75" PointY="11.408584899902342" />
+          <ConnectorPoint PointX="13.625" PointY="11.411747488975523" />
+          <ConnectorPoint PointX="15.291666666666666" PointY="11.411747488975523" />
+          <ConnectorPoint PointX="15.458333333333334" PointY="11.411747488975523" />
+          <ConnectorPoint PointX="18.540201803385418" PointY="11.411747488975522" />
+          <ConnectorPoint PointX="18.831381848958333" PointY="11.411747488975523" />
+          <ConnectorPoint PointX="19.75" PointY="11.411747488975523" />
           <ConnectorPoint PointX="19.75" PointY="10.494446614583335" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SUBKINDS__kind_i__2B947552" ManuallyRouted="false">
-          <ConnectorPoint PointX="13.625" PointY="12.621785888671875" />
-          <ConnectorPoint PointX="14.625" PointY="12.621785888671875" />
+          <ConnectorPoint PointX="13.625" PointY="12.615214436848959" />
+          <ConnectorPoint PointX="14.625" PointY="12.615214436848959" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__kind___4830B400" ManuallyRouted="false">
-          <ConnectorPoint PointX="12.125" PointY="12.373565498924258" />
-          <ConnectorPoint PointX="11.583333333333334" PointY="12.373565498924256" />
-          <ConnectorPoint PointX="11.260416666666666" PointY="12.373565498924258" />
-          <ConnectorPoint PointX="11.125" PointY="12.373565498924258" />
+          <ConnectorPoint PointX="12.125" PointY="12.418617953658234" />
+          <ConnectorPoint PointX="11.770833333333334" PointY="12.418617953658234" />
+          <ConnectorPoint PointX="11.604166666666666" PointY="12.418617953658234" />
+          <ConnectorPoint PointX="11.552083333333334" PointY="12.418617953658234" />
+          <ConnectorPoint PointX="11.385416666666666" PointY="12.418617953658234" />
+          <ConnectorPoint PointX="11.125" PointY="12.418617953658234" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__manag__4B0D20AB" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.875" PointY="14.125" />
-          <ConnectorPoint PointX="11.5" PointY="13.75" />
-          <ConnectorPoint PointX="11.5" PointY="11.290648250452684" />
-          <ConnectorPoint PointX="11.427083333333334" PointY="11.290648250452684" />
-          <ConnectorPoint PointX="11.260416666666666" PointY="11.290648250452684" />
-          <ConnectorPoint PointX="11.125" PointY="11.290648250452684" />
+          <ConnectorPoint PointX="11.937306692307692" PointY="14.125" />
+          <ConnectorPoint PointX="11.6875" PointY="13.875193307692308" />
+          <ConnectorPoint PointX="11.6875" PointY="11.410226351500299" />
+          <ConnectorPoint PointX="11.552083333333334" PointY="11.410226351500299" />
+          <ConnectorPoint PointX="11.385416666666666" PointY="11.410226351500299" />
+          <ConnectorPoint PointX="11.125" PointY="11.410226351500299" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PACKAGE_K__type___5E54FF49" ManuallyRouted="false">
           <ConnectorPoint PointX="11.75" PointY="6.4932917684294926" />
           <ConnectorPoint PointX="12.126154846153845" PointY="6.8694466145833388" />
-          <ConnectorPoint PointX="12.495128205128205" PointY="6.8694466145833379" />
-          <ConnectorPoint PointX="12.661794871794873" PointY="6.8694466145833388" />
-          <ConnectorPoint PointX="17.3749995" PointY="6.8694466145833388" />
-          <ConnectorPoint PointX="17.3749995" PointY="9.25" />
+          <ConnectorPoint PointX="12.791666666666666" PointY="6.8694466145833379" />
+          <ConnectorPoint PointX="12.958333333333334" PointY="6.8694466145833388" />
+          <ConnectorPoint PointX="17.343747999999998" PointY="6.8694466145833388" />
+          <ConnectorPoint PointX="17.343747999999998" PointY="9.25" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__PACKAGE_P__packa__6E8B6712" ManuallyRouted="false">
           <ConnectorPoint PointX="18.25" PointY="9.8722233072916676" />
-          <ConnectorPoint PointX="18.541666666666668" PointY="9.8722233072916676" />
-          <ConnectorPoint PointX="18.708333333333332" PointY="9.8722233072916676" />
+          <ConnectorPoint PointX="18.415688424479168" PointY="9.8722233072916659" />
+          <ConnectorPoint PointX="18.831381848958333" PointY="9.8722233072916676" />
           <ConnectorPoint PointX="19" PointY="9.8722233072916676" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SYSTEMS_P__param__1E3A7A34" ManuallyRouted="false">
@@ -3268,25 +3589,29 @@
           <ConnectorPoint PointX="6.625" PointY="16.273949033203124" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__artic__45544755" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.1875" PointY="7.9047859700520826" />
+          <ConnectorPoint PointX="9.1875" PointY="8.083232421875" />
           <ConnectorPoint PointX="9.1875" PointY="8.25" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__subki__4924D839" ManuallyRouted="false">
-          <ConnectorPoint PointX="14.625" PointY="13.76620564778646" />
-          <ConnectorPoint PointX="10.208333333333334" PointY="13.76620564778646" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="13.76620564778646" />
-          <ConnectorPoint PointX="9.3437475" PointY="13.76620564778646" />
-          <ConnectorPoint PointX="9.3437475" PointY="13.331482747395832" />
+          <ConnectorPoint PointX="15.375" PointY="11.5" />
+          <ConnectorPoint PointX="15.375" PointY="11.011678873697917" />
+          <ConnectorPoint PointX="13.875" PointY="11.011678873697917" />
+          <ConnectorPoint PointX="13.875" PointY="10.458232421875" />
+          <ConnectorPoint PointX="11.625" PointY="10.458232421875" />
+          <ConnectorPoint PointX="11.625" PointY="9.784222980139937" />
+          <ConnectorPoint PointX="11.552083333333334" PointY="9.784222980139937" />
+          <ConnectorPoint PointX="11.385416666666666" PointY="9.784222980139937" />
+          <ConnectorPoint PointX="11.125" PointY="9.784222980139937" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SUBZONES__zone_i__52E34C9D" ManuallyRouted="false">
           <ConnectorPoint PointX="13.375" PointY="9.1041162109375" />
           <ConnectorPoint PointX="14.25" PointY="9.1041162109375" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__subzo__473C8FC7" ManuallyRouted="false">
-          <ConnectorPoint PointX="14.25" PointY="10.4166162109375" />
-          <ConnectorPoint PointX="11.427083333333334" PointY="10.4166162109375" />
-          <ConnectorPoint PointX="11.260416666666666" PointY="10.4166162109375" />
-          <ConnectorPoint PointX="11.125" PointY="10.4166162109375" />
+          <ConnectorPoint PointX="14.25" PointY="10.301982421875" />
+          <ConnectorPoint PointX="11.708333333333334" PointY="10.301982421874998" />
+          <ConnectorPoint PointX="11.385416666666666" PointY="10.301982421875" />
+          <ConnectorPoint PointX="11.125" PointY="10.301982421875" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SYSTEMS_P__syste__1D4655FB" ManuallyRouted="false">
           <ConnectorPoint PointX="2.86718625" PointY="12.404785970052089" />
@@ -3308,10 +3633,10 @@
           <ConnectorPoint PointX="5.375" PointY="9.5597233072916659" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__TRANSACTI__zone___46486B8E" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.875" PointY="9.2291162109375" />
-          <ConnectorPoint PointX="11.427083333333334" PointY="9.2291162109375" />
-          <ConnectorPoint PointX="11.260416666666666" PointY="9.2291162109375" />
-          <ConnectorPoint PointX="11.125" PointY="9.2291162109375" />
+          <ConnectorPoint PointX="11.875" PointY="8.9546114900699685" />
+          <ConnectorPoint PointX="11.552083333333334" PointY="8.9546114900699685" />
+          <ConnectorPoint PointX="11.385416666666666" PointY="8.9546114900699685" />
+          <ConnectorPoint PointX="11.125" PointY="8.9546114900699685" />
         </AssociationConnector>
         <EntityTypeShape EntityType="AFN2Model.CORRECTION_MONETARY_VALUE" Width="1.5" PointX="0.75" PointY="14.625" Height="1.6910001627604174" />
         <EntityTypeShape EntityType="AFN2Model.BASE_GLOBAL_AFN_CALC" Width="1.5" PointX="2.625" PointY="18.75" Height="9.5426440429687531" />
@@ -3345,62 +3670,64 @@
           <ConnectorPoint PointX="2.3" PointY="6.89894653320313" />
           <ConnectorPoint PointX="2" PointY="6.89894653320313" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="AFN2Model.ASSET_IN_PROGRESS_DETAIL" Width="1.5" PointX="15.625" PointY="2" Height="2.0478930664062602" />
-        <EntityTypeShape EntityType="AFN2Model.ASSET_IN_PROGRESS_HEAD" Width="1.5" PointX="12.375" PointY="2.375" Height="3.8323575846354156" />
+        <EntityTypeShape EntityType="AFN2Model.ASSET_IN_PROGRESS_DETAIL" Width="2.375" PointX="15.25" PointY="2" Height="2.0478930664062602" />
+        <EntityTypeShape EntityType="AFN2Model.ASSET_IN_PROGRESS_HEAD" Width="2.125" PointX="12.375" PointY="2.375" Height="3.8323575846354156" />
         <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__aprov__1940BAED" >
-          <ConnectorPoint PointX="3.375" PointY="5.5" />
-          <ConnectorPoint PointX="3.375" PointY="3.0506697591145837" />
-          <ConnectorPoint PointX="4.510416666666667" PointY="3.0506697591145833" />
-          <ConnectorPoint PointX="4.677083333333333" PointY="3.0506697591145837" />
-          <ConnectorPoint PointX="10.072916666666666" PointY="3.0506697591145833" />
-          <ConnectorPoint PointX="10.239583333333334" PointY="3.0506697591145837" />
-          <ConnectorPoint PointX="12.375" PointY="3.0506697591145837" />
+          <ConnectorPoint PointX="3.6875" PointY="5.5" />
+          <ConnectorPoint PointX="3.6875" PointY="2.97184808593751" />
+          <ConnectorPoint PointX="4.510416666666667" PointY="2.9718480859375096" />
+          <ConnectorPoint PointX="4.677083333333333" PointY="2.97184808593751" />
+          <ConnectorPoint PointX="10.072916666666666" PointY="2.9718480859375096" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="2.97184808593751" />
+          <ConnectorPoint PointX="12.375" PointY="2.97184808593751" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__curre__1EF99443" >
-          <ConnectorPoint PointX="1.25" PointY="8.5" />
+          <ConnectorPoint PointX="1.25" PointY="10.422893066406266" />
           <ConnectorPoint PointX="1.25" PointY="8.17289306640626" />
           <ConnectorPoint PointX="2.0625" PointY="8.17289306640626" />
           <ConnectorPoint PointX="2.0625" PointY="7.625" />
-          <ConnectorPoint PointX="2.375" PointY="7.625" />
-          <ConnectorPoint PointX="2.375" PointY="2.96144653320313" />
-          <ConnectorPoint PointX="2.9166666666666665" PointY="2.9614465332031297" />
-          <ConnectorPoint PointX="3.0833333333333335" PointY="2.96144653320313" />
-          <ConnectorPoint PointX="4.510416666666667" PointY="2.9614465332031297" />
-          <ConnectorPoint PointX="4.677083333333333" PointY="2.96144653320313" />
-          <ConnectorPoint PointX="10.072916666666666" PointY="2.9614465332031297" />
-          <ConnectorPoint PointX="10.239583333333334" PointY="2.96144653320313" />
-          <ConnectorPoint PointX="12.125" PointY="2.96144653320313" />
-          <ConnectorPoint PointX="12.125" PointY="2.1249999999999991" />
-          <ConnectorPoint PointX="15.25" PointY="2.1249999999999991" />
+          <ConnectorPoint PointX="2.375" PointY="5.2114465332031354" />
+          <ConnectorPoint PointX="2.375" PointY="5.2114465332031354" />
+          <ConnectorPoint PointX="3.6044716433942465" PointY="5.105970913327373" />
+          <ConnectorPoint PointX="3.7705283566057535" PointY="5.0917250095242075" />
+          <ConnectorPoint PointX="9.9169716433942465" PointY="4.5644254014458587" />
+          <ConnectorPoint PointX="10.083028356605754" PointY="4.5501794976426932" />
+          <ConnectorPoint PointX="12.125" PointY="4.3750000000000044" />
+          <ConnectorPoint PointX="12.125" PointY="4.3750000000000044" />
+          <ConnectorPoint PointX="14.875" PointY="4.3750000000000044" />
+          <ConnectorPoint PointX="14.875" PointY="3.02394653320313" />
           <ConnectorPoint PointX="15.25" PointY="3.02394653320313" />
-          <ConnectorPoint PointX="15.625" PointY="3.02394653320313" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__head___1E05700A" >
-          <ConnectorPoint PointX="13.875" PointY="3.5984197998046952" />
-          <ConnectorPoint PointX="15.625" PointY="3.5984197998046952" />
+          <ConnectorPoint PointX="14.5" PointY="3.5984197998046952" />
+          <ConnectorPoint PointX="15.25" PointY="3.5984197998046952" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__batch__184C96B4" >
-          <ConnectorPoint PointX="7.75" PointY="3.7082735990397104" />
-          <ConnectorPoint PointX="9.9166666666666661" PointY="3.7082735990397091" />
-          <ConnectorPoint PointX="10.239583333333334" PointY="3.7082735990397104" />
-          <ConnectorPoint PointX="12.375" PointY="3.7082735990397104" />
+          <ConnectorPoint PointX="7.75" PointY="3.9256813034057618" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="3.9256813034057605" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="3.9256813034057618" />
+          <ConnectorPoint PointX="11.979166666666666" PointY="3.9256813034057614" />
+          <ConnectorPoint PointX="12.145833333333334" PointY="3.9256813034057618" />
+          <ConnectorPoint PointX="12.375" PointY="3.9256813034057618" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__entra__1758727B" >
-          <ConnectorPoint PointX="12.906923076923077" PointY="6.2073575846354156" />
-          <ConnectorPoint PointX="12.906923076923077" PointY="6.5823575846354156" />
-          <ConnectorPoint PointX="13.353461538461538" PointY="6.5823575846354156" />
-          <ConnectorPoint PointX="13.353461538461538" PointY="6.2073575846354156" />
+          <ConnectorPoint PointX="13.128557692307693" PointY="2.375" />
+          <ConnectorPoint PointX="13.128557692307693" PointY="2.1249999999999991" />
+          <ConnectorPoint PointX="13.761153846153846" PointY="2.1249999999999991" />
+          <ConnectorPoint PointX="13.761153846153846" PointY="2.375" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__ASSETS_IN__zone___16644E42" >
-          <ConnectorPoint PointX="12.578461538461539" PointY="7.625" />
-          <ConnectorPoint PointX="12.578461538461539" PointY="6.2073575846354156" />
+          <ConnectorPoint PointX="12.875" PointY="7.625" />
+          <ConnectorPoint PointX="12.875" PointY="6.2073575846354156" />
         </AssociationConnector>
         <EntityTypeShape EntityType="AFN2Model.DOCS_BATCH" Width="1.5" PointX="3.5" PointY="0.5" Height="1.8694466145833388" />
         <EntityTypeShape EntityType="AFN2Model.DOCS_OBC" Width="1.5" PointX="10.125" PointY="0.5" Height="1.8694466145833388" />
         <EntityTypeShape EntityType="AFN2Model.DOCUMENT" Width="1.5" PointX="6.875" PointY="0.5" Height="2.2263395182291674" />
         <AssociationConnector Association="AFN2Model.FK__DOCS_OBC__obc_id__35DCF99B" >
-          <ConnectorPoint PointX="12.375" PointY="4.1665471980794209" />
-          <ConnectorPoint PointX="10.15625" PointY="4.1665471980794209" />
+          <ConnectorPoint PointX="12.375" PointY="4.1666392995198489" />
+          <ConnectorPoint PointX="12.145833333333334" PointY="4.166639299519848" />
+          <ConnectorPoint PointX="11.979166666666666" PointY="4.1666392995198489" />
+          <ConnectorPoint PointX="10.15625" PointY="4.1666392995198489" />
           <ConnectorPoint PointX="10.15625" PointY="2.3694466145833388" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__DOCS_BATC__batch__3E723F9C" >
@@ -3413,67 +3740,124 @@
           <ConnectorPoint PointX="5" PointY="0.90486165364583471" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__DOCS_OBC__docume__34E8D562" >
-          <ConnectorPoint PointX="8.375" PointY="1.4347233072916694" />
-          <ConnectorPoint PointX="10.125" PointY="1.4347233072916694" />
+          <ConnectorPoint PointX="8.375" PointY="3.6847233072916747" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="3.6847233072916743" />
+          <ConnectorPoint PointX="10.083333333333334" PointY="3.6847233072916747" />
+          <ConnectorPoint PointX="10.125" PointY="3.6847233072916747" />
         </AssociationConnector>
         <EntityTypeShape EntityType="AFN2Model.METHOD_REVALUE" Width="1.5" PointX="0.75" PointY="0.875" Height="1.512553710937496" />
         <AssociationConnector Association="AFN2Model.FK__TRANSACTIONS_HEADERS__method" >
-          <ConnectorPoint PointX="2.25" PointY="1.631276855468748" />
-          <ConnectorPoint PointX="3" PointY="1.631276855468748" />
-          <ConnectorPoint PointX="3" PointY="3.2263395182291674" />
-          <ConnectorPoint PointX="3.2916666666666665" PointY="3.226339518229167" />
-          <ConnectorPoint PointX="3.4583333333333335" PointY="3.2263395182291674" />
+          <ConnectorPoint PointX="2.25" PointY="1.5247515610351532" />
+          <ConnectorPoint PointX="3.25" PointY="1.5247515610351532" />
+          <ConnectorPoint PointX="3.25" PointY="3.2263395182291674" />
+          <ConnectorPoint PointX="3.6041666666666665" PointY="3.226339518229167" />
+          <ConnectorPoint PointX="3.7708333333333335" PointY="3.2263395182291674" />
           <ConnectorPoint PointX="4.510416666666667" PointY="3.226339518229167" />
           <ConnectorPoint PointX="4.677083333333333" PointY="3.2263395182291674" />
           <ConnectorPoint PointX="10" PointY="3.2263395182291674" />
           <ConnectorPoint PointX="10" PointY="7.875" />
-          <ConnectorPoint PointX="10.187502" PointY="7.875" />
-          <ConnectorPoint PointX="10.187502" PointY="8.25" />
+          <ConnectorPoint PointX="10.437500499999999" PointY="7.875" />
+          <ConnectorPoint PointX="10.437500499999999" PointY="8.25" />
         </AssociationConnector>
         <EntityTypeShape EntityType="AFN2Model.SALES_DETAIL" Width="1.5" PointX="18" PointY="3.5" Height="4.0108040364583388" />
         <EntityTypeShape EntityType="AFN2Model.SALES_HEAD" Width="1.5" PointX="20.125" PointY="3.625" Height="1.8694466145833228" />
         <EntityTypeShape EntityType="AFN2Model.SY40100" Width="1.5" PointX="7" PointY="20.125" Height="3.8323575846354174" />
         <EntityTypeShape EntityType="AFN2Model.SY40101" Width="1.5" PointX="5.125" PointY="20.125" Height="2.0478930664062602" />
         <AssociationConnector Association="AFN2Model.FK__SALES_DET__kind___6E2152BE" >
-          <ConnectorPoint PointX="13.625" PointY="11.384488983154295" />
-          <ConnectorPoint PointX="18.625" PointY="11.384488983154295" />
-          <ConnectorPoint PointX="18.625" PointY="7.5108040364583388" />
+          <ConnectorPoint PointX="13.625" PointY="13.636070277690889" />
+          <ConnectorPoint PointX="18.432561018593766" PointY="9.9994506241389516" />
+          <ConnectorPoint PointX="18.689995875937484" PointY="9.8047172326947916" />
+          <ConnectorPoint PointX="18.748048515625" PointY="9.7608040364583442" />
+          <ConnectorPoint PointX="18.748048515625" PointY="13.636070277690889" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SALES_DET__part___6B44E613" >
           <ConnectorPoint PointX="9.75" PointY="7.2526253255208388" />
           <ConnectorPoint PointX="9.9166666666666661" PointY="7.2526253255208379" />
           <ConnectorPoint PointX="10.083333333333334" PointY="7.2526253255208388" />
-          <ConnectorPoint PointX="11.260416666666666" PointY="7.2526253255208379" />
-          <ConnectorPoint PointX="11.427083333333334" PointY="7.2526253255208388" />
-          <ConnectorPoint PointX="12.495128205128205" PointY="7.2526253255208379" />
-          <ConnectorPoint PointX="12.661794871794873" PointY="7.2526253255208388" />
-          <ConnectorPoint PointX="17.291666166666669" PointY="7.2526253255208379" />
-          <ConnectorPoint PointX="17.458332833333333" PointY="7.2526253255208388" />
+          <ConnectorPoint PointX="11.385416666666666" PointY="7.2526253255208379" />
+          <ConnectorPoint PointX="11.552083333333334" PointY="7.2526253255208388" />
+          <ConnectorPoint PointX="12.791666666666666" PointY="7.2526253255208379" />
+          <ConnectorPoint PointX="12.958333333333334" PointY="7.2526253255208388" />
+          <ConnectorPoint PointX="17.260414666666666" PointY="7.2526253255208379" />
+          <ConnectorPoint PointX="17.42708133333333" PointY="7.2526253255208388" />
+          <ConnectorPoint PointX="17.604166666666668" PointY="7.2526253255208379" />
+          <ConnectorPoint PointX="17.833333333333332" PointY="7.2526253255208388" />
           <ConnectorPoint PointX="18" PointY="7.2526253255208388" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SALES_DET__subzo__6D2D2E85" >
-          <ConnectorPoint PointX="15.75" PointY="8.28125" />
-          <ConnectorPoint PointX="17.291666166666669" PointY="8.28125" />
-          <ConnectorPoint PointX="17.458332833333333" PointY="8.28125" />
-          <ConnectorPoint PointX="18.4374975" PointY="8.28125" />
-          <ConnectorPoint PointX="18.4374975" PointY="7.5108040364583388" />
+          <ConnectorPoint PointX="15.75" PointY="10.531250000000005" />
+          <ConnectorPoint PointX="18.4990217578125" PointY="9.7608040364583442" />
+          <ConnectorPoint PointX="18.4990217578125" PointY="10.531250000000005" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SALES_DET__zone___6C390A4C" >
-          <ConnectorPoint PointX="13.375" PointY="7.78125" />
-          <ConnectorPoint PointX="17.291666166666669" PointY="7.7812499999999991" />
-          <ConnectorPoint PointX="17.458332833333333" PointY="7.78125" />
-          <ConnectorPoint PointX="18.354164166666667" PointY="7.7812499999999991" />
-          <ConnectorPoint PointX="18.520830833333331" PointY="7.78125" />
-          <ConnectorPoint PointX="18.541666666666668" PointY="7.7812499999999991" />
-          <ConnectorPoint PointX="18.708333333333332" PointY="7.78125" />
-          <ConnectorPoint PointX="18.8125025" PointY="7.78125" />
-          <ConnectorPoint PointX="18.8125025" PointY="7.5108040364583388" />
+          <ConnectorPoint PointX="13.375" PointY="7.8491520182291694" />
+          <ConnectorPoint PointX="17.260414666666666" PointY="7.8491520182291685" />
+          <ConnectorPoint PointX="17.42708133333333" PointY="7.8491520182291694" />
+          <ConnectorPoint PointX="18.540201803385418" PointY="7.8491520182291685" />
+          <ConnectorPoint PointX="18.706868470052083" PointY="7.8491520182291694" />
+          <ConnectorPoint PointX="18.8740267578125" PointY="7.8491520182291694" />
+          <ConnectorPoint PointX="18.8740267578125" PointY="7.5108040364583388" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SALES_DET__head___6A50C1DA" >
           <ConnectorPoint PointX="20.125" PointY="4.5597233072916614" />
           <ConnectorPoint PointX="19.5" PointY="4.5597233072916614" />
         </AssociationConnector>
         <EntityTypeShape EntityType="AFN2Model.PM00200A" Width="1.5" PointX="14.375" PointY="14.75" Height="2.0478930664062602" />
+        <EntityTypeShape EntityType="AFN2Model.MC00101" Width="1.5" PointX="8.875" PointY="20.125" Height="2.2263395182291674" />
+        <EntityTypeShape EntityType="AFN2Model.IFRS_DEFAULT" Width="1.5" PointX="20" PointY="14" Height="2.9401253255208388" />
+        <AssociationConnector Association="AFN2Model.FK__IFRS_DEFA__kind___7D63964E" >
+          <ConnectorPoint PointX="13.625" PointY="11.386070277690884" />
+          <ConnectorPoint PointX="15.291666666666666" PointY="11.386070277690884" />
+          <ConnectorPoint PointX="15.458333333333334" PointY="11.386070277690884" />
+          <ConnectorPoint PointX="18.540201803385418" PointY="11.386070277690882" />
+          <ConnectorPoint PointX="18.831381848958333" PointY="11.386070277690884" />
+          <ConnectorPoint PointX="20.75" PointY="11.386070277690884" />
+          <ConnectorPoint PointX="20.75" PointY="14" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__IFRS_DEFA__metod__7E57BA87" >
+          <ConnectorPoint PointX="2.25" PointY="2.0766278618977783" />
+          <ConnectorPoint PointX="3" PointY="2.0766278618977783" />
+          <ConnectorPoint PointX="3" PointY="2.9138395182291674" />
+          <ConnectorPoint PointX="3.1666666666666665" PointY="2.913839518229167" />
+          <ConnectorPoint PointX="3.3333333333333335" PointY="2.9138395182291674" />
+          <ConnectorPoint PointX="4.510416666666667" PointY="2.913839518229167" />
+          <ConnectorPoint PointX="4.677083333333333" PointY="2.9138395182291674" />
+          <ConnectorPoint PointX="10.072916666666666" PointY="2.913839518229167" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="2.9138395182291674" />
+          <ConnectorPoint PointX="12.0625" PointY="2.9138395182291674" />
+          <ConnectorPoint PointX="12.0625" PointY="6.4573575846354165" />
+          <ConnectorPoint PointX="12.791666666666666" PointY="6.4573575846354156" />
+          <ConnectorPoint PointX="12.958333333333334" PointY="6.4573575846354165" />
+          <ConnectorPoint PointX="17.75" PointY="6.4573575846354165" />
+          <ConnectorPoint PointX="17.75" PointY="7.7608040364583388" />
+          <ConnectorPoint PointX="18.540201803385418" PointY="7.7608040364583379" />
+          <ConnectorPoint PointX="18.706868470052083" PointY="7.7608040364583388" />
+          <ConnectorPoint PointX="18.790693424479169" PointY="7.7608040364583379" />
+          <ConnectorPoint PointX="18.957360091145834" PointY="7.7608040364583388" />
+          <ConnectorPoint PointX="21.156252000000002" PointY="7.7608040364583388" />
+          <ConnectorPoint PointX="21.156252000000002" PointY="14" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AFN2Model.ARTICLE" Width="1.5" PointX="17.75" PointY="18" Height="2.5832324218750102" />
+        <EntityTypeShape EntityType="AFN2Model.PLACE" Width="1.5" PointX="15.5" PointY="18" Height="2.047893066406246" />
+        <AssociationConnector Association="AFN2Model.FK__ARTICLES__part_i__17236851" >
+          <ConnectorPoint PointX="9.75" PointY="7.029783470052088" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="7.0297834700520871" />
+          <ConnectorPoint PointX="10.083333333333334" PointY="7.029783470052088" />
+          <ConnectorPoint PointX="11.385416666666666" PointY="7.0297834700520871" />
+          <ConnectorPoint PointX="11.552083333333334" PointY="7.029783470052088" />
+          <ConnectorPoint PointX="12.791666666666666" PointY="7.0297834700520871" />
+          <ConnectorPoint PointX="12.958333333333334" PointY="7.029783470052088" />
+          <ConnectorPoint PointX="17.260414666666666" PointY="7.0297834700520871" />
+          <ConnectorPoint PointX="17.42708133333333" PointY="7.029783470052088" />
+          <ConnectorPoint PointX="17.6875" PointY="7.029783470052088" />
+          <ConnectorPoint PointX="17.6875" PointY="7.6358040364583388" />
+          <ConnectorPoint PointX="18.62353513671875" PointY="7.6358040364583388" />
+          <ConnectorPoint PointX="18.62353513671875" PointY="18" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK__ARTICLES__ubicac__18178C8A" >
+          <ConnectorPoint PointX="17" PointY="19.023946533203123" />
+          <ConnectorPoint PointX="17.75" PointY="19.023946533203123" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

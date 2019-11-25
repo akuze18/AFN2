@@ -20,6 +20,11 @@ namespace AFN_WF_C.PCClient.Procesos
                 using (var cServ = new ServiceProcess.ServiceAFN2())
                     return cServ.Repo.sistemas.All();
             }
+            public static List<PD.SV_SYSTEM> AllWithIFRS(bool hasIFRS)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.sistemas.AllWithIFRS(hasIFRS);
+            }
         }
         internal class zonas {
             public static List<PD.GENERIC_VALUE> All()
@@ -228,21 +233,72 @@ namespace AFN_WF_C.PCClient.Procesos
                     return cServ.Repo.MetodosRev.All().ToArray();
             }
         }
-
-        internal class partes
+        internal class parametros
         {
-            public static List<PD.SV_PART> ByLote(int lote)
+            public static PD.SV_PARAMETER PrecioBase
             {
-                using (var cServ = new ServiceProcess.ServiceAFN2())
-                    return cServ.Repo.Partes.ByLote(lote); ;
+                get
+                {
+                    using (var cServ = new ServiceProcess.ServiceAFN2())
+                        return cServ.Repo.parametros.PrecioBase;
+                }
+            }
+            public static PD.SV_PARAMETER Credito
+            {
+                get
+                {
+                    using (var cServ = new ServiceProcess.ServiceAFN2())
+                        return cServ.Repo.parametros.Credito;
+                }
+            }
+            public static PD.SV_PARAMETER VidaUtil
+            {
+                get
+                {
+                    using (var cServ = new ServiceProcess.ServiceAFN2())
+                        return cServ.Repo.parametros.VidaUtil;
+                }
+            }
+            public static PD.SV_PARAMETER ValorResidual
+            {
+                get
+                {
+                    using (var cServ = new ServiceProcess.ServiceAFN2())
+                        return cServ.Repo.parametros.ValorResidual;
+                }
             }
         }
-        internal class cabeceras
+        internal class predeter_ifrs
         {
-            public static List<PD.SV_TRANSACTION_HEADER> ByParte(int parte)
+            public static decimal porcentaje_valor_residual(PD.GENERIC_VALUE clase)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                    return cServ.Repo.cabeceras.ByParte(parte); 
+                    return cServ.Repo.predetIFRS.residual_value_rate(clase);
+            }
+        }
+
+        internal class inventario
+        {
+            public static PD.RespuestaAccion GENERAR_CODIGO(int batch_id, PD.GENERIC_VALUE kind)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.GENERAR_CODIGO(batch_id, kind);
+            }
+        }
+
+        internal class lotes
+        {
+            public static PD.RespuestaAccion INGRESO_LOTE(string descripcion, DateTime fecha_compra, string cod_proveedor, string documento, decimal total_compra, int vida_util, bool derecho_credito, DateTime fecha_contab, int origen_id, PD.GENERIC_VALUE CtiPo)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.INGRESO_LOTE(descripcion, fecha_compra, cod_proveedor, documento, total_compra, vida_util, derecho_credito, fecha_contab, origen_id, CtiPo);   
+            }
+            public static PD.RespuestaAccion MODIFICA_LOTE(int batch_id, string descripcion, string cod_proveedor, string documento, decimal total_compra, int vida_util, bool derecho_credito, DateTime fecha_contab)
+            {
+                //fecha_compra no se puede modificar, pues compone la codigo de inventario
+                //origen_id y CtiPo no se puede modificar
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.MODIFICA_LOTE(batch_id,descripcion, cod_proveedor, documento, total_compra, vida_util, derecho_credito, fecha_contab);
             }
             public static PD.RespuestaAccion BORRAR_AF(int codigo_lote)
             {
@@ -256,6 +312,51 @@ namespace AFN_WF_C.PCClient.Procesos
                     return cServ.Repo.ACTIVAR_AF(codigo_lote);
             }
         }
+        internal class partes
+        {
+            public static List<PD.SV_PART> ByLote(int lote)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.Partes.ByLote(lote);
+            }
+            public static PD.RespuestaAccion REGISTER_PURCHASE(int batch_id, DateTime fecha_compra, decimal valor_total, int cantidad_total)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.REGISTER_PURCHASE(batch_id, fecha_compra,valor_total, cantidad_total);
+            }
+        }
+        internal class trx_cabeceras
+        {
+            public static List<PD.SV_TRANSACTION_HEADER> ByParte(int parte)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.cabeceras.ByParte(parte); 
+            }
+            public static PD.RespuestaAccion REGISTER_PURCHASE_HEAD(List<PD.GENERIC_VALUE> parts, DateTime fecha_compra, PD.GENERIC_VALUE zona, PD.GENERIC_VALUE subzona, PD.GENERIC_VALUE clase, PD.GENERIC_VALUE subclase, PD.GENERIC_VALUE categoria, PD.GENERIC_VALUE gestion, string usuario)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.REGISTER_PURCHASE_HEAD(parts, fecha_compra,zona,subzona,clase,subclase,categoria,gestion,usuario);
+            }
+            public static PD.RespuestaAccion MODIF_PURCHASE_HEAD(List<PD.SV_PART> partes, PD.GENERIC_VALUE zona, PD.GENERIC_VALUE subzona, PD.GENERIC_VALUE subclase, PD.GENERIC_VALUE categoria, PD.GENERIC_VALUE gestion, string usuario)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.MODIF_PURCHASE_HEAD(partes, zona, subzona, subclase, categoria, gestion, usuario);
+            }
+        }
+        internal class trx_detalles
+        {
+            public static PD.RespuestaAccion REGISTER_PURCHASE_DETAIL(List<PD.GENERIC_VALUE> cabeceras, PD.SV_SYSTEM sistema, bool depreciar, bool con_credito)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.REGISTER_PURCHASE_DETAIL(cabeceras, sistema, depreciar, con_credito);
+            }
+
+            public static List<PD.SV_TRANSACTION_DETAIL> GetByPartsSystem(int[] head_ids, PD.SV_SYSTEM system)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.detalles.GetByPartsSystem(head_ids, system);
+            }
+        }
         internal class detalle_parametros
         {
             public static List<PD.PARAM_VALUE> ByHead_Sys(int HeadId, int SysId)
@@ -263,30 +364,24 @@ namespace AFN_WF_C.PCClient.Procesos
                 using (var cServ = new ServiceProcess.ServiceAFN2())
                     return cServ.Repo.DetallesParametros.ByHead_Sys(HeadId, SysId); 
             }
-            public static PD.RespuestaAccion create()
+            public static PD.RespuestaAccion REGISTER_PURCHASE_PARAM(int[] cabeceras, PD.SV_SYSTEM sistema, PD.SV_PARAMETER parametro, decimal valor, bool withResiduo = false)
             {
-                var result = new PD.RespuestaAccion();
-                try
-                {
-                    using (var cServ = new ServiceProcess.ServiceAFN2())
-                        cServ.Repo.TRANSACTION_PARAMETER_DETAIL_NEW();
-                    result.set_ok();
-                }
-                catch( Exception ex)
-                {
-                    result.set(-1, ex.StackTrace);
-                }
-
-                return result;
-                
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.REGISTER_PURCHASE_PARAM(cabeceras,sistema,parametro,valor,withResiduo);
+            }
+            public static PD.RespuestaAccion MODIF_PURCHASE_PARAM(int[] cabeceras, PD.SV_SYSTEM sistema, PD.SV_PARAMETER parametro, decimal valor, bool withResiduo = false)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.MODIF_PURCHASE_PARAM(cabeceras, sistema, parametro, valor, withResiduo);
             }
             public static PD.RespuestaAccion MODIFICA_IFRS(int batch_id, int valor_residual, int vida_util,int metod_val, decimal preparacion, decimal transporte, decimal montaje, decimal desmantelamiento, decimal honorarios)
             {
+                //TODO: Modificar información exclusiva de IFRS
                 var result = new PD.RespuestaAccion();
                 try
                 {
-                    using (var cServ = new ServiceProcess.ServiceAFN2())
-                        cServ.Repo.TRANSACTION_PARAMETER_DETAIL_NEW();
+                    //using (var cServ = new ServiceProcess.ServiceAFN2())
+                    //    cServ.Repo.PURCHASE_TRANSACTION_PARAMS();
                     result.set_ok();
                 }
                 catch (Exception ex)
@@ -317,8 +412,6 @@ namespace AFN_WF_C.PCClient.Procesos
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
                     return cServ.Repo.Proveedor.listar();
-
-                //return new List<object>();
             }
         }
 
@@ -399,6 +492,24 @@ namespace AFN_WF_C.PCClient.Procesos
         }
         #endregion
 
+
+        internal class obc
+        {
+            public static decimal TotalYen(int codigo_lote)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.ObrasConstruccion.TotalYen(codigo_lote);
+            }
+        }
+
+        internal class tipo_cambio
+        {
+            public static decimal YEN(DateTime fecha)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.TipoCambio.YEN(fecha);
+            }
+        }
 
         #region Data Procesada
 

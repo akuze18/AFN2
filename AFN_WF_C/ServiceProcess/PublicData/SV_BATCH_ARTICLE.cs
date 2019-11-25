@@ -49,16 +49,17 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                         .ConvertAll(d => (SV_DOCUMENT)d),
             };
         }
-        //public static implicit operator C.GENERIC_VALUE(SV_BATCH_ARTICLE sv)
-        //{
-        //    return new C.GENERIC_VALUE()
-        //    {
-        //        id = sv.id,
-        //        code = sv.code,
-        //        description = sv.descrip,
-        //        type = sv.GetType().Name.Substring(3),
-        //    };
-        //}
+        public static implicit operator GENERIC_VALUE(SV_BATCH_ARTICLE sv)
+        {
+            return new GENERIC_VALUE()
+            {
+                id = sv.id,
+                code = sv.id.ToString(),
+                description = sv.descrip,
+                type = sv.GetType().Name.Substring(3),
+            };
+        }
+
         #endregion
     }
 }

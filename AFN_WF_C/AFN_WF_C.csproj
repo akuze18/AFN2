@@ -226,6 +226,8 @@
     <Compile Include="ServiceProcess\PublicData\RespuestaAccion.cs" />
     <Compile Include="ServiceProcess\PublicData\SINGLE_DETAIL.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_APROVAL_STATE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ASSET_CONSTRUCTION_VALUE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ASSET_CONSTRUCTION.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_BATCH_ARTICLE.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_CATEGORY.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_CORRECTION_MONETARY_VALUE.cs" />
@@ -245,6 +247,7 @@
     <Compile Include="ServiceProcess\PublicData\SV_SUBZONE.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_SYSTEM.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_SYSTEM_PARAMETER.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_TRANSACTION_DETAIL.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_TRANSACTION_HEADER.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_TRANSACTION_PARAMETER_DETAIL.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_TYPE_ASSET.cs" />
@@ -252,11 +255,15 @@
     <Compile Include="ServiceProcess\PublicData\SV_ZONE.cs" />
     <Compile Include="ServiceProcess\Migration.cs" />
     <Compile Include="ServiceProcess\Process.cs" />
+    <Compile Include="ServiceProcess\Repositories\ADM_IFRS_DEFAULT.cs" />
+    <Compile Include="ServiceProcess\Repositories\ASSETS_IN_PROGRESS.cs" />
     <Compile Include="ServiceProcess\Repositories\BATCHES_ARTICLES.cs" />
     <Compile Include="ServiceProcess\Repositories\CORRECTIONS_MONETARIES_VALUES.cs" />
     <Compile Include="ServiceProcess\Repositories\CURRENCIES.cs" />
+    <Compile Include="ServiceProcess\Repositories\GP_MultiCurrency.cs" />
     <Compile Include="ServiceProcess\Repositories\GP_PM.cs" />
     <Compile Include="ServiceProcess\Repositories\GP_SY40.cs" />
+    <Compile Include="ServiceProcess\Repositories\INVENTORY.cs" />
     <Compile Include="ServiceProcess\Repositories\Main.cs" />
     <Compile Include="ServiceProcess\Repositories\APROVALS_STATES.cs" />
     <Compile Include="ServiceProcess\Repositories\CATEGORIES.cs" />
@@ -273,6 +280,7 @@
     <Compile Include="ServiceProcess\Repositories\SUBZONES.cs" />
     <Compile Include="ServiceProcess\Repositories\SYSTEMS.cs" />
     <Compile Include="ServiceProcess\Repositories\SYSTEMS_PARAMETERS.cs" />
+    <Compile Include="ServiceProcess\Repositories\TRANSACTIONS_DETAILS.cs" />
     <Compile Include="ServiceProcess\Repositories\TRANSACTIONS_HEADERS.cs" />
     <Compile Include="ServiceProcess\Repositories\TRANSACTIONS_PARAM_DET.cs" />
     <Compile Include="ServiceProcess\Repositories\TYPES_ASSETS.cs" />
@@ -281,6 +289,7 @@
     <Compile Include="ServiceProcess\Saving\BATCH_ARTICLE.cs" />
     <Compile Include="ServiceProcess\Saving\DOCS_BATCH.cs" />
     <Compile Include="ServiceProcess\Saving\DOCUMENT.cs" />
+    <Compile Include="ServiceProcess\Saving\INVENTORY.cs" />
     <Compile Include="ServiceProcess\Saving\PART.cs" />
     <Compile Include="ServiceProcess\Saving\TRANSACTION_HEAD.cs" />
     <Compile Include="ServiceProcess\Saving\TRANSACTION_PARAMETER_DETAIL.cs" />

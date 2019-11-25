@@ -52,7 +52,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__ASSETS_IN__curre__1EF99443", "CURRENCY", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.CURRENCY), "ASSETS_IN_PROGRESS_DETAIL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_DETAIL), true)]
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__ASSETS_IN__head___1E05700A", "ASSETS_IN_PROGRESS_HEAD", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_HEAD), "ASSETS_IN_PROGRESS_DETAIL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_DETAIL), true)]
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__ASSETS_IN__batch__184C96B4", "BATCH_ARTICLE", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(AFN_WF_C.ServiceProcess.DataContract.BATCH_ARTICLE), "ASSETS_IN_PROGRESS_HEAD", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_HEAD), true)]
-[assembly: EdmRelationshipAttribute("AFN2Model", "FK__ASSETS_IN__entra__1758727B", "ASSETS_IN_PROGRESS_HEAD", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_HEAD), "ASSETS_IN_PROGRESS_HEAD1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_HEAD), true)]
+[assembly: EdmRelationshipAttribute("AFN2Model", "FK__ASSETS_IN__entra__1758727B", "ASSET_HEADS_SALIDAS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_HEAD), "ASSET_HEAD_ENTRADA", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_HEAD), true)]
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__ASSETS_IN__zone___16644E42", "ZONE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.ZONE), "ASSETS_IN_PROGRESS_HEAD", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_HEAD), true)]
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__DOCS_OBC__obc_id__35DCF99B", "ASSETS_IN_PROGRESS_HEAD", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.ASSET_IN_PROGRESS_HEAD), "DOCS_OBC", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.DOCS_OBC), true)]
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__DOCS_BATC__batch__3E723F9C", "BATCH_ARTICLE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.BATCH_ARTICLE), "DOCS_BATCH", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.DOCS_BATCH), true)]
@@ -64,6 +64,10 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__SALES_DET__subzo__6D2D2E85", "SUBZONE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.SUBZONE), "SALES_DETAIL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.SALES_DETAIL), true)]
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__SALES_DET__zone___6C390A4C", "ZONE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.ZONE), "SALES_DETAIL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.SALES_DETAIL), true)]
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__SALES_DET__head___6A50C1DA", "SALES_HEAD", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.SALES_HEAD), "SALES_DETAIL", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.SALES_DETAIL), true)]
+[assembly: EdmRelationshipAttribute("AFN2Model", "FK__IFRS_DEFA__kind___7D63964E", "KIND", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.KIND), "IFRS_DEFAULT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.IFRS_DEFAULT), true)]
+[assembly: EdmRelationshipAttribute("AFN2Model", "FK__IFRS_DEFA__metod__7E57BA87", "METHOD_REVALUE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.METHOD_REVALUE), "IFRS_DEFAULT", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.IFRS_DEFAULT), true)]
+[assembly: EdmRelationshipAttribute("AFN2Model", "FK__ARTICLES__part_i__17236851", "PART", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.PART), "ARTICLE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ARTICLE), true)]
+[assembly: EdmRelationshipAttribute("AFN2Model", "FK__ARTICLES__ubicac__18178C8A", "PLACE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.PLACE), "ARTICLE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ARTICLE), true)]
 
 #endregion
 
@@ -706,6 +710,70 @@ namespace AFN_WF_C.ServiceProcess.DataContract
             }
         }
         private ObjectSet<PM00200A> _PM00200A;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<MC00101> MC00101
+        {
+            get
+            {
+                if ((_MC00101 == null))
+                {
+                    _MC00101 = base.CreateObjectSet<MC00101>("MC00101");
+                }
+                return _MC00101;
+            }
+        }
+        private ObjectSet<MC00101> _MC00101;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<IFRS_DEFAULT> IFRS_DEFAULT
+        {
+            get
+            {
+                if ((_IFRS_DEFAULT == null))
+                {
+                    _IFRS_DEFAULT = base.CreateObjectSet<IFRS_DEFAULT>("IFRS_DEFAULT");
+                }
+                return _IFRS_DEFAULT;
+            }
+        }
+        private ObjectSet<IFRS_DEFAULT> _IFRS_DEFAULT;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<ARTICLE> ARTICLES
+        {
+            get
+            {
+                if ((_ARTICLES == null))
+                {
+                    _ARTICLES = base.CreateObjectSet<ARTICLE>("ARTICLES");
+                }
+                return _ARTICLES;
+            }
+        }
+        private ObjectSet<ARTICLE> _ARTICLES;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<PLACE> PLACES
+        {
+            get
+            {
+                if ((_PLACES == null))
+                {
+                    _PLACES = base.CreateObjectSet<PLACE>("PLACES");
+                }
+                return _PLACES;
+            }
+        }
+        private ObjectSet<PLACE> _PLACES;
 
         #endregion
 
@@ -1006,6 +1074,38 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         {
             base.AddObject("PM00200A", pM00200A);
         }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet MC00101. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToMC00101(MC00101 mC00101)
+        {
+            base.AddObject("MC00101", mC00101);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet IFRS_DEFAULT. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToIFRS_DEFAULT(IFRS_DEFAULT iFRS_DEFAULT)
+        {
+            base.AddObject("IFRS_DEFAULT", iFRS_DEFAULT);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet ARTICLES. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToARTICLES(ARTICLE aRTICLE)
+        {
+            base.AddObject("ARTICLES", aRTICLE);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet PLACES. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToPLACES(PLACE pLACE)
+        {
+            base.AddObject("PLACES", pLACE);
+        }
 
         #endregion
 
@@ -1164,6 +1264,299 @@ namespace AFN_WF_C.ServiceProcess.DataContract
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__aprov__1940BAED", "ASSETS_IN_PROGRESS_HEAD", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AFN2Model", Name="ARTICLE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ARTICLE : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto ARTICLE.
+        /// </summary>
+        /// <param name="id">Valor inicial de la propiedad id.</param>
+        /// <param name="code">Valor inicial de la propiedad code.</param>
+        /// <param name="part_id">Valor inicial de la propiedad part_id.</param>
+        /// <param name="codigo_old">Valor inicial de la propiedad codigo_old.</param>
+        /// <param name="ubicacion_id">Valor inicial de la propiedad ubicacion_id.</param>
+        /// <param name="desde">Valor inicial de la propiedad desde.</param>
+        /// <param name="hasta">Valor inicial de la propiedad hasta.</param>
+        public static ARTICLE CreateARTICLE(global::System.Int32 id, global::System.String code, global::System.Int32 part_id, global::System.String codigo_old, global::System.Int32 ubicacion_id, global::System.DateTime desde, global::System.DateTime hasta)
+        {
+            ARTICLE aRTICLE = new ARTICLE();
+            aRTICLE.id = id;
+            aRTICLE.code = code;
+            aRTICLE.part_id = part_id;
+            aRTICLE.codigo_old = codigo_old;
+            aRTICLE.ubicacion_id = ubicacion_id;
+            aRTICLE.desde = desde;
+            aRTICLE.hasta = hasta;
+            return aRTICLE;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String code
+        {
+            get
+            {
+                return _code;
+            }
+            set
+            {
+                OncodeChanging(value);
+                ReportPropertyChanging("code");
+                _code = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("code");
+                OncodeChanged();
+            }
+        }
+        private global::System.String _code;
+        partial void OncodeChanging(global::System.String value);
+        partial void OncodeChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 part_id
+        {
+            get
+            {
+                return _part_id;
+            }
+            set
+            {
+                Onpart_idChanging(value);
+                ReportPropertyChanging("part_id");
+                _part_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("part_id");
+                Onpart_idChanged();
+            }
+        }
+        private global::System.Int32 _part_id;
+        partial void Onpart_idChanging(global::System.Int32 value);
+        partial void Onpart_idChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String codigo_old
+        {
+            get
+            {
+                return _codigo_old;
+            }
+            set
+            {
+                Oncodigo_oldChanging(value);
+                ReportPropertyChanging("codigo_old");
+                _codigo_old = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("codigo_old");
+                Oncodigo_oldChanged();
+            }
+        }
+        private global::System.String _codigo_old;
+        partial void Oncodigo_oldChanging(global::System.String value);
+        partial void Oncodigo_oldChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ubicacion_id
+        {
+            get
+            {
+                return _ubicacion_id;
+            }
+            set
+            {
+                Onubicacion_idChanging(value);
+                ReportPropertyChanging("ubicacion_id");
+                _ubicacion_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ubicacion_id");
+                Onubicacion_idChanged();
+            }
+        }
+        private global::System.Int32 _ubicacion_id;
+        partial void Onubicacion_idChanging(global::System.Int32 value);
+        partial void Onubicacion_idChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime desde
+        {
+            get
+            {
+                return _desde;
+            }
+            set
+            {
+                OndesdeChanging(value);
+                ReportPropertyChanging("desde");
+                _desde = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("desde");
+                OndesdeChanged();
+            }
+        }
+        private global::System.DateTime _desde;
+        partial void OndesdeChanging(global::System.DateTime value);
+        partial void OndesdeChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime hasta
+        {
+            get
+            {
+                return _hasta;
+            }
+            set
+            {
+                OnhastaChanging(value);
+                ReportPropertyChanging("hasta");
+                _hasta = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("hasta");
+                OnhastaChanged();
+            }
+        }
+        private global::System.DateTime _hasta;
+        partial void OnhastaChanging(global::System.DateTime value);
+        partial void OnhastaChanged();
+
+        #endregion
+
+    
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__ARTICLES__part_i__17236851", "PART")]
+        public PART PART
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PART>("AFN2Model.FK__ARTICLES__part_i__17236851", "PART").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PART>("AFN2Model.FK__ARTICLES__part_i__17236851", "PART").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PART> PARTReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PART>("AFN2Model.FK__ARTICLES__part_i__17236851", "PART");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PART>("AFN2Model.FK__ARTICLES__part_i__17236851", "PART", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__ARTICLES__ubicac__18178C8A", "PLACE")]
+        public PLACE PLACE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PLACE>("AFN2Model.FK__ARTICLES__ubicac__18178C8A", "PLACE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PLACE>("AFN2Model.FK__ARTICLES__ubicac__18178C8A", "PLACE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PLACE> PLACEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PLACE>("AFN2Model.FK__ARTICLES__ubicac__18178C8A", "PLACE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PLACE>("AFN2Model.FK__ARTICLES__ubicac__18178C8A", "PLACE", value);
                 }
             }
         }
@@ -1752,18 +2145,18 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__ASSETS_IN__entra__1758727B", "ASSETS_IN_PROGRESS_HEAD1")]
-        public EntityCollection<ASSET_IN_PROGRESS_HEAD> ASSETS_IN_PROGRESS_HEAD1
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__ASSETS_IN__entra__1758727B", "ASSET_HEAD_ENTRADA")]
+        public EntityCollection<ASSET_IN_PROGRESS_HEAD> ASSET_HEADS_SALIDAS
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSETS_IN_PROGRESS_HEAD1");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSET_HEAD_ENTRADA");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSETS_IN_PROGRESS_HEAD1", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSET_HEAD_ENTRADA", value);
                 }
             }
         }
@@ -1774,16 +2167,16 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__ASSETS_IN__entra__1758727B", "ASSETS_IN_PROGRESS_HEAD")]
-        public ASSET_IN_PROGRESS_HEAD ASSETS_IN_PROGRESS_HEAD2
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__ASSETS_IN__entra__1758727B", "ASSET_HEADS_SALIDAS")]
+        public ASSET_IN_PROGRESS_HEAD ASSET_HEAD_ENTRADA
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSETS_IN_PROGRESS_HEAD").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSET_HEADS_SALIDAS").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSETS_IN_PROGRESS_HEAD").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSET_HEADS_SALIDAS").Value = value;
             }
         }
         /// <summary>
@@ -1791,17 +2184,17 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<ASSET_IN_PROGRESS_HEAD> ASSETS_IN_PROGRESS_HEAD2Reference
+        public EntityReference<ASSET_IN_PROGRESS_HEAD> ASSET_HEAD_ENTRADAReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSETS_IN_PROGRESS_HEAD");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSET_HEADS_SALIDAS");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSETS_IN_PROGRESS_HEAD", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ASSET_IN_PROGRESS_HEAD>("AFN2Model.FK__ASSETS_IN__entra__1758727B", "ASSET_HEADS_SALIDAS", value);
                 }
             }
         }
@@ -6079,6 +6472,351 @@ namespace AFN_WF_C.ServiceProcess.DataContract
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AFN2Model", Name="IFRS_DEFAULT")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IFRS_DEFAULT : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto IFRS_DEFAULT.
+        /// </summary>
+        /// <param name="id">Valor inicial de la propiedad id.</param>
+        /// <param name="kind_id">Valor inicial de la propiedad kind_id.</param>
+        /// <param name="allow_preparacion">Valor inicial de la propiedad allow_preparacion.</param>
+        /// <param name="allow_desmant">Valor inicial de la propiedad allow_desmant.</param>
+        /// <param name="allow_transporte">Valor inicial de la propiedad allow_transporte.</param>
+        /// <param name="allow_montaje">Valor inicial de la propiedad allow_montaje.</param>
+        /// <param name="allow_honorarios">Valor inicial de la propiedad allow_honorarios.</param>
+        /// <param name="pValRes">Valor inicial de la propiedad pValRes.</param>
+        /// <param name="metodVal">Valor inicial de la propiedad metodVal.</param>
+        public static IFRS_DEFAULT CreateIFRS_DEFAULT(global::System.Int32 id, global::System.Int32 kind_id, global::System.Boolean allow_preparacion, global::System.Boolean allow_desmant, global::System.Boolean allow_transporte, global::System.Boolean allow_montaje, global::System.Boolean allow_honorarios, global::System.Decimal pValRes, global::System.Int32 metodVal)
+        {
+            IFRS_DEFAULT iFRS_DEFAULT = new IFRS_DEFAULT();
+            iFRS_DEFAULT.id = id;
+            iFRS_DEFAULT.kind_id = kind_id;
+            iFRS_DEFAULT.allow_preparacion = allow_preparacion;
+            iFRS_DEFAULT.allow_desmant = allow_desmant;
+            iFRS_DEFAULT.allow_transporte = allow_transporte;
+            iFRS_DEFAULT.allow_montaje = allow_montaje;
+            iFRS_DEFAULT.allow_honorarios = allow_honorarios;
+            iFRS_DEFAULT.pValRes = pValRes;
+            iFRS_DEFAULT.metodVal = metodVal;
+            return iFRS_DEFAULT;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 kind_id
+        {
+            get
+            {
+                return _kind_id;
+            }
+            set
+            {
+                Onkind_idChanging(value);
+                ReportPropertyChanging("kind_id");
+                _kind_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("kind_id");
+                Onkind_idChanged();
+            }
+        }
+        private global::System.Int32 _kind_id;
+        partial void Onkind_idChanging(global::System.Int32 value);
+        partial void Onkind_idChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allow_preparacion
+        {
+            get
+            {
+                return _allow_preparacion;
+            }
+            set
+            {
+                Onallow_preparacionChanging(value);
+                ReportPropertyChanging("allow_preparacion");
+                _allow_preparacion = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allow_preparacion");
+                Onallow_preparacionChanged();
+            }
+        }
+        private global::System.Boolean _allow_preparacion;
+        partial void Onallow_preparacionChanging(global::System.Boolean value);
+        partial void Onallow_preparacionChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allow_desmant
+        {
+            get
+            {
+                return _allow_desmant;
+            }
+            set
+            {
+                Onallow_desmantChanging(value);
+                ReportPropertyChanging("allow_desmant");
+                _allow_desmant = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allow_desmant");
+                Onallow_desmantChanged();
+            }
+        }
+        private global::System.Boolean _allow_desmant;
+        partial void Onallow_desmantChanging(global::System.Boolean value);
+        partial void Onallow_desmantChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allow_transporte
+        {
+            get
+            {
+                return _allow_transporte;
+            }
+            set
+            {
+                Onallow_transporteChanging(value);
+                ReportPropertyChanging("allow_transporte");
+                _allow_transporte = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allow_transporte");
+                Onallow_transporteChanged();
+            }
+        }
+        private global::System.Boolean _allow_transporte;
+        partial void Onallow_transporteChanging(global::System.Boolean value);
+        partial void Onallow_transporteChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allow_montaje
+        {
+            get
+            {
+                return _allow_montaje;
+            }
+            set
+            {
+                Onallow_montajeChanging(value);
+                ReportPropertyChanging("allow_montaje");
+                _allow_montaje = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allow_montaje");
+                Onallow_montajeChanged();
+            }
+        }
+        private global::System.Boolean _allow_montaje;
+        partial void Onallow_montajeChanging(global::System.Boolean value);
+        partial void Onallow_montajeChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean allow_honorarios
+        {
+            get
+            {
+                return _allow_honorarios;
+            }
+            set
+            {
+                Onallow_honorariosChanging(value);
+                ReportPropertyChanging("allow_honorarios");
+                _allow_honorarios = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("allow_honorarios");
+                Onallow_honorariosChanged();
+            }
+        }
+        private global::System.Boolean _allow_honorarios;
+        partial void Onallow_honorariosChanging(global::System.Boolean value);
+        partial void Onallow_honorariosChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal pValRes
+        {
+            get
+            {
+                return _pValRes;
+            }
+            set
+            {
+                OnpValResChanging(value);
+                ReportPropertyChanging("pValRes");
+                _pValRes = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("pValRes");
+                OnpValResChanged();
+            }
+        }
+        private global::System.Decimal _pValRes;
+        partial void OnpValResChanging(global::System.Decimal value);
+        partial void OnpValResChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 metodVal
+        {
+            get
+            {
+                return _metodVal;
+            }
+            set
+            {
+                OnmetodValChanging(value);
+                ReportPropertyChanging("metodVal");
+                _metodVal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("metodVal");
+                OnmetodValChanged();
+            }
+        }
+        private global::System.Int32 _metodVal;
+        partial void OnmetodValChanging(global::System.Int32 value);
+        partial void OnmetodValChanged();
+
+        #endregion
+
+    
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__IFRS_DEFA__kind___7D63964E", "KIND")]
+        public KIND KIND
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<KIND>("AFN2Model.FK__IFRS_DEFA__kind___7D63964E", "KIND").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<KIND>("AFN2Model.FK__IFRS_DEFA__kind___7D63964E", "KIND").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<KIND> KINDReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<KIND>("AFN2Model.FK__IFRS_DEFA__kind___7D63964E", "KIND");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<KIND>("AFN2Model.FK__IFRS_DEFA__kind___7D63964E", "KIND", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__IFRS_DEFA__metod__7E57BA87", "METHOD_REVALUE")]
+        public METHOD_REVALUE METHOD_REVALUES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<METHOD_REVALUE>("AFN2Model.FK__IFRS_DEFA__metod__7E57BA87", "METHOD_REVALUE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<METHOD_REVALUE>("AFN2Model.FK__IFRS_DEFA__metod__7E57BA87", "METHOD_REVALUE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<METHOD_REVALUE> METHOD_REVALUESReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<METHOD_REVALUE>("AFN2Model.FK__IFRS_DEFA__metod__7E57BA87", "METHOD_REVALUE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<METHOD_REVALUE>("AFN2Model.FK__IFRS_DEFA__metod__7E57BA87", "METHOD_REVALUE", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AFN2Model", Name="KIND")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -6414,6 +7152,28 @@ namespace AFN_WF_C.ServiceProcess.DataContract
                 }
             }
         }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__IFRS_DEFA__kind___7D63964E", "IFRS_DEFAULT")]
+        public EntityCollection<IFRS_DEFAULT> IFRS_DEFAULT
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IFRS_DEFAULT>("AFN2Model.FK__IFRS_DEFA__kind___7D63964E", "IFRS_DEFAULT");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IFRS_DEFAULT>("AFN2Model.FK__IFRS_DEFA__kind___7D63964E", "IFRS_DEFAULT", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -6557,6 +7317,237 @@ namespace AFN_WF_C.ServiceProcess.DataContract
     /// <summary>
     /// No hay documentación de metadatos disponible.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AFN2Model", Name="MC00101")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MC00101 : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto MC00101.
+        /// </summary>
+        /// <param name="eXGTBLID">Valor inicial de la propiedad EXGTBLID.</param>
+        /// <param name="cURNCYID">Valor inicial de la propiedad CURNCYID.</param>
+        /// <param name="eXCHDATE">Valor inicial de la propiedad EXCHDATE.</param>
+        /// <param name="tIME1">Valor inicial de la propiedad TIME1.</param>
+        /// <param name="xCHGRATE">Valor inicial de la propiedad XCHGRATE.</param>
+        /// <param name="eXPNDATE">Valor inicial de la propiedad EXPNDATE.</param>
+        /// <param name="dEX_ROW_ID">Valor inicial de la propiedad DEX_ROW_ID.</param>
+        public static MC00101 CreateMC00101(global::System.String eXGTBLID, global::System.String cURNCYID, global::System.DateTime eXCHDATE, global::System.DateTime tIME1, global::System.Decimal xCHGRATE, global::System.DateTime eXPNDATE, global::System.Int32 dEX_ROW_ID)
+        {
+            MC00101 mC00101 = new MC00101();
+            mC00101.EXGTBLID = eXGTBLID;
+            mC00101.CURNCYID = cURNCYID;
+            mC00101.EXCHDATE = eXCHDATE;
+            mC00101.TIME1 = tIME1;
+            mC00101.XCHGRATE = xCHGRATE;
+            mC00101.EXPNDATE = eXPNDATE;
+            mC00101.DEX_ROW_ID = dEX_ROW_ID;
+            return mC00101;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String EXGTBLID
+        {
+            get
+            {
+                return _EXGTBLID;
+            }
+            set
+            {
+                if (_EXGTBLID != value)
+                {
+                    OnEXGTBLIDChanging(value);
+                    ReportPropertyChanging("EXGTBLID");
+                    _EXGTBLID = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("EXGTBLID");
+                    OnEXGTBLIDChanged();
+                }
+            }
+        }
+        private global::System.String _EXGTBLID;
+        partial void OnEXGTBLIDChanging(global::System.String value);
+        partial void OnEXGTBLIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CURNCYID
+        {
+            get
+            {
+                return _CURNCYID;
+            }
+            set
+            {
+                if (_CURNCYID != value)
+                {
+                    OnCURNCYIDChanging(value);
+                    ReportPropertyChanging("CURNCYID");
+                    _CURNCYID = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("CURNCYID");
+                    OnCURNCYIDChanged();
+                }
+            }
+        }
+        private global::System.String _CURNCYID;
+        partial void OnCURNCYIDChanging(global::System.String value);
+        partial void OnCURNCYIDChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime EXCHDATE
+        {
+            get
+            {
+                return _EXCHDATE;
+            }
+            set
+            {
+                if (_EXCHDATE != value)
+                {
+                    OnEXCHDATEChanging(value);
+                    ReportPropertyChanging("EXCHDATE");
+                    _EXCHDATE = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("EXCHDATE");
+                    OnEXCHDATEChanged();
+                }
+            }
+        }
+        private global::System.DateTime _EXCHDATE;
+        partial void OnEXCHDATEChanging(global::System.DateTime value);
+        partial void OnEXCHDATEChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime TIME1
+        {
+            get
+            {
+                return _TIME1;
+            }
+            set
+            {
+                if (_TIME1 != value)
+                {
+                    OnTIME1Changing(value);
+                    ReportPropertyChanging("TIME1");
+                    _TIME1 = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("TIME1");
+                    OnTIME1Changed();
+                }
+            }
+        }
+        private global::System.DateTime _TIME1;
+        partial void OnTIME1Changing(global::System.DateTime value);
+        partial void OnTIME1Changed();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal XCHGRATE
+        {
+            get
+            {
+                return _XCHGRATE;
+            }
+            set
+            {
+                if (_XCHGRATE != value)
+                {
+                    OnXCHGRATEChanging(value);
+                    ReportPropertyChanging("XCHGRATE");
+                    _XCHGRATE = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("XCHGRATE");
+                    OnXCHGRATEChanged();
+                }
+            }
+        }
+        private global::System.Decimal _XCHGRATE;
+        partial void OnXCHGRATEChanging(global::System.Decimal value);
+        partial void OnXCHGRATEChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime EXPNDATE
+        {
+            get
+            {
+                return _EXPNDATE;
+            }
+            set
+            {
+                if (_EXPNDATE != value)
+                {
+                    OnEXPNDATEChanging(value);
+                    ReportPropertyChanging("EXPNDATE");
+                    _EXPNDATE = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("EXPNDATE");
+                    OnEXPNDATEChanged();
+                }
+            }
+        }
+        private global::System.DateTime _EXPNDATE;
+        partial void OnEXPNDATEChanging(global::System.DateTime value);
+        partial void OnEXPNDATEChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DEX_ROW_ID
+        {
+            get
+            {
+                return _DEX_ROW_ID;
+            }
+            set
+            {
+                if (_DEX_ROW_ID != value)
+                {
+                    OnDEX_ROW_IDChanging(value);
+                    ReportPropertyChanging("DEX_ROW_ID");
+                    _DEX_ROW_ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("DEX_ROW_ID");
+                    OnDEX_ROW_IDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _DEX_ROW_ID;
+        partial void OnDEX_ROW_IDChanging(global::System.Int32 value);
+        partial void OnDEX_ROW_IDChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AFN2Model", Name="METHOD_REVALUE")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -6655,6 +7646,28 @@ namespace AFN_WF_C.ServiceProcess.DataContract
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TRANSACTION_HEADER>("AFN2Model.FK__TRANSACTIONS_HEADERS__method", "TRANSACTION_HEADER", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__IFRS_DEFA__metod__7E57BA87", "IFRS_DEFAULT")]
+        public EntityCollection<IFRS_DEFAULT> IFRS_DEFAULT
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IFRS_DEFAULT>("AFN2Model.FK__IFRS_DEFA__metod__7E57BA87", "IFRS_DEFAULT");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IFRS_DEFAULT>("AFN2Model.FK__IFRS_DEFA__metod__7E57BA87", "IFRS_DEFAULT", value);
                 }
             }
         }
@@ -7582,6 +8595,215 @@ namespace AFN_WF_C.ServiceProcess.DataContract
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SALES_DETAIL>("AFN2Model.FK__SALES_DET__part___6B44E613", "SALES_DETAIL", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__ARTICLES__part_i__17236851", "ARTICLE")]
+        public EntityCollection<ARTICLE> ARTICLES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ARTICLE>("AFN2Model.FK__ARTICLES__part_i__17236851", "ARTICLE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ARTICLE>("AFN2Model.FK__ARTICLES__part_i__17236851", "ARTICLE", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AFN2Model", Name="PLACE")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PLACE : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto PLACE.
+        /// </summary>
+        /// <param name="id">Valor inicial de la propiedad id.</param>
+        /// <param name="descrip">Valor inicial de la propiedad descrip.</param>
+        /// <param name="nivel">Valor inicial de la propiedad nivel.</param>
+        /// <param name="superior">Valor inicial de la propiedad superior.</param>
+        /// <param name="activo">Valor inicial de la propiedad activo.</param>
+        public static PLACE CreatePLACE(global::System.Int32 id, global::System.String descrip, global::System.Int32 nivel, global::System.Int32 superior, global::System.Boolean activo)
+        {
+            PLACE pLACE = new PLACE();
+            pLACE.id = id;
+            pLACE.descrip = descrip;
+            pLACE.nivel = nivel;
+            pLACE.superior = superior;
+            pLACE.activo = activo;
+            return pLACE;
+        }
+
+        #endregion
+
+        #region Propiedades primitivas
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String descrip
+        {
+            get
+            {
+                return _descrip;
+            }
+            set
+            {
+                OndescripChanging(value);
+                ReportPropertyChanging("descrip");
+                _descrip = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("descrip");
+                OndescripChanged();
+            }
+        }
+        private global::System.String _descrip;
+        partial void OndescripChanging(global::System.String value);
+        partial void OndescripChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 nivel
+        {
+            get
+            {
+                return _nivel;
+            }
+            set
+            {
+                OnnivelChanging(value);
+                ReportPropertyChanging("nivel");
+                _nivel = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("nivel");
+                OnnivelChanged();
+            }
+        }
+        private global::System.Int32 _nivel;
+        partial void OnnivelChanging(global::System.Int32 value);
+        partial void OnnivelChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 superior
+        {
+            get
+            {
+                return _superior;
+            }
+            set
+            {
+                OnsuperiorChanging(value);
+                ReportPropertyChanging("superior");
+                _superior = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("superior");
+                OnsuperiorChanged();
+            }
+        }
+        private global::System.Int32 _superior;
+        partial void OnsuperiorChanging(global::System.Int32 value);
+        partial void OnsuperiorChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean activo
+        {
+            get
+            {
+                return _activo;
+            }
+            set
+            {
+                OnactivoChanging(value);
+                ReportPropertyChanging("activo");
+                _activo = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("activo");
+                OnactivoChanged();
+            }
+        }
+        private global::System.Boolean _activo;
+        partial void OnactivoChanging(global::System.Boolean value);
+        partial void OnactivoChanged();
+
+        #endregion
+
+    
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK__ARTICLES__ubicac__18178C8A", "ARTICLE")]
+        public EntityCollection<ARTICLE> ARTICLES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ARTICLE>("AFN2Model.FK__ARTICLES__ubicac__18178C8A", "ARTICLE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ARTICLE>("AFN2Model.FK__ARTICLES__ubicac__18178C8A", "ARTICLE", value);
                 }
             }
         }

@@ -190,7 +190,7 @@ namespace AFN_WF_C.PCClient.Vistas
         }
         private void smMigracion02_Click(object sender, EventArgs e)
         {
-            for (var i = 7; i <= 9; i++)
+            for (var i = 10; i <= 10; i++)
             {
                 DialogResult accion = MessageBox.Show("Desea Procesar el mes " + i.ToString() + "?", "", MessageBoxButtons.YesNoCancel);
                 if (accion == DialogResult.Yes)

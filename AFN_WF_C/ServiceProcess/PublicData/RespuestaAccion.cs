@@ -21,6 +21,12 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             get { return _descripcion; }
             set { _descripcion = value; }
         }
+        public List<GENERIC_VALUE> result_objs { get; set; }
+
+        public RespuestaAccion()
+        {
+            result_objs = new List<GENERIC_VALUE>();
+        }
 
         public void set(int new_codigo, string new_description)
         {

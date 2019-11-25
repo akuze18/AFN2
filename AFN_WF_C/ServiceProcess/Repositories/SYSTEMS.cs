@@ -38,6 +38,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return S1;
         }
 
+        public List<SV_SYSTEM> AllWithIFRS(bool hasIFRS)
+        {
+            return _source.Where(s => (s.ENVIORMENT.code == "IFRS" && hasIFRS) || (s.ENVIORMENT.code != "IFRS"))
+                .ToList();
+        }
         public SV_SYSTEM Default
         {
             get

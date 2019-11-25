@@ -54,7 +54,7 @@ namespace AFN_WF_C.PCClient.Vistas.Migracion
                 {
                     CbTHead.Items.Clear();
                     var selected = (PD.SV_PART)cb.SelectedItem;
-                    CbTHead.Items.AddRange(P.Consultas.cabeceras.ByParte(selected.id).ToArray());
+                    CbTHead.Items.AddRange(P.Consultas.trx_cabeceras.ByParte(selected.id).ToArray());
 
                 }
             }

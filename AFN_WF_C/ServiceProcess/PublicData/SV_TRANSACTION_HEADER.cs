@@ -55,6 +55,17 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 _method_revalue_id = od.method_revalue_id,
             };
         }
+
+        public static implicit operator GENERIC_VALUE(SV_TRANSACTION_HEADER sv)
+        {
+            return new GENERIC_VALUE()
+            {
+                id = sv.id,
+                code = sv.id.ToString(),
+                description = sv.ref_source + "-" + sv.trx_ini.ToShortDateString(),
+                type = sv.GetType().Name.Substring(3),
+            };
+        }
         #endregion
 
         public override string ToString()

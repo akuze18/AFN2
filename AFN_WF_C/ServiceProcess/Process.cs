@@ -272,6 +272,7 @@ namespace AFN_WF_C.ServiceProcess
             var NewDetail = new DETAIL_MOVEMENT();
             NewDetail.fecha_compra = art_fin.fecha_compra;
             NewDetail.cod_articulo = art_fin.cod_articulo;
+            NewDetail.fecha_ingreso = art_fin.fecha_ing;
             NewDetail.desc_breve = art_fin.dsc_extra;
             NewDetail.cantidad = art_fin.cantidad;
             NewDetail.zona = art_fin.zona;
@@ -322,6 +323,8 @@ namespace AFN_WF_C.ServiceProcess
             NewDetail.subzona = art_fin.subzona;
             NewDetail.subclase = art_fin.subclase;
             NewDetail.origen = art_fin.origen;
+            NewDetail.gestion = art_fin.gestion;
+            NewDetail.vida_util_inicial = art_fin.vida_util_inicial;
             return NewDetail;
         }
 

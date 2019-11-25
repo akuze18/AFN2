@@ -22,10 +22,12 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
         private PD.SV_PROVEEDOR _full_data;
 
         public string codigo { get { return _cod_result; } }
-        public PD.SV_PROVEEDOR proveedor { get { return _full_data; } }
+        public PD.SV_PROVEEDOR sv_proveedor { get { return _full_data; } }
 
         private void bus_prov_Load(object sender, EventArgs e )// Handles MyBase.Load
         {
+            this.MinimumSize = new System.Drawing.Size(573, 325);
+
             MosResult2.FullRowSelect = true;
             //MosResult2.HasCollapsibleGroups = false;
             MosResult2.ShowGroups = false;
@@ -35,7 +37,7 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
             MosResult2.Columns[0].Width = 100;
             MosResult2.Columns[1].Width = 310;
             MosResult2.Columns[2].Width = 150;
-            MosResult2.Columns[3].Width = 0;
+            //MosResult2.Columns[3].Width = 0;
 
             //Proveedores ya no están indexados por zonas
             Label3.Visible = false; //label de zona
@@ -107,6 +109,23 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
                     salida = salida + revis;
             }
             return salida;
+        }
+
+        private void proveedor_Resize(object sender, EventArgs e)
+        {
+            
+            var TWidth = this.Width;
+            var THeight = this.Height;
+            //New Size for MosResult2
+            int NewW = TWidth - 53;
+            int NewH = THeight - 175;
+
+            //New Location for btn_marcar
+            int NewX = TWidth - 146;
+            int NewY = btn_marcar.Location.Y;
+
+            MosResult2.Size = new Size(NewW, NewH);
+            btn_marcar.Location = new Point(NewX, NewY);
         }
     }
 }

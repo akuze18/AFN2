@@ -63,5 +63,10 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             resulta.Insert(0, new GENERIC_VALUE() { id = 0, type = "OPTION", description = "TODOS" });
             return resulta;
         }
+
+        public GENERIC_VALUE VIGENTE()
+        {
+            return _source.Where(v => v.name == "VIGENTE").First();
+        }
     }
 }

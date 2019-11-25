@@ -19,7 +19,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             activo = 2
         }
         public cod_situacion cual_sit;
-        public string fuente;
+        public int fuente;
         public int codigo_artic;
 
         public ingreso()
@@ -90,9 +90,9 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 
         private void cargar()
         {
-            cargar(0, string.Empty, "REG", false);
+            cargar(0, string.Empty, 1, false);
         }
-        private void cargar(int codigo, string descripcion, string ingreso, bool estado)
+        private void cargar(int codigo, string descripcion, int origen_id, bool estado)
         {
             cual_sit = determina_situacion(codigo, estado);
             
@@ -103,7 +103,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 
             codigo_artic = codigo;
             TFulldescrip.Text = descripcion;
-            fuente = ingreso;
+            fuente = origen_id;
             CkEstado.Checked = estado;
         }
 
@@ -112,7 +112,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             SINGLE_DETAIL data_fin = P.Consultas.data_ingreso_financiero(codigo);
             bool IFRS = P.Consultas.check_ingreso_ifrs(codigo);
 
-            cargar(codigo, data_fin.descripcion, data_fin.origen.code, estado);
+            cargar(codigo, data_fin.descripcion, data_fin.origen.id, estado);
 
             ficha_basica.cargar(cual_sit, fuente, data_fin, IFRS);
             ficha_ifrs.cargar(cual_sit, IFRS);
@@ -138,6 +138,22 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         {
             iniciar_formulario();
         }
+
+        public void cargar_otras_pestañas_fromBasic()
+        {
+            SINGLE_DETAIL data_fin = P.Consultas.data_ingreso_financiero(codigo_artic);
+            bool IFRS = P.Consultas.check_ingreso_ifrs(codigo_artic);
+
+
+            ficha_ifrs.cargar(cual_sit, IFRS);
+            ficha_grupo.cargar(cual_sit);
+            ficha_articulo.cargar(cual_sit);
+            if(IFRS)
+                seleccionar_pestaña(paso2);
+            else
+                seleccionar_pestaña(paso3);
+        }
+
 
         #region Estilos Seleccion TabPage
 

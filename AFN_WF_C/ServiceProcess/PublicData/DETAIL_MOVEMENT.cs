@@ -22,10 +22,10 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public GENERIC_VALUE subzona { get; set; }
         public GENERIC_VALUE subclase { get; set; }
-        //public GENERIC_VALUE gestion { get; set; }
+        public GENERIC_VALUE gestion { get; set; }
         //public GENERIC_VALUE categoria { get; set; }
 
-        //public DateTime fecha_ingreso { get; set; }
+        public DateTime fecha_ingreso { get; set; }
         public DateTime fecha_inicio { get; set; }
         public DateTime fecha_fin { get; set; }
 
@@ -34,7 +34,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public GENERIC_VALUE vigencia { get; set; }
 
         //public bool se_deprecia { get; set; }
-        //public int vida_util_inicial { get; set; }
+        public int vida_util_inicial { get; set; }
 
         //public GENERIC_VALUE aprobacion { get; set; }
 
@@ -109,6 +109,10 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 case 35: return subclase;
                 case 36: return parte;
                 case 37: return situacion;
+                case 38: return gestion;
+                case 39: return fecha_ingreso;
+                case 40: return origen;
+                case 41: return vida_util_inicial;
                 default:
                     return null;
             }

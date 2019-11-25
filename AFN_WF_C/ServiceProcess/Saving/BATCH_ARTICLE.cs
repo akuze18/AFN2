@@ -86,5 +86,70 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
             return respuesta;
         }
+
+        public RespuestaAccion INGRESO_LOTE(string descripcion, DateTime fecha_compra, string cod_proveedor, string documento, decimal total_compra, int vida_util, bool derecho_credito, DateTime fecha_contab, int origen_id, GENERIC_VALUE CtiPo)
+        {
+            var respuesta = new RespuestaAccion();
+            try
+            {
+                //check document
+                var find_doc = documentos.ByNumProv(documento, cod_proveedor);
+                var lote_rel_doc = new DOCS_BATCH();
+                if (find_doc == null)
+                {
+                    //no existe documento asociado, lo creamos
+                    var nuevo_documento = new DOCUMENT();
+                    nuevo_documento.docnumber = documento;
+                    nuevo_documento.proveedor_id = cod_proveedor;
+                    nuevo_documento.proveedor_name = Proveedor.getNameByCode(cod_proveedor);
+                    lote_rel_doc.DOCUMENT = nuevo_documento;
+                }
+                else
+                {
+                    //ya existe, asi que usamos ese mismo
+                    lote_rel_doc.document_id = find_doc.id;
+                }
+
+                BATCH_ARTICLE nuevo_lote = new BATCH_ARTICLE();
+                nuevo_lote.aproval_state_id = EstadoAprobacion.OPEN.id;
+                nuevo_lote.descrip = descripcion;
+                nuevo_lote.purchase_date = fecha_compra;
+                nuevo_lote.initial_price = total_compra;
+                nuevo_lote.initial_life_time = vida_util;
+                nuevo_lote.account_date = fecha_contab;
+                nuevo_lote.origin_id = origen_id;
+                nuevo_lote.type_asset_id = CtiPo.id;
+
+                lote_rel_doc.BATCHS_ARTICLES = nuevo_lote;
+
+                _context.DOCS_BATCH.AddObject(lote_rel_doc);
+                _context.BATCHS_ARTICLES.AddObject(nuevo_lote);
+
+                _context.SaveChanges();
+
+                respuesta.set_ok();
+                respuesta.result_objs.Add((SV_BATCH_ARTICLE)nuevo_lote);
+            }
+            catch (Exception e)
+            {
+                respuesta.set(-1, e.StackTrace);
+            }
+            return respuesta;
+        }
+
+        public RespuestaAccion MODIFICA_LOTE(int batch_id, string descripcion, string cod_proveedor, string documento, decimal total_compra, int vida_util, bool derecho_credito, DateTime fecha_contab)
+        {
+            //TODO: Completar proceso para modificar un lote
+            var res = new RespuestaAccion();
+            try
+            {
+                res.set_ok();
+            }
+            catch (Exception ex)
+            {
+                res.set(-1, ex.StackTrace);
+            }
+            return res;
+        }
     }
 }

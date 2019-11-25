@@ -31,5 +31,13 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 .Where(p => p.VENDNAME.ToUpper().Contains(nombre.ToUpper()) || nombre == string.Empty)
                 .ToList().ConvertAll(p => (SV_PROVEEDOR)p);
         }
+
+        public string getNameByCode(string code)
+        {
+            return _source.Where(p => p.COD == code)
+                .Select(p => p.VENDNAME)
+                .DefaultIfEmpty("SIN_PROVEED")
+                .First();
+        }
     }
 }

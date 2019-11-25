@@ -121,18 +121,18 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             ckIFRS.Checked = false;
         }
 
-        public void cargar(ingreso.cod_situacion cual_sit, string fuente)
+        public void cargar(ingreso.cod_situacion cual_sit, int origen_id)
         {
-            habilitar_controles(cual_sit, fuente);
+            habilitar_controles(cual_sit, origen_id);
         }
 
-        public void cargar(ingreso.cod_situacion cual_sit, string fuente, SINGLE_DETAIL informacion, bool HayIFRS)
+        public void cargar(ingreso.cod_situacion cual_sit, int origen_id, SINGLE_DETAIL informacion, bool HayIFRS)
         {
-            habilitar_controles(cual_sit, fuente);
+            habilitar_controles(cual_sit, origen_id);
             completar_informacion(cual_sit, informacion, HayIFRS);
         }
 
-        private void habilitar_controles(ingreso.cod_situacion cual_sit, string fuente)
+        private void habilitar_controles(ingreso.cod_situacion cual_sit, int origen_id)
         {
             //primer select para habilitar lo que corresponda segun el estado
             switch (cual_sit)
@@ -179,7 +179,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                     P.Auxiliar.ActivarF(Tfecha_compra, false);   //implica en los codigos de producto
                     P.Auxiliar.ActivarF(cbFecha_ing);
                     P.Auxiliar.ActivarF(Tcantidad, false);       //implica en los codigos de producto
-                    P.Auxiliar.ActivarF(Tprecio_compra, (bool)(fuente != "OBC"));
+                    P.Auxiliar.ActivarF(Tprecio_compra, (bool)(origen_id != 2));
                     P.Auxiliar.ActivarF(TvuF);
                     P.Auxiliar.ActivarF(Tdoc);
                     P.Auxiliar.ActivarF(Fderecho);
@@ -564,7 +564,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         {
             var toma = P.Mensaje.Confirmar("¿Está seguro que desea eliminar este registro?");
             if(toma == DialogResult.Yes){
-                var res = P.Consultas.cabeceras.BORRAR_AF(_padre.codigo_artic);
+                var res = P.Consultas.lotes.BORRAR_AF(_padre.codigo_artic);
                 if (res.codigo == 1)
                 {
                     P.Mensaje.Info("Se ha eliminado el registro correctamente");
@@ -580,7 +580,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         {
             var toma = P.Mensaje.Confirmar("¿Está seguro que desea activar este registro? (ya no podrá ser modificado)");
             if(toma == DialogResult.Yes){
-                var res = P.Consultas.cabeceras.ACTIVAR_AF(_padre.codigo_artic);
+                var res = P.Consultas.lotes.ACTIVAR_AF(_padre.codigo_artic);
                 if (res.codigo == 1)
                 {
                     P.Mensaje.Info("Se ha activado el registro correctamente");
@@ -605,254 +605,398 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         }
         private void btn_guardar_Click(System.Object sender,System.EventArgs e)// Handles btn_guardar.Click
         {
-            ////validar información ingresada
-            //if( Tdescrip.Text.Trim() == string.Empty){
-            //    MessageBox.Show("Debe indicar la descripción del Activo Fijo", "NH FOODS CHILE", MessageBoxIcon.Exclamation);   //, MessageBoxButtons.OK
-            //    Tdescrip.Focus();
-            //    return;
-            //}
-            //if (cboZona.SelectedIndex == -1){
-            //    MessageBox.Show("Debe indicar la zona del Activo Fijo", "NH FOODS CHILE", MessageBoxIcon.Exclamation);
-            //    cboZona.Focus();
-            //    return;
-            //}
-            //if(cboSubzona.SelectedIndex == -1){
-            //    MessageBox.Show("Debe indicar una subzona para el Activo Fijo",  "NH FOODS CHILE", MessageBoxIcon.Exclamation);
-            //    cboSubzona.Focus();
-            //    return;
-            //}
-            //if( cboClase.SelectedIndex == -1){
-            //    MessageBox.Show("Debe indicar la clase del Activo Fijo", "NH FOODS CHILE", MessageBoxIcon.Exclamation);
-            //    cboClase.Focus();
-            //    return;
-            //}
-            //if(cboSubclase.SelectedIndex == -1){
-            //    MessageBox.Show("Debe indicar una subclase para el Activo Fijo", "NH FOODS CHILE", MessageBoxIcon.Exclamation);
-            //    cboSubclase.Focus();
-            //    return;
-            //}
-            //if(cboCateg.SelectedIndex == -1) {
-            //    MessageBox.Show("Debe indicar el proveedor del Activo Fijo", "NH FOODS CHILE", MessageBoxIcon.Exclamation);
-            //    cboCateg.Focus();
-            //    return;
-            //}
-            //if( cboGestion.SelectedIndex == -1) {
-            //    MessageBox.Show("Debe indicar la gestion del Activo Fijo", "NH FOODS CHILE", MessageBoxIcon.Exclamation);
-            //    cboGestion.Focus();
-            //    return;
-            //}
-            //if( Tcantidad.Text == string.Empty){
-            //    MessageBox.Show("Debe indicar la cantidad de artículos", "NH FOODS CHILE", MessageBoxIcon.Exclamation);
-            //    Tcantidad.Focus();
-            //    return;
-            //}
-            //if( Tprecio_compra.Text == string.Empty){
-            //    MessageBox.Show("Debe indicar el precio de adquisición del Activo Fijo", "NH FOODS CHILE", MessageBoxIcon.Exclamation);
-            //    Tprecio_compra.Focus();
-            //    return;
-            //}
-            //if(TvuF.Text == string.Empty){
-            //    MessageBox.Show("Debe indicar la vida útil del artículo", "NH FOODS CHILE", MessageBoxIcon.Exclamation);
-            //    TvuF.Focus();
-            //    return;
-            //}
-            //if( Tdoc.Text == string.Empty){
-            //    DialogResult eleccion;
-            //    eleccion = MessageBox.Show("Desea continuar sin indicar el Nº de documento del Activo Fijo", "NH FOODS CHILE", MessageBoxButtons.YesNo);
-            //    if( eleccion != DialogResult.Yes){  //no marco SI
-            //        Tdoc.Focus();
-            //        return;
-            //    }
-            //}
-            //if (cbFecha_ing.SelectedIndex == -1) {
-            //    MessageBox.Show("Debe indicar el periodo contable del Activo Fijo", "NH FOODS CHILE", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    cbFecha_ing.Focus();
-            //    return;
-            //}
-            ////fin validación
+            if (!validar_campos())
+                return;
             ////simplicación de variables
-            //string documento, derecho, origen, descrip, proveedor, pcompra, vutil, cantidad,  
-            //usuario, total_compra, CtiPo;
-            //bool depreciar;
-            ////Dim sGestion As gestion.fila
-            //GENERIC_VALUE zona,clase,categoria,  subzona, subclase,sGestion;
-            //DateTime fcompra, fecha_contab;
-            //CtiPo = cboConsist.Text;
-            //descrip = Tdescrip.Text;
-            //fcompra = Tfecha_compra.Value;
-            //pcompra = string.Format(Tprecio_compra.Text, "General Number");
-            //cantidad = Tcantidad.Text;
-            //total_compra = string.Format(TxtPrecioTotal.Text, "General Number");
-            //vutil = TvuF.Text;
-            //zona = (GENERIC_VALUE)cboZona.SelectedItem;
-            //clase = (GENERIC_VALUE)cboClase.SelectedItem;
-            //categoria = (GENERIC_VALUE)cboCateg.SelectedItem;
-            //subzona = (GENERIC_VALUE)cboSubzona.SelectedItem;
-            //subclase = (GENERIC_VALUE)cboSubclase.SelectedItem;
-            //sGestion = (GENERIC_VALUE)cboGestion.SelectedItem;
-            //usuario = ""//form_welcome.GetUsuario;
-            //if (Tdoc.Text == ""){
-            //    documento = "SIN_DOCUMENTO";
-            //}else{
-            //    documento = Tdoc.Text;
-            //}
-            //if(cboProveedor.SelectedIndex == -1) {
-            //    proveedor = "SIN_PROVEED";
-            //}else{
-            //    proveedor = ((GENERIC_VALUE)(cboProveedor.SelectedItem)).code;
-            //}
-            //if(derC1.Checked)
-            //    derecho = "SI";
-            //else
-            //    derecho = "NO";
-            //origen = ""//fuente.Text;
-            //fecha_contab = ((ACode.Vperiodo)(cbFecha_ing.SelectedItem)).last;
-            //depreciar = ckDepre.Checked;
-            ////fin reduccion de variables
-            //DataRow mRS;
-            //string mensaje_final;
-            //if(cual_sit ==  cod_situacion.nuevo){
-            //    //ingreso en lote_articulos
-            //    mRS = base.INGRESO_LOTE(descrip, fcompra, proveedor, documento, total_compra, vutil, derecho, fecha_contab, origen, CtiPo)
-            //    if(mRS["cod_sit"] == -1) {
-            //        //se produjo un error en el insert, se debe avisar
-            //        MessageBox.Show("Se ha producido un error al momento de guardar el lote", "NH FOODS CHILE",MessageBoxIcon.Error);
-            //        return;
-            //    }
-            //    string codigo = (string) mRS["codigo"];
-            //    artic.Text = codigo;
-            //    mRS = null;
-            //    //checkear origen del ingreso para hacer match con obra en construccion
-            //    if(origen == "OBC"){
-            //        string monto, codEnt;
-            //        foreach(DataGridViewRow fila in form_ter_obra.salidaAF.Rows){
-            //            monto = string.Format(fila.Cells[2].Value, "General Number");
-            //            codEnt = string.Format(fila.Cells[0].Value, "General Number");
-            //            mRS = base.EGRESO_OBC(codEnt, artic.Text, monto, zona.codigo);
-            //        }
-            //        form_ter_obra.continuar = True
-            //        form_ter_obra.Close()
-            //    }
-            //    //ingreso primer registro FINANCIERO
-            //    mRS = base.INGRESO_FINANCIERO(codigo, zona.codigo, cantidad, clase, categoria, subzona, subclase, depreciar, usuario, sGestion.ID)
-            //    If mRS("cod_status") < 0 Then
-            //        'se produjo un error en el insert, se debe avisar
-            //        MsgBox(mRS("status"), vbCritical, "NH FOODS CHILE")
-            //        return;
-            //    }
-            //    'ingreso primer registro TRIBUTARIO
-            //    mRS = base.INGRESO_TRIBUTARIO(codigo, zona.codigo, cantidad, clase, categoria, subzona, subclase, depreciar, usuario, sGestion.ID)
-            //    If mRS("cod_status") < 0 Then
-            //        'se produjo un error en el insert, se debe avisar
-            //        MsgBox(mRS("status"), vbCritical, "NH FOODS CHILE")
-            //        return;
-            //    }
-            //    mRS = Nothing
-            //    'analizo si tiene marcada la casilla IFRS
-            //    If ckIFRS.Checked Then
-            //        'entonces ingresamos el módulo ifrs con valores por defecto (despues ya podrá modificarlos si desea)
-            //        Dim val_res, VUA, metod_val As String
-            //        val_res = Math.Round(CLng(pcompra) * CDbl(base.IFRS_PREDET(clase)("pValRes")), 0)
-            //        VUA = Math.Round(CInt(vutil) / 12 * 365)
-            //        metod_val = base.IFRS_PREDET(clase)("metodVal")
-            //        mRS = base.INGRESO_IFRS(codigo, val_res, VUA, metod_val, 0, 0, 0, 0, 0)
-            //        If mRS("cod_status") < 0 Then
-            //            'se produjo un error en el procedimiento, se debe avisar
-            //            MsgBox(mRS("status"), vbCritical, "NH FOODS CHILE")
-            //            return;
-            //        Else
-            //            btn_IFRS.Image = My.Resources._32_edit
-            //            btn_IFRS.Text = "Modificar"
-            //        }
-            //        mRS = Nothing
-            //    Else
-            //        'como es nuevo, no hay que eliminar nada, puesto que no existe
-            //    }
-            //    'homologar con los códigos de inventario
-            //    mRS = base.GENERAR_CODIGO_INV(codigo)
-            //    If mRS("cod_status") < 0 Then
-            //        MsgBox(mRS("status"), vbCritical, "NH FOODS CHILE")
-            //    }
-            //    mensaje_final = "Registro de articulo ingresado correctamente al Activo Fijo"
-            //    cual_sit = cod_situacion.editable
-            //Else
-            //    'modificacion en lote_articulos (ya que si esta activo, esta pestaña nunca esta disponible)
-            //    mRS = base.MODIFICA_LOTE(artic.Text, descrip, proveedor, documento, total_compra, vutil, derecho, fecha_contab)
-            //    If mRS("cod_sit") == -1) {
-            //        'se produjo un error en el insert, se debe avisar
-            //        MsgBox("Se ha producido un error al momento de modificar el lote", vbCritical, "NH FOODS CHILE")
-            //        return;
-            //    }
-            //    mRS = Nothing
-            //    'origen no cambia, asi que no se requiere este segmento de codigo
+            string documento, proveedor, usuario;
+            int vutil;
+            GENERIC_VALUE CtiPo = (GENERIC_VALUE)cboConsist.SelectedItem;
+            string descrip = Tdescrip.Text;
+            DateTime fcompra = Tfecha_compra.Value;
+            decimal pcompra = decimal.Parse(Tprecio_compra.Text);
+            int cantidad = int.Parse(Tcantidad.Text);
+            decimal total_compra = decimal.Parse(TxtPrecioTotal.Text);
+            int.TryParse(TvuF.Text,out vutil);
+            GENERIC_VALUE zona = (GENERIC_VALUE)cboZona.SelectedItem;
+            GENERIC_VALUE clase = (GENERIC_VALUE)cboClase.SelectedItem;
+            GENERIC_VALUE categoria = (GENERIC_VALUE)cboCateg.SelectedItem;
+            GENERIC_VALUE subzona = (GENERIC_VALUE)cboSubzona.SelectedItem;
+            GENERIC_VALUE subclase = (GENERIC_VALUE)cboSubclase.SelectedItem;
+            GENERIC_VALUE gestion = (GENERIC_VALUE)cboGestion.SelectedItem;
+            usuario = "";//form_welcome.GetUsuario;
+            if (Tdoc.Text == "")
+                documento = "SIN_DOCUMENTO";
+            else
+                documento = Tdoc.Text;
 
-            //    'modifico primer historico FINANCIERO
-            //    mRS = base.MODIFICA_FINANCIERO(artic.Text, zona.codigo, categoria, subzona, subclase, depreciar, usuario, sGestion.ID)
-            //    If mRS("cod_status") < 0 Then
-            //        'se produjo un error en el procedimiento, se debe avisar
-            //        MsgBox(mRS("status"), vbCritical, "NH FOODS CHILE")
-            //        return;
-            //    }
-            //    mRS = Nothing
-            //    'modifico primer historico TRIBUTARIO
-            //    mRS = base.MODIFICA_TRIBUTARIO(artic.Text, zona.codigo, categoria, subzona, subclase, depreciar, usuario, sGestion.ID)
-            //    If mRS("cod_status") < 0 Then
-            //        'se produjo un error en el procedimiento, se debe avisar
-            //        MsgBox(mRS("status"), vbCritical, "NH FOODS CHILE")
-            //        return;
-            //    }
-            //    mRS = Nothing
-            //    'analizo si tiene marcada la casilla IFRS
-            //    Dim cont_ifrs As Integer
-            //    cont_ifrs = base.DETALLE_IFRS_CLP(artic.Text).Rows.Count
-            //    If ckIFRS.Checked Then
-            //        If cont_ifrs = 0 Then
-            //            'no existe en ifrs y se ha solicitado ingresarlo
-            //            Dim val_res, VUA, metod_val As String
-            //            val_res = Math.Round(CLng(pcompra) * base.IFRS_PREDET(clase)("pValRes"), 0)
-            //            VUA = Math.Round(CInt(vutil) / 12 * 365)
-            //            metod_val = base.IFRS_PREDET(clase)("metodVal")
-            //            mRS = base.INGRESO_IFRS(artic.Text, val_res, VUA, metod_val, 0, 0, 0, 0, 0)
-            //            If mRS("cod_status") < 0 Then
-            //                'se produjo un error en el procedimiento, se debe avisar
-            //                MsgBox(mRS("status"), vbCritical, "NH FOODS CHILE")
-            //                return;
-            //            Else
-            //                btn_IFRS.Image = My.Resources._32_edit
-            //                btn_IFRS.Text = "Modificar"
-            //            }
-            //            mRS = Nothing
-            //        Else
-            //            'si esta marcado y creado, no es necesario hacer algo
-            //        }
-            //    Else
-            //        If cont_ifrs > 0 Then
-            //            //si esta desmarcado y existe, se debe eliminar el registro ifrs del artículo
-            //            mRS = base.ELIMINA_IFRS(artic.Text)
-            //            If mRS("cod_status") < 0 Then
-            //                'se produjo un error en el procedimiento, se debe avisar
-            //                MsgBox(mRS("status"), vbCritical, "NH FOODS CHILE")
-            //                return;
-            //            }
-            //            mRS = Nothing
-            //        Else
-            //            //si no esta marcado y no esta creado, no es necesario hacer algo
-            //        }
-            //    }
-            //    mensaje_final = "Registro de articulo modificado correctamente al Activo Fijo"
-            //}
-            //carga_superior()
-            //cargar_ifrs()
-            //cargar_DxG()
-            //If ckIFRS.Checked Then
-            //    seleccionar_pestaña(paso2)
-            //Else
-            //    seleccionar_pestaña(paso3)
-            //}
-            //    MessageBox.Show(mensaje_final, "NH FOODS CHILE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (cboProveedor.SelectedIndex == -1)
+                proveedor = "SIN_PROVEED";
+            else
+                proveedor = ((SV_PROVEEDOR)(cboProveedor.SelectedItem)).COD;
+
+            bool derecho = derC1.Checked;
+            int origen = _padre.fuente;
+
+            DateTime fecha_contab = ((ACode.Vperiodo)(cbFecha_ing.SelectedItem)).last;
+            bool depreciar = ckDepre.Checked;
+            //fin reduccion de variables
+            //Preparo valores en moneda original y yenes
+            decimal valor_unitario = Math.Floor(total_compra / cantidad);
+            decimal total_yen, unitario_yen;
+            decimal tc = P.Consultas.tipo_cambio.YEN(fcompra);
+            int residuo = (int)(total_compra - (valor_unitario * cantidad));
+
+            RespuestaAccion mRS;
+            string mensaje_final = string.Empty;
+            if (_padre.cual_sit == ingreso.cod_situacion.nuevo)
+            {
+                //ingreso en lote_articulos
+                mRS = P.Consultas.lotes.INGRESO_LOTE(descrip, fcompra, proveedor, documento, total_compra, vutil, derecho, fecha_contab, origen, CtiPo);
+                if (mRS.codigo < 0)
+                {
+                    //se produjo un error en el insert, se debe avisar
+                    P.Mensaje.Error("Se ha producido un error al momento de guardar el lote");
+                    return;
+                }
+                int codigo = mRS.result_objs.First().id;
+                _padre.codigo_artic = codigo;
+
+                //Preparo valores para yen
+                if (_padre.fuente == 2)  //OBC
+                    total_yen = P.Consultas.obc.TotalYen(codigo);
+                else
+                    total_yen = Math.Round(((total_compra / cantidad) / tc), 3) * cantidad;
+                unitario_yen = total_yen / cantidad;
+
+                //checkear origen del ingreso para hacer match con obra en construccion
+                if (origen == 2)//OBC
+                {    
+                    //string monto, codEnt;
+                    //foreach (DataGridViewRow fila in form_ter_obra.salidaAF.Rows)
+                    //{
+                    //    monto = string.Format(fila.Cells[2].Value, "General Number");
+                    //    codEnt = string.Format(fila.Cells[0].Value, "General Number");
+                    //    mRS = base.EGRESO_OBC(codEnt, artic.Text, monto, zona.codigo);
+                    //}
+                    //form_ter_obra.continuar = True
+                    //form_ter_obra.Close()
+                }
+                //determino partes necesarias para el batch
+                mRS = P.Consultas.partes.REGISTER_PURCHASE(codigo, fcompra, total_compra, cantidad);
+                if (mRS.codigo < 0)
+                {
+                    P.Mensaje.Error(mRS.descripcion);
+                    return;
+                }
+                List<GENERIC_VALUE> partes = mRS.result_objs;
+                //ingreso cabecera de la transaccion
+                mRS = P.Consultas.trx_cabeceras.REGISTER_PURCHASE_HEAD(partes, fcompra, zona, subzona, clase, subclase, categoria, gestion, usuario);
+                if (mRS.codigo < 0)
+                {
+                    P.Mensaje.Error(mRS.descripcion);
+                    return;
+                }
+                
+
+                List<GENERIC_VALUE> cabeceras = mRS.result_objs;
+                var AllowSystems = P.Consultas.sistema.AllWithIFRS(ckIFRS.Checked);
+                foreach (SV_SYSTEM curSystem in AllowSystems)
+                {
+                    mRS = P.Consultas.trx_detalles.REGISTER_PURCHASE_DETAIL(cabeceras, curSystem, depreciar, derecho);
+                    if (mRS.codigo < 0)
+                    {
+                        P.Mensaje.Error(mRS.descripcion);
+                        return;
+                    }
+                    int[] cab_ids = cabeceras.Select(c => c.id).ToArray();
+                    decimal valor;
+                    bool isYen = (curSystem.CURRENCY == "YEN");
+                    if (!isYen)
+                        valor = valor_unitario;
+                    else
+                        valor = unitario_yen;
+                    registrar_parametros(curSystem, cab_ids, valor, derecho, vutil, clase, isYen);
+                    
+                }
+                //btn_IFRS.Image = My.Resources._32_edit;
+                //btn_IFRS.Text = "Modificar"
+
+                //homologar con los códigos de inventario
+                mRS = P.Consultas.inventario.GENERAR_CODIGO(codigo, clase);
+                if (mRS.codigo < 0)
+                {
+                    P.Mensaje.Error(mRS.descripcion);
+                    return;
+                }
+                mensaje_final = "Registro de articulo ingresado correctamente al Activo Fijo";
+                _padre.cual_sit = ingreso.cod_situacion.editable;
+            }
+            else
+            {
+                //case when _padre.cual_sit != nuevo
+                int codigo_lote = _padre.codigo_artic;
+
+                //Preparo valores para yen
+                if (_padre.fuente == 2)  //OBC
+                    total_yen = P.Consultas.obc.TotalYen(codigo_lote);
+                else
+                    total_yen = Math.Round(((total_compra / cantidad) / tc), 3) * cantidad;
+                unitario_yen = total_yen / cantidad;
+
+                //modificacion en lote_articulos 
+                //(ya que si esta activo, esta pestaña nunca esta disponible)
+                mRS = P.Consultas.lotes.MODIFICA_LOTE(codigo_lote, descrip, proveedor, documento, total_compra, vutil, derecho, fecha_contab);
+                if (mRS.codigo < 0)
+                {
+                    //se produjo un error al momento de modificar el lote
+                    P.Mensaje.Error(mRS.descripcion);
+                    return;
+                }
+                //origen no cambia, asi que no se requiere este segmento de codigo
+                //partes no cambian
+                var partes = P.Consultas.partes.ByLote(codigo_lote);
+                //modifico cabecera de la transaccion
+                mRS = P.Consultas.trx_cabeceras.MODIF_PURCHASE_HEAD(partes, zona, subzona, subclase, categoria, gestion, usuario);
+                if (mRS.codigo < 0)
+                {
+                    P.Mensaje.Error(mRS.descripcion);
+                    return;
+                }
+                //trabajo con valores de parametros
+                List<GENERIC_VALUE> cabeceras = mRS.result_objs;
+                var AllowSystems = P.Consultas.sistema.All();
+                foreach (SV_SYSTEM curSystem in AllowSystems)
+                {
+                    int[] cab_ids = cabeceras.Select(c => c.id).ToArray();
+                    var details = P.Consultas.trx_detalles.GetByPartsSystem(cab_ids, curSystem);
+                    bool existe_det = !(details == null || details.Count == 0);
+                    decimal valor;
+                    bool isYen = (curSystem.CURRENCY == "YEN");
+                    if (!isYen)
+                        valor = valor_unitario;
+                    else
+                        valor = unitario_yen;
+                    if (curSystem.ENVIORMENT == "IFRS" && !(ckIFRS.Checked))
+                    {
+                        if (existe_det)
+                        {
+                            //TODO: Eliminar datos de IFRS
+                        }
+                        //else
+                        //    //si no esta marcado y no esta creado, no es necesario hacer algo
+                    }
+                    else
+                    {
+                        if (existe_det)
+                        {
+                            //Modificar datos
+                            modificar_parametros(curSystem, cab_ids, valor, derecho, vutil, clase, isYen);
+                        }
+                        else
+                        {
+                            //Ingresar nuevos datos
+                            registrar_parametros(curSystem, cab_ids, valor,derecho,vutil,clase,isYen);
+                        }
+                    }
+                }
+
+                //no se vuelve a homologar con los códigos de inventario
+                //Situación se mantiene (editable)
+                //_padre.cual_sit = ingreso.cod_situacion.editable;
+                mensaje_final = "Registro de articulo modificado correctamente al Activo Fijo";
+            }
+            _padre.cargar_otras_pestañas_fromBasic();
+            P.Mensaje.Info(mensaje_final);
         }
 
-        
+        private void registrar_parametros(SV_SYSTEM curSystem, int[] cabeceras, decimal valor, bool derecho, int vutil, GENERIC_VALUE clase, bool isYen)
+        {
+            RespuestaAccion mRS;
+            //Ingreso Precio Unitario
+            SV_PARAMETER pb = P.Consultas.parametros.PrecioBase;
+            mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabeceras, curSystem, pb, valor, !isYen);
+            if (mRS.codigo < 0)
+            {
+                P.Mensaje.Error(mRS.descripcion);
+                return;
+            }
+            //Ingreso Credito
+            if (derecho)
+            {
+                SV_PARAMETER cred = P.Consultas.parametros.Credito;
+                valor = curSystem.ENVIORMENT.credit_rate * valor;
+                mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabeceras, curSystem, cred, valor);
+                if (mRS.codigo < 0)
+                {
+                    P.Mensaje.Error(mRS.descripcion);
+                    return;
+                }
+            }
+            //Ingreso Vida Util     //default monthly
+            SV_PARAMETER vu = P.Consultas.parametros.VidaUtil;
+            if (curSystem.ENVIORMENT.depreciation_rate == "monthly")
+                valor = vutil;
+            else
+                valor = vutil / 12 * 365;
+            mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabeceras, curSystem, vu, valor);
+            if (mRS.codigo < 0)
+            {
+                P.Mensaje.Error(mRS.descripcion);
+                return;
+            }
+            //Valor Residual
+            decimal val_res;
+            SV_PARAMETER vr = P.Consultas.parametros.ValorResidual;
+            if (curSystem.ENVIORMENT == "IFRS")
+            {
+                decimal porc = P.Consultas.predeter_ifrs.porcentaje_valor_residual(clase);
+                val_res = valor * porc;
+            }
+            else
+                val_res = 1;
+
+            mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabeceras, curSystem, vr, val_res);
+            if (mRS.codigo < 0)
+            {
+                P.Mensaje.Error(mRS.descripcion);
+                return;
+            }
+        }
+        private void modificar_parametros(SV_SYSTEM curSystem, int[] cabeceras, decimal valor, bool derecho, int vutil, GENERIC_VALUE clase, bool isYen)
+        {
+            RespuestaAccion mRS;
+            decimal ValueToWork;
+            //Modifico Precio Unitario
+            SV_PARAMETER pb = P.Consultas.parametros.PrecioBase;
+            mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabeceras, curSystem, pb, valor, !isYen);
+            if (mRS.codigo < 0)
+            {
+                P.Mensaje.Error(mRS.descripcion);
+                return;
+            }
+            //Ingreso Credito
+            if (derecho)
+            {
+                SV_PARAMETER cred = P.Consultas.parametros.Credito;
+                ValueToWork = curSystem.ENVIORMENT.credit_rate * valor;
+                mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabeceras, curSystem, cred, ValueToWork);
+                if (mRS.codigo < 0)
+                {
+                    P.Mensaje.Error(mRS.descripcion);
+                    return;
+                }
+            }
+            //Ingreso Vida Util     //default monthly
+            SV_PARAMETER vu = P.Consultas.parametros.VidaUtil;
+            if (curSystem.ENVIORMENT.depreciation_rate == "monthly")
+                ValueToWork = vutil;
+            else
+                ValueToWork = vutil / 12 * 365;
+            mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabeceras, curSystem, vu, ValueToWork);
+            if (mRS.codigo < 0)
+            {
+                P.Mensaje.Error(mRS.descripcion);
+                return;
+            }
+            //Valor Residual
+            SV_PARAMETER vr = P.Consultas.parametros.ValorResidual;
+            if (curSystem.ENVIORMENT == "IFRS")
+            {
+                decimal porc = P.Consultas.predeter_ifrs.porcentaje_valor_residual(clase);
+                ValueToWork = valor * porc;
+            }
+            else
+                ValueToWork = 1;
+
+            mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabeceras, curSystem, vr, ValueToWork);
+            if (mRS.codigo < 0)
+            {
+                P.Mensaje.Error(mRS.descripcion);
+                return;
+            }
+        }
+
+        private bool validar_campos()
+        {
+            //validar información ingresada
+            if (Tdescrip.Text.Trim() == string.Empty)
+            {
+                P.Mensaje.Advert("Debe indicar la descripción del Activo Fijo");   //, MessageBoxButtons.OK
+                Tdescrip.Focus();
+                return false;
+            }
+            if (cboZona.SelectedIndex == -1)
+            {
+                P.Mensaje.Advert("Debe indicar la zona del Activo Fijo");
+                cboZona.Focus();
+                return false;
+            }
+            if (cboSubzona.SelectedIndex == -1)
+            {
+                P.Mensaje.Advert("Debe indicar una subzona para el Activo Fijo");
+                cboSubzona.Focus();
+                return false;
+            }
+            if (cboClase.SelectedIndex == -1)
+            {
+                P.Mensaje.Advert("Debe indicar la clase del Activo Fijo");
+                cboClase.Focus();
+                return false;
+            }
+            if (cboSubclase.SelectedIndex == -1)
+            {
+                P.Mensaje.Advert("Debe indicar una subclase para el Activo Fijo");
+                cboSubclase.Focus();
+                return false;
+            }
+            if (cboCateg.SelectedIndex == -1)
+            {
+                P.Mensaje.Advert("Debe indicar el proveedor del Activo Fijo");
+                cboCateg.Focus();
+                return false;
+            }
+            if (cboGestion.SelectedIndex == -1)
+            {
+                P.Mensaje.Advert("Debe indicar la gestion del Activo Fijo");
+                cboGestion.Focus();
+                return false;
+            }
+            if (Tcantidad.Text == string.Empty)
+            {
+                P.Mensaje.Advert("Debe indicar la cantidad de artículos");
+                Tcantidad.Focus();
+                return false;
+            }
+            if (Tprecio_compra.Text == string.Empty)
+            {
+                P.Mensaje.Advert("Debe indicar el precio de adquisición del Activo Fijo");
+                Tprecio_compra.Focus();
+                return false;
+            }
+            if (TvuF.Text == string.Empty)
+            {
+                P.Mensaje.Advert("Debe indicar la vida útil del artículo");
+                TvuF.Focus();
+                return false;
+            }
+            if (Tdoc.Text == string.Empty)
+            {
+                DialogResult eleccion = P.Mensaje.Confirmar("Desea continuar sin indicar el Nº de documento del Activo Fijo");
+                if (eleccion != DialogResult.Yes)
+                {  //no marco SI
+                    Tdoc.Focus();
+                    return false;
+                }
+            }
+            if (cbFecha_ing.SelectedIndex == -1)
+            {
+                P.Mensaje.Advert("Debe indicar el periodo contable del Activo Fijo");
+                cbFecha_ing.Focus();
+                return false;
+            }
+            //fin validación
+            return true;
+        }
         #endregion
 
     }

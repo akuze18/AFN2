@@ -97,6 +97,7 @@ namespace AFN_WF_C.PCClient.Procesos
             excel.DisplayAlerts = false;
 
             worKbooK = excel.Workbooks.Add();
+            set_sheet_amount(worKbooK, 1);
             worKsheeT = (Exc.Worksheet)worKbooK.ActiveSheet;
             worKsheeT.Name = "Detalle Activo Fijo";
 
@@ -183,13 +184,13 @@ namespace AFN_WF_C.PCClient.Procesos
                     new TituloCabera(17,"Depreciación del Ejercicio") ,
                     new TituloCabera(18,"Depreciación Acumulada") ,
                     new TituloCabera(19,"Valor Libro del Activo") ,
-                    //new TituloCabera(25,"Codigo Subzona", typeof(decimal) ) ,
-                    //new TituloCabera(26,"Descripción Subzona", typeof(string) ) ,
-                    //new TituloCabera(27,"Codigo Gestion", typeof(int) ) ,
-                    //new TituloCabera(28,"Descripción Gestion", typeof(string) ) ,
-                    //new TituloCabera(29,"Fecha Contabilizacion", typeof(DateTime) ) ,
-                    //new TituloCabera(30,"Origen", typeof(string) ) ,
-                    //new TituloCabera(31,"Vida Util Inicial", typeof(int) ) ,
+                    new TituloCabera(34,"Codigo Subzona", "CODE" ) ,
+                    new TituloCabera(34,"Descripción Subzona", "DESCRIP" ) ,
+                    new TituloCabera(38,"Codigo Gestion", "CODE") ,
+                    new TituloCabera(38,"Descripción Gestion", "DESCRIP" ) ,
+                    new TituloCabera(39,"Fecha Contabilizacion") ,
+                    new TituloCabera(40,"Origen", "CODE" ) ,
+                    new TituloCabera(41,"Vida Util Inicial") ,
                 };
             }
         }
@@ -223,13 +224,13 @@ namespace AFN_WF_C.PCClient.Procesos
                     new TituloCabera(17,"Depreciación del Ejercicio") ,
                     new TituloCabera(18,"Depreciación Acumulada") ,
                     new TituloCabera(19,"Valor Libro del Activo") ,
-                    //new TituloCabera(25,"Codigo Subzona", typeof(decimal) ) ,
-                    //new TituloCabera(26,"Descripción Subzona", typeof(string) ) ,
-                    //new TituloCabera(27,"Codigo Gestion", typeof(int) ) ,
-                    //new TituloCabera(28,"Descripción Gestion", typeof(string) ) ,
-                    //new TituloCabera(29,"Fecha Contabilizacion", typeof(DateTime) ) ,
-                    //new TituloCabera(30,"Origen", typeof(string) ) ,
-                    //new TituloCabera(31,"Vida Util Inicial", typeof(int) ) ,
+                    new TituloCabera(34,"Codigo Subzona", "CODE" ) ,
+                    new TituloCabera(34,"Descripción Subzona", "DESCRIP" ) ,
+                    new TituloCabera(38,"Codigo Gestion", "CODE") ,
+                    new TituloCabera(38,"Descripción Gestion", "DESCRIP" ) ,
+                    new TituloCabera(39,"Fecha Contabilizacion") ,
+                    new TituloCabera(40,"Origen", "CODE" ) ,
+                    new TituloCabera(41,"Vida Util Inicial") ,
                 };
             }
         }

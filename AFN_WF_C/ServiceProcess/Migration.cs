@@ -1061,6 +1061,7 @@ namespace AFN_WF_C.ServiceProcess
                             var cCat = repo.categorias.ByCode(LineaFinCLP.categoria);
                             cab_new.category_id = cCat.id;
                             cab_new.user_own = "DEP_MIG";
+                            cab_new.method_revalue_id = 1;
                             //var cGest = (from ges in context.MANAGEMENTS where ges.code == inv_fin_clp.gestion select ges.id).First();
                             int cGest;
                             if (Int32.TryParse(LineaFinCLP.id_gestion.ToString(), out cGest))
@@ -1333,7 +1334,7 @@ namespace AFN_WF_C.ServiceProcess
                                         s.parte,
                                         s.cantidad
                                     } into g
-                                    select g.Key);
+                                    select new{g.Key, g.First().fecha_inicio} );
             using (AFN2Entities context = new AFN2Entities())
             using (var repo = new Repositories.Main(context))
             {
@@ -1355,21 +1356,21 @@ namespace AFN_WF_C.ServiceProcess
                     }
                     #endregion
                     #region Trabajamos con PARTS
-                    var current_parts = resumen_partes.Where(i => i.id_articulo == lote_old.cod);
+                    var current_parts = resumen_partes.Where(i => i.Key.id_articulo == lote_old.cod);
                     foreach (var sPart in current_parts)
                     {
-                        var buscar_parts = repo.Partes.ByLotePart(sPart.id_articulo, sPart.parte);
+                        var buscar_parts = repo.Partes.ByLotePart(sPart.Key.id_articulo, sPart.Key.parte);
                         if (buscar_parts == null)
                         {
                             //no existe parte ingresada, la ingresamos
-                            repo.PART_NEW(sPart.id_articulo, sPart.parte, sPart.cantidad);
+                            repo.PART_NEW(sPart.Key.id_articulo, sPart.Key.parte, sPart.Key.cantidad, sPart.fecha_inicio);
                         }
                         else
                         {
                             //ya existe, vemos si la cantidad cambio
-                            if (buscar_parts.quantity != sPart.cantidad)
+                            if (buscar_parts.quantity != sPart.Key.cantidad)
                             {
-                                repo.PART_UPDATE(buscar_parts.id,sPart.cantidad);
+                                repo.PART_UPDATE(buscar_parts.id, sPart.Key.cantidad);
                             }
                         }
                     }

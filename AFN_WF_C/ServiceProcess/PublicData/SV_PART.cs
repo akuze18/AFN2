@@ -31,6 +31,17 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 _first_date = od.first_date,
             };
         }
+
+        public static implicit operator GENERIC_VALUE(SV_PART sv)
+        {
+            return new GENERIC_VALUE()
+            {
+                id = sv.id,
+                code = sv.id.ToString(),
+                description = sv.ToString(),
+                type = sv.GetType().Name.Substring(3),
+            };
+        }
         #endregion
 
         public override string ToString()

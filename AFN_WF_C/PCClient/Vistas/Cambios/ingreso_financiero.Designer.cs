@@ -151,6 +151,7 @@
             this.btn_act.Text = "Activar";
             this.btn_act.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_act.UseVisualStyleBackColor = true;
+            this.btn_act.Click += new System.EventHandler(this.btn_act_Click);
             // 
             // btn_elim
             // 
@@ -176,6 +177,7 @@
             this.btn_guardar.Text = "Guardar";
             this.btn_guardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_guardar.UseVisualStyleBackColor = true;
+            this.btn_guardar.Click += new System.EventHandler(this.btn_guardar_Click);
             // 
             // ckIFRS
             // 
