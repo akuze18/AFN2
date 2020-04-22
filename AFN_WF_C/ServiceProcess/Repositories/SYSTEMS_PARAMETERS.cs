@@ -5,26 +5,26 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class SYSTEMS_PARAMETERS
+    public class SYSTEMS_PARAMETERS
     {
-        private List<SYSTEM_PARAMETER> _source;
-        public SYSTEMS_PARAMETERS(ObjectSet<SYSTEM_PARAMETER> source) { _source = source.ToList(); }
-        public SYSTEMS_PARAMETERS(List<SYSTEM_PARAMETER> source) { _source = source; }
+        private List<SV_SYSTEM_PARAMETER> _source;
+        public SYSTEMS_PARAMETERS(ObjectSet<SYSTEM_PARAMETER> source) { _source = source.ToList().ConvertAll(sp=>(SV_SYSTEM_PARAMETER)sp); }
 
-        public SYSTEM_PARAMETER ById(int idFind)
+        public SV_SYSTEM_PARAMETER ById(int idFind)
         {
             return _source.Where(z => z.id == idFind).FirstOrDefault();
         }
 
-        public List<SYSTEM_PARAMETER> BySystem(SYSTEM s)
+        public List<SV_SYSTEM_PARAMETER> BySystem(SV_SYSTEM s)
         {
             return BySystem(s.id);
         }
 
-        public List<SYSTEM_PARAMETER> BySystem(int sistem_id)
+        public List<SV_SYSTEM_PARAMETER> BySystem(int sistem_id)
         {
             return _source.Where(x => x.system_id == sistem_id).ToList();
         }

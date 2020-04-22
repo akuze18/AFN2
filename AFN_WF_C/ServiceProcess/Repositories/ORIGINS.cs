@@ -5,18 +5,27 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class ORIGINS
+    public class ORIGINS
     {
-        private List<ORIGIN> _source;
-        public ORIGINS(ObjectSet<ORIGIN> source) { _source = source.ToList(); }
-        public ORIGINS(List<ORIGIN> source) { _source = source; }
+        private List<SV_ORIGIN> _source;
+        public ORIGINS(ObjectSet<ORIGIN> source) 
+        { 
+            _source = source
+                .ToList()
+                .ConvertAll(o =>(SV_ORIGIN)o ); 
+        }
 
-        public GENERIC_VALUE ById(int idFind)
+        public SV_ORIGIN ById(int idFind)
         {
-            return _source.Where(z => z.id == idFind).FirstOrDefault();
+            return _source.Where(o => o.id == idFind).FirstOrDefault();
+        }
+        public GENERIC_VALUE ByCode(string CodeFind)
+        {
+            return _source.Where(o => o.code == CodeFind).FirstOrDefault();
         }
     }
 }

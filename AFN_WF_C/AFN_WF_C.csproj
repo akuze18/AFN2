@@ -14,6 +14,21 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -24,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -33,16 +49,45 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>AFN_WF_C.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>afn.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ACode, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ACode.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.2.0.0\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -55,19 +100,202 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="PCClient\FormBase.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PCClient\FormBase.Designer.cs">
       <DependentUpon>FormBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="PCClient\Procesos\Auxiliar.cs" />
     <Compile Include="PCClient\Procesos\Consultas.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\BorderPaintingFormat.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\ColumnData.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\BajasDisplay.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\CambioDisplay.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\DetalleArticulo.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\DetalleOBC.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\DisplayArticDetail.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\DisplayVentaPrecio.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\StatusColor.cs" />
+    <Compile Include="PCClient\Procesos\Estructuras\TituloCabera.cs" />
+    <Compile Include="PCClient\Procesos\ExcelWrite.cs" />
+    <Compile Include="PCClient\Procesos\Mensaje.cs" />
+    <Compile Include="PCClient\Procesos\Migracion.cs" />
+    <Compile Include="PCClient\Procesos\Reportes.cs" />
+    <Compile Include="PCClient\Vistas\Acciones\ManagerBatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Acciones\ManagerBatch.Designer.cs">
+      <DependentUpon>ManagerBatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\articulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\articulo.Designer.cs">
+      <DependentUpon>articulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\inputbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\inputbox.Designer.cs">
+      <DependentUpon>inputbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\lista_cambios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\lista_cambios.Designer.cs">
+      <DependentUpon>lista_cambios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\manager_det_articulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\manager_det_articulo.Designer.cs">
+      <DependentUpon>manager_det_articulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\obc_borrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\obc_borrador.Designer.cs">
+      <DependentUpon>obc_borrador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\PriceQuantitySetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\PriceQuantitySetter.Designer.cs">
+      <DependentUpon>PriceQuantitySetter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\proveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Busquedas\proveedor.Designer.cs">
+      <DependentUpon>proveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\castigo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\castigo.Designer.cs">
+      <DependentUpon>castigo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Acciones\depreciar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Acciones\depreciar.Designer.cs">
+      <DependentUpon>depreciar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso.Designer.cs">
+      <DependentUpon>ingreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_financiero.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_financiero.Designer.cs">
+      <DependentUpon>ingreso_financiero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_ifrs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_ifrs.Designer.cs">
+      <DependentUpon>ingreso_ifrs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_invent_articulo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_invent_articulo.Designer.cs">
+      <DependentUpon>ingreso_invent_articulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_invent_grup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\ingreso_invent_grup.Designer.cs">
+      <DependentUpon>ingreso_invent_grup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\obras_egreso_af.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\obras_egreso_af.Designer.cs">
+      <DependentUpon>obras_egreso_af.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\obras_egreso_gasto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\obras_egreso_gasto.Designer.cs">
+      <DependentUpon>obras_egreso_gasto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\obras_ingreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\obras_ingreso.Designer.cs">
+      <DependentUpon>obras_ingreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\traspaso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\traspaso.Designer.cs">
+      <DependentUpon>traspaso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\venta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\venta.Designer.cs">
+      <DependentUpon>venta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\venta_precio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Cambios\venta_precio.Designer.cs">
+      <DependentUpon>venta_precio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Consultas\saldos_obc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Consultas\saldos_obc.Designer.cs">
+      <DependentUpon>saldos_obc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Migracion\Ajuste_Parametros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Migracion\Ajuste_Parametros.Designer.cs">
+      <DependentUpon>Ajuste_Parametros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\bajas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\bajas.Designer.cs">
+      <DependentUpon>bajas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\contabilizar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\contabilizar.Designer.cs">
+      <DependentUpon>contabilizar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\cuadro_movimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\cuadro_movimiento.Designer.cs">
+      <DependentUpon>cuadro_movimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\fixed_assets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\fixed_assets.Designer.cs">
+      <DependentUpon>fixed_assets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\vigentes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Reportes\vigentes.Designer.cs">
+      <DependentUpon>vigentes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Sistema\Depreciar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PCClient\Vistas\Sistema\Depreciar.Designer.cs">
+      <DependentUpon>Depreciar.cs</DependentUpon>
+    </Compile>
     <Compile Include="PCClient\Vistas\welcome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,28 +309,201 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AFN2.edmx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceProcess\DataContract\DETAIL_PROCESS.cs" />
-    <Compile Include="ServiceProcess\DataContract\GENERIC_VALUE.cs" />
-    <Compile Include="ServiceProcess\DataContract\PARAM_VALUE.cs" />
-    <Compile Include="ServiceProcess\DataContract\RespuestaAccion.cs" />
-    <Compile Include="ServiceProcess\Repositories\ALL.cs" />
+    <Compile Include="ServiceProcess\DataContract\AFNold.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AFNold.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceProcess\PublicData\DETAIL_ACCOUNT.cs" />
+    <Compile Include="ServiceProcess\PublicData\GENERIC_RELATED.cs" />
+    <Compile Include="ServiceProcess\PublicData\DETAIL_DEPRECIATE.cs" />
+    <Compile Include="ServiceProcess\PublicData\DETAIL_MOVEMENT.cs" />
+    <Compile Include="ServiceProcess\PublicData\DETAIL_OBC.cs" />
+    <Compile Include="ServiceProcess\PublicData\DETAIL_PROCESS.cs" />
+    <Compile Include="ServiceProcess\PublicData\GENERIC_VALUE.cs" />
+    <Compile Include="ServiceProcess\PublicData\GROUP_MOVEMENT.cs" />
+    <Compile Include="ServiceProcess\PublicData\GROUP_OBC.cs" />
+    <Compile Include="ServiceProcess\PublicData\IElemento.cs" />
+    <Compile Include="ServiceProcess\PublicData\LIST_PARAM_VALUE.cs" />
+    <Compile Include="ServiceProcess\PublicData\PARAM_VALUE.cs" />
+    <Compile Include="ServiceProcess\PublicData\RespuestaAccion.cs" />
+    <Compile Include="ServiceProcess\PublicData\SINGLE_DETAIL.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_APROVAL_STATE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ARTICLE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ARTICLE_DETAIL.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ASSET_CONSTRUCTION_VALUE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ASSET_CONSTRUCTION.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ATTRIBUTE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_BATCH_ARTICLE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_CATEGORY.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_CORRECTION_MONETARY_VALUE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_CURRENCY.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_DOCUMENT.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ENVIORMENT.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_KIND.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_MANAGEMENT.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_METHOD_REVALUE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ORIGIN.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_PACKAGE_KIND.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_PARAMETER.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_PART.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_PROVEEDOR.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_SITUATION.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_SUBKIND.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_SUBZONE.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_SYSTEM.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_SYSTEM_PARAMETER.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_TRANSACTION_DETAIL.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_TRANSACTION_HEADER.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_TRANSACTION_PARAMETER_DETAIL.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_TYPE_ASSET.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_VALIDATY.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_ZONE.cs" />
+    <Compile Include="ServiceProcess\Migration.cs" />
+    <Compile Include="ServiceProcess\Process.cs" />
+    <Compile Include="ServiceProcess\PublicData\T_CUADRO_IFRS.cs" />
+    <Compile Include="ServiceProcess\Repositories\ACCOUNTING.cs" />
+    <Compile Include="ServiceProcess\Repositories\ADM_IFRS_DEFAULT.cs" />
+    <Compile Include="ServiceProcess\Repositories\ASSETS_IN_PROGRESS.cs" />
+    <Compile Include="ServiceProcess\Repositories\BATCHES_ARTICLES.cs" />
+    <Compile Include="ServiceProcess\Repositories\CORRECTIONS_MONETARIES_VALUES.cs" />
+    <Compile Include="ServiceProcess\Repositories\CURRENCIES.cs" />
+    <Compile Include="ServiceProcess\Repositories\ENVIORMENTS.cs" />
+    <Compile Include="ServiceProcess\Repositories\GP_MultiCurrency.cs" />
+    <Compile Include="ServiceProcess\Repositories\GP_PM.cs" />
+    <Compile Include="ServiceProcess\Repositories\GP_SY40.cs" />
+    <Compile Include="ServiceProcess\Repositories\INV_ARTICLES.cs" />
+    <Compile Include="ServiceProcess\Repositories\INV_ARTICLES_DETAILS.cs" />
+    <Compile Include="ServiceProcess\Repositories\INV_ATTRIBUTES.cs" />
+    <Compile Include="ServiceProcess\Repositories\Main.cs" />
     <Compile Include="ServiceProcess\Repositories\APROVALS_STATES.cs" />
     <Compile Include="ServiceProcess\Repositories\CATEGORIES.cs" />
     <Compile Include="ServiceProcess\Repositories\DOCUMENTS.cs" />
     <Compile Include="ServiceProcess\Repositories\KINDS.cs" />
     <Compile Include="ServiceProcess\Repositories\MANAGEMENTS.cs" />
+    <Compile Include="ServiceProcess\Repositories\METHOD_REVALUES.cs" />
     <Compile Include="ServiceProcess\Repositories\ORIGINS.cs" />
+    <Compile Include="ServiceProcess\Repositories\PACKAGE_KINDS.cs" />
     <Compile Include="ServiceProcess\Repositories\PARAMETERS.cs" />
+    <Compile Include="ServiceProcess\Repositories\PARTS.cs" />
+    <Compile Include="ServiceProcess\Repositories\SALES.cs" />
+    <Compile Include="ServiceProcess\Repositories\SITUATIONS.cs" />
     <Compile Include="ServiceProcess\Repositories\SUBKINDS.cs" />
     <Compile Include="ServiceProcess\Repositories\SUBZONES.cs" />
     <Compile Include="ServiceProcess\Repositories\SYSTEMS.cs" />
     <Compile Include="ServiceProcess\Repositories\SYSTEMS_PARAMETERS.cs" />
+    <Compile Include="ServiceProcess\Repositories\TRANSACTIONS_DETAILS.cs" />
+    <Compile Include="ServiceProcess\Repositories\TRANSACTIONS_HEADERS.cs" />
+    <Compile Include="ServiceProcess\Repositories\TRANSACTIONS_PARAM_DET.cs" />
     <Compile Include="ServiceProcess\Repositories\TYPES_ASSETS.cs" />
     <Compile Include="ServiceProcess\Repositories\VALIDATIES.cs" />
     <Compile Include="ServiceProcess\Repositories\ZONES.cs" />
-    <Compile Include="ServiceProcess\ServiceAFN.cs" />
+    <Compile Include="ServiceProcess\Saving\ASSETS_IN_CONSTRUCT.cs" />
+    <Compile Include="ServiceProcess\Saving\BATCH_ARTICLE.cs" />
+    <Compile Include="ServiceProcess\Saving\DOCS_BATCH.cs" />
+    <Compile Include="ServiceProcess\Saving\DOCUMENT.cs" />
+    <Compile Include="ServiceProcess\Saving\INVENTORY.cs" />
+    <Compile Include="ServiceProcess\Saving\PART.cs" />
+    <Compile Include="ServiceProcess\Saving\MOVEMENTS.cs" />
+    <Compile Include="ServiceProcess\Saving\SALES.cs" />
+    <Compile Include="ServiceProcess\Saving\TRANSACTION_DETAIL.cs" />
+    <Compile Include="ServiceProcess\Saving\TRANSACTION_HEAD.cs" />
+    <Compile Include="ServiceProcess\Saving\TRANSACTION_PARAMETER_DETAIL.cs" />
+    <Compile Include="ServiceProcess\ServiceAFN2.cs" />
+    <Compile Include="ServiceProcess\Tracking\ExportTo.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="PCClient\FormBase.resx">
       <DependentUpon>FormBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Acciones\ManagerBatch.resx">
+      <DependentUpon>ManagerBatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Busquedas\articulo.resx">
+      <DependentUpon>articulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Busquedas\inputbox.resx">
+      <DependentUpon>inputbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Busquedas\lista_cambios.resx">
+      <DependentUpon>lista_cambios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Busquedas\manager_det_articulo.resx">
+      <DependentUpon>manager_det_articulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Busquedas\obc_borrador.resx">
+      <DependentUpon>obc_borrador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Busquedas\PriceQuantitySetter.resx">
+      <DependentUpon>PriceQuantitySetter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Busquedas\proveedor.resx">
+      <DependentUpon>proveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\castigo.resx">
+      <DependentUpon>castigo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Acciones\depreciar.resx">
+      <DependentUpon>depreciar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso.resx">
+      <DependentUpon>ingreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso_financiero.resx">
+      <DependentUpon>ingreso_financiero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso_ifrs.resx">
+      <DependentUpon>ingreso_ifrs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso_invent_articulo.resx">
+      <DependentUpon>ingreso_invent_articulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\ingreso_invent_grup.resx">
+      <DependentUpon>ingreso_invent_grup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\obras_egreso_af.resx">
+      <DependentUpon>obras_egreso_af.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\obras_egreso_gasto.resx">
+      <DependentUpon>obras_egreso_gasto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\obras_ingreso.resx">
+      <DependentUpon>obras_ingreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\traspaso.resx">
+      <DependentUpon>traspaso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\venta.resx">
+      <DependentUpon>venta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Cambios\venta_precio.resx">
+      <DependentUpon>venta_precio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Consultas\saldos_obc.resx">
+      <DependentUpon>saldos_obc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Migracion\Ajuste_Parametros.resx">
+      <DependentUpon>Ajuste_Parametros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Reportes\bajas.resx">
+      <DependentUpon>bajas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Reportes\contabilizar.resx">
+      <DependentUpon>contabilizar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Reportes\cuadro_movimiento.resx">
+      <DependentUpon>cuadro_movimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Reportes\fixed_assets.resx">
+      <DependentUpon>fixed_assets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Reportes\vigentes.resx">
+      <DependentUpon>vigentes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\Sistema\Depreciar.resx">
+      <DependentUpon>Depreciar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PCClient\Vistas\welcome.resx">
+      <DependentUpon>welcome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -129,8 +530,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AFN2.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="ServiceProcess\DataContract\AFNold.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AFNold.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ficha_cambio.xlsx" />
     <None Include="Resources\icon_bar.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +607,34 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\eject.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="afn.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PCClient\Procesos\RPT\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

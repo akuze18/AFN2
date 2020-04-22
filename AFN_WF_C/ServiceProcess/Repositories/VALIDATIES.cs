@@ -5,18 +5,76 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class VALIDATIES
+    public class VALIDATIES
     {
-        private List<VALIDATY> _source;
-        public VALIDATIES(ObjectSet<VALIDATY> source) { _source = source.ToList(); }
-        public VALIDATIES(List<VALIDATY> source) { _source = source; }
+        private List<SV_VALIDATY> _source;
+        public VALIDATIES(ObjectSet<VALIDATY> source) { _source = source.ToList().ConvertAll(v => (SV_VALIDATY)v); }
 
-        public GENERIC_VALUE ById(int idFind)
+        public SV_VALIDATY ById(int idFind)
         {
-            return _source.Where(z => z.id == idFind).FirstOrDefault();
+            return _source.Where(v => v.id == idFind).FirstOrDefault();
+        }
+
+        public List<GENERIC_VALUE> All() {
+            return _source.ConvertAll(v => (GENERIC_VALUE)v);
+        }
+
+        public List<GENERIC_VALUE> Downs()
+        {
+
+            return _source
+                .Where(v => v.id == 2 || v.id == 3)
+                .ToList()
+                .ConvertAll(v => (GENERIC_VALUE)v);
+        }
+        public List<GENERIC_VALUE> Sells()
+        {
+
+            return _source
+                .Where(v => v.id == 2)
+                .ToList()
+                .ConvertAll(v => (GENERIC_VALUE)v);
+        }
+        public List<GENERIC_VALUE> Disposals()
+        {
+
+            return _source
+                .Where(v => v.id == 3)
+                .ToList()
+                .ConvertAll(v => (GENERIC_VALUE)v);
+        }
+
+        public List<GENERIC_VALUE> Ups()
+        {
+
+            return _source
+                .Where(v => v.id == 1)
+                .ToList()
+                .ConvertAll(v => (GENERIC_VALUE)v);
+        }
+
+        public List<GENERIC_VALUE> SearchDownsList()
+        {
+            var resulta = Downs();
+            resulta.Insert(0, new GENERIC_VALUE() { id = 0, type = "OPTION", description = "TODOS" });
+            return resulta;
+        }
+
+        public SV_VALIDATY VIGENTE()
+        {
+            return _source.Where(v => v.name == "VIGENTE").First();
+        }
+        public SV_VALIDATY VENTA()
+        {
+            return _source.Where(v => v.name == "VENTA").First();
+        }
+        public SV_VALIDATY CASTIGO()
+        {
+            return _source.Where(v => v.name == "CASTIGO").First();
         }
     }
 }

@@ -5,22 +5,27 @@ using System.Text;
 
 using System.Data.Objects;
 using AFN_WF_C.ServiceProcess.DataContract;
+using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    class MANAGEMENTS
+    public class MANAGEMENTS
     {
-        private List<MANAGEMENT> _source;
-        public MANAGEMENTS(ObjectSet<MANAGEMENT> source) { _source = source.ToList(); }
-        public MANAGEMENTS(List<MANAGEMENT> source) { _source = source; }
+        private List<SV_MANAGEMENT> _source;
+        public MANAGEMENTS(ObjectSet<MANAGEMENT> source) { _source = source.ToList().ConvertAll(m => (SV_MANAGEMENT)m); }
 
-        public GENERIC_VALUE ById(int? idFind)
+        public SV_MANAGEMENT ById(int? idFind)
         {
             if (idFind != null)
             {
                 return _source.Where(z => z.id == idFind).FirstOrDefault();
             }
-            else { return new GENERIC_VALUE(); }
+            else { return new SV_MANAGEMENT(); }
+        }
+
+        public List<GENERIC_VALUE> All()
+        {
+            return _source.ConvertAll(m => (GENERIC_VALUE)m);
         }
     }
 }
