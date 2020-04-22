@@ -13,7 +13,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         public DOCS_BATCH DOC_BATCH_NEW(int batch_id, AFN_LOTE_ARTICULOS lote_old)
         {
             var findDocs = documentos.ByBatch(lote_old.cod);
-            if (lote_old.num_doc != "SIN_DOCUMENTO" && findDocs.Count() == 0)
+            if (lote_old.num_doc != DOCUMENTS.defaultDocument && findDocs.Count() == 0)
             {
                 var new_doc = DOCUMENT_NEW_PREV(lote_old);
                 var new_rel = new DOCS_BATCH();

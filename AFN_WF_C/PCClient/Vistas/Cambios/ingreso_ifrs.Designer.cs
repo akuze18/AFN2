@@ -31,7 +31,6 @@
             this.btn_IFRS = new System.Windows.Forms.Button();
             this.Frame2 = new System.Windows.Forms.GroupBox();
             this.DataIFRS = new System.Windows.Forms.DataGridView();
-            this.xt = new System.Windows.Forms.TextBox();
             this.cboMetod = new System.Windows.Forms.ComboBox();
             this.Label20 = new System.Windows.Forms.Label();
             this.Tval_resI = new System.Windows.Forms.TextBox();
@@ -79,15 +78,6 @@
             this.DataIFRS.TabIndex = 20;
             this.DataIFRS.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataIFRS_CellDoubleClick);
             // 
-            // xt
-            // 
-            this.xt.Location = new System.Drawing.Point(702, 145);
-            this.xt.Name = "xt";
-            this.xt.Size = new System.Drawing.Size(14, 20);
-            this.xt.TabIndex = 15;
-            this.xt.Text = "xt";
-            this.xt.Visible = false;
-            // 
             // cboMetod
             // 
             this.cboMetod.FormattingEnabled = true;
@@ -111,8 +101,6 @@
             this.Tval_resI.Name = "Tval_resI";
             this.Tval_resI.Size = new System.Drawing.Size(112, 20);
             this.Tval_resI.TabIndex = 14;
-            this.Tval_resI.Enter += new System.EventHandler(this.Tval_resI_GotFocus);
-            this.Tval_resI.Leave += new System.EventHandler(this.Tval_resI_LostFocus);
             // 
             // Label19
             // 
@@ -145,7 +133,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btn_IFRS);
             this.Controls.Add(this.Frame2);
-            this.Controls.Add(this.xt);
             this.Controls.Add(this.cboMetod);
             this.Controls.Add(this.Label20);
             this.Controls.Add(this.Tval_resI);
@@ -167,7 +154,6 @@
         internal System.Windows.Forms.Button btn_IFRS;
         internal System.Windows.Forms.GroupBox Frame2;
         internal System.Windows.Forms.DataGridView DataIFRS;
-        internal System.Windows.Forms.TextBox xt;
         internal System.Windows.Forms.ComboBox cboMetod;
         internal System.Windows.Forms.Label Label20;
         internal System.Windows.Forms.TextBox Tval_resI;

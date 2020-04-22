@@ -30,7 +30,6 @@
         {
             this.ckMostrar = new System.Windows.Forms.CheckBox();
             this.btn_buscaG = new System.Windows.Forms.Button();
-            this.AtribGrupo = new System.Windows.Forms.DataGridView();
             this.btn_imprimir = new System.Windows.Forms.Button();
             this.btn_detallexG = new System.Windows.Forms.Button();
             this.cbGvalor = new System.Windows.Forms.ComboBox();
@@ -40,6 +39,10 @@
             this.Label29 = new System.Windows.Forms.Label();
             this.btn_lessGA = new System.Windows.Forms.Button();
             this.btn_addGA = new System.Windows.Forms.Button();
+            this.AtribGrupo = new BrightIdeasSoftware.ObjectListView();
+            this.olvColumn1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.AtribGrupo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,22 +65,6 @@
             this.btn_buscaG.TabIndex = 17;
             this.btn_buscaG.UseVisualStyleBackColor = true;
             // 
-            // AtribGrupo
-            // 
-            this.AtribGrupo.AllowUserToAddRows = false;
-            this.AtribGrupo.AllowUserToDeleteRows = false;
-            this.AtribGrupo.AllowUserToResizeColumns = false;
-            this.AtribGrupo.AllowUserToResizeRows = false;
-            this.AtribGrupo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.AtribGrupo.Location = new System.Drawing.Point(25, 144);
-            this.AtribGrupo.MultiSelect = false;
-            this.AtribGrupo.Name = "AtribGrupo";
-            this.AtribGrupo.ReadOnly = true;
-            this.AtribGrupo.RowHeadersWidth = 20;
-            this.AtribGrupo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.AtribGrupo.Size = new System.Drawing.Size(752, 195);
-            this.AtribGrupo.TabIndex = 23;
-            // 
             // btn_imprimir
             // 
             this.btn_imprimir.Location = new System.Drawing.Point(504, 99);
@@ -95,6 +82,7 @@
             this.btn_detallexG.TabIndex = 21;
             this.btn_detallexG.Text = "Guardar";
             this.btn_detallexG.UseVisualStyleBackColor = true;
+            this.btn_detallexG.Click += new System.EventHandler(this.btn_detallexG_Click);
             // 
             // cbGvalor
             // 
@@ -123,6 +111,7 @@
             // 
             // cbGatrib
             // 
+            this.cbGatrib.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbGatrib.FormattingEnabled = true;
             this.cbGatrib.Location = new System.Drawing.Point(115, 31);
             this.cbGatrib.Name = "cbGatrib";
@@ -150,6 +139,7 @@
             this.btn_lessGA.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_lessGA.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_lessGA.UseVisualStyleBackColor = true;
+            this.btn_lessGA.Click += new System.EventHandler(this.btn_lessGA_Click);
             // 
             // btn_addGA
             // 
@@ -162,14 +152,51 @@
             this.btn_addGA.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btn_addGA.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_addGA.UseVisualStyleBackColor = true;
+            this.btn_addGA.Click += new System.EventHandler(this.btn_addGA_Click);
+            // 
+            // AtribGrupo
+            // 
+            this.AtribGrupo.AllColumns.Add(this.olvColumn1);
+            this.AtribGrupo.AllColumns.Add(this.olvColumn2);
+            this.AtribGrupo.AllColumns.Add(this.olvColumn3);
+            this.AtribGrupo.CellEditUseWholeCell = false;
+            this.AtribGrupo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.olvColumn1,
+            this.olvColumn2,
+            this.olvColumn3});
+            this.AtribGrupo.Cursor = System.Windows.Forms.Cursors.Default;
+            this.AtribGrupo.Location = new System.Drawing.Point(32, 155);
+            this.AtribGrupo.Name = "AtribGrupo";
+            this.AtribGrupo.Size = new System.Drawing.Size(709, 195);
+            this.AtribGrupo.TabIndex = 23;
+            this.AtribGrupo.UseCompatibleStateImageBehavior = false;
+            this.AtribGrupo.View = System.Windows.Forms.View.Details;
+            // 
+            // olvColumn1
+            // 
+            this.olvColumn1.AspectName = "Atributo";
+            this.olvColumn1.Text = "Atributo";
+            this.olvColumn1.Width = 142;
+            // 
+            // olvColumn2
+            // 
+            this.olvColumn2.AspectName = "ValorDelAtributo";
+            this.olvColumn2.Text = "Valor del Atributo";
+            this.olvColumn2.Width = 480;
+            // 
+            // olvColumn3
+            // 
+            this.olvColumn3.AspectName = "Mostrar";
+            this.olvColumn3.CheckBoxes = true;
+            this.olvColumn3.Text = "Mostrar";
             // 
             // ingreso_invent_grup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.AtribGrupo);
             this.Controls.Add(this.ckMostrar);
             this.Controls.Add(this.btn_buscaG);
-            this.Controls.Add(this.AtribGrupo);
             this.Controls.Add(this.btn_imprimir);
             this.Controls.Add(this.btn_detallexG);
             this.Controls.Add(this.cbGvalor);
@@ -192,7 +219,6 @@
 
         internal System.Windows.Forms.CheckBox ckMostrar;
         internal System.Windows.Forms.Button btn_buscaG;
-        internal System.Windows.Forms.DataGridView AtribGrupo;
         internal System.Windows.Forms.Button btn_imprimir;
         internal System.Windows.Forms.Button btn_detallexG;
         internal System.Windows.Forms.ComboBox cbGvalor;
@@ -202,5 +228,9 @@
         internal System.Windows.Forms.Label Label29;
         internal System.Windows.Forms.Button btn_lessGA;
         internal System.Windows.Forms.Button btn_addGA;
+        private BrightIdeasSoftware.ObjectListView AtribGrupo;
+        private BrightIdeasSoftware.OLVColumn olvColumn1;
+        private BrightIdeasSoftware.OLVColumn olvColumn2;
+        private BrightIdeasSoftware.OLVColumn olvColumn3;
     }
 }

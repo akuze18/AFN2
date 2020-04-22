@@ -24,11 +24,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.ConvertAll(pk => (GENERIC_RELATED)pk).ToList();
         }
 
-        public List<GENERIC_RELATED> ByType(int type_id)
+        public List<SV_PACKAGE_KIND> ByType(int type_id)
         {
             return _source.Where(pk => pk.type_asset_id == type_id)
-                .ToList()
-                .ConvertAll(pk => (GENERIC_RELATED)pk);
+                .ToList();
+                //.ConvertAll(pk => (GENERIC_RELATED)pk);
         }
     }
 }

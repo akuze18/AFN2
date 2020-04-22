@@ -87,6 +87,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         }
         #endregion
 
+        #region Parametros Completos
         public PARAM_VALUE GetPrecioBase {
             get {
                 return _int_list.Where(x => x.code == "PB").FirstOrDefault();
@@ -204,6 +205,23 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 return found;
             }
         }
+        #endregion
+
+        #region Valores
+        public decimal PrecioBaseVal { get { return GetPrecioBase.value; } }
+        public decimal DepreciacionAcumVal { get { return GetDepreciacionAcum.value; } }
+        public decimal DeterioroVal { get { return GetDeterioro.value; } }
+        public decimal ValorResidualVal { get { return GetValorResidual.value; } }
+        public decimal VidaUtilVal { get { return GetVidaUtil.value; } }
+        public decimal CreditoVal { get { return GetCredito.value; } }
+
+        public decimal PreparacionVal { get { return GetPreparacion.value; } }
+        public decimal DesmantelamientoVal { get { return GetDesmantelamiento.value; } }
+        public decimal TransporteVal { get { return GetTransporte.value; } }
+        public decimal MontajeVal { get { return GetMontaje.value; } }
+        public decimal HonorarioVal { get { return GetHonorario.value; } }
+        public decimal RevalorizacionVal { get { return GetRevalorizacion.value; } }
+        #endregion
 
         public override string ToString()
         {

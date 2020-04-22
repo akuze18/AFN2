@@ -48,7 +48,7 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
         private V.GENERIC_VALUE acum { get { return ((V.GENERIC_VALUE)(cb_acum.SelectedItem)); } }
         private V.SV_SYSTEM reporte { get { return ((V.SV_SYSTEM)(cb_sistema.SelectedItem)); } }
 
-        private void button_visualizar_Click(object sender, EventArgs e)
+        private void btn_generar_Click(object sender, EventArgs e)
         {
             if (!validar_formulario())
                 return;

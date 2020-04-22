@@ -37,6 +37,7 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
         int[] _vigencias_toFind;
         string[] _estados_toFind;
         moment_data _cuando_toFind;
+        bool _check_post_toFind;
         int _parte_result, _cod_result;
         bool _activado_result;
         private PD.DETAIL_PROCESS _full_data;
@@ -47,6 +48,7 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
             _vigencias_toFind = P.Consultas.vigencias.Actives;
             _estados_toFind = P.Consultas.estados_aprobacion.NoDeleted;
             _cuando_toFind = moment_data.today;
+            _check_post_toFind = false;
             _cod_result = 0;
             _parte_result = -1;
             _activado_result = false;
@@ -59,18 +61,23 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
             {
                 case tipo_vigencia.todos:
                     _vigencias_toFind = P.Consultas.vigencias.All;
+                    _check_post_toFind = false;
                     break;
                 case tipo_vigencia.bajas:
                     _vigencias_toFind = P.Consultas.vigencias.Downs;
+                    _check_post_toFind = true;
                     break;
                 case tipo_vigencia.ventas:
                     _vigencias_toFind = P.Consultas.vigencias.Sells;
+                    _check_post_toFind = true;
                     break;
                 case tipo_vigencia.castigos:
                     _vigencias_toFind = P.Consultas.vigencias.Disposals;
+                    _check_post_toFind = true;
                     break;
                 default:    //case tipo_vigencia.vigentes:
                     _vigencias_toFind = P.Consultas.vigencias.Actives;
+                    _check_post_toFind = true;
                     break;
             }
         }
@@ -155,7 +162,7 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
             if(Fdesde.Checked){fecha_min = Fdesde.Value;}
             if(Fhasta.Checked){fecha_max = Fhasta.Value;}
 
-            var resultado = P.Consultas.buscar_Articulo(fecha_min, fecha_max, Bcodigo, Bdescrip, bZona, _vigencias_toFind, _estados_toFind, _cuando_toFind);
+            var resultado = P.Consultas.buscar_Articulo(fecha_min, fecha_max, Bcodigo, Bdescrip, bZona, _vigencias_toFind, _estados_toFind, _cuando_toFind, _check_post_toFind);
             MosResult.SetObjects(resultado);
             //Lresultado.Text = "Resultados : " + resultado.Length.ToString();
             Lresultado.Text = "Resultados : " + resultado.Count.ToString();

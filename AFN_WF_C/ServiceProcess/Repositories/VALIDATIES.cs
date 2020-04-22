@@ -14,7 +14,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private List<SV_VALIDATY> _source;
         public VALIDATIES(ObjectSet<VALIDATY> source) { _source = source.ToList().ConvertAll(v => (SV_VALIDATY)v); }
 
-        public GENERIC_VALUE ById(int idFind)
+        public SV_VALIDATY ById(int idFind)
         {
             return _source.Where(v => v.id == idFind).FirstOrDefault();
         }
@@ -64,9 +64,17 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return resulta;
         }
 
-        public GENERIC_VALUE VIGENTE()
+        public SV_VALIDATY VIGENTE()
         {
             return _source.Where(v => v.name == "VIGENTE").First();
+        }
+        public SV_VALIDATY VENTA()
+        {
+            return _source.Where(v => v.name == "VENTA").First();
+        }
+        public SV_VALIDATY CASTIGO()
+        {
+            return _source.Where(v => v.name == "CASTIGO").First();
         }
     }
 }

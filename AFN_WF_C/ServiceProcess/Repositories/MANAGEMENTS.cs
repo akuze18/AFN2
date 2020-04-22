@@ -14,13 +14,13 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private List<SV_MANAGEMENT> _source;
         public MANAGEMENTS(ObjectSet<MANAGEMENT> source) { _source = source.ToList().ConvertAll(m => (SV_MANAGEMENT)m); }
 
-        public GENERIC_VALUE ById(int? idFind)
+        public SV_MANAGEMENT ById(int? idFind)
         {
             if (idFind != null)
             {
                 return _source.Where(z => z.id == idFind).FirstOrDefault();
             }
-            else { return new GENERIC_VALUE() { type = "MANAGEMENT"}; }
+            else { return new SV_MANAGEMENT(); }
         }
 
         public List<GENERIC_VALUE> All()

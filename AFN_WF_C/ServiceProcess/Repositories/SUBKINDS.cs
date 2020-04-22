@@ -15,7 +15,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         public SUBKINDS(ObjectSet<SUBKIND> source) { _source = source.ToList().ConvertAll(sk=>(SV_SUBKIND)sk); }
         //public SUBKINDS(List<SUBKIND> source) { _source = source; }
 
-        public GENERIC_VALUE ById(int idFind)
+        public SV_SUBKIND ById(int idFind)
         {
             return _source.Where(sk => sk.id == idFind).FirstOrDefault();
         }

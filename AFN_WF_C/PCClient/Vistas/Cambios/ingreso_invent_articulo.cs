@@ -50,25 +50,28 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 
         private void habilitar_controles(ingreso.cod_situacion situacion)
         {
+            //_page.Enabled = true;
+            bool AllowEdit;
             switch (situacion)
             {
                 case ingreso.cod_situacion.nuevo:
-                    _page.Enabled = false;
+                    AllowEdit = false;
                     break;
 
                 case ingreso.cod_situacion.editable:
                 case ingreso.cod_situacion.activo:
-                    _page.Enabled = true;
-                    //habilitar hoja detalle por articulo
-                    P.Auxiliar.ActivarF(cblistaArticulo);
-                    P.Auxiliar.ActivarF(cbAatrib);
-                    P.Auxiliar.ActivarF(TAvalor);
-                    P.Auxiliar.ActivarF(cbAvalor);
-                    P.Auxiliar.ActivarF(btn_addDA);
-                    P.Auxiliar.ActivarF(btn_lessDA);
-                    P.Auxiliar.ActivarF(btn_detallexA);
+                    AllowEdit = true;
                     break;
+                default: AllowEdit = false; break;
             }
+            //habilitar hoja detalle por articulo
+            P.Auxiliar.ActivarF(cblistaArticulo, AllowEdit);
+            P.Auxiliar.ActivarF(cbAatrib, AllowEdit);
+            P.Auxiliar.ActivarF(TAvalor, AllowEdit);
+            P.Auxiliar.ActivarF(cbAvalor, AllowEdit);
+            P.Auxiliar.ActivarF(btn_addDA, AllowEdit);
+            P.Auxiliar.ActivarF(btn_lessDA, AllowEdit);
+            P.Auxiliar.ActivarF(btn_detallexA, AllowEdit);
         }
         private void completar_informacion(ingreso.cod_situacion situacion, List<object> articulos)
         {

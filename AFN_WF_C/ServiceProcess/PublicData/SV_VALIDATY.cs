@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
-    class SV_VALIDATY
+    public class SV_VALIDATY
     {
         private int _id;
         private string _name;
@@ -33,5 +33,10 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             };
         }
         #endregion
+
+        public override string ToString()
+        {
+            return this._name;
+        }
     }
 }

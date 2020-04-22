@@ -50,7 +50,7 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
             lb_reporte.Tag = label4.Text;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_generar_Click(object sender, EventArgs e)
         {
             //Valido formulario
             foreach (Control cnt in this.Controls)

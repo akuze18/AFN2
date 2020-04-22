@@ -86,5 +86,10 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return this.ByCodes("IFRS", "YEN");
             }
         }
+
+        public List<SV_SYSTEM> IFRS()
+        {
+            return _source.Where(s => s.ENVIORMENT == "IFRS").ToList();
+        }
     }
 }

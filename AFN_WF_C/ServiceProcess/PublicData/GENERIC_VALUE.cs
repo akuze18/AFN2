@@ -42,133 +42,26 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         }
 
     #region Constructors
-        public GENERIC_VALUE() { }
+        public GENERIC_VALUE() {
+            this.id = 0;
+            this.code = "0";
+            this.description = string.Empty;
+            this.type = string.Empty;
+        }
         public GENERIC_VALUE(int id, string description, string type) {
             this.id = id;
             this.code = id.ToString();
             this.description = description;
-            this._type = type;
+            this.type = type;
         }
-        //public GENERIC_VALUE(ZONE z)
-        //{
-        //    if (z != null)
-        //    {
-        //        this.id = z.id;
-        //        this.code = z.codDept;
-        //        this.description = z.name;
-        //        this.type = z.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(KIND k)
-        //{
-        //    if (k != null)
-        //    {
-        //        this.id = k.id;
-        //        this.code = k.cod;
-        //        this.description = k.descrip;
-        //        this.type = k.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(VALIDATY v)
-        //{
-        //    if (v != null)
-        //    {
-        //        this.id = v.id;
-        //        this.code = v.name;
-        //        this.description = v.name;
-        //        this.type = v.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(CATEGORY c)
-        //{
-        //    if (c != null)
-        //    {
-        //        this.id = c.id;
-        //        this.code = c.code;
-        //        this.description = c.descrip;
-        //        this.type = c.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(SUBZONE sz)
-        //{
-        //    if (sz != null)
-        //    {
-        //        this.id = sz.id;
-        //        this.code = sz.codPlace;
-        //        this.description = sz.descrip;
-        //        this.type = sz.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(SUBKIND sk)
-        //{
-        //    if (sk != null)
-        //    {
-        //        this.id = sk.id;
-        //        this.code = sk.code;
-        //        this.description = sk.descrip;
-        //        this.type = sk.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(MANAGEMENT m)
-        //{
-        //    if (m != null)
-        //    {
-        //        this.id = m.id;
-        //        this.code = m.code;
-        //        this.description = m.name;
-        //        this.type = m.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(ORIGIN o)
-        //{
-        //    if (o != null)
-        //    {
-        //        this.id = o.id;
-        //        this.code = o.code;
-        //        this.description = o.descrip;
-        //        this.type = o.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(APROVAL_STATE ap_s)
-        //{
-        //    if (ap_s != null)
-        //    {
-        //        this.id = ap_s.id;
-        //        this.code = ap_s.code;
-        //        this.description = ap_s.descrip;
-        //        this.type = ap_s.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(TYPE_ASSET t_as)
-        //{
-        //    if (t_as != null)
-        //    {
-        //        this.id = t_as.id;
-        //        this.code = t_as.id.ToString();
-        //        this.description = t_as.descrip;
-        //        this.type = t_as.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(SITUATION s)
-        //{
-        //    if (s != null)
-        //    {
-        //        this.id = s.id;
-        //        this.code = s.id.ToString();
-        //        this.description = s.condicion;
-        //        this.type = s.GetType().Name;
-        //    }
-        //}
-        //public GENERIC_VALUE(CURRENCY c)
-        //{
-        //    if (c != null)
-        //    {
-        //        this.id = c.id;
-        //        this.code = c.code;
-        //        this.description = c.name;
-        //        this.type = c.GetType().Name;
-        //    }
-        //}
+        public static GENERIC_VALUE Empty
+        {
+            get { return new GENERIC_VALUE(); }
+        }
+        public static GENERIC_VALUE EmptyText
+        {
+            get { return new GENERIC_VALUE() { id = 0, code = "", description = string.Empty, type = string.Empty }; }
+        }
     #endregion
 
     #region Convertions
@@ -181,6 +74,30 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 me.code = a.code;
                 me.description = a.code;
                 me.type = a.GetType().Name;
+            }
+            return me;
+        }
+        public static implicit operator GENERIC_VALUE(DataContract.TYPE_ACCOUNT a)
+        {
+            var me = new GENERIC_VALUE();
+            if (a != null)
+            {
+                me.id = a.id;
+                me.code = a.id.ToString();
+                me.description = a.name;
+                me.type = a.GetType().Name;
+            }
+            return me;
+        }
+        public static implicit operator GENERIC_VALUE(DataContract.GROUP_ACCOUNT g)
+        {
+            var me = new GENERIC_VALUE();
+            if (g != null)
+            {
+                me.id = g.id;
+                me.code = g.id.ToString();
+                me.description = g.name;
+                me.type = g.GetType().Name;
             }
             return me;
         }

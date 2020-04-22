@@ -28,6 +28,29 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return nuevo;
         }
 
+        public RespuestaAccion CREATE_PART_NEW(int batch_id,int part_index,int quantity, DateTime movement_date)
+        {
+            var res = new RespuestaAccion();
+            try
+            {
+                var nuevo = new PART();
+                nuevo.article_id = batch_id;
+                nuevo.part_index = part_index;
+                nuevo.quantity = quantity;
+                nuevo.first_date = movement_date;
+                _context.PARTS.AddObject(nuevo);
+                _context.SaveChanges();
+                _load_parts();
+                res.result_objs.Add((SV_PART)nuevo);
+                res.set_ok();
+            }
+            catch (Exception ex)
+            {
+                res.set(-1, ex.StackTrace);
+            }
+            return res;
+        }
+
         public RespuestaAccion REGISTER_PURCHASE(int batch_id, DateTime fecha_compra, decimal valor_total, int cantidad_total)
         {
             var res = new RespuestaAccion();
@@ -100,6 +123,87 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 resultado.set(-1,"No existe id en PART para modificar");
             }
             return resultado;
+        }
+
+        public RespuestaAccion CREATE_NEW_PART_FROM(int batch_id, int source_part_id, int quantity, DateTime movement_date)
+        {
+            var res = new RespuestaAccion();
+            try
+            {
+                var source_part = Partes.ById(source_part_id);
+                int current_max_index = Partes.ByLote(batch_id).Max(p => p.part_index);
+
+                //creo nueva parte
+                var nueva_parte = new PART();
+                nueva_parte.article_id = batch_id;
+                nueva_parte.part_index = current_max_index + 1;
+                nueva_parte.quantity = quantity;
+                nueva_parte.first_date = movement_date;
+                _context.PARTS.AddObject(nueva_parte);
+                
+                //actualizo cantidad parte antigua
+                var busca = _context.PARTS.Where(p => p.id == source_part_id).FirstOrDefault();
+                busca.quantity = source_part.quantity - quantity;
+                
+                //copio transacciones a la nueva parte y sus relacionados desde la parte origen
+                //copio cabeceras de transacciones
+                var source_trx_heads = cabeceras.ByParte(source_part_id);
+                foreach (SV_TRANSACTION_HEADER s_trx_head in source_trx_heads)
+                {
+                    TRANSACTION_HEADER nueva_head = new TRANSACTION_HEADER();
+                    nueva_head.PART = nueva_parte;      //con este relacionamos a la nueva parte
+                    nueva_head.trx_ini = s_trx_head.trx_ini;
+                    nueva_head.trx_end = s_trx_head.trx_end;
+                    nueva_head.ref_source = s_trx_head.ref_source;
+                    nueva_head.zone_id = s_trx_head.zone_id;
+                    nueva_head.subzone_id = s_trx_head.subzone_id;
+                    nueva_head.kind_id = s_trx_head.kind_id;
+                    nueva_head.subkind_id = s_trx_head.subkind_id;
+                    nueva_head.category_id = s_trx_head.category_id;
+                    nueva_head.user_own = s_trx_head.user_own;
+                    nueva_head.manage_id = s_trx_head.manage_id;
+                    nueva_head.method_revalue_id = s_trx_head.method_revalue_id;
+                    _context.TRANSACTIONS_HEADERS.AddObject(nueva_head);
+                    
+                    //copio detalles de transacciones
+                    var source_trx_details = detalles.GetByHead(s_trx_head.id);
+                    foreach (SV_TRANSACTION_DETAIL s_trx_detail in source_trx_details)
+                    {
+                        TRANSACTION_DETAIL nuevo_detail = new TRANSACTION_DETAIL();
+                        nuevo_detail.TRANSACTION_HEADER = nueva_head; //con este relacionamos a la nueva cabecera
+                        nuevo_detail.system_id = s_trx_detail.system_id;
+                        nuevo_detail.validity_id = s_trx_detail.validity_id;
+                        nuevo_detail.depreciate = s_trx_detail.depreciate;
+                        nuevo_detail.allow_credit = s_trx_detail.allow_credit;
+                        _context.TRANSACTIONS_DETAILS.AddObject(nuevo_detail);
+                    }
+                    //copio detalle de parametros de transaccion
+                    var source_trx_params = DetallesParametros.ByHead(s_trx_head.id);
+                    foreach (SV_TRANSACTION_PARAMETER_DETAIL s_trx_param in source_trx_params)
+                    {
+                        TRANSACTION_PARAMETER_DETAIL nuevo_param = new TRANSACTION_PARAMETER_DETAIL();
+                        nuevo_param.TRANSACTION_HEADER = nueva_head; //con este relacionamos a la nueva cabecera
+                        nuevo_param.system_id = s_trx_param.system_id;
+                        nuevo_param.paratemer_id = s_trx_param.paratemer_id;
+                        nuevo_param.parameter_value = s_trx_param.parameter_value;
+                        _context.TRANSACTIONS_PARAMETERS_DETAILS.AddObject(nuevo_param);
+                    }
+                    
+                }
+                _context.SaveChanges();
+                _load_parts();
+                _load_transactions_headers();
+                _load_transactions_details();
+                _load_transactions_param_details();
+                res.result_objs.Add((SV_PART)nueva_parte);
+
+                res.set_ok();
+            }
+            catch (Exception ex)
+            {
+                res.set(-1, ex.StackTrace);
+            }
+            return res;
         }
     }
 }

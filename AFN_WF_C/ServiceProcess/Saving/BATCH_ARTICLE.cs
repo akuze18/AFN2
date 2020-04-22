@@ -27,7 +27,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             lote_new.type_asset_id = Tipos.ByDescrip(lote_old.consistencia).id;
 
             //Analizo documento a migrar
-            if (lote_old.num_doc != "SIN_DOCUMENTO")
+            if (lote_old.num_doc != DOCUMENTS.defaultDocument)
             {
                 var new_doc = DOCUMENT_NEW_PREV(lote_old);
                 var new_rel = new DOCS_BATCH();
@@ -100,6 +100,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                     //no existe documento asociado, lo creamos
                     var nuevo_documento = new DOCUMENT();
                     nuevo_documento.docnumber = documento;
+                    nuevo_documento.comment = string.Empty;
                     nuevo_documento.proveedor_id = cod_proveedor;
                     nuevo_documento.proveedor_name = Proveedor.getNameByCode(cod_proveedor);
                     lote_rel_doc.DOCUMENT = nuevo_documento;
@@ -137,12 +138,85 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return respuesta;
         }
 
-        public RespuestaAccion MODIFICA_LOTE(int batch_id, string descripcion, string cod_proveedor, string documento, decimal total_compra, int vida_util, bool derecho_credito, DateTime fecha_contab)
+        public RespuestaAccion MODIFICA_LOTE(int batch_id, string descripcion, string cod_proveedor, string documento, decimal total_compra, int vida_util, DateTime fecha_contab)
         {
             //TODO: Completar proceso para modificar un lote
             var res = new RespuestaAccion();
             try
             {
+                BATCH_ARTICLE ToModif = (from c in _context.BATCHS_ARTICLES
+                                         where c.id == batch_id
+                                         select c).FirstOrDefault();
+                if (ToModif == null)
+                {
+                    res.set(-2, "Codigo de lote a modificar no existe");
+                    return res;
+                }
+                ToModif.descrip = descripcion;
+                ToModif.initial_price = total_compra;
+                ToModif.initial_life_time = vida_util;
+                ToModif.account_date = fecha_contab;
+                //ToModif.purchase_date //por definición no puede modificarse
+                //ToModif.origin_id //por definición no puede modificarse
+                //ToModif.type_asset_id //por definición no puede modificarse
+
+                //Reviso documento
+                if (documento != DOCUMENTS.defaultDocument && cod_proveedor != DOCUMENTS.defaultProveed)
+                {
+                    DOCUMENT DocModif = (from d in _context.DOCUMENTS
+                                         where d.docnumber == documento && d.proveedor_id == cod_proveedor
+                                         select d).FirstOrDefault();
+                    if (DocModif == null)
+                    {
+                        //no existe el documento, se debe crear y asociar
+                        DOCUMENT DocNuevo = new DOCUMENT();
+                        DocNuevo.proveedor_id = cod_proveedor;
+                        DocNuevo.docnumber = documento;
+                        DocNuevo.comment = string.Empty;
+                        DocNuevo.proveedor_name = Proveedor.getNameByCode(cod_proveedor);
+
+                        //reviso asociaciones previas del lote
+                        var allowRelations = (from rl in _context.DOCS_BATCH
+                                              where rl.batch_id == batch_id
+                                              select rl).FirstOrDefault();
+                        if (allowRelations == null)
+                        {
+                            var relation = new DOCS_BATCH();
+                            relation.BATCHS_ARTICLES = ToModif;
+                            relation.DOCUMENT = DocNuevo;
+                            _context.DOCS_BATCH.AddObject(relation);
+                        }
+                        else
+                        {
+                            //documento existe, se debe actualizar la asociacion
+                            allowRelations.DOCUMENT = DocNuevo;
+                        }
+
+                        
+                    }
+                    else
+                    {
+                        //reviso asociaciones previas
+                        var allowRelations = (from rl in _context.DOCS_BATCH
+                                              where rl.batch_id == batch_id
+                                              select rl).FirstOrDefault();
+                        if (allowRelations == null)
+                        {
+                            //documento existe y debe asociar al batch
+                            var relation = new DOCS_BATCH();
+                            relation.BATCHS_ARTICLES = ToModif;
+                            relation.DOCUMENT = DocModif;
+                        }
+                        else
+                        {
+                            //documento existe, se debe actualizar la asociacion
+                            allowRelations.DOCUMENT = DocModif;
+                        }
+                        
+                    }
+                }
+                _context.SaveChanges();
+
                 res.set_ok();
             }
             catch (Exception ex)

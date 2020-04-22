@@ -11,6 +11,9 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 {
     public class DOCUMENTS
     {
+        public static string defaultDocument { get { return "SIN_DOCUMENTO"; } }
+        public static string defaultProveed { get { return "SIN_PROVEED"; } }
+
         private List<SV_DOCUMENT> _source;
         public DOCUMENTS(ObjectSet<DOCUMENT> source) {
             _source = source
@@ -37,7 +40,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
         public SV_DOCUMENT ByNumProv(string numero, string proveedor_id)
         {
-            if (numero != "SIN_DOCUMENTO" && proveedor_id != "SIN_PROVEED")
+            if (numero != defaultDocument && proveedor_id != defaultProveed)
             {
                 return _source.Where(
                     doc =>

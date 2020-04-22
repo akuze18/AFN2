@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
-    class SV_ZONE
+    public class SV_ZONE
     {
         private int _id;
         private string _name;
@@ -33,6 +33,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         }
         public static implicit operator GENERIC_VALUE(SV_ZONE sv)
         {
+            if (sv == null) return new GENERIC_VALUE();
             return new GENERIC_VALUE()
             {
                 id = sv.id,
@@ -42,5 +43,10 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             };
         }
         #endregion
+
+        public override string ToString()
+        {
+            return this.name;
+        }
     }
 }

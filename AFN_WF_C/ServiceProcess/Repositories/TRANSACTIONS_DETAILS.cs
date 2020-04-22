@@ -17,12 +17,26 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             _source = source.ToList().ConvertAll(th => (SV_TRANSACTION_DETAIL)th); 
         }
 
-        public List<SV_TRANSACTION_DETAIL> GetByPartsSystem(int[] head_ids, SV_SYSTEM system)
+        public List<SV_TRANSACTION_DETAIL> GetByHeadsSystem(int[] head_ids, SV_SYSTEM system)
         {
             return _source
                 .Where(td => 
                     head_ids.Contains(td.trx_head_id) && 
                     td.system_id == system.id)
+                .ToList();
+        }
+        public SV_TRANSACTION_DETAIL GetByPartSystem(int head_id, SV_SYSTEM system)
+        {
+            return _source
+                .Where(td => td.trx_head_id == head_id &&
+                    td.system_id == system.id)
+                .FirstOrDefault();
+        }
+
+        public List<SV_TRANSACTION_DETAIL> GetByHead(int head_id)
+        {
+            return _source
+                .Where(td => td.trx_head_id == head_id)
                 .ToList();
         }
     }

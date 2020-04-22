@@ -54,18 +54,36 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         {
             return a.code != b;
         }
+
+        public static bool operator ==(SV_ENVIORMENT a, SV_ENVIORMENT b)
+        {
+            return (a.id == b.id);
+        }
+        public static bool operator !=(SV_ENVIORMENT a, SV_ENVIORMENT b)
+        {
+            return (a.id != b.id);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)
                 return false;
-            if (this.GetType() != obj.GetType()) return false;
+            if (obj.GetType() == typeof(string))
+                return (this == (string)obj);
 
-            SV_ENVIORMENT p = (SV_ENVIORMENT)obj;
-            return (this.id == p.id);
+            if (this.GetType() != obj.GetType()) 
+                return false;
+
+            return (this == (SV_ENVIORMENT)obj);
         }
         public override int GetHashCode()
         {
             return this.id.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return code;
         }
     }
 }

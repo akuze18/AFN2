@@ -19,7 +19,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 .ConvertAll(o =>(SV_ORIGIN)o ); 
         }
 
-        public GENERIC_VALUE ById(int idFind)
+        public SV_ORIGIN ById(int idFind)
         {
             return _source.Where(o => o.id == idFind).FirstOrDefault();
         }

@@ -25,6 +25,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.Where(b => b.id == Id).FirstOrDefault();
         }
 
+        public List<SV_BATCH_ARTICLE> GetLotesAbiertos()
+        {
+            return _source.Where(b => b.aproval_state_id == 1).ToList();
+        }
+
         //public void add_new(SV_BATCH_ARTICLE batch)
         //{
         //    _source.Add(batch);

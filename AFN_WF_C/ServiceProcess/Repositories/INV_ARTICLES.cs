@@ -9,15 +9,15 @@ using AFN_WF_C.ServiceProcess.PublicData;
 
 namespace AFN_WF_C.ServiceProcess.Repositories
 {
-    public class INVENTORY
+    public class INV_ARTICLES
     {
-        private List<ARTICLE> _source;
-        public INVENTORY(ObjectSet<ARTICLE> source)
+        private List<SV_ARTICLE> _source;
+        public INV_ARTICLES(ObjectSet<ARTICLE> source)
         {
-            _source = source.ToList();
+            _source = source.ToList().ConvertAll(a => (SV_ARTICLE)a);
         }
 
-        public List<ARTICLE> ByParts(int[] parts_ids)
+        public List<SV_ARTICLE> ByParts(int[] parts_ids)
         {
             return _source.Where(a => parts_ids.Contains(a.part_id))
                 .ToList();
@@ -26,5 +26,12 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return _source.Where(a => a.code.StartsWith(raiz)).Count();
         }
+
+        public List<SV_ARTICLE> GetDetalleArticulo(int partId)
+        {
+            return _source.Where(a => a.part_id == partId).ToList();
+        }
+
+
     }
 }

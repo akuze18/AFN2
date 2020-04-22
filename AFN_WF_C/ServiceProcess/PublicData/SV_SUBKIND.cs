@@ -46,5 +46,9 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             };
         }
         #endregion
+        public override string ToString()
+        {
+            return this._descrip;
+        }
     }
 }

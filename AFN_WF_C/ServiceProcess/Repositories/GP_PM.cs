@@ -36,7 +36,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return _source.Where(p => p.COD == code)
                 .Select(p => p.VENDNAME)
-                .DefaultIfEmpty("SIN_PROVEED")
+                .DefaultIfEmpty(DOCUMENTS.defaultProveed)
                 .First();
         }
     }

@@ -39,6 +39,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         }
         public static implicit operator GENERIC_VALUE(SV_SUBZONE sv)
         {
+            if (sv == null) return new GENERIC_VALUE();
             return new GENERIC_VALUE()
             {
                 id = sv.id,
@@ -47,6 +48,21 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 type = sv.GetType().Name.Substring(3),
             };
         }
+        public static GENERIC_VALUE Empty()
+        {
+            return new GENERIC_VALUE()
+            {
+                id = 0,
+                code = string.Empty,
+                description = string.Empty,
+                type = "SUBZONE",
+            };
+        }
         #endregion
+
+        public override string ToString()
+        {
+            return this.descrip;
+        }
     }
 }

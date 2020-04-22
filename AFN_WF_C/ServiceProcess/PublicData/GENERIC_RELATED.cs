@@ -20,32 +20,32 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         //    this.related_id = related_id;
         //    this.related = new GENERIC_VALUE() { id = related_id };
         //}
-        public GENERIC_RELATED(DataContract.PACKAGE_KIND pk)
-        {
-            if (pk != null)
-            {
-                this.id = pk.id;
-                this.code = pk.type_asset_id.ToString();
-                this.description = pk.descrip;
-                this.type = pk.GetType().Name;
-                //this.related_id = pk.PACKAGE_PAIR_KINDS.FirstOrDefault().kind_id;
-                var find_rel = pk.PACKAGE_PAIR_KINDS.FirstOrDefault();
-                int indice = (find_rel != null? find_rel.kind_id:0);
-                this.related = new GENERIC_VALUE()
-                {
-                    id = indice,
-                    type = "KIND"
-                };
+        //public GENERIC_RELATED(DataContract.PACKAGE_KIND pk)
+        //{
+        //    if (pk != null)
+        //    {
+        //        this.id = pk.id;
+        //        this.code = pk.type_asset_id.ToString();
+        //        this.description = pk.descrip;
+        //        this.type = pk.GetType().Name;
+        //        //this.related_id = pk.PACKAGE_PAIR_KINDS.FirstOrDefault().kind_id;
+        //        var find_rel = pk.PACKAGE_PAIR_KINDS.FirstOrDefault();
+        //        int indice = (find_rel != null? find_rel.kind_id:0);
+        //        this.related = new GENERIC_VALUE()
+        //        {
+        //            id = indice,
+        //            type = "KIND"
+        //        };
                 
-            }
-        }
+        //    }
+        //}
     #endregion
 
         #region Convertions
-        public static implicit operator GENERIC_RELATED(DataContract.PACKAGE_KIND pk)
-        {
-            return new GENERIC_RELATED(pk);
-        }
+        //public static implicit operator GENERIC_RELATED(DataContract.PACKAGE_KIND pk)
+        //{
+        //    return new GENERIC_RELATED(pk);
+        //}
         #endregion
     }
 }

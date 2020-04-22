@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
-    class SV_TYPE_ASSET
+    public class SV_TYPE_ASSET
     {
         private int _id;
         private string _descrip;

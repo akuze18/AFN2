@@ -41,6 +41,11 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         }
         #endregion
 
+        public string ToCode()
+        {
+            return this.ENVIORMENT.code + "_" + this.CURRENCY.code;
+        }
+
         public override string ToString()
         {
             return this.ENVIORMENT.name + " " + this.CURRENCY.code;
@@ -57,7 +62,11 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         {
             if (obj == null)
                 return false;
-            if (this.GetType() != obj.GetType()) return false;
+            //if (obj.GetType() == typeof(string))
+            //    return (this == (string)obj);
+
+            if (this.GetType() != obj.GetType()) 
+                return false;
 
             SV_SYSTEM p = (SV_SYSTEM)obj;
             return (this.id == p.id);

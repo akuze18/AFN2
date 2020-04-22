@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AFN_WF_C.ServiceProcess.PublicData
 {
-    class SV_KIND
+    public class SV_KIND
     {
         private int _id;
         private string _cod;
@@ -49,6 +49,9 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             };
         }
         #endregion
-
+        public override string ToString()
+        {
+            return this._descrip;
+        }
     }
 }

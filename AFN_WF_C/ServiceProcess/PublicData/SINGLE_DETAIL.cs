@@ -64,9 +64,9 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 this.fuente = process.sistema;
                 this.codigo_articulo = process.cod_articulo;
                 this.descripcion = lote.descrip;
-                this.proveedor = lote.documents.Select(d => d.proveedor_id).DefaultIfEmpty("SIN_PROVEED").First();
-                this.descrip_proveedor = lote.documents.Select(d => d.proveedor_name).DefaultIfEmpty("SIN_PROVEED").First();
-                this.num_doc = lote.documents.Select(d => d.docnumber).DefaultIfEmpty("SIN_DOCUMENTO").First();
+                this.proveedor = lote.documents.Select(d => d.proveedor_id).DefaultIfEmpty(Repositories.DOCUMENTS.defaultProveed).First();
+                this.descrip_proveedor = lote.documents.Select(d => d.proveedor_name).DefaultIfEmpty(Repositories.DOCUMENTS.defaultProveed).First();
+                this.num_doc = lote.documents.Select(d => d.docnumber).DefaultIfEmpty(Repositories.DOCUMENTS.defaultDocument).First();
                 this.fecha_compra = lote.purchase_date;
                 this.cantidad = process.cantidad;
                 this.precio_inicial = lote.initial_price;
@@ -106,7 +106,56 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 return false;
             }
         }
+        public bool set_values(List<DETAIL_PROCESS> ListProcess, SV_BATCH_ARTICLE lote)
+        {
+            try
+            {
 
+                this.fuente = ListProcess.Select(a => a.sistema).First();// .sistema;
+                this.codigo_articulo = ListProcess.Select(a => a.cod_articulo).First();
+                this.descripcion = lote.descrip;
+                this.proveedor = lote.documents.Select(d => d.proveedor_id).DefaultIfEmpty(Repositories.DOCUMENTS.defaultProveed).First();
+                this.descrip_proveedor = lote.documents.Select(d => d.proveedor_name).DefaultIfEmpty(Repositories.DOCUMENTS.defaultProveed).First();
+                this.num_doc = lote.documents.Select(d => d.docnumber).DefaultIfEmpty(Repositories.DOCUMENTS.defaultDocument).First();
+                this.fecha_compra = lote.purchase_date;
+                this.cantidad = ListProcess.Sum(a => a.cantidad);
+                this.precio_inicial = lote.initial_price;
+                this.vida_util_inicial = lote.initial_life_time;
+                this.derecho_credito = ListProcess.Select(a => a.derecho_credito).First();
+                this.fecha_ingreso = ListProcess.Select(a => a.fecha_ing).First();
+                this.origen = ListProcess.Select(a => a.origen).First();
+                this.fecha_inicio = ListProcess.Select(a => a.fecha_inicio).First();
+                this.zona = ListProcess.Select(a => a.zona).First();
+                this.estado = ListProcess.Select(a => a.aprobacion.id).First();
+                this.fecha_fin = ListProcess.Select(a => a.fecha_fin).First();
+                this.precio_base = ListProcess.Select(a => a.parametros.GetPrecioBase.value).First();
+                this.depreciacion_acum = ListProcess.Select(a => a.parametros.GetDepreciacionAcum.value).First();
+                this.deterioro = ListProcess.Select(a => a.parametros.GetDeterioro.value).First();
+                this.valor_residual = ListProcess.Select(a => a.parametros.GetValorResidual.value).First();
+                this.vida_util_base = (int)ListProcess.Select(a => a.parametros.GetVidaUtil.value).First();
+                this.clase = ListProcess.Select(a => a.clase).First();
+                this.categoria = ListProcess.Select(a => a.categoria).First();
+                this.subzona = ListProcess.Select(a => a.subzona).First();
+                this.subclase = ListProcess.Select(a => a.subclase).First();
+                this.usuario = ListProcess.Select(a => a.usuario).First();
+                this.metod_val = ListProcess.Select(a => a.metodo_reval).First();
+                this.preparacion = ListProcess.Select(a => a.parametros.GetPreparacion.value).First();
+                this.transporte = ListProcess.Select(a => a.parametros.GetTransporte.value).First();
+                this.montaje = ListProcess.Select(a => a.parametros.GetMontaje.value).First();
+                this.desmantel = ListProcess.Select(a => a.parametros.GetDesmantelamiento.value).First();
+                this.honorario = ListProcess.Select(a => a.parametros.GetHonorario.value).First();
+                this.revalorizacion = ListProcess.Select(a => a.parametros.GetRevalorizacion.value).First();
+                this.tipo = ListProcess.Select(a => a.tipo).First();
+                this.gestion = ListProcess.Select(a => a.gestion).First();
+                this.se_deprecia = ListProcess.Select(a => a.se_deprecia).First();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
     }
 }

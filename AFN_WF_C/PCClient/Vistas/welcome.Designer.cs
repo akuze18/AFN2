@@ -80,11 +80,12 @@
             this.smMigracion06 = new System.Windows.Forms.ToolStripMenuItem();
             this.smMigracion07 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Panels1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Panels2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Panels3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Panels4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.smProceso02 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -269,7 +270,8 @@
             // procesosToolStripMenuItem
             // 
             this.procesosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.smProceso01});
+            this.smProceso01,
+            this.smProceso02});
             this.procesosToolStripMenuItem.Name = "procesosToolStripMenuItem";
             this.procesosToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.procesosToolStripMenuItem.Text = "Procesos";
@@ -277,8 +279,9 @@
             // smProceso01
             // 
             this.smProceso01.Name = "smProceso01";
-            this.smProceso01.Size = new System.Drawing.Size(142, 22);
+            this.smProceso01.Size = new System.Drawing.Size(201, 22);
             this.smProceso01.Text = "Activar Lotes";
+            this.smProceso01.Click += new System.EventHandler(this.smProceso01_Click);
             // 
             // reportesToolStripMenuItem
             // 
@@ -425,6 +428,7 @@
             this.smSistemaTest.Name = "smSistemaTest";
             this.smSistemaTest.Size = new System.Drawing.Size(257, 22);
             this.smSistemaTest.Text = "Test";
+            this.smSistemaTest.Visible = false;
             this.smSistemaTest.Click += new System.EventHandler(this.smSistemaTest_Click);
             // 
             // migracionToolStripMenuItem
@@ -443,6 +447,7 @@
             // 
             // smMigracion01
             // 
+            this.smMigracion01.Enabled = false;
             this.smMigracion01.Name = "smMigracion01";
             this.smMigracion01.Size = new System.Drawing.Size(266, 22);
             this.smMigracion01.Text = "Traer Datos desde AFN1";
@@ -494,11 +499,11 @@
             // 
             this.statusStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2,
+            this.Panels1,
+            this.Panels2,
             this.toolStripStatusLabel3,
-            this.toolStripStatusLabel4,
-            this.toolStripStatusLabel5});
+            this.Panels3,
+            this.Panels4});
             this.statusStrip1.Location = new System.Drawing.Point(0, 334);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
@@ -506,20 +511,20 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // Panels1
             // 
-            this.toolStripStatusLabel1.AutoSize = false;
-            this.toolStripStatusLabel1.Image = global::AFN_WF_C.Properties.Resources.user_accept_16x16_32;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(140, 21);
-            this.toolStripStatusLabel1.Text = "Usuario";
+            this.Panels1.AutoSize = false;
+            this.Panels1.Image = global::AFN_WF_C.Properties.Resources.user_accept_16x16_32;
+            this.Panels1.Name = "Panels1";
+            this.Panels1.Size = new System.Drawing.Size(140, 21);
+            this.Panels1.Text = "Usuario";
             // 
-            // toolStripStatusLabel2
+            // Panels2
             // 
-            this.toolStripStatusLabel2.Image = global::AFN_WF_C.Properties.Resources.clock_16x16_32;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(54, 21);
-            this.toolStripStatusLabel2.Text = "Fecha";
+            this.Panels2.Image = global::AFN_WF_C.Properties.Resources.clock_16x16_32;
+            this.Panels2.Name = "Panels2";
+            this.Panels2.Size = new System.Drawing.Size(54, 21);
+            this.Panels2.Text = "Fecha";
             // 
             // toolStripStatusLabel3
             // 
@@ -527,19 +532,26 @@
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(199, 21);
             this.toolStripStatusLabel3.Spring = true;
             // 
-            // toolStripStatusLabel4
+            // Panels3
             // 
-            this.toolStripStatusLabel4.Image = global::AFN_WF_C.Properties.Resources.computer_accept_16x16_32;
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(66, 21);
-            this.toolStripStatusLabel4.Text = "Servidor";
+            this.Panels3.Image = global::AFN_WF_C.Properties.Resources.computer_accept_16x16_32;
+            this.Panels3.Name = "Panels3";
+            this.Panels3.Size = new System.Drawing.Size(66, 21);
+            this.Panels3.Text = "Servidor";
             // 
-            // toolStripStatusLabel5
+            // Panels4
             // 
-            this.toolStripStatusLabel5.Image = global::AFN_WF_C.Properties.Resources.database_accept_16x16_32;
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(72, 21);
-            this.toolStripStatusLabel5.Text = "BaseDato";
+            this.Panels4.Image = global::AFN_WF_C.Properties.Resources.database_accept_16x16_32;
+            this.Panels4.Name = "Panels4";
+            this.Panels4.Size = new System.Drawing.Size(72, 21);
+            this.Panels4.Text = "BaseDato";
+            // 
+            // smProceso02
+            // 
+            this.smProceso02.Name = "smProceso02";
+            this.smProceso02.Size = new System.Drawing.Size(201, 22);
+            this.smProceso02.Text = "Suspender Depreciacion";
+            this.smProceso02.Click += new System.EventHandler(this.smProceso02_Click);
             // 
             // welcome
             // 
@@ -554,6 +566,7 @@
             this.Name = "welcome";
             this.Padding = new System.Windows.Forms.Padding(0);
             this.Text = "Sistema de Gestion Activo Fijo Nippon";
+            this.Load += new System.EventHandler(this.welcome_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -607,11 +620,11 @@
         private System.Windows.Forms.ToolStripMenuItem smSistema02;
         private System.Windows.Forms.ToolStripMenuItem smSistema03;
         private System.Windows.Forms.ToolStripMenuItem smSistema04;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel Panels1;
+        private System.Windows.Forms.ToolStripStatusLabel Panels2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.ToolStripStatusLabel Panels3;
+        private System.Windows.Forms.ToolStripStatusLabel Panels4;
         private System.Windows.Forms.ToolStripMenuItem smSistemaTest;
         private System.Windows.Forms.ToolStripMenuItem smSistema05;
         private System.Windows.Forms.ToolStripMenuItem migracionToolStripMenuItem;
@@ -622,5 +635,6 @@
         private System.Windows.Forms.ToolStripMenuItem smMigracion05;
         private System.Windows.Forms.ToolStripMenuItem smMigracion06;
         private System.Windows.Forms.ToolStripMenuItem smMigracion07;
+        private System.Windows.Forms.ToolStripMenuItem smProceso02;
     }
 }

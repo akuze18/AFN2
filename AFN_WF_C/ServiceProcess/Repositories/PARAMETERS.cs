@@ -72,5 +72,12 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             get { return byCode("REVAL"); }
         }
+
+        public List<SV_PARAMETER> ForIFRS()
+        {
+            string[] IFRSCodes = {"PB", "DESM", "HON", "MON", "PREP","TRAN"};
+            return _source.Where(p => IFRSCodes.Contains(p.code))
+                .ToList();
+        }
     }
 }

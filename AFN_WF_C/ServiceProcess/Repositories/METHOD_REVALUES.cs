@@ -13,9 +13,9 @@ namespace AFN_WF_C.ServiceProcess.Repositories
     {
         private List<SV_METHOD_REVALUE> _source;
         public METHOD_REVALUES(ObjectSet<METHOD_REVALUE> source) { _source = source.ToList().ConvertAll(ap => (SV_METHOD_REVALUE)ap); }
-        
 
-        public GENERIC_VALUE ById(int idFind)
+
+        public SV_METHOD_REVALUE ById(int idFind)
         {
             return _source.Where(ap => ap.id == idFind).FirstOrDefault();
         }

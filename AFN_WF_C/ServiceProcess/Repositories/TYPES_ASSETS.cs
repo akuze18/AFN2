@@ -14,12 +14,12 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private List<SV_TYPE_ASSET> _source;
         public TYPES_ASSETS(ObjectSet<TYPE_ASSET> source) { _source = source.ToList().ConvertAll(ta => (SV_TYPE_ASSET) ta); }
 
-        public GENERIC_VALUE ById(int idFind)
+        public SV_TYPE_ASSET ById(int idFind)
         {
             return _source.Where(z => z.id == idFind).FirstOrDefault();
         }
 
-        public GENERIC_VALUE ByDescrip(string DescFind)
+        public SV_TYPE_ASSET ByDescrip(string DescFind)
         {
             return _source.Where(t => t.descrip == DescFind).FirstOrDefault();
         }

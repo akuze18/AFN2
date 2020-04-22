@@ -34,16 +34,16 @@
             this.paso2 = new System.Windows.Forms.TabPage();
             this.ficha_ifrs = new AFN_WF_C.PCClient.Vistas.Cambios.ingreso_ifrs();
             this.paso3 = new System.Windows.Forms.TabPage();
+            this.ficha_grupo = new AFN_WF_C.PCClient.Vistas.Cambios.ingreso_invent_grup();
             this.paso4 = new System.Windows.Forms.TabPage();
+            this.ficha_articulo = new AFN_WF_C.PCClient.Vistas.Cambios.ingreso_invent_articulo();
             this.CkEstado = new System.Windows.Forms.CheckBox();
             this.TFulldescrip = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.artic = new System.Windows.Forms.TextBox();
-            this.ficha_grupo = new AFN_WF_C.PCClient.Vistas.Cambios.ingreso_invent_grup();
             this.btn_modif = new System.Windows.Forms.Button();
             this.btn_new = new System.Windows.Forms.Button();
-            this.ficha_articulo = new AFN_WF_C.PCClient.Vistas.Cambios.ingreso_invent_articulo();
             this.pasos.SuspendLayout();
             this.paso1.SuspendLayout();
             this.paso2.SuspendLayout();
@@ -86,6 +86,7 @@
             this.ficha_basica.Name = "ficha_basica";
             this.ficha_basica.Size = new System.Drawing.Size(1044, 450);
             this.ficha_basica.TabIndex = 0;
+            this.ficha_basica.Load += new System.EventHandler(this.ficha_basica_Load);
             // 
             // paso2
             // 
@@ -118,6 +119,15 @@
             this.paso3.Text = "Descripción por Grupo";
             this.paso3.UseVisualStyleBackColor = true;
             // 
+            // ficha_grupo
+            // 
+            this.ficha_grupo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ficha_grupo.Location = new System.Drawing.Point(3, 3);
+            this.ficha_grupo.Margin = new System.Windows.Forms.Padding(4);
+            this.ficha_grupo.Name = "ficha_grupo";
+            this.ficha_grupo.Size = new System.Drawing.Size(1044, 450);
+            this.ficha_grupo.TabIndex = 0;
+            // 
             // paso4
             // 
             this.paso4.Controls.Add(this.ficha_articulo);
@@ -128,6 +138,15 @@
             this.paso4.TabIndex = 3;
             this.paso4.Text = "Descripción por Articulo";
             this.paso4.UseVisualStyleBackColor = true;
+            // 
+            // ficha_articulo
+            // 
+            this.ficha_articulo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ficha_articulo.Location = new System.Drawing.Point(3, 3);
+            this.ficha_articulo.Margin = new System.Windows.Forms.Padding(4);
+            this.ficha_articulo.Name = "ficha_articulo";
+            this.ficha_articulo.Size = new System.Drawing.Size(1044, 450);
+            this.ficha_articulo.TabIndex = 0;
             // 
             // CkEstado
             // 
@@ -172,15 +191,6 @@
             this.artic.Size = new System.Drawing.Size(83, 22);
             this.artic.TabIndex = 0;
             // 
-            // ficha_grupo
-            // 
-            this.ficha_grupo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ficha_grupo.Location = new System.Drawing.Point(3, 3);
-            this.ficha_grupo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.ficha_grupo.Name = "ficha_grupo";
-            this.ficha_grupo.Size = new System.Drawing.Size(1044, 450);
-            this.ficha_grupo.TabIndex = 0;
-            // 
             // btn_modif
             // 
             this.btn_modif.Image = global::AFN_WF_C.Properties.Resources._32_find;
@@ -204,15 +214,6 @@
             this.btn_new.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_new.UseVisualStyleBackColor = true;
             this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
-            // 
-            // ficha_articulo
-            // 
-            this.ficha_articulo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ficha_articulo.Location = new System.Drawing.Point(3, 3);
-            this.ficha_articulo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.ficha_articulo.Name = "ficha_articulo";
-            this.ficha_articulo.Size = new System.Drawing.Size(1044, 450);
-            this.ficha_articulo.TabIndex = 0;
             // 
             // ingreso
             // 

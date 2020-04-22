@@ -16,11 +16,13 @@ namespace AFN_WF_C.PCClient
     public partial class FormBase : Form
     {
         private Form _origen;
+        //private bool _upgrading;
 
         public FormBase()
         {
             InitializeComponent();
             _origen = null;
+            //_upgrading = false;
             this.BackColor = Properties.Settings.Default.BackgroundColor;
         }
 
@@ -31,7 +33,7 @@ namespace AFN_WF_C.PCClient
             this.Show();
         }
 
-        public DialogResult DialogFrom(Form origen)
+        public DialogResult ShowDialogFrom(Form origen)
         {
             _origen = origen;
             _origen.Hide();
@@ -39,13 +41,13 @@ namespace AFN_WF_C.PCClient
         }
         private void FormBase_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (_origen != null)
+            if (_origen != null) // && !_upgrading
                 _origen.Show();
         }
 
         protected DateTime Today
         {
-            get { return DateTime.Now; }
+            get { return DateTime.Today; }
         }
 
         /// <summary>
@@ -104,7 +106,27 @@ namespace AFN_WF_C.PCClient
             return true;
         }
 
-
+        protected bool ChangeOrigen(Form NuevoOrigen)
+        {
+            try
+            {
+                if (_origen != null && NuevoOrigen != null)
+                {
+                    _origen.Close();
+                }
+                _origen = NuevoOrigen;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Mensaje.Error(e.StackTrace);
+                return false;
+            }
+        }
         
+        new public Form Parent
+        {
+            get { return _origen; }
+        }
     }
 }

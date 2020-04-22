@@ -21,6 +21,10 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return _source.Where(x => x.article_part_id == ParteID).ToList();
         }
+        public List<SV_TRANSACTION_HEADER> ByPartes(int[] PartesIDs)
+        {
+            return _source.Where(x => PartesIDs.Contains(x.article_part_id)).ToList();
+        }
 
         public SV_TRANSACTION_HEADER byPartFechaValid(int PartArtId, DateTime fecha_corte)
         {
@@ -31,6 +35,21 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return _source.Where(th => th.article_part_id == PartArtId &&
                 th.trx_ini == fecha_corte).FirstOrDefault();
+        }
+        public List<SV_TRANSACTION_HEADER> byPartsFechaFix(List<SV_PART> Parts, DateTime fecha_corte)
+        {
+            int[] PartsId = Parts.Select(p => p.id).ToArray();
+            return _source.Where(th => PartsId.Contains(th.article_part_id) &&
+                th.trx_ini == fecha_corte).ToList();
+        }
+
+        public SV_TRANSACTION_HEADER ByParteFirst(int ParteID)
+        {
+            DateTime firstTime = this.ByParte(ParteID).Select(x => x.trx_ini).Min();
+            return _source
+                    .Where(x => x.article_part_id == ParteID &&
+                        x.trx_ini == firstTime)
+                    .First();
         }
     }
 }

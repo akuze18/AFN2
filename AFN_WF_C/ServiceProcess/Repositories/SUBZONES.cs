@@ -12,9 +12,9 @@ namespace AFN_WF_C.ServiceProcess.Repositories
     public class SUBZONES
     {
         private List<SV_SUBZONE> _source;
-        public SUBZONES(ObjectSet<SUBZONE> source) { _source = source.ToList().ConvertAll(sz =>(SV_SUBZONE)sz); }        
+        public SUBZONES(ObjectSet<SUBZONE> source) { _source = source.ToList().ConvertAll(sz =>(SV_SUBZONE)sz); }
 
-        public GENERIC_VALUE ById(int idFind)
+        public SV_SUBZONE ById(int idFind)
         {
             return _source.Where(z => z.id == idFind).FirstOrDefault();
         }
@@ -24,6 +24,13 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.Where(sz => sz.zone_id == zone.id)
                 .Where(sz => sz.active)
                 .ToList().ConvertAll(sz => (GENERIC_VALUE)sz);
+        }
+
+        public SV_SUBZONE PrincipalByCode(string PlaceCode)
+        {
+            return _source.Where(sz => sz.codPlace == PlaceCode)
+                .Where(sz => sz.active)
+                .First();
         }
     }
 }

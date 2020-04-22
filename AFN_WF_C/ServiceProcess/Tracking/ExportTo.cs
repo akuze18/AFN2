@@ -26,12 +26,13 @@ namespace AFN_WF_C.ServiceProcess.Tracking
                 titulos = "LoteArticulo\t" +
                     "Parte\t" +
                     "Cantidad\t" +
+                    "FechaIngreso\t" +
+                    "FechaCompra\t" +
                     "FechaInicio\t" +
                     "FechaFin\t" +
                     "Vigencia\t" +
                     "Zona\t" +
                     "Clase\t" +
-                    "FechaCompra\t" +
                     "PartId\t" +
                     "HeadId\t" +
                     "RefSource\t";
@@ -49,12 +50,13 @@ namespace AFN_WF_C.ServiceProcess.Tracking
                     values = Data.cod_articulo.ToString() + "\t" +
                         Data.parte.ToString() + "\t" +
                         Data.cantidad.ToString() + "\t" +
+                        Data.fecha_ing.ToShortDateString() + "\t" +
+                        Data.fecha_compra.ToShortDateString() + "\t" +
                         Data.fecha_inicio.ToShortDateString() + "\t" +
                         Data.fecha_fin.ToShortDateString() + "\t" +
-                        Data.vigencia + "\t" +
-                        Data.zona + "\t" +
-                        Data.clase + "\t" +
-                        Data.fecha_compra.ToShortDateString() + "\t" +
+                        Data.vigencia.name + "\t" +
+                        Data.zona.codDept + "\t" +
+                        Data.clase.cod + "\t" +
                         Data.PartId.ToString() + "\t" +
                         Data.HeadId.ToString() + "\t" +
                         Data.RefSource + "\t"
@@ -79,12 +81,13 @@ namespace AFN_WF_C.ServiceProcess.Tracking
                 titulos = "LoteArticulo\t" +
                     "Parte\t" +
                     "Cantidad\t" +
+                    "FechaCompra\t" +
+                    "FechaIngreso\t" +
                     "FechaInicio\t" +
                     "FechaFin\t" +
                     "Vigencia\t" +
                     "Zona\t" +
                     "Clase\t" +
-                    "FechaCompra\t" +
                     "Origen\t" +
                     "Situacion\t" +
                     "valor_activo_inicial\t" +
@@ -120,12 +123,13 @@ namespace AFN_WF_C.ServiceProcess.Tracking
                     values = Data.cod_articulo.ToString() + "\t" +
                         Data.parte.ToString() + "\t" +
                         Data.cantidad.ToString() + "\t" +
+                        Data.fecha_compra.ToShortDateString() + "\t" +
+                        Data.fecha_ingreso.ToShortDateString() + "\t" +
                         Data.fecha_inicio.ToShortDateString()+ "\t" +
                         Data.fecha_fin.ToShortDateString() + "\t" +
                         Data.vigencia + "\t" +
                         Data.zona + "\t" +
                         Data.clase+ "\t" +
-                        Data.fecha_compra.ToShortDateString() + "\t" +
                         Data.origen + "\t" +
                         Data.situacion + "\t" +
                         Data.valor_activo_inicial + "\t" +
@@ -153,6 +157,68 @@ namespace AFN_WF_C.ServiceProcess.Tracking
                         Data.honorario + "\t" +
                         Data.revalorizacion + "\t"
                         ;
+                    file.WriteLine(values);
+                }
+                #endregion
+            }
+        }
+
+        public static void FileText(List<PD.DETAIL_ACCOUNT> ListData, string FileName)
+        {
+            string FullFile = FullFileName(FileName);
+            using (StreamWriter file = new StreamWriter(FullFile, false, Encoding.UTF8))
+            {
+                #region Titulo
+                string titulos;
+                titulos = "periodo\t" +
+                    "grupo_id\t" +
+                    "grupo_desc\t" +
+                    "tipo_cont_id\t" +
+                    "tipo_cont_desc\t" +
+                    "NUM_CUENTA\t" +
+                    "DSC_CUENTA\t" +
+                    "valor_antes\t" +
+                    "valor_actual\t" +
+                    "dim_lugar\t" +
+                    "dim_depto\t" +
+                    "codigo\t" +
+                    "parte\t" +
+                    "situacion\t" +
+                    "Fclase\t" +
+                    "Fzona\t" +
+                    "Fsubzona\t" +
+                    "fingreso\t" +
+                    "signo\t" +
+                    "FEstado_code\t" +
+                    "FEstado_desc\t";
+                file.WriteLine(titulos);
+                #endregion
+                #region Valores
+                foreach (var Data in ListData)
+                {
+                    string values;
+                    values = Data.periodo.lastDB + "\t" +
+                        Data.grupo.code + "\t" +
+                        Data.grupo.description + "\t" +
+                        Data.tipo_cont.code + "\t" +
+                        Data.tipo_cont.description + "\t" +
+                        Data.NUM_CUENTA + "\t" +
+                        Data.DSC_CUENTA + "\t" +
+                        Data.valor_antes + "\t" +
+                        Data.valor_actual + "\t" +
+                        Data.dim_lugar + "\t" +
+                        Data.dim_depto + "\t" +
+                        Data.codigo.ToString() + "\t" +
+                        Data.parte.ToString() + "\t" +
+                        Data.situacion + "\t" +
+                        Data.Fclase.code + "\t" +
+                        Data.Fzona.code + "\t" +
+                        Data.Fsubzona.code + "\t" +
+                        Data.fingreso.ToShortDateString() + "\t" +
+                        Data.FEstado.code+ "\t" +
+                        Data.FEstado.description + "\t" 
+                        ;
+                    
                     file.WriteLine(values);
                 }
                 #endregion

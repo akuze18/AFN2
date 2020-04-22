@@ -34,7 +34,7 @@
             this.cb_tipo = new System.Windows.Forms.ComboBox();
             this.cb_month = new System.Windows.Forms.ComboBox();
             this.cb_year = new System.Windows.Forms.ComboBox();
-            this.button_visualizar = new System.Windows.Forms.Button();
+            this.btn_generar = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,14 +62,12 @@
             // 
             // cb_acum
             // 
-            this.cb_acum.Enabled = false;
             this.cb_acum.FormattingEnabled = true;
             this.cb_acum.Location = new System.Drawing.Point(144, 165);
             this.cb_acum.Margin = new System.Windows.Forms.Padding(4);
             this.cb_acum.Name = "cb_acum";
             this.cb_acum.Size = new System.Drawing.Size(353, 24);
             this.cb_acum.TabIndex = 17;
-            this.cb_acum.Visible = false;
             // 
             // cb_tipo
             // 
@@ -98,21 +96,20 @@
             this.cb_year.Size = new System.Drawing.Size(93, 24);
             this.cb_year.TabIndex = 14;
             // 
-            // button_visualizar
+            // btn_generar
             // 
-            this.button_visualizar.Location = new System.Drawing.Point(198, 208);
-            this.button_visualizar.Margin = new System.Windows.Forms.Padding(4);
-            this.button_visualizar.Name = "button_visualizar";
-            this.button_visualizar.Size = new System.Drawing.Size(123, 46);
-            this.button_visualizar.TabIndex = 13;
-            this.button_visualizar.Text = "Visualizar";
-            this.button_visualizar.UseVisualStyleBackColor = true;
-            this.button_visualizar.Click += new System.EventHandler(this.button_visualizar_Click);
+            this.btn_generar.Location = new System.Drawing.Point(198, 208);
+            this.btn_generar.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_generar.Name = "btn_generar";
+            this.btn_generar.Size = new System.Drawing.Size(123, 46);
+            this.btn_generar.TabIndex = 13;
+            this.btn_generar.Text = "Visualizar";
+            this.btn_generar.UseVisualStyleBackColor = true;
+            this.btn_generar.Click += new System.EventHandler(this.btn_generar_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Enabled = false;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(24, 171);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -120,7 +117,6 @@
             this.label3.Size = new System.Drawing.Size(85, 16);
             this.label3.TabIndex = 12;
             this.label3.Text = "Acumulado";
-            this.label3.Visible = false;
             // 
             // label2
             // 
@@ -154,7 +150,7 @@
             this.Controls.Add(this.cb_tipo);
             this.Controls.Add(this.cb_month);
             this.Controls.Add(this.cb_year);
-            this.Controls.Add(this.button_visualizar);
+            this.Controls.Add(this.btn_generar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -174,7 +170,7 @@
         private System.Windows.Forms.ComboBox cb_tipo;
         private System.Windows.Forms.ComboBox cb_month;
         private System.Windows.Forms.ComboBox cb_year;
-        private System.Windows.Forms.Button button_visualizar;
+        private System.Windows.Forms.Button btn_generar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;

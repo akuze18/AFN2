@@ -15,7 +15,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         public APROVALS_STATES(ObjectSet<APROVAL_STATE> source) { _source = source.ToList().ConvertAll(ap => (SV_APROVAL_STATE)ap); }
         //public APROVALS_STATES(List<APROVAL_STATE> source) { _source = source; }
 
-        public GENERIC_VALUE ById(int idFind)
+        public SV_APROVAL_STATE ById(int idFind)
         {
             return _source.Where(ap => ap.id == idFind).FirstOrDefault();
         }
@@ -82,6 +82,15 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             {
                 return _source.Where(ap => ap.code == "OPEN").First();
             }
+        }
+
+        public string[] ArrNoDeleted
+        {
+            get { return NoDeleted.Select(e => e.code).ToArray(); }
+        }
+        public string[] ArrOnlyActive
+        {
+            get { return OnlyActive.Select(e => e.code).ToArray(); }
         }
     }
 }

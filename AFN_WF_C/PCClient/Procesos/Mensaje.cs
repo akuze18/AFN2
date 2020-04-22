@@ -28,5 +28,25 @@ namespace AFN_WF_C.PCClient.Procesos
         {
             return MessageBox.Show(mensaje, "CONFIRMACIÓN", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
         }
+
+        public static string InputBox(string Prompt, string DefaultResponse = "")
+        {
+            var box = new Vistas.Busquedas.inputbox(titulo, Prompt, DefaultResponse);
+            var opcion = box.ShowDialog();
+            string resultado;
+            if (opcion == DialogResult.OK)
+                resultado =  box.TextoIngresado;
+            else
+                resultado = string.Empty;
+            box = null;
+            return resultado;
+            
+        }
+
+        public static void NoMigrated()
+        {
+            Info("Opción aun no migrada");
+        }
+
     }
 }

@@ -45,18 +45,35 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         {
             return a.code != b;
         }
+
+        public static bool operator ==(SV_CURRENCY a, SV_CURRENCY b)
+        {
+            return (a.id == b.id);
+        }
+        public static bool operator !=(SV_CURRENCY a, SV_CURRENCY b)
+        {
+            return (a.id != b.id);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)
                 return false;
-            if (this.GetType() != obj.GetType()) return false;
-
-            SV_CURRENCY p = (SV_CURRENCY)obj;
-            return (this.id == p.id);
+            if (obj.GetType() == typeof(string))
+                return (this == (string)obj);
+            
+            if (this.GetType() != obj.GetType()) 
+                return false;
+            return (this == (SV_CURRENCY)obj);
         }
         public override int GetHashCode()
         {
             return this.id.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return code;
         }
     }
 }

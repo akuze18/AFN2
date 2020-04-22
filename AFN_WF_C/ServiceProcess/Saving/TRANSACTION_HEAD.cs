@@ -16,6 +16,8 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private string _ref_purchase = "PURCHASE";
         private string _ref_sales = "VENTA";
         private string _ref_disposal = "CASTIGO";
+        private string _ref_change = "TRASPASO";
+        private string _ref_error = "ERROR";
 
         #endregion
         private string ref_source(DateTime WorkingDate, AFN_INVENTARIO curr_fin_clp, DateTime PurchaseDate)
@@ -32,9 +34,9 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                         return "TRASPASO_MIG";
                 }
                 else if (curr_fin_clp.cod_estado == 2)
-                    return "VENTA_MIG";
+                    return _ref_sales+"_MIG";
                 else
-                    return "CASTIGO_MIG";
+                    return _ref_disposal+"_MIG";
             }
         }
 
@@ -157,10 +159,174 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             var res = new RespuestaAccion();
             //TODO: completar proceso de modificacion de cabecera para compras
-
             try
             {
+                var firstFecha = (from p in partes
+                                  where p.part_index == 0
+                                  select p.first_date).FirstOrDefault();
+                int contar = 0;
+                foreach (SV_PART SPart in partes.Where(p => p.first_date == firstFecha))
+                {
+                    TRANSACTION_HEADER ToModif = (from h in _context.TRANSACTIONS_HEADERS
+                                                  where h.article_part_id == SPart.id &&
+                                                  h.trx_ini == firstFecha
+                                                  select h).FirstOrDefault();
+                    if (ToModif == null)
+                    {
+                        res.set(-2, "No existe una cabecera valida para la parte solicitada");
+                        return res;
+                    }
+                    //ToModif.article_part_id   //No se puede cambiar
+                    //ToModif.trx_ini           //Por definición no se puede cambiar
+                    //ToModif.trx_end           //Por definición no se puede cambiar
+                    //ToModif.ref_source        //Por definición no se puede cambiar
+                    ToModif.zone_id = zona.id;
+                    ToModif.subzone_id = subzona.id;
+                    //ToModif.kind_id           //Por definición no se puede cambiar
+                    ToModif.subkind_id = subclase.id;
+                    ToModif.category_id = categoria.id;
+                    ToModif.user_own = usuario;
+                    ToModif.manage_id = gestion.id;
+                    //ToModif.method_revalue_id //No se cambia durante este proceso
+                    contar++;
+                    res.result_objs.Add((GENERIC_VALUE)(SV_TRANSACTION_HEADER)ToModif);
+                }
+                if (contar > 0)
+                {
+                    _context.SaveChanges();
+                    res.set_ok();
+                }
+                else
+                    res.set(-3, "No existen una parte valida asociada a la compra");
+                
+            }
+            catch (Exception ex)
+            {
+                res.set(-1, ex.StackTrace);
+            }
+            return res;
+        }
+
+        public RespuestaAccion MODIF_PURCHASE_HEAD_MethodVal(int[] HeadsIds, int method_val)
+        {
+            var res = new RespuestaAccion();
+            try
+            {
+                foreach (int headId in HeadsIds)
+                {
+                    var FindHead = (from h in _context.TRANSACTIONS_HEADERS
+                                    where h.id == headId
+                                    select h).FirstOrDefault();
+                    if (FindHead != null)
+                    {
+                        FindHead.method_revalue_id = method_val;
+                        _context.SaveChanges();
+                    }
+                }
                 res.set_ok();
+            }
+            catch (Exception ex)
+            {
+                res.set(-1, ex.StackTrace);
+            }
+            return res;
+        }
+
+        //public RespuestaAccion REGISTER_SALE_HEAD(int parteId, DateTime fechaVenta, SV_TRANSACTION_HEADER prevHead, string userName)
+        //{
+        //    var Vventa = Vigencias.VENTA();
+        //    return REGISTER_DOWNS_HEAD(parteId, fechaVenta, prevHead, userName, Vventa);
+        //}
+        public RespuestaAccion REGISTER_DISPOSAL_HEAD(int parteId, DateTime fechaVenta, SV_TRANSACTION_HEADER prevHead, string userName)
+        {
+            var Vcastigo = Vigencias.CASTIGO();
+            return REGISTER_DOWNS_HEAD(parteId, fechaVenta, prevHead, userName, Vcastigo);
+        }
+
+        public RespuestaAccion REGISTER_DOWNS_HEAD(int parteId, DateTime fechaBaja, SV_TRANSACTION_HEADER prevHead, string userName, SV_VALIDATY tipo_baja)
+        {
+            var res = new RespuestaAccion();
+            string reference = "";
+            switch (tipo_baja.id)
+            {
+                case 2:
+                    reference = _ref_sales;
+                    break;
+                case 3:
+                    reference = _ref_disposal;
+                    break;
+                default:
+                    reference = _ref_error;
+                    break;
+            }
+            
+            //TODO: crear ingreso de transaccion de venta
+            try
+            {
+                TRANSACTION_HEADER headDown = new TRANSACTION_HEADER();
+                headDown.article_part_id = parteId;
+                headDown.trx_ini = fechaBaja;
+                headDown.trx_end = prevHead.trx_end;
+                headDown.ref_source = reference;
+                headDown.zone_id = prevHead.zone_id;
+                headDown.subzone_id = prevHead.subzone_id;
+                headDown.kind_id = prevHead.kind_id;
+                headDown.subkind_id = prevHead.subkind_id;
+                headDown.category_id = prevHead.category_id;
+                headDown.user_own = userName;
+                headDown.manage_id = prevHead.manage_id;
+                headDown.method_revalue_id = prevHead.method_revalue_id;
+
+                TRANSACTION_HEADER _prevHead = (from h in _context.TRANSACTIONS_HEADERS
+                                                where h.id == prevHead.id
+                                                select h).FirstOrDefault();
+                _prevHead.trx_end = fechaBaja;
+                _context.TRANSACTIONS_HEADERS.AddObject(headDown);
+
+                _context.SaveChanges();
+                res.set_ok();
+                res.result_objs.Add((SV_TRANSACTION_HEADER)headDown);
+
+            }
+            catch (Exception ex)
+            {
+                res.set(-1, ex.StackTrace);
+            }
+            return res;
+        }
+
+
+        public RespuestaAccion REGISTER_CHANGE_HEAD(int parteId, DateTime fechaCambio, GENERIC_VALUE newZona, GENERIC_VALUE newSubzona, SV_TRANSACTION_HEADER prevHead, string userName)
+        {
+            var res = new RespuestaAccion();
+
+            //TODO: crear ingreso de transaccion de venta
+            try
+            {
+                TRANSACTION_HEADER headChange = new TRANSACTION_HEADER();
+                headChange.article_part_id = parteId;
+                headChange.trx_ini = fechaCambio;
+                headChange.trx_end = prevHead.trx_end;
+                headChange.ref_source = _ref_change;
+                headChange.zone_id = newZona.id;
+                headChange.subzone_id = newSubzona.id;
+                headChange.kind_id = prevHead.kind_id;
+                headChange.subkind_id = prevHead.subkind_id;
+                headChange.category_id = prevHead.category_id;
+                headChange.user_own = userName;
+                headChange.manage_id = prevHead.manage_id;
+                headChange.method_revalue_id = prevHead.method_revalue_id;
+
+                TRANSACTION_HEADER _prevHead = (from h in _context.TRANSACTIONS_HEADERS
+                                                where h.id == prevHead.id
+                                                select h).FirstOrDefault();
+                _prevHead.trx_end = fechaCambio;
+                _context.TRANSACTIONS_HEADERS.AddObject(headChange);
+
+                _context.SaveChanges();
+                res.set_ok();
+                res.result_objs.Add((SV_TRANSACTION_HEADER)headChange);
+
             }
             catch (Exception ex)
             {

@@ -35,6 +35,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private PACKAGE_KINDS _package_kinds;
         private PARAMETERS _parameters;
         private DOCUMENTS _documents;
+        private ENVIORMENTS _enviorments;
         private SYSTEMS _systems;
         private SYSTEMS_PARAMETERS _sys_params;
         private CORRECTIONS_MONETARIES_VALUES _corr_monets;
@@ -48,7 +49,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private ASSETS_IN_PROGRESS _OBC;
         private GP_MultiCurrency _gp_MC;
         private ADM_IFRS_DEFAULT _adm_idef;
-        private INVENTORY _inventory;
+        private INV_ARTICLES _inv_article;
+        private INV_ATTRIBUTES _inv_attribute;
+        private INV_ARTICLES_DETAILS _inv_article_detail;
+        private ACCOUNTING _accounting;
+        private SALES _sales;
 
         public Main(AFN2Entities context)
         {
@@ -175,6 +180,14 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 return _documents;
             }
         }
+        public ENVIORMENTS ambientes
+        {
+            get
+            {
+                if (_enviorments == null) { _enviorments = new ENVIORMENTS(_context.ENVIORMENTS); }
+                return _enviorments;
+            }
+        }
         public SYSTEMS sistemas
         {
             get
@@ -202,6 +215,23 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         public void set_correccion_monetaria(string periodo)
         {
             _corr_monets = new CORRECTIONS_MONETARIES_VALUES(_context.CORRECTIONS_MONETARIES_VALUES, periodo);
+        }
+
+        public ACCOUNTING contabilizar
+        {
+            get
+            {
+                if (_accounting == null) { _accounting = new ACCOUNTING(_context.TYPE_ACCOUNT, _context.GROUP_ACCOUNT, _context.DETAIL_ACCOUNT_LINES, _context.CONTAB_GRUPO); }
+                return _accounting;
+            }
+        }
+        public SALES ventas
+        {
+            get
+            {
+                if (_sales == null) { _sales = new SALES(_context.SALES_HEAD, _context.SALES_DETAIL, TipoCambio); }
+                return _sales;
+            }
         }
 
         public METHOD_REVALUES MetodosRev
@@ -293,12 +323,28 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             }
         }
 
-        public INVENTORY inventario
+        public INV_ARTICLES inv_articulos
         {
             get 
             {
-                if (_inventory == null) _inventory = new INVENTORY(_context.ARTICLES);
-                return _inventory;
+                if (_inv_article == null) _inv_article = new INV_ARTICLES(_context.ARTICLES);
+                return _inv_article;
+            }
+        }
+        public INV_ATTRIBUTES inv_atributos
+        {
+            get
+            {
+                if (_inv_attribute == null) _inv_attribute = new INV_ATTRIBUTES(_context.ATTRIBUTES);
+                return _inv_attribute;
+            }   
+        }
+        public INV_ARTICLES_DETAILS inv_articulos_details
+        {
+            get
+            {
+                if (_inv_article_detail == null) _inv_article_detail = new INV_ARTICLES_DETAILS(_context.ARTICLES_VALUES);
+                return _inv_article_detail;
             }
         }
 
@@ -390,6 +436,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                              PartIndex = B.part_index,
                              PartQuantity = B.quantity,
                              PartId = B.id,
+                             PartFirstDate = B.first_date,
                              //Head = C, 
                              HeadTrxIni = C.trx_ini,
                              HeadTrxEnd = C.trx_end,
@@ -406,7 +453,8 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                              //Detail = D 
                              DetailValidityId = D.validity_id,
                              DetailDepreciate = D.depreciate,
-                             DetailAllowCredit = D.allow_credit
+                             DetailAllowCredit = D.allow_credit,
+                             DetailId = D.id
                          });
 
             var selectedHeads = datos.Select(d => d.HeadId).Distinct().ToArray();
@@ -416,6 +464,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             foreach (var d in datos)
             {
                 var line = new DETAIL_PROCESS();
+                line.fecha_proceso = corte;
                 line.sistema = sistema;
                 line.cod_articulo = d.BatchId;
                 line.parte = d.PartIndex;
@@ -449,9 +498,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
                 line.PartId = d.PartId;
                 line.HeadId = d.HeadId;
+                line.DetailId = d.DetailId;
                 line.RefSource = d.HeadRefSource;
                 if (WithParameters)
                 {
+                    //Complete TRANSACTIONS_PARAMETERS_DETAILS collection
                     var valores = new LIST_PARAM_VALUE();
                     var curr_vals = this.DetallesParametros.ByHead_Sys(d.HeadId, sistema.id);
                     foreach (var par in all_params)
@@ -466,6 +517,8 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                         valores.Add(det);
                     }
                     line.parametros = valores;
+                    //Complete SCHEMA sales
+                    line.precio_venta = this.ventas.GetPriceSalesByPart(d.PartId, sistema.CURRENCY);
                 }
                 salida.Add(line);
             }
@@ -485,9 +538,17 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return this.get_detailed(sistema, corte, codigo, _def_apro, WithParameters, _def_check_post);
         }
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo, bool WithParameters, bool CheckPost)
+        {
+            return this.get_detailed(sistema, corte, codigo, _def_apro, WithParameters, CheckPost);
+        }
         public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, int codigo)
         {
             return this.get_detailed(sistema, corte, codigo, _def_apro, _def_with_param,_def_check_post);
+        }
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, string[] aprobados, bool WithParameters, bool CheckPost)
+        {
+            return this.get_detailed(sistema, corte, 0, aprobados, WithParameters, CheckPost);
         }
         public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, string[] aprobados, bool WithParameters)
         {
@@ -501,11 +562,205 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return this.get_detailed(sistema, corte, 0, _def_apro, WithParameters,_def_check_post);
         }
+        public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte, bool WithParameters, bool CheckPost)
+        {
+            return this.get_detailed(sistema, corte, 0, _def_apro, WithParameters, CheckPost);
+        }
         public List<DETAIL_PROCESS> get_detailed(SV_SYSTEM sistema, DateTime corte)
         {
             return this.get_detailed(sistema, corte, 0, _def_apro, _def_with_param,_def_check_post);
         }
 
+        public List<DETAIL_PROCESS> get_changed(SV_SYSTEM RqSistema, DateTime desde, DateTime hasta, int codigo, int parte, bool WithParameters, SV_KIND[] clases, SV_ZONE[] zonas)
+        {
+            var salida = new List<DETAIL_PROCESS>();
+            int[] default_clase = new int[] {1};
+            int[] default_zona = new int[] {0};
+            int[] rq_cl = default_clase,
+                rq_zn = default_zona,
+                rq_type = default_zona;
+            //Some values are fixed from original get_detailed
+            string[] aprobados = EstadoAprobacion.ArrOnlyActive;
+            bool CheckPost = true;
+            if (clases != null)
+            {
+                rq_cl = clases.Select(c => c.id).ToArray();
+                rq_type = clases.Select(c => c.type_asset_id).Distinct().ToArray();
+            }
+
+            if (zonas != null)
+            {
+                rq_zn = zonas.Select(c => c.id).ToArray();
+            }
+            
+            var def_clas = default_clase[0];
+            var def_zon = default_zona[0];
+
+
+            var datos = (from A in this._context.BATCHS_ARTICLES
+                         join B in this._context.PARTS on A.id equals B.article_id
+                         join C in this._context.TRANSACTIONS_HEADERS
+                         on B.id equals C.article_part_id
+                         join D in this._context.TRANSACTIONS_DETAILS
+                         on C.id equals D.trx_head_id
+                         where
+                            (C.trx_ini >= desde &&
+                            C.trx_ini <= hasta) &&
+                            (A.id == codigo || codigo == 0) &&
+                            (B.part_index == parte || parte == -99) &&
+                            (rq_cl.Contains(C.kind_id) || rq_cl.Contains(def_clas)) &&
+                            (rq_zn.Contains(C.zone_id) || rq_zn.Contains(def_zon)) &&
+                            (rq_type.Contains(A.type_asset_id) || rq_type.Contains(def_zon)) &&
+                            (A.account_date <= hasta || !CheckPost) &&
+                            aprobados.Contains(A.APROVAL_STATE.code) &&
+                            (C.ref_source.Contains("TRAS")) &&
+                            D.system_id == RqSistema.id
+                         select new
+                         {
+                             //Batch = A, 
+                             BatchId = A.id,
+                             BatchDescription = A.descrip,
+                             BatchPurchaseDate = A.purchase_date,
+                             BatchAprovalStateId = A.aproval_state_id,
+                             BatchInitialPrice = A.initial_price,
+                             BatchInitialLifeTime = A.initial_life_time,
+                             BatchAccountDate = A.account_date,
+                             BatchOriginId = A.origin_id,
+                             BatchAssetId = A.type_asset_id,
+                             //Part = B, 
+                             PartIndex = B.part_index,
+                             PartQuantity = B.quantity,
+                             PartId = B.id,
+                             PartFirstDate = B.first_date,
+                             //Head = C, 
+                             HeadTrxIni = C.trx_ini,
+                             HeadTrxEnd = C.trx_end,
+                             HeadZoneId = C.zone_id,
+                             HeadKindId = C.kind_id,
+                             HeadCategoryId = C.category_id,
+                             HeadSubZoneId = C.subzone_id,
+                             HeadSubkindId = C.subkind_id,
+                             HeadManageId = C.manage_id,
+                             HeadUserOwn = C.user_own,
+                             HeadId = C.id,
+                             HeadRefSource = C.ref_source,
+                             MethodRevalId = C.method_revalue_id,
+                             //Detail = D 
+                             DetailValidityId = D.validity_id,
+                             DetailDepreciate = D.depreciate,
+                             DetailAllowCredit = D.allow_credit,
+                             DetailId = D.id
+                         });
+
+            var selectedHeads = datos.Select(d => d.HeadId).Distinct().ToArray();
+            set_detalle_parametros(RqSistema.id, selectedHeads);
+            var all_params = this.parametros_sistemas.BySystem(RqSistema.id);
+
+            foreach (var d in datos)
+            {
+                var line = new DETAIL_PROCESS();
+                line.fecha_proceso = desde;
+                line.sistema = RqSistema;
+                //Batch = A,
+                line.cod_articulo = d.BatchId;
+                line.dscrp = d.BatchDescription;
+                line.dsc_extra = d.BatchDescription;
+                line.fecha_compra = d.BatchPurchaseDate;
+                line.aprobacion = this.EstadoAprobacion.ById(d.BatchAprovalStateId);
+                line.precio_inicial = d.BatchInitialPrice;
+                line.vida_util_inicial = ((RqSistema.ENVIORMENT.code == "IFRS") ? (int)(Math.Round((double)(d.BatchInitialLifeTime/ 12 * 365), 0)) : d.BatchInitialLifeTime);
+                line.fecha_ing = d.BatchAccountDate;
+                line.origen = this.origenes.ById(d.BatchOriginId);
+                line.tipo = this.Tipos.ById(d.BatchAssetId);
+                //Part = B,
+                line.parte = d.PartIndex;
+                line.cantidad = d.PartQuantity;
+                line.PartId = d.PartId;
+                line.PrimeraFecha = d.PartFirstDate;
+                //Head = C, 
+                line.fecha_inicio = d.HeadTrxIni;
+                line.fecha_fin = d.HeadTrxEnd;
+                line.zona = this.zonas.ById(d.HeadZoneId);
+                line.clase = this.Clases.ById(d.HeadKindId);
+                line.categoria = this.categorias.ById(d.HeadCategoryId);
+                line.subzona = this.subzonas.ById(d.HeadSubZoneId);
+                line.subclase = this.subclases.ById(d.HeadSubkindId);
+                line.gestion = this.gestiones.ById(d.HeadManageId);
+                line.usuario = d.HeadUserOwn;
+                line.HeadId = d.HeadId;
+                line.RefSource = d.HeadRefSource;
+                line.metodo_reval = this.MetodosRev.ById(d.MethodRevalId);
+                //Detail = D 
+                line.vigencia = this.Vigencias.ById(d.DetailValidityId);
+                line.se_deprecia = d.DetailDepreciate;
+                line.derecho_credito = d.DetailAllowCredit;
+                line.DetailId = d.DetailId;
+
+                line.documentos = this.documentos.ByBatch(d.BatchId);
+
+                if (WithParameters)
+                {
+                    //Complete TRANSACTIONS_PARAMETERS_DETAILS collection
+                    var valores = new LIST_PARAM_VALUE();
+                    var curr_vals = this.DetallesParametros.ByHead_Sys(d.HeadId, RqSistema.id);
+                    foreach (var par in all_params)
+                    {
+                        SV_PARAMETER meta_param = this.parametros.ById(par.parameter_id);
+                        PARAM_VALUE det;
+                        var act_val = curr_vals.Find(x => x.code == meta_param.code);
+                        if (act_val == null)
+                            det = PARAM_VALUE.NoValue(meta_param);
+                        else
+                            det = act_val;
+                        valores.Add(det);
+                    }
+                    line.parametros = valores;
+                    //Complete SCHEMA sales
+                    line.precio_venta = this.ventas.GetPriceSalesByPart(d.PartId, RqSistema.CURRENCY);
+                }
+                salida.Add(line);
+            }
+
+            return salida;
+        }
+        public List<DETAIL_MOVEMENT> get_changed_mov(SV_SYSTEM sistema, ACode.Vperiodo periodo, DateTime desde, DateTime hasta, int codigo, int parte, bool WithParameters, SV_KIND[] clases, SV_ZONE[] zonas)
+        {
+            var resultado = new List<DETAIL_MOVEMENT>();
+            var principal = get_changed(sistema, desde, hasta, codigo, parte, WithParameters, clases, zonas);
+
+            foreach (var cambio in principal)
+            {
+                var anteriores = get_detailed(sistema, cambio.fecha_inicio.AddMinutes(-1) , cambio.cod_articulo, WithParameters, true);
+                if (anteriores.Count > 0)
+                {
+                    var single_ant = anteriores.Where(a => a.PartId == cambio.PartId).First();
+                    if (single_ant != null)
+                    {
+                        var mov = new DETAIL_MOVEMENT(single_ant,cambio, Situaciones);
+                        resultado.Add(mov);
+                    }
+                }
+            }
+            return resultado;
+        }
+
+
+        private SV_TRANSACTION_HEADER PurchaseHeadTrans(int batch_id)
+        {
+            SV_BATCH_ARTICLE lote = lotes.ById(batch_id);
+            SV_PART part = Partes.ByLotePart(batch_id, 0);
+            DateTime fecha = Partes.FirstDateLote(batch_id,lote.purchase_date);
+            var MyHeads = cabeceras.byPartFechaFix(part.id, fecha);
+            return MyHeads;
+        }
+
+        public List<T_CUADRO_IFRS> CUADRO_INGRESO_IFRS(int batch_id)
+        {
+            List<SV_SYSTEM> SystemIFRS = sistemas.IFRS();
+            List<SV_PARAMETER> ReqParam = parametros.ForIFRS();
+            int trx_head_id = PurchaseHeadTrans(batch_id).id;
+            return DetallesParametros.CUADRO_INGRESO_IFRS(trx_head_id,ReqParam.ToArray(),SystemIFRS.ToArray() );
+        }
         #endregion
 
         #region Dispose

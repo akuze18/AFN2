@@ -17,11 +17,19 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         private decimal _valor_residual_unitario;
         private int _vida_util;
         private decimal _credito_unitario;
+
+        private decimal _preparacion_unit;
+        private decimal _transporte_unit;
+        private decimal _montaje_unit;
+        private decimal _desmantelamiento_unit;
+        private decimal _honorario_unit;
+        private decimal _revalorizacion_unit;
+
         //private double _credit_rate;
         private string _depreciation_rate;
-        private ACode.Vperiodo _periodo_calc;
+        private DateTime _fecha_calc;
 
-        public DETAIL_DEPRECIATE(DETAIL_PROCESS p, decimal porcentaje_cm, ACode.Vperiodo periodo_calc)
+        public DETAIL_DEPRECIATE(DETAIL_PROCESS p, decimal porcentaje_cm, DateTime fecha_calc)
         {
             _detail = p;
             _valor_inicial_unitario = p.parametros.GetPrecioBase.value;
@@ -30,11 +38,18 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             _valor_residual_unitario = p.parametros.GetValorResidual.value;
             _credito_unitario = p.parametros.GetCredito.value;
             _vida_util = (int)p.parametros.GetVidaUtil.value;
-            _periodo_calc = periodo_calc;
+            _preparacion_unit = p.parametros.GetPreparacion.value;
+            _transporte_unit = p.parametros.GetTransporte.value;
+            _montaje_unit = p.parametros.GetMontaje.value;
+            _desmantelamiento_unit = p.parametros.GetDesmantelamiento.value;
+            _honorario_unit = p.parametros.GetHonorario.value;
+            _revalorizacion_unit = p.parametros.GetRevalorizacion.value;
+            
+            _fecha_calc = fecha_calc;
             if (!(sistema.ENVIORMENT.allow_cm_neg) && porcentaje_cm < 0)
-                { _porcentaje_cm = 0; }
-            else 
-                { _porcentaje_cm = porcentaje_cm; }
+            { _porcentaje_cm = 0; }
+            else
+            { _porcentaje_cm = porcentaje_cm; }
             //_credit_rate = (double)sistema.ENVIORMENT.credit_rate;
             _depreciation_rate = sistema.ENVIORMENT.depreciation_rate;
         }
@@ -44,16 +59,16 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int parte { get { return _detail.parte; } }
         public DateTime fecha_compra { get { return _detail.fecha_compra; } }
         public string desc_breve { get { return _detail.dscrp; } }
-        public GENERIC_VALUE vigencia { get { return _detail.vigencia; } }
+        public SV_VALIDATY vigencia { get { return _detail.vigencia; } }
         public int cantidad { get { return _detail.cantidad; } }
-        public GENERIC_VALUE zona { get { return _detail.zona; } }
-        public GENERIC_VALUE clase { get { return _detail.clase; } }
+        public SV_ZONE zona { get { return _detail.zona; } }
+        public SV_KIND clase { get { return _detail.clase; } }
 
         #region Calculando
 
         public decimal porcentaje_cm
         {
-            get { return _porcentaje_cm; }
+            get { return _porcentaje_cm / 100; }
         }
 
         public decimal valor_anterior_base
@@ -63,7 +78,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public decimal cm_activo
         { 
             get { 
-                return Math.Round(_valor_inicial_unitario * porcentaje_cm / 100, 0) * cantidad; 
+                return Math.Round(_valor_inicial_unitario * porcentaje_cm, 0) * cantidad; 
             } 
         }
         public decimal valor_anterior_cm
@@ -73,16 +88,13 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public decimal cred_adi_base
         { 
-            get 
-            {
-                return _credito_unitario * cantidad;   
-            } 
+            get { return _credito_unitario * cantidad; } 
         }
         public decimal cm_cred
         {
             get
             {
-                return Math.Round(_credito_unitario * porcentaje_cm / 100, 0) * cantidad; 
+                return Math.Round(_credito_unitario * porcentaje_cm, 0) * cantidad; 
             }
         }
         public decimal credi_adi_cm
@@ -92,11 +104,11 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public decimal val_AF_base
         { 
-            get { return valor_anterior_base + cred_adi_base; } 
+            get { return valor_anterior_base + cred_adi_base + preparacion +desmantelamiento + transporte + montaje + honorario; } 
         }
         public decimal val_AF_cm
         {
-            get { return valor_anterior_cm + credi_adi_cm; } 
+            get { return valor_anterior_cm + credi_adi_cm + preparacion + desmantelamiento + transporte + montaje + honorario; } 
         }
 
         public decimal DA_anterior_base
@@ -105,7 +117,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         }
         public decimal cm_depreciacion
         {
-            get { return Math.Round(_depreciacion_inicial_unitaria * porcentaje_cm / 100, 0) * cantidad; }
+            get { return Math.Round(_depreciacion_inicial_unitaria * porcentaje_cm, 0) * cantidad; }
         }
         public decimal DA_anterior_cm
         {
@@ -137,35 +149,28 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int vu_ocup
         {
             get {
+                int calculado = 0;
                 if (vu_asig > 0)
                 {
+                    bool SameMonth = fecha_ingreso.Month == _fecha_calc.Month;
+                    bool SameYear = fecha_ingreso.Year == _fecha_calc.Year;
+                    bool SamePeriod = SameMonth && SameYear;
+
                     if (_depreciation_rate == "monthly")
                     {
-                        if (!(fecha_compra.Month == _periodo_calc.last.Month && fecha_compra.Year == _periodo_calc.last.Year))
-                        {
-                            if (se_deprecia)
-                                return 1;
-                        }
+                        if (!(SamePeriod) && (se_deprecia)) { calculado = 1; }
                     }
                     else if (_depreciation_rate == "daily")
                     {
-                        if (!(fecha_compra.Month == _periodo_calc.last.Month && fecha_compra.Year == _periodo_calc.last.Year))
-                        {
-                            if (se_deprecia)
-                            {
-                                if (fecha_compra > _periodo_calc.first)
-                                {
-                                    return (int)(_periodo_calc.last - fecha_compra).TotalDays;
-                                }
-                                else
-                                {
-                                    return (int)(_periodo_calc.last - _periodo_calc.first).TotalDays + 1;
-                                }
-                            }
-                        }
+                        if (!(SamePeriod) && (se_deprecia))
+                            calculado = (int)(_fecha_calc - _detail.fecha_proceso).TotalDays;
+                        else if ((SamePeriod) && se_deprecia)
+                            calculado = (int)(_fecha_calc - fecha_compra).TotalDays;
                     }
+                    if (vu_asig < calculado)
+                        calculado = vu_asig;
                 }
-                return 0; 
+                return calculado; 
             }
         }
         public int vu_resi {
@@ -206,15 +211,22 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public decimal val_libro
         {
-            get { return val_AF_base + DA_AF; }
+            get { return val_AF_base + DA_AF + revalorizacion; }
         }
 
+        //IFRS ONLY
+        public decimal preparacion { get { return _preparacion_unit * cantidad; } }
+        public decimal transporte { get { return _transporte_unit * cantidad; } }
+        public decimal montaje { get { return _montaje_unit * cantidad; } }
+        public decimal desmantelamiento { get { return _desmantelamiento_unit * cantidad; } }
+        public decimal honorario { get { return _honorario_unit * cantidad; } }
+        public decimal revalorizacion { get { return _revalorizacion_unit * cantidad; } }
         #endregion
 
-        public GENERIC_VALUE subzona { get { return _detail.subzona; } }
-        public GENERIC_VALUE subclase { get { return _detail.subclase; } }
-        public GENERIC_VALUE gestion { get { return _detail.gestion; } }
-        public GENERIC_VALUE categoria { get { return _detail.categoria; } }
+        public SV_SUBZONE subzona { get { return _detail.subzona; } }
+        public SV_SUBKIND subclase { get { return _detail.subclase; } }
+        public SV_MANAGEMENT gestion { get { return _detail.gestion; } }
+        public SV_CATEGORY categoria { get { return _detail.categoria; } }
 
         public DateTime fecha_ingreso { get { return _detail.fecha_ing; } }
         public DateTime fecha_inicio { get { return _detail.fecha_inicio; } }
@@ -226,7 +238,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public bool se_deprecia { get { return _detail.se_deprecia; } }
         public int vida_util_inicial { get { return _detail.vida_util_inicial; } }
 
-        public GENERIC_VALUE aprobacion { get { return _detail.aprobacion; } }
+        public SV_APROVAL_STATE aprobacion { get { return _detail.aprobacion; } }
 
         public bool derecho_credito { get { return _detail.derecho_credito; } }
         

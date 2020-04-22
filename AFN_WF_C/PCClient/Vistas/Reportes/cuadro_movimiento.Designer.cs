@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button_visualizar = new System.Windows.Forms.Button();
+            this.btn_generar = new System.Windows.Forms.Button();
             this.cb_year = new System.Windows.Forms.ComboBox();
             this.cb_month = new System.Windows.Forms.ComboBox();
             this.cb_tipo = new System.Windows.Forms.ComboBox();
@@ -73,22 +73,22 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Acumulado";
             // 
-            // button_visualizar
+            // btn_generar
             // 
-            this.button_visualizar.Location = new System.Drawing.Point(206, 234);
-            this.button_visualizar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button_visualizar.Name = "button_visualizar";
-            this.button_visualizar.Size = new System.Drawing.Size(123, 46);
-            this.button_visualizar.TabIndex = 3;
-            this.button_visualizar.Text = "Visualizar";
-            this.button_visualizar.UseVisualStyleBackColor = true;
-            this.button_visualizar.Click += new System.EventHandler(this.button_visualizar_Click);
+            this.btn_generar.Location = new System.Drawing.Point(206, 234);
+            this.btn_generar.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_generar.Name = "btn_generar";
+            this.btn_generar.Size = new System.Drawing.Size(123, 46);
+            this.btn_generar.TabIndex = 3;
+            this.btn_generar.Text = "Visualizar";
+            this.btn_generar.UseVisualStyleBackColor = true;
+            this.btn_generar.Click += new System.EventHandler(this.btn_generar_Click);
             // 
             // cb_year
             // 
             this.cb_year.FormattingEnabled = true;
             this.cb_year.Location = new System.Drawing.Point(141, 36);
-            this.cb_year.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_year.Margin = new System.Windows.Forms.Padding(4);
             this.cb_year.Name = "cb_year";
             this.cb_year.Size = new System.Drawing.Size(93, 24);
             this.cb_year.TabIndex = 4;
@@ -97,7 +97,7 @@
             // 
             this.cb_month.FormattingEnabled = true;
             this.cb_month.Location = new System.Drawing.Point(263, 37);
-            this.cb_month.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_month.Margin = new System.Windows.Forms.Padding(4);
             this.cb_month.Name = "cb_month";
             this.cb_month.Size = new System.Drawing.Size(232, 24);
             this.cb_month.TabIndex = 5;
@@ -106,7 +106,7 @@
             // 
             this.cb_tipo.FormattingEnabled = true;
             this.cb_tipo.Location = new System.Drawing.Point(142, 79);
-            this.cb_tipo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_tipo.Margin = new System.Windows.Forms.Padding(4);
             this.cb_tipo.Name = "cb_tipo";
             this.cb_tipo.Size = new System.Drawing.Size(353, 24);
             this.cb_tipo.TabIndex = 6;
@@ -115,7 +115,7 @@
             // 
             this.cb_acum.FormattingEnabled = true;
             this.cb_acum.Location = new System.Drawing.Point(143, 127);
-            this.cb_acum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_acum.Margin = new System.Windows.Forms.Padding(4);
             this.cb_acum.Name = "cb_acum";
             this.cb_acum.Size = new System.Drawing.Size(353, 24);
             this.cb_acum.TabIndex = 7;
@@ -135,7 +135,7 @@
             // 
             this.cb_sistema.FormattingEnabled = true;
             this.cb_sistema.Location = new System.Drawing.Point(146, 176);
-            this.cb_sistema.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cb_sistema.Margin = new System.Windows.Forms.Padding(4);
             this.cb_sistema.Name = "cb_sistema";
             this.cb_sistema.Size = new System.Drawing.Size(353, 24);
             this.cb_sistema.TabIndex = 9;
@@ -150,11 +150,11 @@
             this.Controls.Add(this.cb_tipo);
             this.Controls.Add(this.cb_month);
             this.Controls.Add(this.cb_year);
-            this.Controls.Add(this.button_visualizar);
+            this.Controls.Add(this.btn_generar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "cuadro_movimiento";
             this.Padding = new System.Windows.Forms.Padding(36, 31, 36, 31);
             this.Text = "Reporte Cuadro Movimiento";
@@ -169,7 +169,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button_visualizar;
+        private System.Windows.Forms.Button btn_generar;
         private System.Windows.Forms.ComboBox cb_year;
         private System.Windows.Forms.ComboBox cb_month;
         private System.Windows.Forms.ComboBox cb_tipo;

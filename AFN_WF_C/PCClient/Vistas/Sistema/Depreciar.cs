@@ -31,10 +31,10 @@ namespace AFN_WF_C.PCClient.Vistas.Sistema
             this.inMonth.SelectedIndex = Today.Month - 1;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_generar_Click(object sender, EventArgs e)
         {
             var selMonth = (PD.GENERIC_VALUE)(inMonth.SelectedItem);
-            var res = P.Consultas.depreciar((int)inYear.Value, selMonth.id);
+            var res = P.Consultas.depreciar((int)inYear.Value, selMonth.id, P.Auxiliar.getUser());
             objectListView1.SetObjects(res);
             MessageBox.Show("Proceso Terminado");
         }

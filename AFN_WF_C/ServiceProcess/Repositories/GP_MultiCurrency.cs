@@ -19,12 +19,19 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
         public decimal YEN(DateTime fecha)
         {
-            return _source.Where(
-                    mc =>   mc.CURNCYID == "YEN" &&
-                            mc.EXGTBLID.Contains("OBS") &&
-                            mc.EXCHDATE == fecha
+            var result = _source
+                    .Where(mc =>
+                        mc.CURNCYID.Trim() == "YEN" && 
+                        mc.EXGTBLID.Contains("OBS")&&
+                        mc.EXCHDATE == fecha
                     )
-                    .Select(mc => mc.XCHGRATE).FirstOrDefault();
+                    .Select(mc => mc.XCHGRATE);
+            //if(result.Count() > 0)
+            //    AFN_WF_C.PCClient.Procesos.Mensaje.Info(result.First().CURNCYID);
+            //else
+            //    AFN_WF_C.PCClient.Procesos.Mensaje.Info("Sin resultados");
+            return result.FirstOrDefault();
+            //return 0;
         }
 
     }

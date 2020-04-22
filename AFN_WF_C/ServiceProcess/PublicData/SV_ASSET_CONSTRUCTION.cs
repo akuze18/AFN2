@@ -27,7 +27,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int? batch_id { get { return _batch_id; } }
         public DateTime post_date { get { return _post_date; } }
         public SV_APROVAL_STATE aproval_state { get { return _aproval_state; } }
-        public List<SV_ASSET_CONSTRUCTION_VALUE> values { get { return _values; } }
+        public decimal ocupado {get;set;}
 
         #region Convertions
         public static implicit operator SV_ASSET_CONSTRUCTION(DataContract.ASSET_IN_PROGRESS_HEAD od)
@@ -44,8 +44,32 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 _post_date = od.post_date,
                 _aproval_state = od.APROVAL_STATES,
                 _values = od.ASSETS_IN_PROGRESS_DETAIL.ToList().ConvertAll(d => (SV_ASSET_CONSTRUCTION_VALUE)d),
+                ocupado = 0,
             };
         }
+
+        public decimal TotalByCurrency(SV_CURRENCY moneda)
+        {
+            return this._values
+                .Where(v => v.currency == moneda)
+                .Select(v => v.amount)
+                .DefaultIfEmpty(0)
+                .Sum();
+        }
+
+        public decimal TotalByCurrency(string codeMoneda)
+        {
+            var valores = this._values
+                .Where(v => v.currency == codeMoneda)
+                .Select(v => v.amount).ToList();
+
+            return this._values
+                .Where(v => v.currency == codeMoneda)
+                .Select(v => v.amount)
+                .DefaultIfEmpty(0)
+                .Sum();
+        }
+
         public static implicit operator GENERIC_VALUE(SV_ASSET_CONSTRUCTION sv)
         {
             return new GENERIC_VALUE()

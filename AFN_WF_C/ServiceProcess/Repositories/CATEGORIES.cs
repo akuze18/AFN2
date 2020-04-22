@@ -15,7 +15,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         public CATEGORIES(ObjectSet<CATEGORY> source) { _source = source.ToList().ConvertAll(c => (SV_CATEGORY)c); }
         //public CATEGORIES(List<CATEGORY> source) { _source = source; }
 
-        public GENERIC_VALUE ById(int idFind)
+        public SV_CATEGORY ById(int idFind)
         {
             return _source.Where(c => c.id == idFind).FirstOrDefault();
         }

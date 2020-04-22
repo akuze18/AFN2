@@ -76,9 +76,9 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
                 P.Reportes.vigentes_detalle(año, mes, clase, zona, acum, reporte);
                 var fin = DateTime.Now;
                 var lapsed = fin - ini;
-                P.Mensaje.Info("Reporte OK : " + (lapsed).ToString());
+                //P.Mensaje.Info("Reporte OK : " + (lapsed).ToString());
+                P.Mensaje.Info("Reporte Detalle Vigente Generado");
             }
-
         }
 
         private void button_resumen_c_Click(object sender, EventArgs e)
@@ -87,9 +87,37 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
                 return;
             if (check_reporte())
             {
-                P.Reportes.vigentes_resumen(año, mes, clase, zona, acum, reporte);
-                P.Mensaje.Info("Reporte OK");
+                P.Reportes.vigentes_resumen(año, mes, clase, zona, acum, reporte, "C");
+                P.Mensaje.Info("Reporte Resumen por Clase Generado");
             }
         }
+
+        private void button_resumen_z_Click(object sender, EventArgs e)
+        {
+            if (!validar_formulario())
+                return;
+            if (check_reporte())
+            {
+                P.Reportes.vigentes_resumen(año, mes, clase, zona, acum, reporte, "Z");
+                P.Mensaje.Info("Reporte Resumen por Clase Generado");
+            }
+        }
+
+        private void button_det_inv_Click(object sender, EventArgs e)
+        {
+            if (!validar_formulario())
+                return;
+            if (check_reporte())
+            {
+                var ini = DateTime.Now;
+                P.Reportes.vigentes_detalle(año, mes, clase, zona, acum, reporte);
+                var fin = DateTime.Now;
+                var lapsed = fin - ini;
+                //P.Mensaje.Info("Reporte OK : " + (lapsed).ToString());
+                P.Mensaje.Info("Reporte Detalle Vigente Generado");
+            }
+        }
+
+      
     }
 }

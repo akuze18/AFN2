@@ -33,6 +33,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public static PARAM_VALUE NoValue(string param_code, string param_name)
         {
             var det = new PARAM_VALUE();
+            det.id = 0;
             det.code = param_code;
             det.name = param_name;
             det.value = 0;

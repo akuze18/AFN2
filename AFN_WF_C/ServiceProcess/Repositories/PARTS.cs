@@ -25,12 +25,22 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.Where(p => p.article_id == Lote && p.part_index == Parte).FirstOrDefault();
         }
 
+        public SV_PART ById(int IdPart)
+        {
+            return _source.Where(p => p.id == IdPart).FirstOrDefault();
+        }
         public DateTime FirstDateLote(int LoteId, DateTime PurchaseDate)
         {
             return _source.Where(d => d.part_index == 0 && d.article_id == LoteId)
                     .Select(d => d.first_date)
                     .DefaultIfEmpty(PurchaseDate)
                     .First();
+        }
+        public DateTime FirstDateLote(int LoteId)
+        {
+            return _source.Where(d => d.part_index == 0 && d.article_id == LoteId)
+                    .Select(d => d.first_date)
+                    .FirstOrDefault();
         }
     }
 }

@@ -18,9 +18,14 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             editable = 1,
             activo = 2
         }
+        private decimal _TCambio;
+        private int _fuente;
+        private int _codigo_artic;
+
         public cod_situacion cual_sit;
-        public int fuente;
-        public int codigo_artic;
+        public int fuente { get { return _fuente; } }
+        public int codigo_artic { get { return _codigo_artic; } }
+        public decimal TCambio { get { return _TCambio; } } 
 
         public ingreso()
         {
@@ -29,15 +34,18 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 
         private void ingreso_Load(object sender, EventArgs e)
         {
+
             seleccionar_pestaña(paso1);
             //pasos.DrawMode = TabDrawMode.Fixed;
             pasos.ItemSize = new Size((pasos.Width-5) / pasos.TabCount, 0);
             artic.Enabled = false;
             TFulldescrip.Enabled = false;
             CkEstado.Enabled = false;
+            _TCambio = 1;
 
             ficha_basica.load_data();
             ficha_ifrs.load_data();
+            ficha_grupo.load_data();
 
             //configuracion estética
             foreach(TabPage pestaña in pasos.TabPages)
@@ -72,6 +80,22 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         }
 
         #region funciones de gestion de formulario
+        public bool ChangeOBCParent()
+        {
+            if (this.Parent.GetType() == typeof(obras_egreso_af))
+            {
+                var egreso = (obras_egreso_af)this.Parent;
+                if (egreso.Parent.GetType() == typeof(welcome))
+                {
+                    var wel = (welcome)egreso.Parent;
+                    egreso.ReleaseOBCParent();
+                    //egreso.Close();
+                    return this.ChangeOrigen(wel);
+                }
+            }
+            return false;
+        }
+
         private cod_situacion determina_situacion(int codigo, bool activado)
         {
             if (codigo <= 0)
@@ -90,9 +114,9 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 
         private void cargar()
         {
-            cargar(0, string.Empty, 1, false);
+            cargar(0, string.Empty, 1, false,1);
         }
-        private void cargar(int codigo, string descripcion, int origen_id, bool estado)
+        public void cargar(int codigo, string descripcion, int origen_id, bool estado, decimal tc)
         {
             cual_sit = determina_situacion(codigo, estado);
             
@@ -101,22 +125,35 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             else
                 artic.Text = codigo.ToString();
 
-            codigo_artic = codigo;
+            _codigo_artic = codigo;
             TFulldescrip.Text = descripcion;
-            fuente = origen_id;
+            _fuente = origen_id;
             CkEstado.Checked = estado;
+            _TCambio = tc;
         }
+        public void LoadOBC(int valor_uni, int cantidad, int diferencia, List<P.Estructuras.DetalleOBC> salidasOBC)
+        {
+            cargar(0, string.Empty, 2, false, 1);
+            this.ficha_basica.cargarOBC(valor_uni, cantidad, diferencia, salidasOBC);
+            
+        }
+
 
         public void resultado_busqueda(int codigo, bool estado)
         {
+            /*Get All required data*/
             SINGLE_DETAIL data_fin = P.Consultas.data_ingreso_financiero(codigo);
-            bool IFRS = P.Consultas.check_ingreso_ifrs(codigo);
+            SINGLE_DETAIL data_ifrs = P.Consultas.data_ingreso_IFRS(codigo);
+            bool IFRS = (data_ifrs!=null);
+            decimal tc = P.Consultas.tipo_cambio.YEN(data_fin.fecha_compra);
+            List<SV_ARTICLE_DETAIL> InvArticDetail = P.Consultas.inventario.GetDetailArtByLote(codigo);
+            //List<SV_ARTICLE> Articles = P.Consultas.inventario.GetArticlesByLote(codigo);
 
-            cargar(codigo, data_fin.descripcion, data_fin.origen.id, estado);
-
+            //Load Tab and all Pages
+            cargar(codigo, data_fin.descripcion, data_fin.origen.id, estado, tc);
             ficha_basica.cargar(cual_sit, fuente, data_fin, IFRS);
-            ficha_ifrs.cargar(cual_sit, IFRS);
-            ficha_grupo.cargar(cual_sit);
+            ficha_ifrs.cargar(cual_sit, IFRS, data_ifrs);
+            ficha_grupo.cargar(cual_sit, InvArticDetail);
             ficha_articulo.cargar(cual_sit);
             seleccionar_pestaña(paso1, paso3);
         }
@@ -126,7 +163,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         {
             var box = new Busquedas.articulo();
             box.set_criterios(Busquedas.tipo_vigencia.todos, Busquedas.tipo_estado.noBorrados);
-            DialogResult result = box.DialogFrom(this);
+            DialogResult result = box.ShowDialogFrom(this);
             if (result == DialogResult.OK)
             {
                 resultado_busqueda(box.codigo,box.activado);
@@ -139,19 +176,30 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             iniciar_formulario();
         }
 
-        public void cargar_otras_pestañas_fromBasic()
+        public void SetNewLote(int NewBatchId)
+        {
+            _codigo_artic = NewBatchId;
+        }
+        public void cargar_otras_pestañas_fromBasic(decimal tc)
         {
             SINGLE_DETAIL data_fin = P.Consultas.data_ingreso_financiero(codigo_artic);
-            bool IFRS = P.Consultas.check_ingreso_ifrs(codigo_artic);
+            SINGLE_DETAIL data_ifrs = P.Consultas.data_ingreso_IFRS(codigo_artic);
+            bool IFRS = (data_ifrs != null);
 
+            cargar(codigo_artic, data_fin.descripcion, data_fin.origen.id, false, tc);
 
-            ficha_ifrs.cargar(cual_sit, IFRS);
+            ficha_ifrs.cargar(cual_sit, IFRS, data_ifrs);
             ficha_grupo.cargar(cual_sit);
             ficha_articulo.cargar(cual_sit);
             if(IFRS)
                 seleccionar_pestaña(paso2);
             else
                 seleccionar_pestaña(paso3);
+        }
+
+        public void cargar_otras_pestañas_fromIFRS()
+        {
+            seleccionar_pestaña(paso3);
         }
 
 
@@ -230,5 +278,10 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 
         }
         #endregion
+
+        private void ficha_basica_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

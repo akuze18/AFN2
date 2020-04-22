@@ -32,9 +32,9 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
             cb_tipo.SelectedIndex = 0;
             cb_tipo.Tag = label2.Text;
 
-            //cb_acum.Items.AddRange(P.consultas.arr.acumulados);
-            //cb_acum.SelectedIndex = 0;
-            //cb_acum.Tag = label3.Text;
+            cb_acum.Items.AddRange(P.Consultas.arr.acumulados);
+            cb_acum.SelectedIndex = 0;
+            cb_acum.Tag = label3.Text;
 
             cb_sistema.Items.AddRange(P.Consultas.sistema.All().ToArray());
             cb_sistema.SelectedIndex = 0;
@@ -44,15 +44,15 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
         private int año { get { return ((V.GENERIC_VALUE)(cb_year.SelectedItem)).id; } }
         private int mes { get { return ((V.GENERIC_VALUE)(cb_month.SelectedItem)).id; } }
         private V.GENERIC_VALUE tipo { get { return ((V.GENERIC_VALUE)(cb_tipo.SelectedItem)); } }
-        private int acum { get { return 1; } }
+        private V.GENERIC_VALUE acum { get { return ((V.GENERIC_VALUE)(cb_acum.SelectedItem)); } }
         private V.SV_SYSTEM reporte { get { return ((V.SV_SYSTEM)(cb_sistema.SelectedItem)); } }
 
-        private void button_visualizar_Click(object sender, EventArgs e)
+        private void btn_generar_Click(object sender, EventArgs e)
         {
             if (!validar_formulario())
                 return;
 
-            P.Reportes.fixed_assets(año, mes, tipo, acum, reporte);
+            P.Reportes.fixed_assets(año, mes, tipo, acum.id, reporte);
             MessageBox.Show("Reporte OK");
         }
     }

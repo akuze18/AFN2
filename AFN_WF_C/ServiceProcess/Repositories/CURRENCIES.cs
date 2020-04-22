@@ -25,6 +25,14 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.ConvertAll(c => (GENERIC_VALUE)c);
         }
 
+        public SV_CURRENCY CLP
+        {
+            get { return _source.Where(c => c.code == "CLP").FirstOrDefault(); }
+        }
+        public SV_CURRENCY YEN
+        {
+            get { return _source.Where(c => c.code == "YEN").FirstOrDefault(); }
+        }
 
     }
 }
