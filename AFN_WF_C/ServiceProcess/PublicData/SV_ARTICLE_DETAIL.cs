@@ -63,5 +63,26 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             };
         }
         #endregion
+
+        public static SV_ARTICLE_DETAIL Empty
+        {
+            get
+            {
+                return new SV_ARTICLE_DETAIL()
+                {
+                    id = 0,
+                    lote_id = 0,
+                    article_id = null,
+                    article_code = string.Empty,
+                    cod_atrib = 0,
+                    atributo = null,
+                    detalle = string.Empty,
+                    fech_ini = DateTime.MinValue,
+                    fech_fin = DateTime.MaxValue,
+                    imprimir = false,
+                    dscr_detalle = string.Empty
+                };
+            }
+        }
     }
 }

@@ -451,7 +451,38 @@ namespace AFN_WF_C.ServiceProcess
             ServiceProcess.Tracking.ExportTo.FileText(result, "movimiento_revision");
             return result;
         }
+        public List<DETAIL_MOVEMENT> reporte_vigentes_con_inv(Vperiodo periodo, GENERIC_VALUE clase, GENERIC_VALUE zona, SV_SYSTEM sistema)
+        {
+            var resultado = new List<DETAIL_MOVEMENT>();
+            var detalleRegular = reporte_vigentes(periodo, clase, zona, sistema);
+            var AttrEntrega = _svr.Repo.inv_atributos.Entregado();
+            foreach (var det in detalleRegular)
+            {
+                var articulos_inventario = _svr.Repo.inv_articulos.ByPart(det.PartId);
+                var mix = (from articulo in articulos_inventario
+                           select 
+                           new{ articulo, 
+                               ubicacion = _svr.Repo.inv_ubicaciones.ById(articulo.ubicacion_id),
+                               entregado = _svr.Repo.inv_articulos_details.ForArticle(det.cod_articulo, articulo.id, AttrEntrega.id),
+                               ultimoEstado = GENERIC_VALUE.EmptyText
+                           });
+                var agrupado = (from m in mix
+                                group m by 
+                                new {
+                                    UbucId = m.ubicacion.id, 
+                                    Entregado = m.entregado, 
+                                    UltimoEstado = m.ultimoEstado.id }
+                                );
+                foreach (var grupo in agrupado)
+                {
+                    var single = grupo.First();
+                    var separado = new DETAIL_MOVEMENT(det, grupo.Count(), single.ubicacion, single.articulo.code, single.articulo.codigo_old, single.entregado.detalle, single.ultimoEstado);
+                    resultado.Add(separado);
+                }
+            }
+            return resultado;
 
+        }
 
         public List<GROUP_MOVEMENT> reporte_vigente_resumen(Vperiodo periodo, GENERIC_VALUE clase, GENERIC_VALUE zona, SV_SYSTEM sistema, string orderBy)
         {

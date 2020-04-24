@@ -347,8 +347,10 @@
     <Compile Include="ServiceProcess\PublicData\SV_PACKAGE_KIND.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_PARAMETER.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_PART.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_PLACE.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_PROVEEDOR.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_SITUATION.cs" />
+    <Compile Include="ServiceProcess\PublicData\SV_STATE.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_SUBKIND.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_SUBZONE.cs" />
     <Compile Include="ServiceProcess\PublicData\SV_SYSTEM.cs" />
@@ -375,6 +377,7 @@
     <Compile Include="ServiceProcess\Repositories\INV_ARTICLES.cs" />
     <Compile Include="ServiceProcess\Repositories\INV_ARTICLES_DETAILS.cs" />
     <Compile Include="ServiceProcess\Repositories\INV_ATTRIBUTES.cs" />
+    <Compile Include="ServiceProcess\Repositories\INV_PLACES.cs" />
     <Compile Include="ServiceProcess\Repositories\Main.cs" />
     <Compile Include="ServiceProcess\Repositories\APROVALS_STATES.cs" />
     <Compile Include="ServiceProcess\Repositories\CATEGORIES.cs" />

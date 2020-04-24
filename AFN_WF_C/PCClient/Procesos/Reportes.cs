@@ -224,7 +224,7 @@ namespace AFN_WF_C.PCClient.Procesos
             List<PD.DETAIL_MOVEMENT> detalle;
             var periodo = new Vperiodo(año, mes, acumulado.id);
             using (var cServ = new ServiceProcess.ServiceAFN2())
-                detalle = cServ.Proceso.reporte_vigentes(periodo, clase, zona, sistema);
+                detalle = cServ.Proceso.reporte_vigentes_con_inv(periodo, clase, zona, sistema);
 
             vigentes_detalle_inventario_toExcel(detalle, periodo, clase, zona, sistema);
 
@@ -337,6 +337,11 @@ namespace AFN_WF_C.PCClient.Procesos
                     new TituloCabera(39,"Fecha Contabilizacion") ,
                     new TituloCabera(40,"Origen", "CODE" ) ,
                     new TituloCabera(41,"Vida Util Inicial") ,
+                    new TituloCabera(43,"Codigo Ubicación", "CODE") ,
+                    new TituloCabera(43,"Ubicación","DESCRIP") ,
+                    new TituloCabera(44,"Entregado") ,
+                    new TituloCabera(47,"Código Ultimo Estado", "CODE") ,
+                    new TituloCabera(47,"Último Estado","DESCRIP") ,
                 };
             }
         }

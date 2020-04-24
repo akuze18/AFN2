@@ -54,6 +54,8 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private INV_ARTICLES_DETAILS _inv_article_detail;
         private ACCOUNTING _accounting;
         private SALES _sales;
+        private INV_PLACES _places;
+
 
         public Main(AFN2Entities context)
         {
@@ -348,6 +350,14 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             }
         }
 
+        public INV_PLACES inv_ubicaciones
+        {
+            get
+            {
+                if (_places == null) _places = new INV_PLACES(_context.PLACES);
+                return _places;
+            }
+        }
 
         #endregion
 

@@ -186,7 +186,6 @@
             // 
             // button_det_inv
             // 
-            this.button_det_inv.Enabled = false;
             this.button_det_inv.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_det_inv.Location = new System.Drawing.Point(376, 23);
             this.button_det_inv.Margin = new System.Windows.Forms.Padding(4);

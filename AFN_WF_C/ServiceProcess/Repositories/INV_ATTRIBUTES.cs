@@ -22,5 +22,9 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return _source.Where(a => a.active).ToList();
         }
+        public SV_ATTRIBUTE Entregado()
+        {
+            return _source.Where(at => at.name == "ENTREGADO").FirstOrDefault();
+        }
     }
 }

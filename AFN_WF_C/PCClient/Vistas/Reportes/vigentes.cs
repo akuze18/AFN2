@@ -110,11 +110,11 @@ namespace AFN_WF_C.PCClient.Vistas.Reportes
             if (check_reporte())
             {
                 var ini = DateTime.Now;
-                P.Reportes.vigentes_detalle(año, mes, clase, zona, acum, reporte);
+                P.Reportes.vigentes_detalle_inventario(año, mes, clase, zona, acum, reporte);
                 var fin = DateTime.Now;
                 var lapsed = fin - ini;
                 //P.Mensaje.Info("Reporte OK : " + (lapsed).ToString());
-                P.Mensaje.Info("Reporte Detalle Vigente Generado");
+                P.Mensaje.Info("Reporte Detalle Vigente con información de Inventarios Generado");
             }
         }
 

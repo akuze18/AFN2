@@ -25,6 +25,19 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         {
             return _source.Where(a => a.lote_id == batch_id).ToList();
         }
-        
+
+        public SV_ARTICLE_DETAIL ForArticle(int BatchId, int? ArticleId, int AttrId)
+        {
+            IEnumerable<SV_ARTICLE_DETAIL> details;
+            if(ArticleId != null)
+            {
+                details = _source.Where(sa => sa.article_id == ArticleId && sa.cod_atrib == AttrId);
+                if (details.Count() == 0)
+                    details = _source.Where(sa => sa.lote_id == BatchId && sa.cod_atrib == AttrId);
+            }
+            else
+                details = _source.Where(sa => sa.lote_id == BatchId && sa.cod_atrib == AttrId);
+            return details.OrderByDescending(sa => sa.fech_ini).DefaultIfEmpty(SV_ARTICLE_DETAIL.Empty).FirstOrDefault();
+        }
     }
 }

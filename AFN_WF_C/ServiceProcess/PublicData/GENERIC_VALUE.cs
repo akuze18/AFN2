@@ -101,6 +101,17 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             }
             return me;
         }
+
+        public static implicit operator GENERIC_VALUE(DataContract.STATE s)
+        {
+            return new GENERIC_VALUE()
+            {
+                id = s.id,
+                code = s.id.ToString(),
+                description = s.ToString(),
+                type = s.GetType().Name,
+            };
+        }
         //public static implicit operator GENERIC_VALUE(ZONE z) {
         //    var me = new GENERIC_VALUE();
         //    if (z != null)

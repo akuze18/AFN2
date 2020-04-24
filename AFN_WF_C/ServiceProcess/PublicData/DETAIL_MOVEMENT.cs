@@ -86,6 +86,15 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public string proveedor_id { get { return documentos.Select(d => d.proveedor_id).DefaultIfEmpty(Repositories.DOCUMENTS.defaultProveed).First(); } }
         public string proveedor_name { get { return documentos.Select(d => d.proveedor_name).DefaultIfEmpty(Repositories.DOCUMENTS.defaultProveed).First().Trim(); } }
 
+        //Para detalle de inventario 
+        public SV_PLACE ubicacion { get; private set; }
+        public string entregado { get; private set; }
+        public string codigo_inv { get; private set; }
+        public string codigo_inv_old { get; private set; }
+        public GENERIC_VALUE ultimo_estado { get; private set; }
+
+        public int PartId { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -98,6 +107,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             this.sistema = final.sistema;
             this.fecha_compra = final.fecha_compra;
             this.parte = final.parte;
+            this.PartId = final.PartId;
             this.cod_articulo = final.cod_articulo;
             this.fecha_ingreso = final.fecha_ing;
             this.desc_breve = final.dsc_extra;
@@ -179,6 +189,74 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             this.metodo_reval = final.metodo_reval;
             this.documentos = final.documentos;
         }
+        public DETAIL_MOVEMENT(DETAIL_MOVEMENT AccountDetail, int NewCantidad, SV_PLACE ArtUbicacion, string ArtCodInv, string ArtCordInvOld, string ArtEntregado, GENERIC_VALUE ArtLastState)
+        {
+            this.sistema = AccountDetail.sistema;
+            this.fecha_compra = AccountDetail.fecha_compra;
+            this.parte = AccountDetail.parte;
+            this.PartId = AccountDetail.PartId;
+            this.cod_articulo = AccountDetail.cod_articulo;
+            this.fecha_ingreso = AccountDetail.fecha_ingreso;
+            this.desc_breve = AccountDetail.desc_breve;
+            this.cantidad = NewCantidad;
+            this.zona = AccountDetail.zona;
+            this.clase = AccountDetail.clase;
+            this.categoria = AccountDetail.categoria;
+
+            this.derecho_credito = AccountDetail.derecho_credito;
+            this.zona_anterior = AccountDetail.zona;
+            this.clase_anterior = AccountDetail.clase;
+            this.subzona_anterior = AccountDetail.subzona;
+            this.subclase_anterior = AccountDetail.subclase;
+            this.gestion_anterior = AccountDetail.gestion;
+            this.categoria_anterior = AccountDetail.categoria;
+
+            this.valor_activo_inicial = Math.Round(AccountDetail.valor_activo_inicial/AccountDetail.cantidad)*NewCantidad;
+            this.credito_monto = Math.Round(AccountDetail.credito_monto / AccountDetail.cantidad) * NewCantidad;
+            this.depreciacion_acum_inicial = Math.Round(AccountDetail.depreciacion_acum_inicial / AccountDetail.cantidad) * NewCantidad ;
+            this.deterioro = Math.Round(AccountDetail.deterioro / AccountDetail.cantidad) * NewCantidad;
+            this.valor_residual = Math.Round(AccountDetail.valor_residual / AccountDetail.cantidad) * NewCantidad;
+            this.vida_util_asignada = AccountDetail.vida_util_asignada;
+            this.vida_util_residual = AccountDetail.vida_util_residual;
+            this.situacion = AccountDetail.situacion;
+
+            this.porcentaje_cm = AccountDetail.porcentaje_cm;
+            this.valor_activo_cm = Math.Round(AccountDetail.valor_activo_cm / AccountDetail.cantidad) * NewCantidad;
+            this.valor_activo_update = Math.Round(AccountDetail.valor_activo_update / AccountDetail.cantidad) * NewCantidad;
+            this.preparacion = Math.Round(AccountDetail.preparacion / AccountDetail.cantidad) * NewCantidad;
+            this.desmantelamiento = Math.Round(AccountDetail.desmantelamiento / AccountDetail.cantidad) * NewCantidad;
+            this.transporte = Math.Round(AccountDetail.transporte / AccountDetail.cantidad) * NewCantidad;
+            this.montaje = Math.Round(AccountDetail.montaje / AccountDetail.cantidad) * NewCantidad;
+            this.honorario = Math.Round(AccountDetail.honorario / AccountDetail.cantidad) * NewCantidad;
+            this.valor_activo_final = Math.Round(AccountDetail.valor_activo_final / AccountDetail.cantidad) * NewCantidad;
+            this.depreciacion_acum_cm = Math.Round(AccountDetail.depreciacion_acum_inicial / AccountDetail.cantidad) * NewCantidad;
+            this.depreciacion_acum_update = Math.Round(AccountDetail.depreciacion_acum_update / AccountDetail.cantidad) * NewCantidad;
+            this.valor_sujeto_dep = Math.Round(AccountDetail.valor_sujeto_dep / AccountDetail.cantidad) * NewCantidad;
+            this.vida_util_ocupada = AccountDetail.vida_util_ocupada;
+            this.depreciacion_acum_final = Math.Round(AccountDetail.depreciacion_acum_final / AccountDetail.cantidad) * NewCantidad;
+            this.depreciacion_ejercicio = Math.Round(AccountDetail.depreciacion_ejercicio / AccountDetail.cantidad) * NewCantidad;
+            this.revalorizacion = Math.Round(AccountDetail.revalorizacion / AccountDetail.cantidad) * NewCantidad;
+            this.valor_libro = Math.Round(AccountDetail.valor_libro / AccountDetail.cantidad) * NewCantidad ;
+
+            this.fecha_inicio = AccountDetail.fecha_inicio;
+            this.fecha_fin = AccountDetail.fecha_fin;
+            this.vigencia = AccountDetail.vigencia;
+            this.subzona = AccountDetail.subzona;
+            this.subclase = AccountDetail.subclase;
+            this.origen = AccountDetail.origen;
+            this.gestion = AccountDetail.gestion;
+            this.vida_util_inicial = AccountDetail.vida_util_inicial;
+            this.precio_venta = AccountDetail.precio_venta;
+
+            this.metodo_reval = AccountDetail.metodo_reval;
+            this.documentos = AccountDetail.documentos;
+
+            this.ubicacion = ArtUbicacion;
+            this.entregado = ArtEntregado;
+            this.codigo_inv = ArtCodInv;
+            this.codigo_inv_old = ArtCordInvOld;
+            this.ultimo_estado = ArtLastState;
+        }
 
         public static DETAIL_MOVEMENT Empty()
         {
@@ -235,6 +313,11 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 case 40: return origen;
                 case 41: return vida_util_inicial;
                 case 42: return precio_venta;
+                case 43: return (GENERIC_VALUE)ubicacion;
+                case 44: return entregado;
+                case 45: return codigo_inv;
+                case 46: return codigo_inv_old;
+                case 47: return (GENERIC_VALUE)ultimo_estado;
                 default:
                     return null;
             }

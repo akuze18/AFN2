@@ -22,6 +22,12 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return _source.Where(a => parts_ids.Contains(a.part_id))
                 .ToList();
         }
+        public List<SV_ARTICLE> ByPart(int part_id)
+        {
+            return _source.Where(a => part_id == a.part_id)
+                .ToList();
+        }
+
         public int GetCorrelativoCodigo(string raiz)
         {
             return _source.Where(a => a.code.StartsWith(raiz)).Count();
