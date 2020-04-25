@@ -61,8 +61,11 @@ namespace AFN_WF_C.PCClient.Vistas.Busquedas
 
         private void empty_fields()
         {
-            cod_art.Text = string.Empty;
-            Tarticulo.Text = string.Empty;
+            /*Si no hay detalle de cambios, debo terminar el proceso*/
+            P.Mensaje.Advert("Lote seleccionado no posee traspasos");
+            this.Close();
+            //cod_art.Text = string.Empty;
+            //Tarticulo.Text = string.Empty;
         }
 
         private void btn_consulta_Click(object sender, EventArgs e)
