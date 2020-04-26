@@ -311,6 +311,7 @@
             this.Controls.Add(this.cod_art);
             this.Controls.Add(this.Label1);
             this.Name = "traspaso";
+            this.Text = "Traspaso de Zona Activo Fijo";
             this.Load += new System.EventHandler(this.form_cambio_Load);
             this.Resize += new System.EventHandler(this.form_cambio_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.lista_cambiar)).EndInit();
