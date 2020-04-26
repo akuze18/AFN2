@@ -607,11 +607,12 @@ namespace AFN_WF_C.ServiceProcess
                 linea_obc.saldo_inicial_activo = movimiento.saldo_inicial;
                 linea_obc.adiciones_regular = movimiento.incremento;
                 linea_obc.adiciones_obc = 0;
+                linea_obc.decremento_obc = movimiento.dec_to_activo;
                 linea_obc.valor_inicial_activo = movimiento.saldo_inicial + movimiento.incremento;
                 linea_obc.cm_activo = 0;
                 linea_obc.credito = 0;
                 linea_obc.castigo_activo = movimiento.dec_to_gasto;
-                linea_obc.venta_activo = movimiento.dec_to_activo;
+                linea_obc.venta_activo = 0;// movimiento.dec_to_activo;
                 linea_obc.valor_final_activo = movimiento.saldo_final;
                 linea_obc.depreciacion_acumulada_inicial = 0;
                 linea_obc.cm_depreciacion = 0;
@@ -660,7 +661,7 @@ namespace AFN_WF_C.ServiceProcess
                         //linea.adiciones_regular = movimiento.incremento;
                         linea.adiciones_obc = 0;
                         linea.incremento_obc = movimiento.incremento;
-                        linea.decremento_obc = (movimiento.dec_to_activo + movimiento.dec_to_gasto)*-1;
+                        linea.decremento_obc = (movimiento.dec_to_activo + movimiento.dec_to_gasto);
                         //linea.valor_inicial_activo = movimiento.saldo_inicial + movimiento.incremento;
                         linea.cm_activo = 0;
                         linea.credito = 0;
@@ -889,8 +890,8 @@ namespace AFN_WF_C.ServiceProcess
                 var resultado = new GROUP_OBC();
                 resultado.saldo_inicial = saldo_inicial.Sum();
                 resultado.incremento = entradas.DefaultIfEmpty(0).Sum();
-                resultado.dec_to_activo = salidas.Where(s => s.head_batch_id != null).Select(s => s.detail_amount).DefaultIfEmpty(0).Sum();
-                resultado.dec_to_gasto = salidas.Where(s => s.head_batch_id == null).Select(s => s.detail_amount).DefaultIfEmpty(0).Sum();
+                resultado.dec_to_activo = salidas.Where(s => s.head_batch_id != null).Select(s => s.detail_amount).DefaultIfEmpty(0).Sum()*-1;
+                resultado.dec_to_gasto = salidas.Where(s => s.head_batch_id == null).Select(s => s.detail_amount).DefaultIfEmpty(0).Sum()*-1;
                 resultado.saldo_final = saldo_final.Sum();
                 return resultado;
             }

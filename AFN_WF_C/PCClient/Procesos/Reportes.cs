@@ -662,7 +662,7 @@ namespace AFN_WF_C.PCClient.Procesos
                     new TituloCabera(17,"Saldo Inicial"),
                     new TituloCabera(18,"Adiciones"),
                     new TituloCabera(19,"Desde Obras en Construccion"),
-                    new TituloCabera(5,"Hacia Activo Fijo"),
+                    new TituloCabera(25,"Hacia Activo Fijo"),
                     new TituloCabera(6,"Credito"),
                     new TituloCabera(20,"Castigos","CODE"),
                     new TituloCabera(21,"Ventas","CODE"),
