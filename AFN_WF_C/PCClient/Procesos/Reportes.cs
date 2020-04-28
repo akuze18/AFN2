@@ -515,7 +515,10 @@ namespace AFN_WF_C.PCClient.Procesos
             ini_titulo = ini_titulo + 2;
 
             TituloCabera[] titulos;
-            titulos = GetTitulosBajas;
+            if(sistema.ENVIORMENT == "IFRS")
+                titulos = GetTitulosBajasIFRS;
+            else
+                titulos = GetTitulosBajas;
             int max_columnas = titulos.Count();
             //formato titulos
             celLrangE = worKsheeT.Rows[ini_titulo.ToString() + ":" + ini_titulo.ToString()];
@@ -579,6 +582,38 @@ namespace AFN_WF_C.PCClient.Procesos
                 };
             }
         }
+        private static TituloCabera[] GetTitulosBajasIFRS
+        {
+            get
+            {
+                return new TituloCabera[]{
+                    new TituloCabera(1,"Codigo del Bien"),
+                    new TituloCabera(36,"Parte"),
+                    new TituloCabera(2,"Fecha de Compra"),
+                    new TituloCabera(31,"Fecha de Baja"),
+                    new TituloCabera(33,"Situación","DESCRIP"),
+                    new TituloCabera(3,"Descripción breve de los bienes"),
+                    new TituloCabera(4,"Cantidad"),
+                    new TituloCabera(5,"Zona","CODE"),
+                    new TituloCabera(6,"Clase","CODE"),
+                    new TituloCabera(7,"Valor Anterior"),
+                    new TituloCabera(25,"Preparacion"),
+                    new TituloCabera(26,"Desmantelamiento"),
+                    new TituloCabera(27,"Transporte"),
+                    new TituloCabera(28,"Montaje"),
+                    new TituloCabera(29,"Honorario"),
+                    new TituloCabera(8,"Credito"),
+                    new TituloCabera(9,"Valor de Activo Fijo"),
+                    new TituloCabera(17,"Depreciación Ejercicio"),
+                    new TituloCabera(18,"Depreciación Acumulada"),
+                    new TituloCabera(19,"Valor Libro del Activo"),
+                    new TituloCabera(34,"Codigo Subzona","CODE"),
+                    new TituloCabera(34,"Descripción Subzona","DESCRIP"),
+                    new TituloCabera(42,"Precio Venta")
+                };
+            }
+        }
+
         #endregion
 
         #region Cuadro Movimiento

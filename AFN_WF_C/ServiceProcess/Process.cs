@@ -581,8 +581,8 @@ namespace AFN_WF_C.ServiceProcess
                     linea.valor_inicial_activo = linea.saldo_inicial_activo + linea.adiciones_regular + linea.adiciones_obc;
                     linea.cm_activo = FirstGroup.Sum(a => a.valor_activo_cm);
                     linea.credito = FirstGroup.Sum(a => a.credito_monto);
-                    linea.castigo_activo = FirstGroup.Where(a => a.situacion == "BAJA" && a.vigencia.id == 3).Sum(a => (a.valor_activo_inicial)) * -1;
-                    linea.venta_activo = FirstGroup.Where(a => a.situacion == "BAJA" && a.vigencia.id == 2).Sum(a => (a.valor_activo_inicial)) * -1;
+                    linea.castigo_activo = FirstGroup.Where(a => a.situacion == "BAJA" && a.vigencia.id == 3).Sum(a => (a.valor_activo_final)) * -1;
+                    linea.venta_activo = FirstGroup.Where(a => a.situacion == "BAJA" && a.vigencia.id == 2).Sum(a => (a.valor_activo_final)) * -1;
                     linea.valor_final_activo = FirstGroup.Where(a => a.situacion != "BAJA").Sum(a => a.valor_activo_final);
                     linea.depreciacion_acumulada_inicial = FirstGroup.Sum(a => a.depreciacion_acum_inicial);
                     linea.cm_depreciacion = FirstGroup.Sum(a => a.depreciacion_acum_cm);
