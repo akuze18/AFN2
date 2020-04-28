@@ -340,6 +340,10 @@
             <End Role="METHOD_REVALUES" EntitySet="METHOD_REVALUES" />
             <End Role="TRANSACTIONS_HEADERS" EntitySet="TRANSACTIONS_HEADERS" />
           </AssociationSet>
+          <AssociationSet Name="FK_ARTICLES_STATES" Association="AFN2Model.Store.FK_ARTICLES_STATES">
+            <End Role="STATES" EntitySet="STATES" />
+            <End Role="ARTICLES" EntitySet="ARTICLES" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CONTAB_GRUPO">
           <Key>
@@ -795,6 +799,7 @@
           <Property Name="ubicacion_id" Type="int" Nullable="false" />
           <Property Name="desde" Type="datetime" Nullable="false" />
           <Property Name="hasta" Type="datetime" Nullable="false" />
+          <Property Name="estado_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ARTICLES_SECTIONS">
           <Key>
@@ -1691,6 +1696,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ARTICLES_STATES">
+          <End Role="STATES" Type="AFN2Model.Store.STATES" Multiplicity="1" />
+          <End Role="ARTICLES" Type="AFN2Model.Store.ARTICLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ARTICLES">
+              <PropertyRef Name="estado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1982,6 +1999,10 @@
           <AssociationSet Name="FK__SECTIONS__locati__4AA30C57" Association="AFN2Model.FK__SECTIONS__locati__4AA30C57">
             <End Role="LOCATION" EntitySet="LOCATIONS" />
             <End Role="SECTION" EntitySet="SECTIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ARTICLES_STATES" Association="AFN2Model.FK_ARTICLES_STATES">
+            <End Role="STATE" EntitySet="STATES" />
+            <End Role="ARTICLE" EntitySet="ARTICLES" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="APROVAL_STATE">
@@ -3178,6 +3199,8 @@
           <NavigationProperty Name="PLACE" Relationship="AFN2Model.FK__ARTICLES__ubicac__18178C8A" FromRole="ARTICLE" ToRole="PLACE" />
           <NavigationProperty Name="ARTICLES_VALUES" Relationship="AFN2Model.FK__ARTICLES___artic__3E3D3572" FromRole="ARTICLE" ToRole="ARTICLES_VALUES" />
           <NavigationProperty Name="ARTICLES_SECTIONS" Relationship="AFN2Model.FK__ARTICLES___artic__52442E1F" FromRole="ARTICLE" ToRole="ARTICLES_SECTIONS" />
+          <Property Type="Int32" Name="estado_id" Nullable="false" />
+          <NavigationProperty Name="STATE" Relationship="AFN2Model.FK_ARTICLES_STATES" FromRole="ARTICLE" ToRole="STATE" />
         </EntityType>
         <EntityType Name="PLACE">
           <Key>
@@ -3367,6 +3390,7 @@
           </Key>
           <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="descript" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ARTICLES" Relationship="AFN2Model.FK_ARTICLES_STATES" FromRole="STATE" ToRole="ARTICLE" />
         </EntityType>
         <Association Name="FK__ARTICLES___batch__3D491139">
           <End Type="AFN2Model.BATCH_ARTICLE" Role="BATCH_ARTICLE" Multiplicity="1" />
@@ -3437,6 +3461,18 @@
             </Principal>
             <Dependent Role="SECTION">
               <PropertyRef Name="location_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ARTICLES_STATES">
+          <End Type="AFN2Model.STATE" Role="STATE" Multiplicity="1" />
+          <End Type="AFN2Model.ARTICLE" Role="ARTICLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ARTICLE">
+              <PropertyRef Name="estado_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3978,6 +4014,7 @@
           <EntitySetMapping Name="ARTICLES">
             <EntityTypeMapping TypeName="AFN2Model.ARTICLE">
               <MappingFragment StoreEntitySet="ARTICLES">
+                <ScalarProperty Name="estado_id" ColumnName="estado_id" />
                 <ScalarProperty Name="hasta" ColumnName="hasta" />
                 <ScalarProperty Name="desde" ColumnName="desde" />
                 <ScalarProperty Name="ubicacion_id" ColumnName="ubicacion_id" />
@@ -4525,8 +4562,8 @@
           <ConnectorPoint PointX="15.5" PointY="19.09375" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__ARTICLES__ubicac__18178C8A" >
-          <ConnectorPoint PointX="18" PointY="21.282562662760419" />
-          <ConnectorPoint PointX="17" PointY="21.282562662760419" />
+          <ConnectorPoint PointX="18" PointY="21.461009114583334" />
+          <ConnectorPoint PointX="17" PointY="21.461009114583334" />
         </AssociationConnector>
         <EntityTypeShape EntityType="AFN2Model.CONTAB_GRUPO" Width="1.5" PointX="14.875" PointY="22.625" Height="2.2263395182291674" />
         <EntityTypeShape EntityType="AFN2Model.DETAIL_ACCOUNT_LINES" Width="1.5" PointX="12.75" PointY="19.75" Height="2.226339518229139" />
@@ -4577,11 +4614,18 @@
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__ARTICLES___attri__3F3159AB" >
           <ConnectorPoint PointX="22.75" PointY="19.113169759114584" />
+          <ConnectorPoint PointX="22.677083333333332" PointY="19.113169759114584" />
+          <ConnectorPoint PointX="22.510416666666668" PointY="19.113169759114584" />
           <ConnectorPoint PointX="21" PointY="19.113169759114584" />
         </AssociationConnector>
         <AssociationConnector Association="AFN2Model.FK__SECTIONS__locati__4AA30C57" >
           <ConnectorPoint PointX="25.25" PointY="21.970500081380209" />
           <ConnectorPoint PointX="24.25" PointY="21.970500081380209" />
+        </AssociationConnector>
+        <AssociationConnector Association="AFN2Model.FK_ARTICLES_STATES" >
+          <ConnectorPoint PointX="22.59375" PointY="17.512553710937503" />
+          <ConnectorPoint PointX="22.59375" PointY="20.517591494140625" />
+          <ConnectorPoint PointX="17" PointY="20.517591494140625" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

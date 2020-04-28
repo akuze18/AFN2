@@ -464,7 +464,7 @@ namespace AFN_WF_C.ServiceProcess
                            new{ articulo, 
                                ubicacion = _svr.Repo.inv_ubicaciones.ById(articulo.ubicacion_id),
                                entregado = _svr.Repo.inv_articulos_details.ForArticle(det.cod_articulo, articulo.id, AttrEntrega.id),
-                               ultimoEstado = GENERIC_VALUE.EmptyText
+                               ultimoEstado = _svr.Repo.inv_estados.ById(articulo.estado_id)
                            });
                 var agrupado = (from m in mix
                                 group m by 

@@ -14,6 +14,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int ubicacion_id { get; private set; }
         public DateTime desde { get; private set; }
         public DateTime hasta { get; private set; }
+        public int estado_id { get; private set; }
     
 
     #region Convertions
@@ -27,7 +28,8 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 codigo_old = od.codigo_old,
                 ubicacion_id = od.ubicacion_id,
                 desde = od.desde,
-                hasta = od.hasta
+                hasta = od.hasta,
+                estado_id = od.estado_id
             };
         }
         public static implicit operator GENERIC_VALUE(SV_ARTICLE sv)

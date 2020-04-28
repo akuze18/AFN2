@@ -108,7 +108,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             {
                 id = s.id,
                 code = s.id.ToString(),
-                description = s.ToString(),
+                description = s.descript.ToString(),
                 type = s.GetType().Name,
             };
         }

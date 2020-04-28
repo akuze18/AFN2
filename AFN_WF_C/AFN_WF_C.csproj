@@ -391,6 +391,7 @@
     <Compile Include="ServiceProcess\Repositories\PARTS.cs" />
     <Compile Include="ServiceProcess\Repositories\SALES.cs" />
     <Compile Include="ServiceProcess\Repositories\SITUATIONS.cs" />
+    <Compile Include="ServiceProcess\Repositories\STATES.cs" />
     <Compile Include="ServiceProcess\Repositories\SUBKINDS.cs" />
     <Compile Include="ServiceProcess\Repositories\SUBZONES.cs" />
     <Compile Include="ServiceProcess\Repositories\SYSTEMS.cs" />

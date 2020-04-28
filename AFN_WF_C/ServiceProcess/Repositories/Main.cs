@@ -55,6 +55,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         private ACCOUNTING _accounting;
         private SALES _sales;
         private INV_PLACES _places;
+        private STATES _inv_states;
 
 
         public Main(AFN2Entities context)
@@ -356,6 +357,14 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             {
                 if (_places == null) _places = new INV_PLACES(_context.PLACES);
                 return _places;
+            }
+        }
+        public STATES inv_estados
+        {
+            get
+            {
+                if (_inv_states == null) _inv_states = new STATES(_context.STATES);
+                return _inv_states;
             }
         }
 

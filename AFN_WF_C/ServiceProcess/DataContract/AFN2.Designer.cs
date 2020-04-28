@@ -78,6 +78,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__ARTICLES___secti__53385258", "SECTION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.SECTION), "ARTICLES_SECTIONS", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ARTICLES_SECTIONS), true)]
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__ARTICLES___attri__3F3159AB", "ATTRIBUTE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.ATTRIBUTE), "ARTICLES_VALUES", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ARTICLES_VALUES), true)]
 [assembly: EdmRelationshipAttribute("AFN2Model", "FK__SECTIONS__locati__4AA30C57", "LOCATION", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.LOCATION), "SECTION", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.SECTION), true)]
+[assembly: EdmRelationshipAttribute("AFN2Model", "FK_ARTICLES_STATES", "STATE", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AFN_WF_C.ServiceProcess.DataContract.STATE), "ARTICLE", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AFN_WF_C.ServiceProcess.DataContract.ARTICLE), true)]
 
 #endregion
 
@@ -1542,7 +1543,8 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         /// <param name="ubicacion_id">Valor inicial de la propiedad ubicacion_id.</param>
         /// <param name="desde">Valor inicial de la propiedad desde.</param>
         /// <param name="hasta">Valor inicial de la propiedad hasta.</param>
-        public static ARTICLE CreateARTICLE(global::System.Int32 id, global::System.String code, global::System.Int32 part_id, global::System.String codigo_old, global::System.Int32 ubicacion_id, global::System.DateTime desde, global::System.DateTime hasta)
+        /// <param name="estado_id">Valor inicial de la propiedad estado_id.</param>
+        public static ARTICLE CreateARTICLE(global::System.Int32 id, global::System.String code, global::System.Int32 part_id, global::System.String codigo_old, global::System.Int32 ubicacion_id, global::System.DateTime desde, global::System.DateTime hasta, global::System.Int32 estado_id)
         {
             ARTICLE aRTICLE = new ARTICLE();
             aRTICLE.id = id;
@@ -1552,6 +1554,7 @@ namespace AFN_WF_C.ServiceProcess.DataContract
             aRTICLE.ubicacion_id = ubicacion_id;
             aRTICLE.desde = desde;
             aRTICLE.hasta = hasta;
+            aRTICLE.estado_id = estado_id;
             return aRTICLE;
         }
 
@@ -1729,6 +1732,30 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         private global::System.DateTime _hasta;
         partial void OnhastaChanging(global::System.DateTime value);
         partial void OnhastaChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 estado_id
+        {
+            get
+            {
+                return _estado_id;
+            }
+            set
+            {
+                Onestado_idChanging(value);
+                ReportPropertyChanging("estado_id");
+                _estado_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("estado_id");
+                Onestado_idChanged();
+            }
+        }
+        private global::System.Int32 _estado_id;
+        partial void Onestado_idChanging(global::System.Int32 value);
+        partial void Onestado_idChanged();
 
         #endregion
 
@@ -1851,6 +1878,44 @@ namespace AFN_WF_C.ServiceProcess.DataContract
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ARTICLES_SECTIONS>("AFN2Model.FK__ARTICLES___artic__52442E1F", "ARTICLES_SECTIONS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK_ARTICLES_STATES", "STATE")]
+        public STATE STATE
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<STATE>("AFN2Model.FK_ARTICLES_STATES", "STATE").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<STATE>("AFN2Model.FK_ARTICLES_STATES", "STATE").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<STATE> STATEReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<STATE>("AFN2Model.FK_ARTICLES_STATES", "STATE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<STATE>("AFN2Model.FK_ARTICLES_STATES", "STATE", value);
                 }
             }
         }
@@ -12011,6 +12076,32 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         #endregion
 
     
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AFN2Model", "FK_ARTICLES_STATES", "ARTICLE")]
+        public EntityCollection<ARTICLE> ARTICLES
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ARTICLE>("AFN2Model.FK_ARTICLES_STATES", "ARTICLE");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ARTICLE>("AFN2Model.FK_ARTICLES_STATES", "ARTICLE", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>

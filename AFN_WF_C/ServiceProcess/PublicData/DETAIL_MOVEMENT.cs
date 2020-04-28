@@ -317,7 +317,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 case 44: return entregado;
                 case 45: return codigo_inv;
                 case 46: return codigo_inv_old;
-                case 47: return (GENERIC_VALUE)ultimo_estado;
+                case 47: return ultimo_estado;
                 default:
                     return null;
             }
