@@ -106,5 +106,10 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                     break;
             }
         }
+
+        private void btn_imprimir1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

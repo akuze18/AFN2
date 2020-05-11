@@ -501,7 +501,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 line.se_deprecia = d.DetailDepreciate;
                 line.aprobacion = this.EstadoAprobacion.ById(d.BatchAprovalStateId);
                 line.dscrp = d.BatchDescription;
-                line.dsc_extra = d.BatchDescription;
+                line.dsc_extra = this.inv_articulos_details.ExtraDescrip(d.BatchId);
                 line.fecha_compra = d.BatchPurchaseDate;
                 line.documentos = this.documentos.ByBatch(d.BatchId);
                 line.precio_inicial = d.BatchInitialPrice;

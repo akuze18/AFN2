@@ -186,8 +186,10 @@ namespace AFN_WF_C.PCClient.Vistas
             //Microsoft.VisualBasic.Interaction.InputBox("conexion actual","",Procesos.consultas.coneccion());
             //MessageBox.Show(Procesos.consultas.revisar().ToString());
             //Procesos.Migracion.TestSave();
-            var x = Procesos.Consultas.tipo_cambio.YEN(new DateTime(2019,11,24));
-            Procesos.Mensaje.Info(x.ToString());
+            //var x = Procesos.Consultas.tipo_cambio.YEN(new DateTime(2019,11,24));
+            //Procesos.Mensaje.Info(x.ToString());
+            //Vistas.Pruebas.MostrarReporte rpt = new Pruebas.MostrarReporte();
+            //rpt.ShowDialog();
             MessageBox.Show("Fin Test");
         }
         private void smSistema01_Click(object sender, EventArgs e)

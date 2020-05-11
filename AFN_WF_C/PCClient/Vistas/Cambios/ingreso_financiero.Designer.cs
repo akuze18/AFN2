@@ -182,6 +182,8 @@
             // ckIFRS
             // 
             this.ckIFRS.AutoSize = true;
+            this.ckIFRS.Checked = true;
+            this.ckIFRS.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckIFRS.Location = new System.Drawing.Point(82, 315);
             this.ckIFRS.Name = "ckIFRS";
             this.ckIFRS.Size = new System.Drawing.Size(97, 17);

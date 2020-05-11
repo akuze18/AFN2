@@ -23,7 +23,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
         public List<SV_ARTICLE_DETAIL> ByBatch(int batch_id)
         {
-            return _source.Where(a => a.lote_id == batch_id).ToList();
+            return _source.Where(a => a.lote_id == batch_id && a.article_id == null).ToList();
         }
 
         public SV_ARTICLE_DETAIL ForArticle(int BatchId, int? ArticleId, int AttrId)
@@ -38,6 +38,20 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             else
                 details = _source.Where(sa => sa.lote_id == BatchId && sa.cod_atrib == AttrId);
             return details.OrderByDescending(sa => sa.fech_ini).DefaultIfEmpty(SV_ARTICLE_DETAIL.Empty).FirstOrDefault();
+        }
+
+        public string ExtraDescrip(int BatchId)
+        {
+            string result = string.Empty;
+            var values = _source.Where(a => a.lote_id == BatchId && 
+                                a.article_id == null &&
+                                a.imprimir &&
+                                a.fech_ini <= DateTime.Today && a.fech_fin> DateTime.Today)
+                            .OrderBy(a => a.cod_atrib)
+                            .ToList();
+            foreach (var value in values)
+                result = result + ", " +(value.atributo.imprimir? value.atributo.name + " " :string.Empty) + value.detalle;
+            return result;
         }
     }
 }

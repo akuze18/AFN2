@@ -52,6 +52,7 @@
             this.smCambio10 = new System.Windows.Forms.ToolStripMenuItem();
             this.procesosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smProceso01 = new System.Windows.Forms.ToolStripMenuItem();
+            this.smProceso02 = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smReporte01 = new System.Windows.Forms.ToolStripMenuItem();
             this.smReporte02 = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +86,6 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Panels3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Panels4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.smProceso02 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -282,6 +282,13 @@
             this.smProceso01.Size = new System.Drawing.Size(201, 22);
             this.smProceso01.Text = "Activar Lotes";
             this.smProceso01.Click += new System.EventHandler(this.smProceso01_Click);
+            // 
+            // smProceso02
+            // 
+            this.smProceso02.Name = "smProceso02";
+            this.smProceso02.Size = new System.Drawing.Size(201, 22);
+            this.smProceso02.Text = "Suspender Depreciacion";
+            this.smProceso02.Click += new System.EventHandler(this.smProceso02_Click);
             // 
             // reportesToolStripMenuItem
             // 
@@ -545,13 +552,6 @@
             this.Panels4.Name = "Panels4";
             this.Panels4.Size = new System.Drawing.Size(72, 21);
             this.Panels4.Text = "BaseDato";
-            // 
-            // smProceso02
-            // 
-            this.smProceso02.Name = "smProceso02";
-            this.smProceso02.Size = new System.Drawing.Size(201, 22);
-            this.smProceso02.Text = "Suspender Depreciacion";
-            this.smProceso02.Click += new System.EventHandler(this.smProceso02_Click);
             // 
             // welcome
             // 

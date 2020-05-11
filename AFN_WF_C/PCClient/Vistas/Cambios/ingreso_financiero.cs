@@ -105,7 +105,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             TvuF.Text = string.Empty;
             Tdoc.Text = string.Empty;
             derC1.Checked = true;
-            ckIFRS.Checked = false;
+            ckIFRS.Checked = true;
         }
 
         public void cargar(ingreso.cod_situacion cual_sit, int origen_id)

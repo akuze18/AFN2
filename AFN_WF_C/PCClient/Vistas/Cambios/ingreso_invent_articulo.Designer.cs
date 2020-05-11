@@ -96,6 +96,7 @@
             this.btn_imprimir1.TabIndex = 26;
             this.btn_imprimir1.Text = "Visualizar";
             this.btn_imprimir1.UseVisualStyleBackColor = true;
+            this.btn_imprimir1.Click += new System.EventHandler(this.btn_imprimir1_Click);
             // 
             // btn_detallexA
             // 
