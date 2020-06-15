@@ -40,6 +40,15 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return details.OrderByDescending(sa => sa.fech_ini).DefaultIfEmpty(SV_ARTICLE_DETAIL.Empty).FirstOrDefault();
         }
 
+        public List<SV_ARTICLE_DETAIL> GetValuesByAttribute(List<SV_ATTRIBUTE> Attributes)
+        {
+            return GetValuesByAttribute(Attributes.Select(a => a.id).ToArray());
+        }
+        public List<SV_ARTICLE_DETAIL> GetValuesByAttribute(int[] AttributesId)
+        {
+            return _source.Where(ad => AttributesId.Contains(ad.cod_atrib)).ToList();
+        }
+
         public string ExtraDescrip(int BatchId)
         {
             string result = string.Empty;
@@ -53,5 +62,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 result = result + ", " +(value.atributo.imprimir? value.atributo.name + " " :string.Empty) + value.detalle;
             return result;
         }
+
+        
     }
 }

@@ -110,7 +110,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             this.PartId = final.PartId;
             this.cod_articulo = final.cod_articulo;
             this.fecha_ingreso = final.fecha_ing;
-            this.desc_breve = final.dscrp + final.dsc_extra;
+            this.desc_breve = final.descrip_complete;
             this.cantidad = final.cantidad;
             this.zona = final.zona;
             this.clase = final.clase;

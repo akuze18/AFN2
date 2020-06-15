@@ -116,7 +116,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             rowindx = info.HeadId;
             cboCant.SelectedIndex = cboCant.Items.Count - 1;
             Dcastigo.Enabled = true;
-            Tarticulo.Text = info.dscrp;
+            Tarticulo.Text = info.descrip_complete;
             Tarticulo.BackColor = System.Drawing.SystemColors.Window;
             Tvalor.Text = "0";// info.parametros.GetPrecioBase.value.ToString();
             Tvalor.BackColor = System.Drawing.SystemColors.Window;

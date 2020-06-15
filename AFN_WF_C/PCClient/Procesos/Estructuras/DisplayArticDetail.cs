@@ -31,6 +31,7 @@ namespace AFN_WF_C.PCClient.Procesos.Estructuras
         {
             CodigoAtributo = source.cod_atrib;
             Articulo = source.article_code;
+            //las fotos cargadas desde Servidor son marcadas con XX:
             ValorGuardado = (source.atributo.tipo == "FOTO" ? "XX:" : "") + source.detalle;
             Atributo = source.atributo.name;
             ValorDelAtributo = source.dscr_detalle;

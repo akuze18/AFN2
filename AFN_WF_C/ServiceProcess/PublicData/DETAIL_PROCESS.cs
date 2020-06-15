@@ -15,6 +15,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public SV_APROVAL_STATE aprobacion { get; set; }//BATCHS_ARTICLES (approval_state_id)
         public string dscrp { get; set; }               //BATCHS_ARTICLES (descrip)
         public string dsc_extra { get; set; }           //FUNCION ESPECIAL
+        public string descrip_complete { get { return dscrp + dsc_extra; } }
         public DateTime fecha_compra { get; set; }      //BATCHS_ARTICLES (purchase_date)
         public decimal precio_inicial { get; set; }     //BATCHS_ARTICLES (initial_price)
         public int vida_util_inicial { get; set; }      //BATCHS_ARTICLES (inital_life_time)

@@ -25,6 +25,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         {
             _padre = P.Auxiliar.FindPadre(this);
             _page = P.Auxiliar.FindPage(this);
+            Nval_resI.Maximum = decimal.MaxValue;
         }
 
         public void load_data()
@@ -38,7 +39,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         public void limpiar()
         {
             TvuI.Text = string.Empty;
-            Tval_resI.Text = string.Empty;
+            Nval_resI.Value = 0;
             cboMetod.SelectedIndex = -1;
             DataIFRS.DataSource = null;
         }
@@ -75,7 +76,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             //habilitar hoja IFRS
             P.Auxiliar.ActivarF(TvuI, AllowModif);
             P.Auxiliar.ActivarF(cboMetod, AllowModif);
-            P.Auxiliar.ActivarF(Tval_resI, AllowModif);
+            P.Auxiliar.ActivarF(Nval_resI, AllowModif);
             P.Auxiliar.ActivarF(DataIFRS, AllowModif);
             P.Auxiliar.ActivarF(btn_IFRS, AllowModif);
 
@@ -97,16 +98,12 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 DataIFRS.Columns[3].Width = 130;
 
                 //valor residual
-                Tval_resI.Text = detalle.valor_residual.ToString("#,#0");
+                Nval_resI.Value = Math.Abs(detalle.valor_residual);
                 //vida util
                 TvuI.Text = detalle.vida_util_base.ToString();
                 //metodo valotizacion
                 cboMetod.SelectedItem = detalle.metod_val;
             }
-            
-
-            
-
             btn_IFRS.Image = global::AFN_WF_C.Properties.Resources._32_next;
             btn_IFRS.Text = "Guardar";
         }
@@ -119,7 +116,8 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 return;
             //reduccion de campos
 
-            int metod_val,VUA, val_res;
+            int metod_val,VUA ;
+            decimal val_res;
             decimal[] prepa, trans, monta, desma, honor;
             prepa = new decimal[] { 0, 0 };
             desma = new decimal[] { 0, 0 };
@@ -128,10 +126,11 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             honor = new decimal[] { 0, 0 };
 
             VUA = int.Parse(TvuI.Text);
-            val_res = int.Parse(Tval_resI.Text);
+            val_res = -Nval_resI.Value; //Valor residual se almacena negativo
             metod_val =((GENERIC_VALUE) cboMetod.SelectedItem).id;
             foreach(DataGridViewRow fila in DataIFRS.Rows)
             {
+                //fila.DataBoundItem
                 int valor = (int)fila.Cells[0].Value;
                 decimal monto_clp, monto_yen;
                 decimal.TryParse(fila.Cells[2].Value.ToString(), out monto_clp);
@@ -204,10 +203,10 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 TvuI.Focus();
                 return false;
             }
-            if (Tval_resI.Text == "")
+            if (Nval_resI.Value == 0)
             {
                 P.Mensaje.Advert("Debe indicar el valor residual");
-                Tval_resI.Focus();
+                Nval_resI.Focus();
                 return false;
             }
             if (cboMetod.SelectedIndex == -1)

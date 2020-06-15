@@ -58,7 +58,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int cod_articulo { get { return _detail.cod_articulo; } }
         public int parte { get { return _detail.parte; } }
         public DateTime fecha_compra { get { return _detail.fecha_compra; } }
-        public string desc_breve { get { return _detail.dscrp; } }
+        public string desc_breve { get { return _detail.descrip_complete; } }
         public SV_VALIDATY vigencia { get { return _detail.vigencia; } }
         public int cantidad { get { return _detail.cantidad; } }
         public SV_ZONE zona { get { return _detail.zona; } }

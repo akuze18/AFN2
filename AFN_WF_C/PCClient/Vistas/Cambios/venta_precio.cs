@@ -133,7 +133,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 newfila.rowIndex = datos.PartId;
                 newfila.CodArticulo = datos.cod_articulo;
                 newfila.Parte = datos.parte;
-                newfila.DescripArt = datos.dscrp;
+                newfila.DescripArt = datos.descrip_complete;
                 newfila.Cantidad = datos.cantidad;
                 newfila.CostoUnitario = cost_uni;
                 newfila.CostoExtend = costo_ext;

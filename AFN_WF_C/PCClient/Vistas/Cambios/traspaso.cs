@@ -190,7 +190,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             Dcambio.MinDate = (new ACode.Vperiodo(Today.Year,Today.Month) -1).first;
             rowindx = info.HeadId;
 
-            Tarticulo.Text = info.dscrp;
+            Tarticulo.Text = info.descrip_complete;
             Tvalor.Text = "0";  //Format(recordset.Rows(0).Item("val_libro"), "General Number")
             btn_consulta.BackColor = SystemColors.Window;
             this.Enabled = true;

@@ -63,7 +63,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
                 this.fuente = process.sistema;
                 this.codigo_articulo = process.cod_articulo;
-                this.descripcion = lote.descrip;
+                this.descripcion = process.descrip_complete;// lote.descrip;
                 this.proveedor = lote.documents.Select(d => d.proveedor_id).DefaultIfEmpty(Repositories.DOCUMENTS.defaultProveed).First();
                 this.descrip_proveedor = lote.documents.Select(d => d.proveedor_name).DefaultIfEmpty(Repositories.DOCUMENTS.defaultProveed).First();
                 this.num_doc = lote.documents.Select(d => d.docnumber).DefaultIfEmpty(Repositories.DOCUMENTS.defaultDocument).First();

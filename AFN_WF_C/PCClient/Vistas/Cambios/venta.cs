@@ -116,7 +116,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             Dventa.Enabled = true;
             //'Dventa.MaxDate = Now
             //'Dventa.Value = Now
-            Tarticulo.Text = info.dscrp;
+            Tarticulo.Text = info.descrip_complete;
             Tarticulo.BackColor = System.Drawing.SystemColors.Window;
             Tvalor.Text = "0";//info.parametros.GetValorResidual.value.ToString();// recordset.Rows(0).Item("val_libro")
             Tvalor.BackColor = System.Drawing.SystemColors.Window;

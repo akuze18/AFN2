@@ -149,5 +149,43 @@ namespace AFN_WF_C.PCClient.Procesos
                 return false;
             }
         }
+
+        public static string foto_name()
+        {
+            string salida;
+            string [] contenido = new string[35];
+            int i, j, k;
+            bool valido;
+            j = 0;
+            //entre 48 a 57: numeros
+            //entre 65 a 90: letras mayusculas
+            //entre 97 a 122: letras minusculas
+            for( i = 48; i<=90; i++)
+            {
+                if ((i >= 48 && i <= 57) || (i >= 65 && i <= 90))
+                {
+                    contenido[j] = ((char)(i)).ToString();
+                    j = j + 1;
+                }
+            }
+            valido = false;
+            do
+            {
+                var rand = new Random();
+                salida = "";
+                for( k = 0; k <= 7; k++)
+                {
+                    i = rand.Next(j);
+                    salida = salida + contenido[i];
+                }
+                if( Consultas.inventario.busca_nombre_foto(salida) == 0)
+                {
+                    valido = true;
+                }
+            }while (!valido);
+
+            return salida;
+        }
+
     }
 }

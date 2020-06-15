@@ -26,7 +26,8 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
         public List<GENERIC_VALUE> All()
         {
-            return _source.ConvertAll(x => (GENERIC_VALUE)x);
+            return _source.ConvertAll(x => (GENERIC_VALUE)x)
+                .OrderBy(x => x.id).ToList();
         }
     }
 }

@@ -342,6 +342,38 @@ namespace AFN_WF_C.PCClient.Procesos
                     return cServ.Repo.inv_articulos_details.ByBatch(batch_id);
                 }
             }
+
+            public static PD.SV_ARTICLE_DETAIL GetDetailAttrByLote(int batch_id, int attribute_id)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                {
+                    return cServ.Repo.inv_articulos_details.ForArticle(batch_id, null, attribute_id);
+                }
+            }
+
+            public static int busca_nombre_foto(string nuevo_nombre_foto)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                {
+                    var FotoAttributes = cServ.Repo.inv_atributos.GetFotoType();
+                    List<PD.SV_ARTICLE_DETAIL> FotoValues = cServ.Repo.inv_articulos_details.GetValuesByAttribute(FotoAttributes);
+                    return FotoValues.Where(f => f.detalle == nuevo_nombre_foto).Count();
+                }
+            }
+            public static PD.RespuestaAccion INGRESO_ATRIB_LOTE(int lote_art, int atributo_id, string detalle, bool mostrar)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                {
+                    return cServ.Repo.INGRESO_ATRIB_LOTE(lote_art, atributo_id, detalle, mostrar);
+                }
+            }
+            public static PD.RespuestaAccion BORRAR_ATRIBUTOxLOTE(int lote_art, int atributo_id)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                {
+                    return cServ.Repo.BORRAR_ATRIBUTOxLOTE(lote_art, atributo_id);
+                }
+            }
         }
         internal class movimientos
         {
@@ -486,7 +518,7 @@ namespace AFN_WF_C.PCClient.Procesos
                 using (var cServ = new ServiceProcess.ServiceAFN2())
                     return cServ.Repo.MODIF_PURCHASE_PARAM(cabeceras, sistema, parametro, valor, withResiduo);
             }
-            public static PD.RespuestaAccion MODIFICA_IFRS(int batch_id, int valor_residual, int vida_util,int metod_val, decimal[] preparacion, decimal[] transporte, decimal[] montaje, decimal[] desmantelamiento, decimal[] honorarios)
+            public static PD.RespuestaAccion MODIFICA_IFRS(int batch_id, decimal valor_residual, int vida_util,int metod_val, decimal[] preparacion, decimal[] transporte, decimal[] montaje, decimal[] desmantelamiento, decimal[] honorarios)
             {
                 var result = new PD.RespuestaAccion();
                 try

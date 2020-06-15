@@ -33,12 +33,13 @@
             this.DataIFRS = new System.Windows.Forms.DataGridView();
             this.cboMetod = new System.Windows.Forms.ComboBox();
             this.Label20 = new System.Windows.Forms.Label();
-            this.Tval_resI = new System.Windows.Forms.TextBox();
             this.Label19 = new System.Windows.Forms.Label();
             this.TvuI = new System.Windows.Forms.TextBox();
             this.Label18 = new System.Windows.Forms.Label();
+            this.Nval_resI = new System.Windows.Forms.NumericUpDown();
             this.Frame2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataIFRS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Nval_resI)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_IFRS
@@ -95,13 +96,6 @@
             this.Label20.TabIndex = 11;
             this.Label20.Text = "Método de Valorización";
             // 
-            // Tval_resI
-            // 
-            this.Tval_resI.Location = new System.Drawing.Point(646, 17);
-            this.Tval_resI.Name = "Tval_resI";
-            this.Tval_resI.Size = new System.Drawing.Size(112, 20);
-            this.Tval_resI.TabIndex = 14;
-            // 
             // Label19
             // 
             this.Label19.AutoSize = true;
@@ -127,15 +121,29 @@
             this.Label18.TabIndex = 9;
             this.Label18.Text = "Vida Util IFRS (días)";
             // 
+            // Nval_resI
+            // 
+            this.Nval_resI.DecimalPlaces = 2;
+            this.Nval_resI.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.Nval_resI.Location = new System.Drawing.Point(655, 20);
+            this.Nval_resI.Name = "Nval_resI";
+            this.Nval_resI.Size = new System.Drawing.Size(117, 20);
+            this.Nval_resI.TabIndex = 18;
+            this.Nval_resI.ThousandsSeparator = true;
+            // 
             // ingreso_ifrs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.Nval_resI);
             this.Controls.Add(this.btn_IFRS);
             this.Controls.Add(this.Frame2);
             this.Controls.Add(this.cboMetod);
             this.Controls.Add(this.Label20);
-            this.Controls.Add(this.Tval_resI);
             this.Controls.Add(this.Label19);
             this.Controls.Add(this.TvuI);
             this.Controls.Add(this.Label18);
@@ -144,6 +152,7 @@
             this.Load += new System.EventHandler(this.ingreso_ifrs_Load);
             this.Frame2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataIFRS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Nval_resI)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,10 +165,10 @@
         internal System.Windows.Forms.DataGridView DataIFRS;
         internal System.Windows.Forms.ComboBox cboMetod;
         internal System.Windows.Forms.Label Label20;
-        internal System.Windows.Forms.TextBox Tval_resI;
         internal System.Windows.Forms.Label Label19;
         internal System.Windows.Forms.TextBox TvuI;
         internal System.Windows.Forms.Label Label18;
+        private System.Windows.Forms.NumericUpDown Nval_resI;
 
     }
 }

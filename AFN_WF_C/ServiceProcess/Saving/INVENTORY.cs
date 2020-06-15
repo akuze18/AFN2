@@ -135,5 +135,71 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             }
             return res;
         }
+
+        public RespuestaAccion INGRESO_ATRIB_LOTE(int lote_art, int atributo_id, string detalle, bool mostrar)
+        {
+            var res = new RespuestaAccion();
+            try
+            {
+                DateTime FechaIni, FechaFin;
+                int existe;
+                FechaIni = this.Partes.ByLotePart(lote_art, 0).first_date;
+                FechaFin = DateTime.MaxValue;
+                existe = this.inv_articulos_details.ForArticle(lote_art, null, atributo_id).id;
+                if (existe == 0)
+                {
+                    //no hay registro, por lo tanto podemos ingresar uno
+                    var DetailAttrNew = new ARTICLES_VALUES();
+                    DetailAttrNew.batch_id = lote_art;
+                    DetailAttrNew.article_id = null;
+                    DetailAttrNew.attrib_id = atributo_id;
+                    DetailAttrNew.detail = detalle;
+                    DetailAttrNew.date_init = FechaIni;
+                    DetailAttrNew.date_end = FechaFin;
+                    DetailAttrNew.imprimir = mostrar;
+                    _context.ARTICLES_VALUES.AddObject(DetailAttrNew);
+                    res.set(1, "INSERT");
+                }
+                else
+                {
+                    //ya hay un registro, por lo tanto actualizamos el registro
+                    var DetailAttrCurr = _context.ARTICLES_VALUES.Where(av => av.id == existe).First();
+                    //DetailAttrCurr.batch_id = lote_art;
+                    //DetailAttrCurr.attrib_id = atributo_id;
+                    DetailAttrCurr.detail = detalle;
+                    DetailAttrCurr.date_init = FechaIni;
+                    DetailAttrCurr.date_end = FechaFin;
+                    DetailAttrCurr.imprimir = mostrar;
+                    res.set(0, "UPDATE");
+                }
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                res.set(-1, ex.StackTrace);
+            }
+            return res;
+        }
+
+        public RespuestaAccion BORRAR_ATRIBUTOxLOTE(int lote_art, int atributo_id)
+        {
+            var res = new RespuestaAccion();
+            try
+            {
+                var DetAttributeToDelete = (from c in _context.ARTICLES_VALUES
+                                            where c.batch_id == lote_art &&
+                                            c.attrib_id == atributo_id &&
+                                            c.article_id == null
+                                            select c).FirstOrDefault();
+                _context.ARTICLES_VALUES.DeleteObject(DetAttributeToDelete);
+                _context.SaveChanges();
+                res.set_ok();
+            }
+            catch (Exception ex)
+            {
+                res.set(-1, ex.StackTrace);
+            }
+            return res;
+        }
     }
 }

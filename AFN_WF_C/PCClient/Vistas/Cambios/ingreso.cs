@@ -137,7 +137,11 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             this.ficha_basica.cargarOBC(valor_uni, cantidad, diferencia, salidasOBC);
             
         }
-
+        public void RenovarPanel()
+        {
+            SINGLE_DETAIL data_fin = P.Consultas.data_ingreso_financiero(_codigo_artic);
+            TFulldescrip.Text = data_fin.descripcion;
+        }
 
         public void resultado_busqueda(int codigo, bool estado)
         {
