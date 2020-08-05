@@ -575,6 +575,7 @@ namespace AFN_WF_C.ServiceProcess
                     linea.zona = (from a in FirstGroup select a.zona).First();  //no tiene importancia completar este valor para este reporte
                     linea.lugar = (from a in FirstGroup select a.subzona).First(); //no tiene importancia completar este valor para este reporte
                     linea.saldo_inicial_activo = FirstGroup.Where(a => a.fecha_compra < periodo.first).Sum(a => a.valor_activo_inicial);
+                    linea.valor_inicial_acumulado_ifrs = FirstGroup.Where(a => a.fecha_compra < periodo.first).Sum(a => a.activo_acumulado_inicial_ifrs);
                     linea.adiciones_regular = FirstGroup.Where(a => a.fecha_compra >= periodo.first && a.origen.code != "OBC").Sum(a => a.valor_activo_inicial);
                     linea.adiciones_obc = FirstGroup.Where(a => a.fecha_compra >= periodo.first && a.origen.code == "OBC").Sum(a => a.valor_activo_inicial);
                     //linea.valor_inicial_activo = FirstGroup.Sum(a => a.valor_activo_inicial);
@@ -599,32 +600,9 @@ namespace AFN_WF_C.ServiceProcess
                 }
 
                 //Agrego Obras en Construccion
-                var linea_obc = new GROUP_MOVEMENT();
+                
                 var movimiento = movimiento_obras(periodo.first, periodo.last, sistema.CURRENCY.id);
-                linea_obc.clase = _svr.Repo.Clases.OBC;
-                //linea_obc.zona = null;  //no tiene importancia completar este valor para este reporte
-                //linea_obc.lugar = null; //no tiene importancia completar este valor para este reporte
-                linea_obc.saldo_inicial_activo = movimiento.saldo_inicial;
-                linea_obc.adiciones_regular = movimiento.incremento;
-                linea_obc.adiciones_obc = 0;
-                linea_obc.decremento_obc = movimiento.dec_to_activo;
-                linea_obc.valor_inicial_activo = movimiento.saldo_inicial + movimiento.incremento;
-                linea_obc.cm_activo = 0;
-                linea_obc.credito = 0;
-                linea_obc.castigo_activo = movimiento.dec_to_gasto;
-                linea_obc.venta_activo = 0;// movimiento.dec_to_activo;
-                linea_obc.valor_final_activo = movimiento.saldo_final;
-                linea_obc.depreciacion_acumulada_inicial = 0;
-                linea_obc.cm_depreciacion = 0;
-                linea_obc.valor_residual = 0;
-                linea_obc.depreciacion_ejercicio = 0;
-                linea_obc.castigo_depreciacion = 0;
-                linea_obc.venta_depreciacion = 0;
-                linea_obc.depreciacion_acumulada_final = 0;
-                linea_obc.valor_libro = 0;
-                linea_obc.orden1 = linea_obc.clase.code;
-                linea_obc.orden2 = string.Empty;
-                linea_obc.orden3 = string.Empty;
+                var linea_obc = GROUP_MOVEMENT.FromOBC(movimiento,_svr.Repo.Clases.OBC);
                 resultado.Add(linea_obc);
             }
 

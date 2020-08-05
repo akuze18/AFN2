@@ -103,11 +103,11 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                     //AtribGrupo.AutoResizeColumns();
                     AtribGrupo.SelectedItem = null;// ClearSelection();
                     //establecer visibilidad o ancho de columnas segun corresponda
-                    AtribGrupo.Columns[0].Width = 0;
-                    AtribGrupo.Columns[1].Width = 0;
-                    AtribGrupo.Columns[2].Width = 200;
-                    AtribGrupo.Columns[3].Width = 355;
-                    AtribGrupo.Columns[4].Width = 70;
+                    //AtribGrupo.Columns[0].Width = 0;
+                    //AtribGrupo.Columns[1].Width = 0;
+                    AtribGrupo.Columns[0].Width = 200;
+                    AtribGrupo.Columns[1].Width = 355;
+                    AtribGrupo.Columns[2].Width = 70;
                     //foreach(ColumnHeader columna in AtribGrupo.Columns)
                     //    columna.SortMode = DataGridViewColumnSortMode.NotSortable;
                     //AtribGrupo.Sort(AtribGrupo.Columns[0], SortOrder.Ascending);
@@ -354,8 +354,8 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 mensaje = mensaje + "   Eliminados  " + elimina.ToString() + Env.NewLine;
             if (malo != 0)
                 mensaje = mensaje + "   Fallidos  " + malo.ToString() + Env.NewLine;
-            P.Mensaje.Info(mensaje);
             _padre.RenovarPanel();
+            P.Mensaje.Info(mensaje);
         }
     }
 }

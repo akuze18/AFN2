@@ -145,7 +145,9 @@ namespace AFN_WF_C.PCClient.Procesos
                     new TituloCabera(3,"Descripción breve de los bienes")  ,
                     new TituloCabera(4,"Cantidad") ,
                     new TituloCabera(5,"Zona","CODE" ) ,
+                    new TituloCabera(5,"Descripción Zona","DESCRIP"),
                     new TituloCabera(6,"Clase","CODE" ) ,
+                    new TituloCabera(6,"Descripción Clase","DESCRIP"),
                     new TituloCabera(7,"Valor Inicial") ,
                     new TituloCabera(20,"%C.M.") ,
                     new TituloCabera(21,"C. Monetaria Activo") ,
@@ -186,7 +188,9 @@ namespace AFN_WF_C.PCClient.Procesos
                     new TituloCabera(3,"Descripción breve de los bienes")  ,
                     new TituloCabera(4,"Cantidad") ,
                     new TituloCabera(5,"Zona","CODE" ) ,
+                    new TituloCabera(5,"Descripción Zona","DESCRIP"),
                     new TituloCabera(6,"Clase","CODE" ) ,
+                    new TituloCabera(6,"Descripción Clase","DESCRIP"),
                     new TituloCabera(7,"Valor Inicial") ,
                     new TituloCabera(25,"Preparacion") ,
                     new TituloCabera(26,"Desmantelamiento") ,
@@ -461,11 +465,11 @@ namespace AFN_WF_C.PCClient.Procesos
                 new TituloCabera(Cord2,Tord2, "DESCRIP"  ) ,
                 new TituloCabera(Cord3,Tord3, "DESCRIP"  ) ,
                 new TituloCabera(4,"Valor Inicial")  ,
-                new TituloCabera(25,"Preparacion") ,
-                new TituloCabera(26,"Desmantelamiento") ,
-                new TituloCabera(27,"Transporte") ,
-                new TituloCabera(28,"Montaje") ,
-                new TituloCabera(29,"Honorarios") ,
+                new TituloCabera(26,"Preparacion") ,
+                new TituloCabera(27,"Desmantelamiento") ,
+                new TituloCabera(28,"Transporte") ,
+                new TituloCabera(29,"Montaje") ,
+                new TituloCabera(30,"Honorarios") ,
                 new TituloCabera(6,"Credito adiciones") ,
                 new TituloCabera(7,"Valor de Activo Fijo") ,
                 new TituloCabera(8,"Dep. Acum Anterior") ,
@@ -652,7 +656,10 @@ namespace AFN_WF_C.PCClient.Procesos
             ini_titulo = ini_titulo + 2;
 
             TituloCabera[] titulos;
-            titulos = GetTitulosCuadroMovimiento;
+            if (sistema.ENVIORMENT == "IFRS")
+                titulos = GetTitulosCuadroMovimientoIFRS;
+            else
+                titulos = GetTitulosCuadroMovimiento;
             int max_columnas = titulos.Count();
             //formato titulos
             celLrangE = worKsheeT.Rows[ini_titulo.ToString() + ":" + ini_titulo.ToString()];
@@ -695,6 +702,31 @@ namespace AFN_WF_C.PCClient.Procesos
                 return new TituloCabera[]{
                     new TituloCabera(1,"Cuenta","DESCRIP"),
                     new TituloCabera(17,"Saldo Inicial"),
+                    new TituloCabera(18,"Adiciones"),
+                    new TituloCabera(19,"Desde Obras en Construccion"),
+                    new TituloCabera(25,"Hacia Activo Fijo"),
+                    new TituloCabera(6,"Credito"),
+                    new TituloCabera(20,"Castigos","CODE"),
+                    new TituloCabera(21,"Ventas","CODE"),
+                    new TituloCabera(7,"Saldo Final"),
+                    new TituloCabera(1,"Cuenta","DESCRIP"),
+                    new TituloCabera(8,"Saldo Inicial"),
+                    new TituloCabera(11,"Dep. Ejercicio"),
+                    new TituloCabera(9,"C Mon"),
+                    new TituloCabera(22,"Castigos"),
+                    new TituloCabera(23,"Ventas"),
+                    new TituloCabera(12,"Saldo Final"),
+                    new TituloCabera(13,"Valor Neto")
+                };
+            }
+        }
+        private static TituloCabera[] GetTitulosCuadroMovimientoIFRS
+        {
+            get
+            {
+                return new TituloCabera[]{
+                    new TituloCabera(1,"Cuenta","DESCRIP"),
+                    new TituloCabera(32,"Saldo Inicial"),
                     new TituloCabera(18,"Adiciones"),
                     new TituloCabera(19,"Desde Obras en Construccion"),
                     new TituloCabera(25,"Hacia Activo Fijo"),

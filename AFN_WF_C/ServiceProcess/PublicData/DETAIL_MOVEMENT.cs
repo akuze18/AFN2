@@ -95,6 +95,8 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public int PartId { get; private set; }
 
+        public bool HasPrevious { get; private set; }
+        public decimal activo_acumulado_inicial_ifrs { get; private set; }
         #endregion
 
         #region Constructor
@@ -118,6 +120,13 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
             this.derecho_credito = final.derecho_credito;
 
+            this.preparacion = final.parametros.GetPreparacion.value * final.cantidad;
+            this.desmantelamiento = final.parametros.GetDesmantelamiento.value * final.cantidad;
+            this.transporte = final.parametros.GetTransporte.value * final.cantidad;
+            this.montaje = final.parametros.GetMontaje.value * final.cantidad;
+            this.honorario = final.parametros.GetHonorario.value * final.cantidad;
+
+            this.HasPrevious = (initial != null);
             if (initial != null)
             {
                 this.zona_anterior = initial.zona;
@@ -127,7 +136,14 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 this.gestion_anterior = initial.gestion;
                 this.categoria_anterior = initial.categoria;
 
-                this.valor_activo_inicial = (initial.parametros.PrecioBaseVal * initial.cantidad) + (final.parametros.CreditoVal * final.cantidad);
+                this.valor_activo_inicial = ((initial.parametros.PrecioBaseVal) * initial.cantidad) + (final.parametros.CreditoVal * final.cantidad);
+                this.activo_acumulado_inicial_ifrs = this.valor_activo_inicial + this.preparacion + this.desmantelamiento + this.transporte + this.montaje + this.honorario;
+                //this.preparacion = 0;
+                //this.desmantelamiento = 0;
+                //this.transporte = 0;
+                //this.montaje = 0;
+                //this.honorario = 0;
+
                 this.credito_monto = 0;
                 this.depreciacion_acum_inicial = initial.parametros.DepreciacionAcumVal * initial.cantidad;
                 this.deterioro = initial.parametros.DeterioroVal * initial.cantidad;
@@ -150,6 +166,8 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 //this.categoria_anterior = null;
 
                 this.valor_activo_inicial = final.parametros.PrecioBaseVal * final.cantidad;
+                this.activo_acumulado_inicial_ifrs = this.valor_activo_inicial;
+
                 this.credito_monto = final.parametros.CreditoVal * final.cantidad;
                 this.depreciacion_acum_inicial = 0;
                 this.deterioro = final.parametros.DeterioroVal * final.cantidad;
@@ -161,11 +179,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             this.porcentaje_cm = 0;
             this.valor_activo_cm = 0;
             this.valor_activo_update = this.valor_activo_inicial + this.valor_activo_cm;
-            this.preparacion = final.parametros.GetPreparacion.value * final.cantidad;
-            this.desmantelamiento = final.parametros.GetDesmantelamiento.value * final.cantidad;
-            this.transporte = final.parametros.GetTransporte.value * final.cantidad;
-            this.montaje = final.parametros.GetMontaje.value * final.cantidad;
-            this.honorario = final.parametros.GetHonorario.value * final.cantidad;
+            
             this.valor_activo_final = this.valor_activo_update + this.credito_monto + this.preparacion + this.desmantelamiento + this.transporte + this.montaje + this.honorario;
             this.depreciacion_acum_cm = 0;
             this.depreciacion_acum_update = this.depreciacion_acum_inicial + this.depreciacion_acum_cm;

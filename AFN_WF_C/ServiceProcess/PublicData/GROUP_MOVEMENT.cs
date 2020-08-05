@@ -14,6 +14,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             this.zona = (group1.type == "ZONE" ? group1 : ((group2.type == "ZONE") ? group2 : group3));
             this.lugar = (group1.type == "SUBZONE" ? group1 : ((group2.type == "SUBZONE") ? group2 : group3));
             this.valor_inicial_activo = GroupDetail.Sum(a => a.valor_activo_inicial);
+            this.valor_inicial_acumulado_ifrs = GroupDetail.Sum(a => a.activo_acumulado_inicial_ifrs);
             this.cm_activo = GroupDetail.Sum(a => a.valor_activo_cm);
             this.credito = GroupDetail.Sum(a => a.credito_monto);
             this.preparacion = GroupDetail.Sum(a => a.preparacion);
@@ -82,6 +83,37 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             this.Filling(Zone, SubZone, Kind, GroupDetail);
         }
 
+
+        public static GROUP_MOVEMENT FromOBC(GROUP_OBC movimiento, GENERIC_VALUE obcKind)
+        {
+            var linea_obc = new GROUP_MOVEMENT();
+            linea_obc.clase = obcKind;
+            //linea_obc.zona = null;  //no tiene importancia completar este valor para este reporte
+            //linea_obc.lugar = null; //no tiene importancia completar este valor para este reporte
+            linea_obc.saldo_inicial_activo = movimiento.saldo_inicial;
+            linea_obc.valor_inicial_acumulado_ifrs = movimiento.saldo_inicial;
+            linea_obc.adiciones_regular = movimiento.incremento;
+            linea_obc.adiciones_obc = 0;
+            linea_obc.decremento_obc = movimiento.dec_to_activo;
+            linea_obc.valor_inicial_activo = movimiento.saldo_inicial + movimiento.incremento;
+            linea_obc.cm_activo = 0;
+            linea_obc.credito = 0;
+            linea_obc.castigo_activo = movimiento.dec_to_gasto;
+            linea_obc.venta_activo = 0;// movimiento.dec_to_activo;
+            linea_obc.valor_final_activo = movimiento.saldo_final;
+            linea_obc.depreciacion_acumulada_inicial = 0;
+            linea_obc.cm_depreciacion = 0;
+            linea_obc.valor_residual = 0;
+            linea_obc.depreciacion_ejercicio = 0;
+            linea_obc.castigo_depreciacion = 0;
+            linea_obc.venta_depreciacion = 0;
+            linea_obc.depreciacion_acumulada_final = 0;
+            linea_obc.valor_libro = 0;
+            linea_obc.orden1 = linea_obc.clase.code;
+            linea_obc.orden2 = string.Empty;
+            linea_obc.orden3 = string.Empty;
+            return linea_obc;
+        }
         #endregion
 
         public GENERIC_VALUE clase;
@@ -117,6 +149,21 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public string orden1;
         public string orden2;
         public string orden3;
+
+        //private bool HasPrevious;
+
+        public decimal valor_inicial_acumulado_ifrs;
+        //private decimal valor_inicial_cuadro_movimiento_ifrs
+        //{
+        //    get {
+        //        if (desmantelamiento != 0)
+        //            desmantelamiento = desmantelamiento+1-1;
+        //        if (HasPrevious)
+        //            return (valor_inicial_activo + preparacion + desmantelamiento + transporte + montaje + honorario);
+        //        else
+        //            return valor_inicial_activo;
+        //    }
+        //}
 
         public object Item(int index)
         {
@@ -154,6 +201,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 case 29: return montaje * signo;
                 case 30: return honorario * signo;
                 case 31: return revalorizacion * signo;
+                case 32: return valor_inicial_acumulado_ifrs * signo;   //inicial IFRS
                 default: return null;
             }
         }
