@@ -817,7 +817,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             if (derecho)
             {
                 SV_PARAMETER cred = P.Consultas.parametros.Credito;
-                valor_proceso = curSystem.ENVIORMENT.credit_rate * -valor_unitario;
+                valor_proceso = Math.Round(curSystem.ENVIORMENT.credit_rate * -valor_unitario,0);
                 mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabeceras, curSystem, cred, valor_proceso);
                 if (mRS.CheckError) return mRS;
             }
@@ -834,7 +834,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             if (curSystem.ENVIORMENT == "IFRS")
             {
                 decimal porc = P.Consultas.predeter_ifrs.porcentaje_valor_residual(clase);
-                valor_proceso = valor_unitario * (-porc) ;
+                valor_proceso = Math.Round(valor_unitario * (-porc),0) ;
             }
             else
                 valor_proceso = -1;
