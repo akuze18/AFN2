@@ -9,6 +9,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
     {
         private int _id;
         private int _article_part_id;
+        private int _head_index;
         private DateTime _trx_ini;
         private DateTime _trx_end;
         private string _ref_source;
@@ -23,6 +24,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public int id { get { return _id; } }
         public int article_part_id { get { return _article_part_id; } }
+        public int head_index { get { return _head_index; } }
         public DateTime trx_ini { get { return _trx_ini; } }
         public DateTime trx_end { get { return _trx_end; } }
         public string ref_source { get { return _ref_source; } }
@@ -42,6 +44,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
             {
                 _id = od.id,
                 _article_part_id = od.article_part_id,
+                _head_index = od.head_index,
                 _trx_ini = od.trx_ini,
                 _trx_end = od.trx_end,
                 _ref_source = od.ref_source,

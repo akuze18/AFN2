@@ -80,11 +80,13 @@ namespace AFN_WF_C.ServiceProcess
                                 cab.article_part_id = parte.a.id;
                                 if (find_current_valid_head == null)
                                 {
+                                    cab.head_index = 1;
                                     cab.trx_ini = curr_fin_clp.fecha_inicio;
                                     cab.trx_end = (DateTime)curr_fin_clp.fecha_fin;
                                 }
                                 else
                                 {
+                                    cab.head_index = find_current_valid_head.head_index + 1;
                                     cab.trx_ini = WorkingDate;
                                     cab.trx_end = find_current_valid_head.trx_end;
                                     find_current_valid_head.trx_end = WorkingDate;
@@ -1045,7 +1047,9 @@ namespace AFN_WF_C.ServiceProcess
                             cab_origin.trx_end = per.last;
 
                             TRANSACTION_HEADER cab_new = new TRANSACTION_HEADER();
+
                             cab_new.article_part_id = parte.a.id;
+                            cab_new.head_index = cab_origin.head_index + 1;
                             cab_new.trx_ini = per.last;
                             cab_new.trx_end = f_fin_origin;
                             cab_new.ref_source = "DEP_MIG";

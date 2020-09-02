@@ -14144,7 +14144,8 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         /// <param name="category_id">Valor inicial de la propiedad category_id.</param>
         /// <param name="user_own">Valor inicial de la propiedad user_own.</param>
         /// <param name="method_revalue_id">Valor inicial de la propiedad method_revalue_id.</param>
-        public static TRANSACTION_HEADER CreateTRANSACTION_HEADER(global::System.Int32 id, global::System.Int32 article_part_id, global::System.DateTime trx_ini, global::System.DateTime trx_end, global::System.String ref_source, global::System.Int32 zone_id, global::System.Int32 subzone_id, global::System.Int32 kind_id, global::System.Int32 subkind_id, global::System.Int32 category_id, global::System.String user_own, global::System.Int32 method_revalue_id)
+        /// <param name="head_index">Valor inicial de la propiedad head_index.</param>
+        public static TRANSACTION_HEADER CreateTRANSACTION_HEADER(global::System.Int32 id, global::System.Int32 article_part_id, global::System.DateTime trx_ini, global::System.DateTime trx_end, global::System.String ref_source, global::System.Int32 zone_id, global::System.Int32 subzone_id, global::System.Int32 kind_id, global::System.Int32 subkind_id, global::System.Int32 category_id, global::System.String user_own, global::System.Int32 method_revalue_id, global::System.Int32 head_index)
         {
             TRANSACTION_HEADER tRANSACTION_HEADER = new TRANSACTION_HEADER();
             tRANSACTION_HEADER.id = id;
@@ -14159,6 +14160,7 @@ namespace AFN_WF_C.ServiceProcess.DataContract
             tRANSACTION_HEADER.category_id = category_id;
             tRANSACTION_HEADER.user_own = user_own;
             tRANSACTION_HEADER.method_revalue_id = method_revalue_id;
+            tRANSACTION_HEADER.head_index = head_index;
             return tRANSACTION_HEADER;
         }
 
@@ -14480,6 +14482,30 @@ namespace AFN_WF_C.ServiceProcess.DataContract
         private global::System.Int32 _method_revalue_id;
         partial void Onmethod_revalue_idChanging(global::System.Int32 value);
         partial void Onmethod_revalue_idChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 head_index
+        {
+            get
+            {
+                return _head_index;
+            }
+            set
+            {
+                Onhead_indexChanging(value);
+                ReportPropertyChanging("head_index");
+                _head_index = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("head_index");
+                Onhead_indexChanged();
+            }
+        }
+        private global::System.Int32 _head_index;
+        partial void Onhead_indexChanging(global::System.Int32 value);
+        partial void Onhead_indexChanged();
 
         #endregion
 

@@ -742,6 +742,7 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="article_part_id" Type="int" Nullable="false" />
+          <Property Name="head_index" Type="int" Nullable="false" />
           <Property Name="trx_ini" Type="datetime" Nullable="false" />
           <Property Name="trx_end" Type="datetime" Nullable="false" />
           <Property Name="ref_source" Type="varchar" Nullable="false" MaxLength="15" />
@@ -2242,6 +2243,7 @@
           <NavigationProperty Name="TRANSACTIONS_PARAMETERS_DETAILS" Relationship="AFN2Model.FK__TRANSACTI__trx_h__5C37ACAD" FromRole="TRANSACTION_HEADER" ToRole="TRANSACTIONS_PARAMETERS_DETAILS" />
           <Property Type="Int32" Name="method_revalue_id" Nullable="false" />
           <NavigationProperty Name="METHOD_REVALUE" Relationship="AFN2Model.FK__TRANSACTIONS_HEADERS__method" FromRole="TRANSACTION_HEADER" ToRole="METHOD_REVALUES" />
+          <Property Type="Int32" Name="head_index" Nullable="false" />
         </EntityType>
         <EntityType Name="TYPE_ASSET">
           <Key>
@@ -3665,6 +3667,7 @@
           <EntitySetMapping Name="TRANSACTIONS_HEADERS">
             <EntityTypeMapping TypeName="AFN2Model.TRANSACTION_HEADER">
               <MappingFragment StoreEntitySet="TRANSACTIONS_HEADERS">
+                <ScalarProperty Name="head_index" ColumnName="head_index" />
                 <ScalarProperty Name="method_revalue_id" ColumnName="method_revalue_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="article_part_id" ColumnName="article_part_id" />

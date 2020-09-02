@@ -152,6 +152,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 {
                     TRANSACTION_HEADER nueva_head = new TRANSACTION_HEADER();
                     nueva_head.PART = nueva_parte;      //con este relacionamos a la nueva parte
+                    nueva_head.head_index = s_trx_head.head_index;
                     nueva_head.trx_ini = s_trx_head.trx_ini;
                     nueva_head.trx_end = s_trx_head.trx_end;
                     nueva_head.ref_source = s_trx_head.ref_source;

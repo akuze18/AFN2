@@ -45,6 +45,14 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             _transactions_headers = new TRANSACTIONS_HEADERS(_context.TRANSACTIONS_HEADERS);
         }
 
+        public int GetNextHeadIndex(int ArticlePartId)
+        {
+            int nextIndex = (from A in _context.TRANSACTIONS_HEADERS
+                             where A.article_part_id == ArticlePartId
+                             orderby A.head_index
+                             select A.head_index).FirstOrDefault();
+            return nextIndex + 1;
+        }
 
         public TRANSACTION_HEADER TRANSACTION_HEAD_NEW(SV_TRANSACTION_HEADER Tprevious, AFN_INVENTARIO source)  //para migracion
         {
@@ -55,6 +63,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
             var head = new TRANSACTION_HEADER();
             head.article_part_id = Tprevious.article_part_id;
+            head.head_index = GetNextHeadIndex(Tprevious.article_part_id);
             head.trx_ini = source.fecha_inicio;
             head.trx_end = Tprevious.trx_end;
             head.ref_source = ref_source(source.fecha_inicio,source,PurchaseDate);
@@ -93,6 +102,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
 
             var head = new TRANSACTION_HEADER();
             head.article_part_id = article_part.id;
+            head.head_index = GetNextHeadIndex(article_part.id);
             head.trx_ini = source.fecha_inicio;
             head.trx_end = (DateTime)source.fecha_fin;
             head.ref_source = ref_source(source.fecha_inicio, source, PurchaseDate);
@@ -128,6 +138,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                 {
                     TRANSACTION_HEADER nueva_cab = new TRANSACTION_HEADER();
                     nueva_cab.article_part_id = part.id;
+                    nueva_cab.head_index = GetNextHeadIndex(part.id);
                     nueva_cab.trx_ini = fecha_compra;
                     nueva_cab.trx_end = _final_date;
                     nueva_cab.ref_source = _ref_purchase;
@@ -237,11 +248,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
         //    var Vventa = Vigencias.VENTA();
         //    return REGISTER_DOWNS_HEAD(parteId, fechaVenta, prevHead, userName, Vventa);
         //}
-        public RespuestaAccion REGISTER_DISPOSAL_HEAD(int parteId, DateTime fechaVenta, SV_TRANSACTION_HEADER prevHead, string userName)
-        {
-            var Vcastigo = Vigencias.CASTIGO();
-            return REGISTER_DOWNS_HEAD(parteId, fechaVenta, prevHead, userName, Vcastigo);
-        }
+        //public RespuestaAccion REGISTER_DISPOSAL_HEAD(int parteId, DateTime fechaVenta, SV_TRANSACTION_HEADER prevHead, string userName)
+        //{
+        //    var Vcastigo = Vigencias.CASTIGO();
+        //    return REGISTER_DOWNS_HEAD(parteId, fechaVenta, prevHead, userName, Vcastigo);
+        //}
 
         public RespuestaAccion REGISTER_DOWNS_HEAD(int parteId, DateTime fechaBaja, SV_TRANSACTION_HEADER prevHead, string userName, SV_VALIDATY tipo_baja)
         {
@@ -260,11 +271,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                     break;
             }
             
-            //TODO: crear ingreso de transaccion de venta
             try
             {
                 TRANSACTION_HEADER headDown = new TRANSACTION_HEADER();
                 headDown.article_part_id = parteId;
+                headDown.head_index = GetNextHeadIndex(parteId);
                 headDown.trx_ini = fechaBaja;
                 headDown.trx_end = prevHead.trx_end;
                 headDown.ref_source = reference;
@@ -305,6 +316,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             {
                 TRANSACTION_HEADER headChange = new TRANSACTION_HEADER();
                 headChange.article_part_id = parteId;
+                headChange.head_index = GetNextHeadIndex(parteId);
                 headChange.trx_ini = fechaCambio;
                 headChange.trx_end = prevHead.trx_end;
                 headChange.ref_source = _ref_change;

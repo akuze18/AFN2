@@ -467,20 +467,30 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                              HeadManageId = C.manage_id,
                              HeadUserOwn = C.user_own,
                              HeadId = C.id,
+                             HeadIndex = C.head_index,
                              HeadRefSource = C.ref_source,
                              MethodRevalId = C.method_revalue_id,
                              //Detail = D 
                              DetailValidityId = D.validity_id,
                              DetailDepreciate = D.depreciate,
                              DetailAllowCredit = D.allow_credit,
-                             DetailId = D.id
-                         });
-
-            var selectedHeads = datos.Select(d => d.HeadId).Distinct().ToArray();
+                             DetailId = D.id,
+                         }).ToList();
+            var selectedHeads = datos.
+                                GroupBy(d => d.PartId).
+                                Select(d => 
+                                    //new { 
+                                    //PartId = d.Key, 
+                                    //HeadMaxId = d.Max(e => e.HeadIndex), HeadId = 
+                                    d.Where(e => e.HeadIndex == d.Max(f => f.HeadIndex))
+                                    .FirstOrDefault().HeadId
+                                    //}
+                                ).ToArray();
+            //var selectedHeads = datos.Select(d => d.HeadId).Distinct().ToArray();
             set_detalle_parametros(sistema.id, selectedHeads);
             var all_params = this.parametros_sistemas.BySystem(sistema.id);
 
-            foreach (var d in datos)
+            foreach (var d in datos.Where(a => selectedHeads.Contains(a.HeadId)))
             {
                 var line = new DETAIL_PROCESS();
                 line.fecha_proceso = corte;

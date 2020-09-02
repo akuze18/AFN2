@@ -170,10 +170,9 @@ namespace AFN_WF_C.ServiceProcess
                     var part = a.part;
                     var wholeTransac = lineas.Where(x => x.cod_articulo == arti && x.parte == part).ToList();
                     var defaultTransac = wholeTransac.Where(x => x.sistema == default_system).First();
-                    var HeadIdSource = defaultTransac.HeadId;
                     foreach (var t in wholeTransac)
                     {
-                        if (t.HeadId != HeadIdSource)
+                        if (t.HeadId != defaultTransac.HeadId)
                         {
                             //hubo un problema
                             informe.codigo = 3;
@@ -305,6 +304,7 @@ namespace AFN_WF_C.ServiceProcess
 
                         var head_t_new = new TRANSACTION_HEADER();
                         head_t_new.article_part_id = defaultTransac.PartId;
+                        head_t_new.head_index = _svr.Repo.GetNextHeadIndex(defaultTransac.PartId);
                         head_t_new.trx_ini = fecha_proceso;
                         head_t_new.trx_end = defaultTransac.fecha_fin;
                         head_t_new.ref_source = "dep_calc";
@@ -883,7 +883,7 @@ namespace AFN_WF_C.ServiceProcess
             var result = new List<DETAIL_ACCOUNT>();
             var vig = rep.Vigencias.All().Select(v => v.id).ToArray();
             var estado_final = base_movimiento(fuente, periodo.last, vig);
-            var estado_inicial = base_movimiento(fuente, periodo.first, vig);
+            var estado_inicial = base_movimiento(fuente, periodo.first.AddDays(-1) , vig);
 
             var grupos = rep.contabilizar.grupos_contables();
             var lineas = rep.contabilizar.lineas();
