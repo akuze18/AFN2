@@ -131,10 +131,10 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             CkEstado.Checked = estado;
             _TCambio = tc;
         }
-        public void LoadOBC(int valor_uni, int cantidad, int diferencia, List<P.Estructuras.DetalleOBC> salidasOBC)
+        public void LoadOBC(int valor_total, int cantidad, List<P.Estructuras.DetalleOBC> salidasOBC)
         {
             cargar(0, string.Empty, 2, false, 1);
-            this.ficha_basica.cargarOBC(valor_uni, cantidad, diferencia, salidasOBC);
+            this.ficha_basica.cargarOBC(valor_total, cantidad, salidasOBC);
             
         }
         public void RenovarPanel()

@@ -14,25 +14,24 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             _transactions_details = new TRANSACTIONS_DETAILS(_context.TRANSACTIONS_DETAILS);
         }
 
-        public RespuestaAccion REGISTER_PURCHASE_DETAIL(List<GENERIC_VALUE> cabeceras, SV_SYSTEM sistema, bool depreciar, bool con_credito)
+        public RespuestaAccion REGISTER_PURCHASE_DETAIL(GENERIC_VALUE cabecera, SV_SYSTEM sistema, bool depreciar, bool con_credito)
         {
             var res = new RespuestaAccion();
             try
             {
-                foreach (var cabecera in cabeceras)
-                {
-                    TRANSACTION_DETAIL nuevo_det = new TRANSACTION_DETAIL();
-                    nuevo_det.trx_head_id = cabecera.id;
-                    nuevo_det.system_id = sistema.id;
-                    nuevo_det.validity_id = Vigencias.VIGENTE().id;
-                    nuevo_det.depreciate = depreciar;
-                    nuevo_det.allow_credit = con_credito;
+                
+                TRANSACTION_DETAIL nuevo_det = new TRANSACTION_DETAIL();
+                nuevo_det.trx_head_id = cabecera.id;
+                nuevo_det.system_id = sistema.id;
+                nuevo_det.validity_id = Vigencias.VIGENTE().id;
+                nuevo_det.depreciate = depreciar;
+                nuevo_det.allow_credit = con_credito;
 
-                    _context.TRANSACTIONS_DETAILS.AddObject(nuevo_det);
-                    _context.SaveChanges();
+                _context.TRANSACTIONS_DETAILS.AddObject(nuevo_det);
+                _context.SaveChanges();
 
-                    res.result_objs.Add((SV_TRANSACTION_DETAIL)nuevo_det);
-                }
+                res.result_objs.Add((SV_TRANSACTION_DETAIL)nuevo_det);
+                
                 res.set_ok();
             }
             catch (Exception ex)
@@ -41,30 +40,31 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             }
             return res;
         }
-        public RespuestaAccion MODIF_PURCHASE_DETAIL(int[] cabecerasId, SV_SYSTEM sistema, bool depreciar, bool con_credito)
+        public RespuestaAccion MODIF_PURCHASE_DETAIL(int headId, SV_SYSTEM sistema, bool depreciar, bool con_credito)
         {
             var res = new RespuestaAccion();
             try
             {
                 int validity_id = 1;    //Durante las compras nunca se debe cambiar el estado de validacion
-                foreach (var headId in cabecerasId)
+                
+                var FindDetail = (from d in _context.TRANSACTIONS_DETAILS
+                                    where d.trx_head_id == headId &&
+                                    d.system_id == sistema.id
+                                    select d).FirstOrDefault();
+                if (FindDetail != null)
                 {
-                    var FindDetail = (from d in _context.TRANSACTIONS_DETAILS
-                                      where d.trx_head_id == headId &&
-                                      d.system_id == sistema.id
-                                      select d).FirstOrDefault();
-                    if (FindDetail != null)
-                    {
-                        FindDetail.validity_id = validity_id;
-                        FindDetail.allow_credit = con_credito;
-                        FindDetail.depreciate = depreciar;
+                    FindDetail.validity_id = validity_id;
+                    FindDetail.allow_credit = con_credito;
+                    FindDetail.depreciate = depreciar;
 
-                        _context.SaveChanges();
-
-                        res.AddResultObj(FindDetail.id, FindDetail.GetType());
-                    }
+                    _context.SaveChanges();
+                    res.AddResultObj(FindDetail.id, FindDetail.GetType());
+                    res.set_ok();
                 }
-                res.set_ok();
+                else
+                {
+                    res.set(-2, "No se encontro cabecera para modificar");
+                }
             }
             catch (Exception ex)
             {

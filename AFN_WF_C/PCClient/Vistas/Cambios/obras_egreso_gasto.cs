@@ -19,6 +19,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         private PD.GENERIC_VALUE Ezona;
         //private int aprovalState;
         private int? idSalida;
+        private string sMil;
 
         public obras_egreso_gasto()
         {
@@ -27,7 +28,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 
         private void obras_egreso_gasto_Load(object sender, EventArgs e)
         {
-           
+            sMil = P.Auxiliar.getSeparadorMil;
             BuildSaldosBinding();
             Tsaldos.RowHeadersWidth = 25;
             Tsaldos.Columns[0].Width = 70; //Deja de estar oculta
@@ -161,7 +162,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         {
             string procesar;
             procesar = EmontoSel.Text;
-            procesar = procesar.Replace(",", "");
+            procesar = procesar.Replace(sMil, "");
             EmontoSel.Text = int.Parse(procesar).ToString("#");
         }
         private void EmontoSel_LostFocus(Object sender , EventArgs e) //Handles EmontoSel.LostFocus
@@ -171,8 +172,8 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 decimal Dprocesar, Dmaximo;
                 procesar = EmontoSel.Text;
                 pmaximo = EmontoMax.Text;
-                procesar = procesar.Replace(",", "");
-                pmaximo = pmaximo.Replace( ",", "");
+                procesar = procesar.Replace(sMil, "");
+                pmaximo = pmaximo.Replace(sMil, "");
                 Dmaximo = decimal.Parse(pmaximo);
                 if (! decimal.TryParse(procesar,out Dprocesar) ) {
                     P.Mensaje.Advert("Solo puede ingresar números en la cantidad");
@@ -199,8 +200,8 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             cod = 0;  montoMax = 0; montoSel = 0;
             ver1 = (Ecod.Text != string.Empty && int.TryParse(Ecod.Text, out cod));
             ver2 = (Edesc.Text != string.Empty);
-            ver3 = (EmontoMax.Text != string.Empty && int.TryParse(EmontoMax.Text.Replace(",", ""), out montoMax));
-            if (EmontoSel.Text != String.Empty && int.TryParse(EmontoSel.Text.Replace(",", ""), out montoSel))
+            ver3 = (EmontoMax.Text != string.Empty && int.TryParse(EmontoMax.Text.Replace(sMil, ""), out montoMax));
+            if (EmontoSel.Text != String.Empty && int.TryParse(EmontoSel.Text.Replace(sMil, ""), out montoSel))
                 ver4 = ( montoSel != 0 );
             else
                 ver4 = false;
@@ -316,8 +317,8 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                         BuildSalidasBinding(ToProcess);
                     }
                     cargar_saldos();
-                   
-                    //EmontoMax.Text = Format(Val(Replace(EmontoMax.Text, ",", "")) - Val(Replace(EmontoSel.Text, ",", "")), "#,##0")
+
+                    //EmontoMax.Text = Format(Val(Replace(EmontoMax.Text,sMil, "")) - Val(Replace(EmontoSel.Text, sMil, "")), "#,##0")
                     //EmontoSel.Text = 0
                     salidaAF.ClearSelection();
                     //act_batch = batch

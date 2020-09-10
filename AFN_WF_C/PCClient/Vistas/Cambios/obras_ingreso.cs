@@ -16,7 +16,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
     public partial class obras_ingreso : AFN_WF_C.PCClient.FormBase
     {
         Color color_btn;
-
+        private string sMil;
         public obras_ingreso()
         {
             InitializeComponent();
@@ -24,6 +24,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 
         private void obras_ingreso_Load(object sender, EventArgs e)
         {
+            sMil = P.Auxiliar.getSeparadorMil;
             DateTime tmp_fecha;
             tmp_fecha = Today.AddMonths(-6);
             ACode.Vperiodo tmp_per = new ACode.Vperiodo(tmp_fecha.Year,tmp_fecha.Month);
@@ -64,7 +65,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             string procesar;
             int valor;
             procesar = Tcredito.Text;
-            procesar = procesar.Replace(",", "");
+            procesar = procesar.Replace(sMil, "");
             if(int.TryParse(procesar,out valor))
                 Tcredito.Text = valor.ToString("#");
             else
@@ -72,11 +73,12 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         }
         private void Tcredito_LostFocus(Object sender, EventArgs e)// Handles Tcredito.LostFocus
         {
+            string sMil = P.Auxiliar.getSeparadorMil;
             if (Tcredito.Text != string.Empty ) {
                 string procesar;
                 int valor;
                 procesar = Tcredito.Text;
-                procesar = procesar.Replace(",", "");
+                procesar = procesar.Replace(sMil, "");
                 if (int.TryParse(procesar,out valor) ) {
                     Tcredito.Text = valor.ToString("#,##0");
                 }

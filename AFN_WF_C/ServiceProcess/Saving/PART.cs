@@ -56,10 +56,11 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             var res = new RespuestaAccion();
             try
             {
-                decimal valor_unitario = Math.Floor(valor_total / cantidad_total);
-                int residuo = (int)(valor_total - (valor_unitario * cantidad_total));
-                if (residuo == 0)
-                {
+                decimal valor_unitario =(valor_total / cantidad_total);
+                //siempre se generara solo 1 registro por compra
+                //int residuo = (int)(valor_total - (valor_unitario * cantidad_total));
+                //if (residuo == 0)
+                //{
                     //solo requiero 1 parte
                     PART part1 = new PART();
                     part1.article_id = batch_id;
@@ -71,26 +72,26 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                     _context.SaveChanges();
 
                     res.result_objs.Add((SV_PART)part1);
-                }
-                else
-                {
-                    PART part1 = new PART();
-                    part1.article_id = batch_id;
-                    part1.part_index = 0;
-                    part1.quantity = cantidad_total - residuo;
-                    part1.first_date = fecha_compra;
-                    _context.PARTS.AddObject(part1);
+                //}
+                //else
+                //{
+                    //PART part1 = new PART();
+                    //part1.article_id = batch_id;
+                    //part1.part_index = 0;
+                    //part1.quantity = cantidad_total - residuo;
+                    //part1.first_date = fecha_compra;
+                    //_context.PARTS.AddObject(part1);
 
-                    PART part2 = new PART();
-                    part2.article_id = batch_id;
-                    part2.part_index = 1;
-                    part2.quantity = residuo;
-                    part2.first_date = fecha_compra;
-                    _context.PARTS.AddObject(part2);
-                    _context.SaveChanges();
-                    res.result_objs.Add((SV_PART)part1);
-                    res.result_objs.Add((SV_PART)part2);
-                }
+                    //PART part2 = new PART();
+                    //part2.article_id = batch_id;
+                    //part2.part_index = 1;
+                    //part2.quantity = residuo;
+                    //part2.first_date = fecha_compra;
+                    //_context.PARTS.AddObject(part2);
+                    //_context.SaveChanges();
+                    //res.result_objs.Add((SV_PART)part1);
+                    //res.result_objs.Add((SV_PART)part2);
+                //}
                 res.set_ok();
             }
             catch (Exception ex)

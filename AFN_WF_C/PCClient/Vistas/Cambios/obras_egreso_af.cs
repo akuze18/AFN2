@@ -15,7 +15,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 {
     public partial class obras_egreso_af : AFN_WF_C.PCClient.FormBase
     {
-        
+        private string sMil;
 
         public obras_egreso_af()
         {
@@ -25,7 +25,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         private void obras_egreso_af_Load(object sender, EventArgs e)
         {
             //agrego columnas al datagridview de las entradas con saldo
-
+            sMil = P.Auxiliar.getSeparadorMil;
             BuildSaldosBinding();
             Tsaldos.RowHeadersWidth = 25;
             Tsaldos.Columns[0].Width = 50;  //Deja de estar oculta
@@ -197,7 +197,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         {
             string procesar;
             procesar = EmontoSel.Text;
-            procesar = procesar.Replace(",", "");
+            procesar = procesar.Replace(sMil, "");
             EmontoSel.Text = int.Parse(procesar).ToString("#");
         }
         private void EmontoSel_LostFocus(Object sender, EventArgs e) //Handles EmontoSel.LostFocus
@@ -207,8 +207,8 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 decimal Dprocesar, Dmaximo;
                 procesar = EmontoSel.Text;
                 pmaximo = EmontoMax.Text;
-                procesar = procesar.Replace(",", "");
-                pmaximo = pmaximo.Replace( ",", "");
+                procesar = procesar.Replace(sMil, "");
+                pmaximo = pmaximo.Replace(sMil, "");
                 Dmaximo = decimal.Parse(pmaximo);
                 if (! decimal.TryParse(procesar,out Dprocesar) ) {
                     P.Mensaje.Advert("Solo puede ingresar números en la cantidad");
@@ -229,43 +229,55 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
 
         private void btn_adjuntar_Click(Object sender, EventArgs e) //Handles btn_adjuntar.Click
         {
-            //reviso que haya valores para adjuntar
-            bool ver1, ver2, ver3, ver4;
-            int cod, montoMax, montoSel;
-            cod = 0;  montoMax = 0; montoSel = 0;
-            ver1 = (Ecod.Text != string.Empty && int.TryParse(Ecod.Text, out cod));
-            ver2 = (Edesc.Text != string.Empty);
-            ver3 = (EmontoMax.Text != string.Empty && int.TryParse(EmontoMax.Text.Replace(",", ""), out montoMax));
-            if (EmontoSel.Text != String.Empty && int.TryParse(EmontoSel.Text.Replace(",", ""), out montoSel))
-                ver4 = ( montoSel != 0 );
-            else
-                ver4 = false;
-
-            if ( ver1 && ver2 && ver3 && ver4 ) {
-                //ingreso valores en segundo flexgrid
-                //h = Tsaldos.Row
-                //i = salidaAF.Rows
-                DetalleOBC newfila = new DetalleOBC();
-                decimal ocupado;
-                newfila.codigo = cod;
-                newfila.descripcion = Edesc.Text;
-                newfila.saldo = montoSel;
-                AddSalidasBinding(newfila);
-                
-                EmontoMax.Text = (montoMax - montoSel).ToString("#,##0");
-                EmontoSel.Text = "0";
-                cargar_saldos();
-                ocupado = 0;
-                foreach (DetalleOBC fila in GetSalidasBinding())
+            try
+            {
+                //reviso que haya valores para adjuntar
+                bool ver1, ver2, ver3, ver4;
+                int cod, montoMax, montoSel;
+                cod = 0; montoMax = 0; montoSel = 0;
+                ver1 = (Ecod.Text != string.Empty && int.TryParse(Ecod.Text, out cod));
+                ver2 = (Edesc.Text != string.Empty);
+                //P.Mensaje.Info(EmontoMax.Text);
+                ver3 = (EmontoMax.Text != string.Empty && int.TryParse(EmontoMax.Text.Replace(sMil, ""), out montoMax));
+                if (EmontoSel.Text != String.Empty && int.TryParse(EmontoSel.Text.Replace(sMil, ""), out montoSel))
+                    ver4 = (montoSel != 0);
+                else
+                    ver4 = false;
+                //P.Mensaje.Info("ira a validar v1:" + (ver1 ? "T" : "F") + " v2: " + (ver2 ? "T" : "F") + " v3: " + (ver3 ? "T" : "F") + " v4: " + (ver4 ? "T" : "F"));
+                if (ver1 && ver2 && ver3 && ver4)
                 {
-                    ocupado = ocupado + fila.saldo;
+                    //ingreso valores en segundo flexgrid
+                    //h = Tsaldos.Row
+                    //i = salidaAF.Rows
+                    DetalleOBC newfila = new DetalleOBC();
+                    decimal ocupado;
+                    newfila.codigo = cod;
+                    newfila.descripcion = Edesc.Text;
+                    newfila.saldo = montoSel;
+                    AddSalidasBinding(newfila);
+
+                    EmontoMax.Text = (montoMax - montoSel).ToString("#,##0");
+                    EmontoSel.Text = "0";
+                    cargar_saldos();
+                    ocupado = 0;
+                    foreach (DetalleOBC fila in GetSalidasBinding())
+                    {
+                        ocupado = ocupado + fila.saldo;
+                    }
+                    LvalorAF.Text = ocupado.ToString("#,##0");
+                    salidaAF.ClearSelection();
+                    //P.Mensaje.Info("salio");
                 }
-                LvalorAF.Text = ocupado.ToString("#,##0");
-                salidaAF.ClearSelection();
+                else
+                {
+                    //Informar en que fallo
+                }
             }
-            else{
-                //hacer nada
+            catch (Exception ex)
+            {
+                P.Mensaje.Error(ex.Message + Environment.NewLine + ex.StackTrace);
             }
+
         }
         private void btn_quitar_Click(Object sender, EventArgs e) //Handles btn_quitar.Click
         {
@@ -313,14 +325,15 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             }
             //fin validacion
             int valorAF, valor_uni, diferencia ;
-            valorAF = int.Parse(LvalorAF.Text.Replace(",",""));
+            valorAF = int.Parse(LvalorAF.Text.Replace(sMil,""));
             valor_uni = (int)(valorAF / cantidad);
             diferencia = valorAF - (valor_uni * cantidad);
             //form_ingreso.Show();
             //Me.Hide()
             var nextStep = new ingreso();
             nextStep.ShowFrom(this);
-            nextStep.LoadOBC(valor_uni, cantidad, diferencia, GetSalidasBinding());
+            nextStep.LoadOBC(valorAF, cantidad, GetSalidasBinding());
+            //nextStep.LoadOBC(valor_uni, cantidad, diferencia, GetSalidasBinding());
             //this.Close();
             
         }

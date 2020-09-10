@@ -21,10 +21,14 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         private TabPage _page;
         private int _residuo;
         private List<P.Estructuras.DetalleOBC> _salidasOBC;
+        private string FormatPrecioUnit;
+        private string sMil;
 
         public ingreso_financiero()
         {
             InitializeComponent();
+            FormatPrecioUnit = "#,##0.0##";
+            sMil = P.Auxiliar.getSeparadorMil;
         }
 
         private void ingreso_financiero_Load(object sender, EventArgs e)
@@ -113,14 +117,26 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             habilitar_controles(cual_sit, origen_id);
         }
 
-        public void cargarOBC(int valor_uni, int cantidad, int diferencia, List<P.Estructuras.DetalleOBC> salidasOBC)
+        public void cargarOBC(decimal valor_total, int cantidad, List<P.Estructuras.DetalleOBC> salidasOBC)
+        {
+            habilitar_controles(ingreso.cod_situacion.nuevo, 2);
+            this._salidasOBC = salidasOBC;
+            this._residuo = 0;
+            this.Tcantidad.Text = cantidad.ToString("#,##0");
+            P.Auxiliar.ActivarF(this.Tcantidad, false);
+            this.Tprecio_compra.Text = (valor_total / cantidad).ToString(FormatPrecioUnit);
+            P.Auxiliar.ActivarF(this.Tprecio_compra, false);
+            P.Auxiliar.ActivarF(this.TxtPrecioTotal, false);
+        }
+
+        public void cargarOBC(decimal valor_uni, int cantidad, int diferencia, List<P.Estructuras.DetalleOBC> salidasOBC)
         {
             habilitar_controles(ingreso.cod_situacion.nuevo , 2);
             this._salidasOBC = salidasOBC;
             this._residuo = diferencia;
             this.Tcantidad.Text = cantidad.ToString("#,##0");
             P.Auxiliar.ActivarF(this.Tcantidad, false);
-            this.Tprecio_compra.Text = valor_uni.ToString("#,##0");
+            this.Tprecio_compra.Text = valor_uni.ToString(FormatPrecioUnit);
             P.Auxiliar.ActivarF(this.Tprecio_compra, false);
             P.Auxiliar.ActivarF(this.TxtPrecioTotal, false);
         }
@@ -250,7 +266,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                             cbFecha_ing.SelectedIndex = -1;
                         }
                         Tcantidad.Text = registro.cantidad.ToString();
-                        Tprecio_compra.Text = registro.precio_base.ToString("#,##0");
+                        Tprecio_compra.Text = registro.precio_base.ToString(FormatPrecioUnit);
                         TvuF.Text = registro.vida_util_inicial.ToString();
                         Tdoc.Text = registro.num_doc;
                         if (registro.derecho_credito)
@@ -259,114 +275,6 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                             derC2.Checked = true;
                         ckDepre.Checked = registro.se_deprecia;
                         ckIFRS.Checked = HayIFRS;
-                    }
-                    else if (hay == 2)
-                    {
-                        //revisar que los dos registros sean iguales, excepto el valor unitario y las cantidades
-                        //                    Dim QLcantidad(1), QLvida_util(1), QLparte(1) As Integer
-                        //                    Dim QLfecha_inicio(1) As Date
-                        //                    Dim QLzona(1), QLestado(1), QLclase(1) As String
-                        //                    Dim QLprecio(1) As Double
-                        //                    Dim revisar As Boolean
-                        //                    For i = 0 To 1
-                        //                        QLparte(i) = colchon.Rows(i).Item("parte")
-                        //                        QLfecha_inicio(i) = colchon.Rows(i).Item("fecha_inicio")
-                        //                        QLzona(i) = colchon.Rows(i).Item("zona")
-                        //                        QLestado(i) = colchon.Rows(i).Item("estado")
-                        //                        QLcantidad(i) = colchon.Rows(i).Item("cantidad")
-                        //                        QLprecio(i) = colchon.Rows(i).Item("precio_base")
-                        //                        QLclase(i) = colchon.Rows(i).Item("clase")
-                        //                        QLvida_util(i) = colchon.Rows(i).Item("vida_util_base")
-                        //                    Next
-                        //                    revisar = True
-                        //                    If Not (QLparte(0) = 0 And QLparte(1) = 1) And revisar Then
-                        //                        MsgBox("No corresponde a las partes necesarias", vbCritical, "NH FOODS CHILE")
-                        //                        revisar = False
-                        //                    End If      'partes solo deben ser 0 y 1
-                        //                    If QLfecha_inicio(0) <> QLfecha_inicio(1) And revisar Then
-                        //                        MsgBox("Fechas de inicio no son iguales", vbCritical, "NH FOODS CHILE")
-                        //                        revisar = False
-                        //                    End If      'fecha iguales
-                        //                    If QLzona(0) <> QLzona(1) And revisar Then
-                        //                        MsgBox("Zonas no son iguales", vbCritical, "NH FOODS CHILE")
-                        //                        revisar = False
-                        //                    End If      'zonas iguales
-                        //                    If QLestado(0) <> QLestado(1) And revisar Then
-                        //                        MsgBox("Estados no son iguales", vbCritical, "NH FOODS CHILE")
-                        //                        revisar = False
-                        //                    End If      'estados iguales
-                        //                    If Not (Math.Abs(QLprecio(0) - QLprecio(1)) = 1) And revisar Then
-                        //                        MsgBox("Precios no corresponden", vbCritical, "NH FOODS CHILE")
-                        //                        revisar = False
-                        //                    End If      'precios deben tener 1 peso de diferencia
-                        //                    If QLclase(0) <> QLclase(1) And revisar Then
-                        //                        MsgBox("Clases no son iguales", vbCritical, "NH FOODS CHILE")
-                        //                        revisar = False
-                        //                    End If      'clases iguales
-                        //                    If QLvida_util(0) <> QLvida_util(1) And revisar Then
-                        //                        MsgBox("Vida Utiles no son iguales", vbCritical, "NH FOODS CHILE")
-                        //                        revisar = False
-                        //                    End If      'vida util igual
-                        //                    If revisar Then
-                        //                        Dim registro As DataRow = colchon.Rows(0)
-                        //                        residuo.Text = QLcantidad(1)
-                        //                        Tdescrip.Text = registro("dscrp")
-                        //                        Try
-                        //                            zona = registro("zona")
-                        //                            cboZona.SelectedIndex = cboZona.Items.IndexOf(zona)
-                        //                            Try
-                        //                                cboSubzona.SelectedValue = registro("subzona")
-                        //                            Catch ex As Exception
-                        //                                If zona <> "30" Then
-                        //                                    cboSubzona.SelectedIndex = -1
-                        //                                Else
-                        //                                    cboSubzona.SelectedIndex = 0
-                        //                                End If
-                        //                            End Try
-                        //                        Catch ex As Exception
-                        //                            cboZona.SelectedIndex = -1
-                        //                            cboSubzona.SelectedIndex = -1
-                        //                        End Try
-                        //                        cboConsist.SelectedValue = registro("tipo")
-                        //                        cboClase.SelectedValue = registro("clase")
-                        //                        cboSubclase.SelectedValue = registro("subclase")
-                        //                        cboCateg.SelectedValue = registro("categoria")
-                        //                        Try
-                        //                            cboProveedor.SelectedValue = registro("proveedor")
-                        //                        Catch ex As Exception
-                        //                            cboProveedor.SelectedIndex = -1
-                        //                        End Try
-                        //                        Tfecha_compra.Value = registro("fecha_compra")
-                        //                        Try
-                        //                            cbFecha_ing.SelectedValue = registro("fecha_ing")
-                        //                        Catch ex As Exception
-                        //                            cbFecha_ing.SelectedIndex = -1
-                        //                        End Try
-                        //                        Tcantidad.Text = QLcantidad(0) + QLcantidad(1)
-                        //                        Tprecio_compra.Text = Format(registro("precio_base"), "#,##0")
-                        //                        TvuF.Text = registro("vida_util_inicial")
-                        //                        Tdoc.Text = registro("num_doc")
-                        //                        If registro("derecho_credito") = "SI" Then
-                        //                            derC1.Checked = True
-                        //                        Else
-                        //                            derC2.Checked = True
-                        //                        End If
-                        //                        ckDepre.Checked = registro("se_deprecia")
-                        //                        valor_ifrs = base.DETALLE_IFRS_CLP(artic.Text).Rows.Count
-                        //                        If valor_ifrs = 0 Then
-                        //                            ckIFRS.Checked = False
-                        //                            'CkModIFRS.Value = 0
-                        //                            paso2.Enabled = False
-                        //                            'Call cargar_DxG()
-                        //                            'pasos.SelectedTab = paso1
-                        //                        Else
-                        //                            ckIFRS.Checked = True
-                        //                            'CkModIFRS.Value = 1
-                        //                            paso2.Enabled = True
-                        //                            'Call cargar_ifrs()
-                        //                            'pasos.SelectedTab = paso1
-                        //                        End If
-                        //                    End If
                     }
                     else
                     {
@@ -470,27 +378,27 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
         {
             String procesar;
             procesar = Tprecio_compra.Text;
-            procesar = procesar.Replace( P.Auxiliar.getSeparadorMil , "");
-            int valor;
-            int.TryParse(procesar,out valor);
+            procesar = procesar.Replace(sMil, "");
+            decimal valor;
+            decimal.TryParse(procesar, out valor);
             Tprecio_compra.Text = valor.ToString("#");
         }
         private void Tprecio_compra_Leave(object sender, EventArgs e)
         {
             if(Tprecio_compra.Text != string.Empty){
-                string procesar, sepLi;
-                int valor;
-                sepLi = P.Auxiliar.getSeparadorMil;
+                string procesar;
+                decimal valor;
                 procesar = Tprecio_compra.Text;
-                procesar = procesar.Replace(sepLi, "");
-                
-                if(! int.TryParse(procesar,out valor) ){
+                procesar = procesar.Replace(sMil, "");
+
+                if (!decimal.TryParse(procesar, out valor))
+                {
                     P.Mensaje.Advert("Solo puede ingresar números en la cantidad");
                     Tprecio_compra.Focus();
                     Tprecio_compra.Text = string.Empty;
                 }
                 else{
-                    Tprecio_compra.Text = valor.ToString("#,##0");
+                    Tprecio_compra.Text = valor.ToString(FormatPrecioUnit);
                 }
             }   
         }
@@ -502,12 +410,10 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 _price_calculing = true;
                 if (!string.IsNullOrEmpty(Tcantidad.Text) && !string.IsNullOrEmpty(Tprecio_compra.Text) && txtMod.Name != "TxtPrecioTotal")
                 {
-                    string sepList;
-                    sepList = P.Auxiliar.getSeparadorMil;
-                    int Qty, Pr, Res;
-                    int.TryParse(Tcantidad.Text.Replace(sepList, ""), out Qty);
+                    decimal Qty, Pr, Res;
+                    decimal.TryParse(Tcantidad.Text.Replace(sMil, ""), out Qty);
                     //Q = Val(Strings.Replace(Tcantidad.Text, sepList, ""));
-                    int.TryParse(Tprecio_compra.Text.Replace(sepList, ""), out Pr);
+                    decimal.TryParse(Tprecio_compra.Text.Replace(sMil, ""), out Pr);
                     //P = Val(Strings.Replace(Tprecio_compra.Text, sepList, ""));
                     Res = _residuo;
                     //R = Val(residuo.Text);
@@ -515,22 +421,20 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 }
                 else if (!string.IsNullOrEmpty(Tcantidad.Text) && !string.IsNullOrEmpty(TxtPrecioTotal.Text) && txtMod.Name == "TxtPrecioTotal")
                 {
-                    string sepList;
-                    sepList = P.Auxiliar.getSeparadorMil;
-                    int Qty, Pr, TotalCalc;
-                    int UnitPrice;
+                    decimal Qty, Pr, TotalCalc;
+                    decimal UnitPrice;
                     //Q = Val(Strings.Replace(Tcantidad.Text, sepList, ""))
-                    int.TryParse(Tcantidad.Text.Replace(sepList, ""), out Qty);
+                    decimal.TryParse(Tcantidad.Text.Replace(sMil, ""), out Qty);
                     //P = Val(Strings.Replace(TxtPrecioTotal.Text, sepList, ""))
-                    int.TryParse(TxtPrecioTotal.Text.Replace(sepList, ""), out Pr);
+                    decimal.TryParse(TxtPrecioTotal.Text.Replace(sMil, ""), out Pr);
                     //R = Val(residuo.Text)
                     //Res = _residuo;
                     UnitPrice = Pr / Qty;
                     TotalCalc = UnitPrice * Qty;
-                    Tprecio_compra.Text = UnitPrice.ToString("#,##0");
+                    Tprecio_compra.Text = UnitPrice.ToString(FormatPrecioUnit);
                     if (TotalCalc != Pr)
                     {
-                        _residuo = Math.Abs(TotalCalc - Pr);
+                        _residuo = (int) Math.Abs(TotalCalc - Pr);
                     }
                 }
                 else
@@ -631,10 +535,10 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             bool depreciar = ckDepre.Checked;
             //fin reduccion de variables
             //Preparo valores en moneda original y yenes
-            decimal valor_unitario = Math.Floor(total_compra / cantidad);
+            decimal valor_unitario = (total_compra / cantidad);
             decimal total_yen, unitario_yen;
             decimal tc = P.Consultas.tipo_cambio.YEN(fcompra);
-            int residuo = (int)(total_compra - (valor_unitario * cantidad));
+            //int residuo = (int)(total_compra - (valor_unitario * cantidad));
 
             RespuestaAccion mRS;
             string mensaje_final = string.Empty;
@@ -679,33 +583,32 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                     mRS.mensaje();
                     return;
                 }
-                List<GENERIC_VALUE> partes = mRS.result_objs;
+                GENERIC_VALUE parte = mRS.result_objs.First();
                 //ingreso cabecera de la transaccion
-                mRS = P.Consultas.trx_cabeceras.REGISTER_PURCHASE_HEAD(partes, fcompra, zona, subzona, clase, subclase, categoria, gestion, usuario);
+                mRS = P.Consultas.trx_cabeceras.REGISTER_PURCHASE_HEAD(parte, fcompra, zona, subzona, clase, subclase, categoria, gestion, usuario);
                 if (mRS.CheckError)
                 {
                     mRS.mensaje();
                     return;
                 }
-                
-                List<GENERIC_VALUE> cabeceras = mRS.result_objs;
+                GENERIC_VALUE cabecera = mRS.result_objs.First();
                 var AllowSystems = P.Consultas.sistema.AllWithIFRS(ckIFRS.Checked);
                 foreach (SV_SYSTEM curSystem in AllowSystems)
                 {
-                    mRS = P.Consultas.trx_detalles.REGISTER_PURCHASE_DETAIL(cabeceras, curSystem, depreciar, derecho);
+                    mRS = P.Consultas.trx_detalles.REGISTER_PURCHASE_DETAIL(cabecera, curSystem, depreciar, derecho);
                     if (mRS.CheckError)
                     {
                         mRS.mensaje();
                         return;
                     }
-                    int[] cab_ids = cabeceras.Select(c => c.id).ToArray();
+                    int cab_id = cabecera.id;
                     decimal valor;
                     bool isYen = (curSystem.CURRENCY == "YEN");
                     if (!isYen)
                         valor = valor_unitario;
                     else
                         valor = unitario_yen;
-                    mRS = registrar_parametros(curSystem, cab_ids, valor, derecho, vutil, clase, isYen);
+                    mRS = registrar_parametros(curSystem, cab_id, valor, derecho, vutil, clase, isYen);
                     if (mRS.CheckError)
                     {
                         mRS.mensaje();
@@ -744,18 +647,18 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 
                 //origen no cambia, asi que no se requiere este segmento de codigo
                 //partes no cambian
-                var partes = P.Consultas.partes.ByLote(BatchId);
+                var parte = P.Consultas.partes.CompraByLote(BatchId);
                 //modifico cabecera de la transaccion
-                mRS = P.Consultas.trx_cabeceras.MODIF_PURCHASE_HEAD(partes, zona, subzona, subclase, categoria, gestion, usuario);
+                mRS = P.Consultas.trx_cabeceras.MODIF_PURCHASE_HEAD(parte, zona, subzona, subclase, categoria, gestion, usuario);
                 if (mRS.CheckError) { mRS.mensaje(); return; }
 
                 //trabajo con valores de parametros
-                int[] cab_ids = mRS.result_objs.Select(c => c.id).ToArray();
+                int cab_id = mRS.result_objs.First().id;
                 var AllowSystems = P.Consultas.sistema.All();
                 foreach (SV_SYSTEM curSystem in AllowSystems)
                 {
-                    var details = P.Consultas.trx_detalles.GetByHeadsSystem(cab_ids, curSystem);
-                    bool existe_det = !(details == null || details.Count == 0);
+                    var details = P.Consultas.trx_detalles.GetByHeadsSystem(cab_id, curSystem);
+                    bool existe_det = !(details == null);
                     decimal valor;
                     bool isYen = (curSystem.CURRENCY == "YEN");
                     if (!isYen)
@@ -765,7 +668,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                     //Modificamos cabeceras que correspondan
                     if (existe_det)
                     {
-                        mRS = P.Consultas.trx_detalles.MODIF_PURCHASE_DETAIL(cab_ids, curSystem, depreciar, derecho);
+                        mRS = P.Consultas.trx_detalles.MODIF_PURCHASE_DETAIL(cab_id, curSystem, depreciar, derecho);
                         if (mRS.CheckError) { mRS.mensaje(); return; }
                     }
 
@@ -784,12 +687,12 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                         if (existe_det)
                         {
                             //Modificar datos
-                            reg = modificar_parametros(curSystem, cab_ids, valor, derecho, vutil, clase, isYen);
+                            reg = modificar_parametros(curSystem, cab_id, valor, derecho, vutil, clase, isYen);
                         }
                         else
                         {
                             //Ingresar nuevos datos
-                            reg = registrar_parametros(curSystem, cab_ids, valor,derecho,vutil,clase,isYen);
+                            reg = registrar_parametros(curSystem, cab_id, valor,derecho,vutil,clase,isYen);
                         }
                         reg.mensaje();
                     }
@@ -805,20 +708,21 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             P.Mensaje.Info(mensaje_final);
         }
 
-        private RespuestaAccion registrar_parametros(SV_SYSTEM curSystem, int[] cabeceras, decimal valor_unitario, bool derecho, int vutil, GENERIC_VALUE clase, bool isYen)
+        private RespuestaAccion registrar_parametros(SV_SYSTEM curSystem, int cabecera, decimal valor_unitario, bool derecho, int vutil, GENERIC_VALUE clase, bool isYen)
         {
             RespuestaAccion mRS;
             decimal valor_proceso;
             //Ingreso Precio Unitario
             SV_PARAMETER pb = P.Consultas.parametros.PrecioBase;
-            mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabeceras, curSystem, pb, valor_unitario, !isYen);
+            mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabecera, curSystem, pb, valor_unitario);
             if (mRS.CheckError) return mRS;
             //Ingreso Credito
             if (derecho)
             {
                 SV_PARAMETER cred = P.Consultas.parametros.Credito;
-                valor_proceso = Math.Round(curSystem.ENVIORMENT.credit_rate * -valor_unitario,0);
-                mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabeceras, curSystem, cred, valor_proceso);
+                //valor_proceso = Math.Round(curSystem.ENVIORMENT.credit_rate * -valor_unitario,0);
+                valor_proceso = curSystem.ENVIORMENT.credit_rate * -valor_unitario;
+                mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabecera, curSystem, cred, valor_proceso);
                 if (mRS.CheckError) return mRS;
             }
             //Ingreso Vida Util     //default monthly
@@ -827,7 +731,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 valor_proceso = vutil;
             else
                 valor_proceso = vutil / 12 * 365;
-            mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabeceras, curSystem, vu, valor_proceso);
+            mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabecera, curSystem, vu, valor_proceso);
             if (mRS.CheckError) return mRS;
             //Valor Residual
             SV_PARAMETER vr = P.Consultas.parametros.ValorResidual;
@@ -839,23 +743,23 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             else
                 valor_proceso = -1;
 
-            mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabeceras, curSystem, vr, valor_proceso);
+            mRS = P.Consultas.detalle_parametros.REGISTER_PURCHASE_PARAM(cabecera, curSystem, vr, valor_proceso);
             return mRS;
         }
-        private RespuestaAccion modificar_parametros(SV_SYSTEM curSystem, int[] cabeceras, decimal valor_unitario, bool derecho, int vutil, GENERIC_VALUE clase, bool isYen)
+        private RespuestaAccion modificar_parametros(SV_SYSTEM curSystem, int cabecera, decimal valor_unitario, bool derecho, int vutil, GENERIC_VALUE clase, bool isYen)
         {
             RespuestaAccion mRS;
             decimal ValueToWork;
             //Modifico Precio Unitario
             SV_PARAMETER pb = P.Consultas.parametros.PrecioBase;
-            mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabeceras, curSystem, pb, valor_unitario, !isYen);
+            mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabecera, curSystem, pb, valor_unitario, !isYen);
             if (mRS.CheckError) return mRS;
             //Ingreso Credito
             if (derecho)
             {
                 SV_PARAMETER cred = P.Consultas.parametros.Credito;
                 ValueToWork = curSystem.ENVIORMENT.credit_rate * -valor_unitario;
-                mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabeceras, curSystem, cred, ValueToWork);
+                mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabecera, curSystem, cred, ValueToWork);
                 if (mRS.CheckError) return mRS;
             }
             //Ingreso Vida Util     //default monthly
@@ -864,7 +768,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
                 ValueToWork = vutil;
             else
                 ValueToWork = vutil / 12 * 365;
-            mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabeceras, curSystem, vu, ValueToWork);
+            mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabecera, curSystem, vu, ValueToWork);
             if (mRS.CheckError) return mRS;
             //Valor Residual
             SV_PARAMETER vr = P.Consultas.parametros.ValorResidual;
@@ -876,7 +780,7 @@ namespace AFN_WF_C.PCClient.Vistas.Cambios
             else
                 ValueToWork = -1;
 
-            mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabeceras, curSystem, vr, ValueToWork);
+            mRS = P.Consultas.detalle_parametros.MODIF_PURCHASE_PARAM(cabecera, curSystem, vr, ValueToWork);
             return mRS;
         }
 

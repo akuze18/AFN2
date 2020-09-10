@@ -453,6 +453,11 @@ namespace AFN_WF_C.PCClient.Procesos
         }
         internal class partes
         {
+            public static PD.SV_PART CompraByLote(int lote)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.Partes.ByLotePart(lote, 0);
+            }
             public static List<PD.SV_PART> ByLote(int lote)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
@@ -471,30 +476,35 @@ namespace AFN_WF_C.PCClient.Procesos
                 using (var cServ = new ServiceProcess.ServiceAFN2())
                     return cServ.Repo.cabeceras.ByParte(parte); 
             }
-            public static PD.RespuestaAccion REGISTER_PURCHASE_HEAD(List<PD.GENERIC_VALUE> parts, DateTime fecha_compra, PD.GENERIC_VALUE zona, PD.GENERIC_VALUE subzona, PD.GENERIC_VALUE clase, PD.GENERIC_VALUE subclase, PD.GENERIC_VALUE categoria, PD.GENERIC_VALUE gestion, string usuario)
+            public static PD.RespuestaAccion REGISTER_PURCHASE_HEAD(PD.GENERIC_VALUE part, DateTime fecha_compra, PD.GENERIC_VALUE zona, PD.GENERIC_VALUE subzona, PD.GENERIC_VALUE clase, PD.GENERIC_VALUE subclase, PD.GENERIC_VALUE categoria, PD.GENERIC_VALUE gestion, string usuario)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                    return cServ.Repo.REGISTER_PURCHASE_HEAD(parts, fecha_compra,zona,subzona,clase,subclase,categoria,gestion,usuario);
+                    return cServ.Repo.REGISTER_PURCHASE_HEAD(part, fecha_compra,zona,subzona,clase,subclase,categoria,gestion,usuario);
             }
-            public static PD.RespuestaAccion MODIF_PURCHASE_HEAD(List<PD.SV_PART> partes, PD.GENERIC_VALUE zona, PD.GENERIC_VALUE subzona, PD.GENERIC_VALUE subclase, PD.GENERIC_VALUE categoria, PD.GENERIC_VALUE gestion, string usuario)
+            public static PD.RespuestaAccion MODIF_PURCHASE_HEAD(PD.SV_PART parte, PD.GENERIC_VALUE zona, PD.GENERIC_VALUE subzona, PD.GENERIC_VALUE subclase, PD.GENERIC_VALUE categoria, PD.GENERIC_VALUE gestion, string usuario)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                    return cServ.Repo.MODIF_PURCHASE_HEAD(partes, zona, subzona, subclase, categoria, gestion, usuario);
+                    return cServ.Repo.MODIF_PURCHASE_HEAD(parte, zona, subzona, subclase, categoria, gestion, usuario);
             }
         }
         internal class trx_detalles
         {
-            public static PD.RespuestaAccion REGISTER_PURCHASE_DETAIL(List<PD.GENERIC_VALUE> cabeceras, PD.SV_SYSTEM OSystem, bool depreciar, bool con_credito)
+            public static PD.RespuestaAccion REGISTER_PURCHASE_DETAIL(PD.GENERIC_VALUE cabecera, PD.SV_SYSTEM OSystem, bool depreciar, bool con_credito)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                    return cServ.Repo.REGISTER_PURCHASE_DETAIL(cabeceras, OSystem, depreciar, con_credito);
+                    return cServ.Repo.REGISTER_PURCHASE_DETAIL(cabecera, OSystem, depreciar, con_credito);
             }
-            public static PD.RespuestaAccion MODIF_PURCHASE_DETAIL(int[] TrxHeadIds, PD.SV_SYSTEM OSystem, bool depreciar, bool con_credito)
+            public static PD.RespuestaAccion MODIF_PURCHASE_DETAIL(int TrxHeadId, PD.SV_SYSTEM OSystem, bool depreciar, bool con_credito)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                    return cServ.Repo.MODIF_PURCHASE_DETAIL(TrxHeadIds, OSystem, depreciar, con_credito);
+                    return cServ.Repo.MODIF_PURCHASE_DETAIL(TrxHeadId, OSystem, depreciar, con_credito);
             }
 
+            public static PD.SV_TRANSACTION_DETAIL GetByHeadsSystem(int head_id, PD.SV_SYSTEM system)
+            {
+                using (var cServ = new ServiceProcess.ServiceAFN2())
+                    return cServ.Repo.detalles.GetByHeadsSystem(head_id, system);
+            }
             public static List<PD.SV_TRANSACTION_DETAIL> GetByHeadsSystem(int[] head_ids, PD.SV_SYSTEM system)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
@@ -508,15 +518,15 @@ namespace AFN_WF_C.PCClient.Procesos
                 using (var cServ = new ServiceProcess.ServiceAFN2())
                     return cServ.Repo.DetallesParametros.ByHead_Sys(HeadId, SysId); 
             }
-            public static PD.RespuestaAccion REGISTER_PURCHASE_PARAM(int[] cabeceras, PD.SV_SYSTEM sistema, PD.SV_PARAMETER parametro, decimal valor, bool withResiduo = false)
+            public static PD.RespuestaAccion REGISTER_PURCHASE_PARAM(int cabecera, PD.SV_SYSTEM sistema, PD.SV_PARAMETER parametro, decimal valor)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                    return cServ.Repo.REGISTER_PURCHASE_PARAM(cabeceras,sistema,parametro,valor,withResiduo);
+                    return cServ.Repo.REGISTER_PURCHASE_PARAM(cabecera,sistema,parametro,valor);
             }
-            public static PD.RespuestaAccion MODIF_PURCHASE_PARAM(int[] cabeceras, PD.SV_SYSTEM sistema, PD.SV_PARAMETER parametro, decimal valor, bool withResiduo = false)
+            public static PD.RespuestaAccion MODIF_PURCHASE_PARAM(int cabecera, PD.SV_SYSTEM sistema, PD.SV_PARAMETER parametro, decimal valor, bool withResiduo = false)
             {
                 using (var cServ = new ServiceProcess.ServiceAFN2())
-                    return cServ.Repo.MODIF_PURCHASE_PARAM(cabeceras, sistema, parametro, valor, withResiduo);
+                    return cServ.Repo.MODIF_PURCHASE_PARAM(cabecera, sistema, parametro, valor, withResiduo);
             }
             public static PD.RespuestaAccion MODIFICA_IFRS(int batch_id, decimal valor_residual, int vida_util,int metod_val, decimal[] preparacion, decimal[] transporte, decimal[] montaje, decimal[] desmantelamiento, decimal[] honorarios)
             {
@@ -525,15 +535,11 @@ namespace AFN_WF_C.PCClient.Procesos
                 {
                     using (var cServ = new ServiceProcess.ServiceAFN2())
                     {
-                        var partes_id = cServ.Repo.Partes.ByLote(batch_id)
-                                        .Select(l => l.id)
-                                        .ToArray();
+                        var parte_id = cServ.Repo.Partes.ByLotePart(batch_id, 0).id;
                         var IFRS_systems = cServ.Repo.sistemas.IFRS();
-                        var heads_ids = cServ.Repo.cabeceras.ByPartes(partes_id)
-                                        .Select(h => h.id)
-                                        .ToArray();
+                        var HeadId = cServ.Repo.cabeceras.ByParteFirst(parte_id).id;
                         //metod_val
-                        result = cServ.Repo.MODIF_PURCHASE_HEAD_MethodVal(heads_ids, metod_val);
+                        result = cServ.Repo.MODIF_PURCHASE_HEAD_MethodVal(HeadId, metod_val);
 
 
                         foreach (var currSystem in IFRS_systems)
@@ -544,53 +550,53 @@ namespace AFN_WF_C.PCClient.Procesos
                             //valor_residual
                             CurrParam = cServ.Repo.parametros.ValorResidual;
                             if (valor_residual == 0)
-                                result = cServ.Repo.DELETE_PURCHASE_PARAM(heads_ids, currSystem, CurrParam);
+                                result = cServ.Repo.DELETE_PURCHASE_PARAM(HeadId, currSystem, CurrParam);
                             else
-                                result = cServ.Repo.MODIF_PURCHASE_PARAM(heads_ids, currSystem, CurrParam, valor_residual,false);
+                                result = cServ.Repo.MODIF_PURCHASE_PARAM(HeadId, currSystem, CurrParam, valor_residual,false);
                             if (result.codigo < 0) return result;
                             //vida_util
                             CurrParam = cServ.Repo.parametros.VidaUtil;
                             if (vida_util == 0)
-                                result = cServ.Repo.DELETE_PURCHASE_PARAM(heads_ids, currSystem, CurrParam);
+                                result = cServ.Repo.DELETE_PURCHASE_PARAM(HeadId, currSystem, CurrParam);
                             else
-                                result = cServ.Repo.MODIF_PURCHASE_PARAM(heads_ids, currSystem, CurrParam, vida_util, false);
+                                result = cServ.Repo.MODIF_PURCHASE_PARAM(HeadId, currSystem, CurrParam, vida_util, false);
                             if (result.codigo < 0) return result;
                             //decimal valor_procesar;
                             //preparacion
                             CurrParam = cServ.Repo.parametros.Preparacion;
 
                             if (preparacion[index] == 0)
-                                result = cServ.Repo.DELETE_PURCHASE_PARAM(heads_ids, currSystem, CurrParam);
+                                result = cServ.Repo.DELETE_PURCHASE_PARAM(HeadId, currSystem, CurrParam);
                             else
-                                result = cServ.Repo.MODIF_PURCHASE_PARAM(heads_ids, currSystem, CurrParam, preparacion[index], false);
+                                result = cServ.Repo.MODIF_PURCHASE_PARAM(HeadId, currSystem, CurrParam, preparacion[index], false);
                             if (result.codigo < 0) return result;
                             //transporte
                             CurrParam = cServ.Repo.parametros.Transporte;
                             if (transporte[index] == 0)
-                                result = cServ.Repo.DELETE_PURCHASE_PARAM(heads_ids, currSystem, CurrParam);
+                                result = cServ.Repo.DELETE_PURCHASE_PARAM(HeadId, currSystem, CurrParam);
                             else
-                                result = cServ.Repo.MODIF_PURCHASE_PARAM(heads_ids, currSystem, CurrParam, transporte[index], false);
+                                result = cServ.Repo.MODIF_PURCHASE_PARAM(HeadId, currSystem, CurrParam, transporte[index], false);
                             if (result.codigo < 0) return result;
                             //montaje
                             CurrParam = cServ.Repo.parametros.Montaje;
                             if (montaje[index] == 0)
-                                result = cServ.Repo.DELETE_PURCHASE_PARAM(heads_ids, currSystem, CurrParam);
+                                result = cServ.Repo.DELETE_PURCHASE_PARAM(HeadId, currSystem, CurrParam);
                             else
-                                result = cServ.Repo.MODIF_PURCHASE_PARAM(heads_ids, currSystem, CurrParam, montaje[index], false);
+                                result = cServ.Repo.MODIF_PURCHASE_PARAM(HeadId, currSystem, CurrParam, montaje[index], false);
                             if (result.codigo < 0) return result;
                             //desmantelamiento
                             CurrParam = cServ.Repo.parametros.Desmantelamiento;
                             if (desmantelamiento[index] == 0)
-                                result = cServ.Repo.DELETE_PURCHASE_PARAM(heads_ids, currSystem, CurrParam);
+                                result = cServ.Repo.DELETE_PURCHASE_PARAM(HeadId, currSystem, CurrParam);
                             else
-                                result = cServ.Repo.MODIF_PURCHASE_PARAM(heads_ids, currSystem, CurrParam, desmantelamiento[index], false);
+                                result = cServ.Repo.MODIF_PURCHASE_PARAM(HeadId, currSystem, CurrParam, desmantelamiento[index], false);
                             if (result.codigo < 0) return result;
                             //honorarios
                             CurrParam = cServ.Repo.parametros.Honorario;
                             if (honorarios[index] == 0)
-                                result = cServ.Repo.DELETE_PURCHASE_PARAM(heads_ids, currSystem, CurrParam);
+                                result = cServ.Repo.DELETE_PURCHASE_PARAM(HeadId, currSystem, CurrParam);
                             else
-                                result = cServ.Repo.MODIF_PURCHASE_PARAM(heads_ids, currSystem, CurrParam, honorarios[index], false);
+                                result = cServ.Repo.MODIF_PURCHASE_PARAM(HeadId, currSystem, CurrParam, honorarios[index], false);
                             if (result.codigo < 0) return result;
                         }
                     }

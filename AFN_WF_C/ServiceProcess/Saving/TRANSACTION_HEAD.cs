@@ -128,35 +128,32 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return head;
         }
 
-        public RespuestaAccion REGISTER_PURCHASE_HEAD(List<GENERIC_VALUE> parts, DateTime fecha_compra, GENERIC_VALUE zona, GENERIC_VALUE subzona, GENERIC_VALUE clase, GENERIC_VALUE subclase, GENERIC_VALUE categoria, GENERIC_VALUE gestion, string usuario)
+        public RespuestaAccion REGISTER_PURCHASE_HEAD(GENERIC_VALUE part, DateTime fecha_compra, GENERIC_VALUE zona, GENERIC_VALUE subzona, GENERIC_VALUE clase, GENERIC_VALUE subclase, GENERIC_VALUE categoria, GENERIC_VALUE gestion, string usuario)
         {
             var res = new RespuestaAccion();
             try
             {
                 //List<TRANSACTION_HEADER> generados = new List<TRANSACTION_HEADER>();
-                foreach (var part in parts)
-                {
-                    TRANSACTION_HEADER nueva_cab = new TRANSACTION_HEADER();
-                    nueva_cab.article_part_id = part.id;
-                    nueva_cab.head_index = GetNextHeadIndex(part.id);
-                    nueva_cab.trx_ini = fecha_compra;
-                    nueva_cab.trx_end = _final_date;
-                    nueva_cab.ref_source = _ref_purchase;
-                    nueva_cab.zone_id = zona.id;
-                    nueva_cab.subzone_id = subzona.id;
-                    nueva_cab.kind_id = clase.id;
-                    nueva_cab.subkind_id = subclase.id;
-                    nueva_cab.category_id = categoria.id;
-                    nueva_cab.user_own = usuario;
-                    nueva_cab.manage_id = gestion.id;
-                    nueva_cab.method_revalue_id = 1;    //por defecto será 1, luego el usuario podrá indicar el definitivo
+                TRANSACTION_HEADER nueva_cab = new TRANSACTION_HEADER();
+                nueva_cab.article_part_id = part.id;
+                nueva_cab.head_index = GetNextHeadIndex(part.id);
+                nueva_cab.trx_ini = fecha_compra;
+                nueva_cab.trx_end = _final_date;
+                nueva_cab.ref_source = _ref_purchase;
+                nueva_cab.zone_id = zona.id;
+                nueva_cab.subzone_id = subzona.id;
+                nueva_cab.kind_id = clase.id;
+                nueva_cab.subkind_id = subclase.id;
+                nueva_cab.category_id = categoria.id;
+                nueva_cab.user_own = usuario;
+                nueva_cab.manage_id = gestion.id;
+                nueva_cab.method_revalue_id = 1;    //por defecto será 1, luego el usuario podrá indicar el definitivo
 
-                    //generados.Add(nueva_cab);
-                    _context.TRANSACTIONS_HEADERS.AddObject(nueva_cab);
-                    _context.SaveChanges();
+                //generados.Add(nueva_cab);
+                _context.TRANSACTIONS_HEADERS.AddObject(nueva_cab);
+                _context.SaveChanges();
 
-                    res.result_objs.Add((SV_TRANSACTION_HEADER)nueva_cab);
-                }
+                res.result_objs.Add((SV_TRANSACTION_HEADER)nueva_cab);
                 res.set_ok();
             }
             catch (Exception ex)
@@ -166,21 +163,18 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return res;
         }
 
-        public RespuestaAccion MODIF_PURCHASE_HEAD(List<SV_PART> partes, GENERIC_VALUE zona, GENERIC_VALUE subzona, GENERIC_VALUE subclase, GENERIC_VALUE categoria, GENERIC_VALUE gestion, string usuario)
+        public RespuestaAccion MODIF_PURCHASE_HEAD(SV_PART parte, GENERIC_VALUE zona, GENERIC_VALUE subzona, GENERIC_VALUE subclase, GENERIC_VALUE categoria, GENERIC_VALUE gestion, string usuario)
         {
             var res = new RespuestaAccion();
             //TODO: completar proceso de modificacion de cabecera para compras
             try
             {
-                var firstFecha = (from p in partes
-                                  where p.part_index == 0
-                                  select p.first_date).FirstOrDefault();
                 int contar = 0;
-                foreach (SV_PART SPart in partes.Where(p => p.first_date == firstFecha))
-                {
+                //foreach (SV_PART SPart in parte.Where(p => p.first_date == firstFecha))
+                //{
                     TRANSACTION_HEADER ToModif = (from h in _context.TRANSACTIONS_HEADERS
-                                                  where h.article_part_id == SPart.id &&
-                                                  h.trx_ini == firstFecha
+                                                  where h.article_part_id == parte.id &&
+                                                  h.trx_ini == parte.first_date
                                                   select h).FirstOrDefault();
                     if (ToModif == null)
                     {
@@ -201,7 +195,7 @@ namespace AFN_WF_C.ServiceProcess.Repositories
                     //ToModif.method_revalue_id //No se cambia durante este proceso
                     contar++;
                     res.result_objs.Add((GENERIC_VALUE)(SV_TRANSACTION_HEADER)ToModif);
-                }
+                //}
                 if (contar > 0)
                 {
                     _context.SaveChanges();
@@ -218,21 +212,18 @@ namespace AFN_WF_C.ServiceProcess.Repositories
             return res;
         }
 
-        public RespuestaAccion MODIF_PURCHASE_HEAD_MethodVal(int[] HeadsIds, int method_val)
+        public RespuestaAccion MODIF_PURCHASE_HEAD_MethodVal(int headId, int method_val)
         {
             var res = new RespuestaAccion();
             try
             {
-                foreach (int headId in HeadsIds)
+                var FindHead = (from h in _context.TRANSACTIONS_HEADERS
+                                where h.id == headId
+                                select h).FirstOrDefault();
+                if (FindHead != null)
                 {
-                    var FindHead = (from h in _context.TRANSACTIONS_HEADERS
-                                    where h.id == headId
-                                    select h).FirstOrDefault();
-                    if (FindHead != null)
-                    {
-                        FindHead.method_revalue_id = method_val;
-                        _context.SaveChanges();
-                    }
+                    FindHead.method_revalue_id = method_val;
+                    _context.SaveChanges();
                 }
                 res.set_ok();
             }
