@@ -50,35 +50,145 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         //public GENERIC_VALUE aprobacion { get; set; }
         public SV_METHOD_REVALUE metodo_reval { get; private set; }
 
-        public decimal valor_activo_inicial { get; private set; }
-        public decimal credito_monto { get; private set; }
-        public decimal valor_activo_final { get; private set; }
-        public decimal depreciacion_acum_inicial { get; private set; }
-        public decimal deterioro { get; private set; }
-        public decimal valor_residual { get; private set; }
-        public decimal valor_sujeto_dep { get; private set; }
+        private decimal _valor_activo_inicial;
+        public decimal valor_activo_inicial 
+        { 
+            get { return _valor_activo_inicial; } 
+            set { _valor_activo_inicial = Math.Round(value,0); } 
+        }
+        private decimal _credito_monto;
+        public decimal credito_monto
+        {
+            get { return _credito_monto; }
+            set { _credito_monto = Math.Round(value, 0); }
+        }
+        private decimal _valor_activo_final;
+        public decimal valor_activo_final 
+        {
+            get { return _valor_activo_final; }
+            set { _valor_activo_final = Math.Round(value,0); }
+        }
+        private decimal _depreciacion_acum_inicial;
+        public decimal depreciacion_acum_inicial 
+        {
+            get { return _depreciacion_acum_inicial; }
+            set { _depreciacion_acum_inicial = Math.Round(value, 0); }
+        }
+        private decimal _deterioro;
+        public decimal deterioro 
+        {
+            get { return _deterioro; }
+            set { _deterioro = Math.Round(value, 0); }
+        }
+        private decimal _valor_residual;
+        public decimal valor_residual 
+        {
+            get { return _valor_residual; }
+            set { _valor_residual = Math.Round(value, 0); }
+        }
+        private decimal _valor_sujeto_dep;
+        public decimal valor_sujeto_dep 
+        {
+            get { return _valor_sujeto_dep; }
+            set { _valor_sujeto_dep = Math.Round(value, 0); }
+        }
         public int vida_util_asignada { get; private set; }
         public int vida_util_ocupada { get; private set; }
         public int vida_util_residual { get; private set; }
-        public decimal depreciacion_ejercicio { get; private set; }
-        public decimal depreciacion_acum_final { get; private set; }
-        public decimal valor_libro { get; private set; }
+        private decimal _depreciacion_ejercicio;
+        public decimal depreciacion_ejercicio 
+        {
+            get { return _depreciacion_ejercicio; }
+            set { _depreciacion_ejercicio = Math.Round(value, 0); }
+        }
+        private decimal _depreciacion_acum_final;
+        public decimal depreciacion_acum_final
+        {
+            get { return _depreciacion_acum_final; }
+            set { _depreciacion_acum_final = Math.Round(value, 0); }
+        }
+        private decimal _valor_libro;
+        public decimal valor_libro
+        {
+            get { return _valor_libro; }
+            set { _valor_libro = Math.Round(value, 0); }
+        }
         //public string usuario { get; private set; }             
         //public decimal precio_inicial { get; private set; }     
-        public decimal porcentaje_cm { get; private set; }
-        public decimal valor_activo_cm { get; private set; }
-        public decimal valor_activo_update { get; private set; }
-        public decimal depreciacion_acum_cm { get; private set; }
-        public decimal depreciacion_acum_update { get; private set; }
-        public decimal preparacion { get; private set; }
-        public decimal desmantelamiento { get; private set; }
-        public decimal transporte { get; private set; }
-        public decimal montaje { get; private set; }
-        public decimal honorario { get; private set; }
-        public decimal revalorizacion { get; private set; }
+        private decimal _porcentaje_cm;
+        public decimal porcentaje_cm
+        {
+            get { return _porcentaje_cm; }
+            set { _porcentaje_cm = Math.Round(value, 0); }
+        }
+        private decimal _valor_activo_cm;
+        public decimal valor_activo_cm
+        {
+            get { return _valor_activo_cm; }
+            set { _valor_activo_cm = Math.Round(value, 0); }
+        }
+        private decimal _valor_activo_update;
+        public decimal valor_activo_update
+        {
+            get { return _valor_activo_update; }
+            set { _valor_activo_update = Math.Round(value, 0); }
+        }
+        private decimal _depreciacion_acum_cm;
+        public decimal depreciacion_acum_cm
+        {
+            get { return _depreciacion_acum_cm; }
+            set { _depreciacion_acum_cm = Math.Round(value, 0); }
+        }
+        private decimal _depreciacion_acum_update;
+        public decimal depreciacion_acum_update
+        {
+            get { return _depreciacion_acum_update; }
+            set { _depreciacion_acum_update = Math.Round(value, 0); }
+        }
+        private decimal _preparacion;
+        public decimal preparacion
+        {
+            get { return _preparacion; }
+            set { _preparacion = Math.Round(value, 0); }
+        }
+        private decimal _desmantelamiento;
+        public decimal desmantelamiento
+        {
+            get { return _desmantelamiento; }
+            set { _desmantelamiento = Math.Round(value, 0); }
+        }
+        private decimal _transporte;
+        public decimal transporte
+        {
+            get { return _transporte; }
+            set { _transporte = Math.Round(value, 0); }
+        }
+        private decimal _montaje;
+        public decimal montaje
+        {
+            get { return _montaje; }
+            set { _montaje = Math.Round(value, 0); }
+        }
+        private decimal _honorario;
+        public decimal honorario
+        {
+            get { return _honorario; }
+            set { _honorario = Math.Round(value, 0); }
+        }
+        private decimal _revalorizacion;
+        public decimal revalorizacion
+        {
+            get { return _revalorizacion; }
+            set { _revalorizacion = Math.Round(value, 0); }
+        }
 
         public string situacion { get; private set; }
-        public decimal precio_venta { get; private set; }
+        private decimal _precio_venta;
+        public decimal precio_venta
+        {
+            get { return _precio_venta; }
+            set { _precio_venta = Math.Round(value, 0); }
+        }
 
         public List<SV_DOCUMENT> documentos;
 
@@ -96,7 +206,13 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         public int PartId { get; private set; }
 
         public bool HasPrevious { get; private set; }
-        public decimal activo_acumulado_inicial_ifrs { get; private set; }
+
+        private decimal _activo_acumulado_inicial_ifrs;
+        public decimal activo_acumulado_inicial_ifrs
+        {
+            get { return _activo_acumulado_inicial_ifrs; }
+            set { _activo_acumulado_inicial_ifrs = Math.Round(value, 0); }
+        }
         #endregion
 
         #region Constructor
@@ -136,7 +252,7 @@ namespace AFN_WF_C.ServiceProcess.PublicData
                 this.gestion_anterior = initial.gestion;
                 this.categoria_anterior = initial.categoria;
 
-                this.valor_activo_inicial = ((initial.parametros.PrecioBaseVal) * initial.cantidad) + (final.parametros.CreditoVal * final.cantidad);
+                this.valor_activo_inicial = Math.Round((initial.parametros.PrecioBaseVal) * initial.cantidad,0) + Math.Round(final.parametros.CreditoVal * final.cantidad,0);
                 this.activo_acumulado_inicial_ifrs = this.valor_activo_inicial + this.preparacion + this.desmantelamiento + this.transporte + this.montaje + this.honorario;
                 //this.preparacion = 0;
                 //this.desmantelamiento = 0;

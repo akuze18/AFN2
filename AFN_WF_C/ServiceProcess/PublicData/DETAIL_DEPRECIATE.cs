@@ -73,12 +73,12 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public decimal valor_anterior_base
         {
-            get{ return _valor_inicial_unitario * cantidad; }
+            get{ return Math.Round(_valor_inicial_unitario * cantidad,0); }
         }
         public decimal cm_activo
         { 
             get { 
-                return Math.Round(_valor_inicial_unitario * porcentaje_cm, 0) * cantidad; 
+                return Math.Round(_valor_inicial_unitario * porcentaje_cm * cantidad, 0); 
             } 
         }
         public decimal valor_anterior_cm
@@ -88,13 +88,13 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public decimal cred_adi_base
         { 
-            get { return _credito_unitario * cantidad; } 
+            get { return Math.Round(_credito_unitario * cantidad,0); } 
         }
         public decimal cm_cred
         {
             get
             {
-                return Math.Round(_credito_unitario * porcentaje_cm, 0) * cantidad; 
+                return Math.Round(_credito_unitario * porcentaje_cm * cantidad, 0); 
             }
         }
         public decimal credi_adi_cm
@@ -113,11 +113,11 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public decimal DA_anterior_base
         {
-            get { return _depreciacion_inicial_unitaria * cantidad; }
+            get { return Math.Round(_depreciacion_inicial_unitaria * cantidad,0); }
         }
         public decimal cm_depreciacion
         {
-            get { return Math.Round(_depreciacion_inicial_unitaria * porcentaje_cm, 0) * cantidad; }
+            get { return Math.Round(_depreciacion_inicial_unitaria * porcentaje_cm * cantidad, 0); }
         }
         public decimal DA_anterior_cm
         {
@@ -126,11 +126,11 @@ namespace AFN_WF_C.ServiceProcess.PublicData
 
         public decimal deter
         {
-            get { return _deterioro_unitario * cantidad; }
+            get { return Math.Round(_deterioro_unitario * cantidad,0); }
         }
         public decimal val_res
         {
-            get { return _valor_residual_unitario * cantidad; }
+            get { return Math.Round(_valor_residual_unitario * cantidad,0); }
         }
 
         public decimal val_suj_dep_base
@@ -215,12 +215,12 @@ namespace AFN_WF_C.ServiceProcess.PublicData
         }
 
         //IFRS ONLY
-        public decimal preparacion { get { return _preparacion_unit * cantidad; } }
-        public decimal transporte { get { return _transporte_unit * cantidad; } }
-        public decimal montaje { get { return _montaje_unit * cantidad; } }
-        public decimal desmantelamiento { get { return _desmantelamiento_unit * cantidad; } }
-        public decimal honorario { get { return _honorario_unit * cantidad; } }
-        public decimal revalorizacion { get { return _revalorizacion_unit * cantidad; } }
+        public decimal preparacion { get { return Math.Round(_preparacion_unit * cantidad,0); } }
+        public decimal transporte { get { return Math.Round(_transporte_unit * cantidad,0); } }
+        public decimal montaje { get { return Math.Round(_montaje_unit * cantidad,0); } }
+        public decimal desmantelamiento { get { return Math.Round(_desmantelamiento_unit * cantidad,0); } }
+        public decimal honorario { get { return Math.Round(_honorario_unit * cantidad,0); } }
+        public decimal revalorizacion { get { return Math.Round(_revalorizacion_unit * cantidad,0); } }
         #endregion
 
         public SV_SUBZONE subzona { get { return _detail.subzona; } }
