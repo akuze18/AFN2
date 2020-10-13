@@ -431,6 +431,7 @@ namespace AFN_WF_C.ServiceProcess
                     //}
                 }
             }
+            //Tracking.ExportTo.FileText(result, "resultado bajas_" + hasta.first.ToShortDateString() +"_"+ hasta.last.ToShortDateString());
             return result;
         }
         public List<DETAIL_MOVEMENT> reporte_completo(Vperiodo periodo, GENERIC_VALUE clase, GENERIC_VALUE zona, SV_SYSTEM sistema)
